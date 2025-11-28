@@ -4,7 +4,7 @@ const AuthLayout = ({ children }) => {
     return (
         <>
             <main
-                className=''
+                className='bg-secondary min-h-screen flex items-center justify-center'
             >
                 {children}
             </main>
