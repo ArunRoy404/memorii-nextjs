@@ -6,17 +6,17 @@ import Logo from '@/components/common/logo/Logo';
 export default function AuthCard({ SetLogo = Logo, title, subtitle, children, className }) {
     return (
         <Card
-            className="w-full rounded-3xl border-none shadow-[0_20px_40px_-4px_rgba(145,158,171,0.16)] max-w-[750px] bg-[#FDFAF5] my-10 py-24 px-12"
+            className="w-full rounded-3xl border-none shadow-[0_20px_40px_-4px_rgba(145,158,171,0.16)] max-w-[750px] bg-[#FDFAF5] my-10 md:py-24 lg:px-12 "
         >
 
             {/* header  */}
-            <CardHeader className="space-y-4 text-5xl text-center pb-2">
+            <CardHeader className="space-y-2 md:space-y-4 text-5xl text-center pb-2">
                 <div className="flex items-center justify-center">
-                    <SetLogo />
+                    <SetLogo className="text-3xl md:text-5xl" />
                 </div>
                 {
                     !!title && (
-                        <CardTitle className=' max-w-[450px] mx-auto text-3xl text-primary-foreground font-bold'>
+                        <CardTitle className=' max-w-[450px] mx-auto text-xl md:text-3xl text-primary-foreground font-bold'>
                             {title}
                         </CardTitle>
                     )
