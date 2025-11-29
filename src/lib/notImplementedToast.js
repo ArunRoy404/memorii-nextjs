@@ -1,7 +1,7 @@
 import { toast } from "sonner"
 
-const notImplemented = () => {
+const notImplementedToast = () => {
     toast.warning("This feature is not implemented yet.")
 }
 
-export default notImplemented
+export default notImplementedToast
