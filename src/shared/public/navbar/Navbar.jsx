@@ -47,7 +47,7 @@ export default function Navbar() {
 
                 {/* actions  */}
                 <div className='flex items-center gap-2'>
-                    <div className='hidden lg:block space-x-4'>
+                    <div className='hidden xl:block space-x-4'>
                         <Link href="/login">
                             <Button >Login</Button>
                         </Link>

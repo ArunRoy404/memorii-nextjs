@@ -5,7 +5,9 @@ const PublicLayout = ({ children }) => {
     return (
         <>
             <Navbar />
-            {children}
+            <main>
+                {children}
+            </main>
         </>
     );
 };
