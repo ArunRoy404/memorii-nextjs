@@ -20,8 +20,6 @@ const formSchema = z.object({
 
 const ResetPasswordPage = () => {
     const router = useRouter();
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const {
         register,
@@ -51,7 +49,7 @@ const ResetPasswordPage = () => {
 
                 <InputForm
                     id="password"
-                    type={showPassword ? 'text' : 'password'}
+                    type='password'
                     label="New password"
                     placeholder="Password"
                     register={register}
@@ -60,7 +58,7 @@ const ResetPasswordPage = () => {
 
                 <InputForm
                     id="confirmPassword"
-                    type={showConfirmPassword ? 'text' : 'password'}
+                    type='password'
                     label="Confirm password"
                     placeholder="Confirm Password"
                     register={register}
