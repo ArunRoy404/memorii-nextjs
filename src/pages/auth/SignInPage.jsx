@@ -46,7 +46,7 @@ const SignInPage = () => {
 
     return (
         <AuthCard title={'Login'} className={'space-y-7'}>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-7">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-7">
 
                 {/* Email */}
                 <InputForm

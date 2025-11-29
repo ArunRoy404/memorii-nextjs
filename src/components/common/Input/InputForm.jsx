@@ -11,33 +11,34 @@ const InputForm = ({ id, type, label, placeholder, classNameInput, errors, regis
     return (
         <div className="space-y-2">
             {!!label && (
-                <Label htmlFor={id} className={cn(
-                    "text-lg font-bold text-primary-foreground",
-                    classNameLabel
-                )}>
+                <Label
+                    htmlFor={id}
+                    className={cn(
+                        "text-sm sm:text-lg md:text-lg font-bold text-primary-foreground",
+                        classNameLabel
+                    )}
+                >
                     {label}
                 </Label>
             )}
 
-
-            <div className='relative'>
+            <div className="relative">
                 <Input
                     id={id}
-                    type={showPassword ? 'text' : type}
+                    type={showPassword ? "text" : type}
                     placeholder={placeholder}
                     className={cn(
-                        "bg-transparent text-lg py-6 border-border placeholder:text-placeholder",
+                        "bg-transparent placeholder:text-sm text-sm sm:text-lg md:text-lg py-4 sm:py-5 md:py-6 border border-border placeholder:text-placeholder w-full",
                         classNameInput,
                         errors[id] ? "border-red-500" : ""
                     )}
                     {...register(id)}
                 />
 
-
-                {type === 'password' && (
+                {type === "password" && (
                     <button
                         type="button"
-                        onClick={() => setShowPassword(p => !p)}
+                        onClick={() => setShowPassword((p) => !p)}
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
                     >
                         {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -45,10 +46,13 @@ const InputForm = ({ id, type, label, placeholder, classNameInput, errors, regis
                 )}
 
                 {!!errors[id] && (
-                    <p className="text-red-500 text-sm pt-1">{errors[id]?.message}</p>
+                    <p className="absolute text-red-500 text-[10px] ">
+                        {errors[id]?.message}
+                    </p>
                 )}
             </div>
         </div>
+
     );
 };
 

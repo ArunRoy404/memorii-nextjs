@@ -17,7 +17,7 @@ const FormExtra = ({ checkboxId, register, errors, checkboxLabel, linkLabel, lin
                     <Label
                         htmlFor={checkboxId}
                         className={cn(
-                            "text-lg font-medium text-primary-foreground cursor-pointer",
+                            "text-xs md:text-lg font-medium text-primary-foreground cursor-pointer",
                             LabelClassName
                         )}
                     >
@@ -28,7 +28,7 @@ const FormExtra = ({ checkboxId, register, errors, checkboxLabel, linkLabel, lin
                 <Link
                     href={linkHref}
                     className={cn(
-                        "text-lg font-semibold text-primary hover:text-primary/60",
+                        "text-xs md:text-lg font-semibold text-primary hover:text-primary/60",
                         linkClassName
                     )}
                 >

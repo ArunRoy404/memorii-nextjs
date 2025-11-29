@@ -51,7 +51,7 @@ export default function AuthCard({ SetLogo = Logo, title, subtitle, children, cl
         >
 
             {/* header  */}
-            <CardHeader ref={headerRef} className="space-y-2 md:space-y-4 text-5xl text-center pb-2">
+            <CardHeader ref={headerRef} className="md:space-y-4 text-5xl text-center pb-2">
                 <div className="flex items-center justify-center">
                     <SetLogo className="text-3xl md:text-5xl" />
                 </div>

@@ -9,7 +9,7 @@ const GoogleSignIn = () => {
             variant="outline"
             className="w-full bg-transparent hover:bg-gray-50"
         >
-            <GoogleIcon className={'scale-120'} />
+            <GoogleIcon className={'md:scale-120'} />
             <span className="text-primary-foreground font-semibold">Google</span>
         </Button>
     );
