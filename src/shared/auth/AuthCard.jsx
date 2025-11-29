@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { gsap } from 'gsap';
@@ -82,7 +84,7 @@ export default function AuthCard({ SetLogo = Logo, title, subtitle, children, cl
 
                 {
                     !!subtitle && (
-                        <h3 className=' max-w-[450px] mx-auto text-lg text-subtitle font-medium'>
+                        <h3 className=' max-w-[450px] mx-auto text-xs md:text-lg text-subtitle font-medium'>
                             {subtitle}
                         </h3>
                     )

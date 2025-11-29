@@ -27,7 +27,7 @@ function InputOTPGroup({
   return (
     <div
       data-slot="input-otp-group"
-      className={cn("grid  w-full grid-cols-6 gap-6", className)}
+      className={cn("grid  w-full grid-cols-6 gap-2 md:gap-6", className)}
       {...props} />
   );
 }
@@ -46,7 +46,7 @@ function InputOTPSlot({
       data-active={isActive}
       className={cn(
         "data-[active=true]:border-ring data-[active=true]:ring-ring/50 data-[active=true]:aria-invalid:ring-destructive/20 dark:data-[active=true]:aria-invalid:ring-destructive/40 aria-invalid:border-destructive data-[active=true]:aria-invalid:border-destructive dark:bg-input/30 border-input relative flex h-9 items-center justify-center border text-sm shadow-xs transition-all outline-none data-[active=true]:z-10 data-[active=true]:ring-[3px]",
-        "rounded-[12px] text-lg p-8 text-[#8F8F8F] font-bold",
+        "rounded-[12px] md:text-lg p-2 md:p-8 text-[#8F8F8F] font-bold",
         className
       )}
       {...props}>

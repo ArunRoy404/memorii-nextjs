@@ -1,71 +1,75 @@
 'use client'
 
 import AuthCard from '@/shared/auth/AuthCard';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Eye, EyeOff } from 'lucide-react';
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import InputForm from '@/components/common/Input/InputForm';
+import notImplementedToast from '@/lib/notImplementedToast';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
+const formSchema = z.object({
+    password: z.string().min(8, "Password must be at least 8 characters"),
+    confirmPassword: z.string().min(1, "Confirm password is required"),
+}).refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+});
 
 const ResetPasswordPage = () => {
+    const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            password: "",
+            confirmPassword: "",
+        },
+    });
+
+    const onSubmit = (data) => {
+        console.log(data);
+        notImplementedToast();
+        router.push('/');
+    };
 
     return (
         <AuthCard
             title={<>Set new <span className='text-[#3AD0E6]'>password</span></>}
-            subtitle={'Password must be at least 8 character '}
+            subtitle={'Password must be at least 8 characters'}
             className={'space-y-7'}
         >
-            <form className="space-y-7">
-                <div className="space-y-2">
-                    <Label htmlFor="password" className="text-lg font-bold text-primary-foreground">
-                        New password
-                    </Label>
-                    <div className="relative">
-                        <Input
-                            type={showPassword ? 'text' : 'password'}
-                            id="password"
-                            placeholder="Password"
-                            className="bg-transparent text-lg py-6 border-border placeholder:text-placeholder"
-                            required
-                        />
-                        <button
-                            type="button"
-                            onClick={() => setShowPassword(p => !p)}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                        >
-                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                        </button>
-                    </div>
-                </div>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-7">
 
-                <div className="space-y-2">
-                    <Label htmlFor="confirmPassword" className="text-lg font-bold text-primary-foreground">
-                        Confirm password
-                    </Label>
-                    <div className="relative">
-                        <Input
-                            type={showConfirmPassword ? 'text' : 'password'}
-                            id="confirmPassword"
-                            placeholder="Password"
-                            className="bg-transparent text-lg py-6 border-border placeholder:text-placeholder"
-                            required
-                        />
-                        <button
-                            type="button"
-                            onClick={() => setShowConfirmPassword(p => !p)}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                        >
-                            {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                        </button>
-                    </div>
-                </div>
+                <InputForm
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    label="New password"
+                    placeholder="Password"
+                    register={register}
+                    errors={errors}
+                />
+
+                <InputForm
+                    id="confirmPassword"
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    label="Confirm password"
+                    placeholder="Confirm Password"
+                    register={register}
+                    errors={errors}
+                />
 
                 <Button
                     type="submit"
-                    className={'w-full'}
+                    className="w-full"
                 >
                     Confirm
                 </Button>

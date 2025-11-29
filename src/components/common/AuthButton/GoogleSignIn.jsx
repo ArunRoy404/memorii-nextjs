@@ -5,6 +5,7 @@ import React from 'react';
 const GoogleSignIn = () => {
     return (
         <Button
+            notImplemented={true}
             type="button"
             variant="outline"
             className="w-full bg-transparent hover:bg-gray-50"

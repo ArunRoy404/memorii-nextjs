@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
 
-const FormExtra = ({ checkboxId, register, errors, checkboxLabel, linkLabel, linkHref, linkClassName, LabelClassName, checkboxClassName }) => {
+const FormExtra = ({ checkboxId, register, errors, checkboxLabel, linkLabel, linkHref = '/', linkClassName, LabelClassName, checkboxClassName }) => {
     return (
         <div>
             <div className="flex items-center justify-between">

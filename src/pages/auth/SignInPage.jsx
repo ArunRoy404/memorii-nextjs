@@ -12,6 +12,7 @@ import notImplementedToast from '@/lib/notImplementedToast';
 import FormExtra from '@/components/common/Input/FormExtra';
 import FormSeparator from '@/components/common/Input/FormSeparator';
 import FormFooter from '@/components/common/Input/FormFooter';
+import { useRouter } from 'next/navigation';
 
 
 const formSchema = z.object({
@@ -22,6 +23,7 @@ const formSchema = z.object({
 
 
 const SignInPage = () => {
+    const router = useRouter()
     const {
         register,
         handleSubmit,
@@ -40,6 +42,7 @@ const SignInPage = () => {
     const onSubmit = (data) => {
         console.log(data);
         notImplementedToast()
+        router.push('/')
     };
 
 
@@ -75,7 +78,7 @@ const SignInPage = () => {
                     errors={errors}
                     checkboxLabel="Remember me"
                     linkLabel="Forgot Password?"
-                    linkHref="/"
+                    linkHref="/forgot-password"
                 />
 
 

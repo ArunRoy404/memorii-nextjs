@@ -1,14 +1,36 @@
-import AuthCard from '@/shared/auth/AuthCard';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
-import Link from 'next/link';
-import GoogleSignIn from '@/components/common/AuthButton/GoogleSignIn';
+'use client'
 
+import AuthCard from '@/shared/auth/AuthCard';
+import { Button } from '@/components/ui/button';
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import InputForm from '@/components/common/Input/InputForm';
+import notImplementedToast from '@/lib/notImplementedToast';
+import { useRouter } from 'next/navigation';
+
+const formSchema = z.object({
+    email: z.string().email("Enter a valid email address"),
+});
 
 const ForgetPasswordPage = () => {
+    const router = useRouter()
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            email: "",
+        },
+    });
+
+    const onSubmit = (data) => {
+        console.log(data);
+        notImplementedToast();
+        router.push('/otp-verification')
+    };
 
     return (
         <AuthCard
@@ -16,23 +38,19 @@ const ForgetPasswordPage = () => {
             subtitle={'No worries, we will send you reset instructions'}
             className={'space-y-7'}
         >
-            <form className="space-y-10">
-                <div className="space-y-6">
-                    <Label htmlFor="email" className="text-lg font-bold text-primary-foreground">
-                        Email address
-                    </Label>
-                    <Input
-                        id="email"
-                        type="email"
-                        placeholder="Enter your email address"
-                        className="bg-transparent text-lg py-6 border-border placeholder:text-placeholder"
-                        required
-                    />
-                </div>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
+                <InputForm
+                    id="email"
+                    type="email"
+                    label="Email address"
+                    placeholder="Enter your email address"
+                    register={register}
+                    errors={errors}
+                />
 
                 <Button
                     type="submit"
-                    className={'w-full'}
+                    className="w-full"
                 >
                     Continue
                 </Button>
