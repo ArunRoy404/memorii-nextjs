@@ -1,10 +1,11 @@
 import HeroSection from '@/components/HomePageComponents/Hero/HeroSection';
-import React from 'react';
+import HowItWorksSection from '@/components/HomePageComponents/HowItWorks/HowItWorksSection';
 
 const HomePage = () => {
     return (
         <>
             <HeroSection />
+            <HowItWorksSection />
         </>
     );
 };

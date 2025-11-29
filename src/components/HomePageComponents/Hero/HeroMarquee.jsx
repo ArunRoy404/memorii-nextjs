@@ -47,7 +47,7 @@ export default function HeroMarquee() {
                                     src={photo.src}
                                     alt={photo.alt}
                                     className="object-cover w-full h-full"
-                                    loading="lazy"
+                                    loading="eager"
                                 />
                             </div>
                         </MarqueeItem>

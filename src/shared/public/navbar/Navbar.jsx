@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import Logo from '@/components/common/logo/Logo'
 import MobileNavSheet from './MobileNavSheet'
-import navLinks from '@/data/navLinks'
 import { useEffect, useState } from 'react'
 import NavLinks from './NavLinks'
 
