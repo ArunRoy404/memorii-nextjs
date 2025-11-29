@@ -10,20 +10,37 @@ export default function AuthCard({ SetLogo = Logo, title, subtitle, children, cl
     const contentRef = useRef(null);
 
     useEffect(() => {
+        // Set initial states immediately
+        gsap.set(cardRef.current, {
+            opacity: 0,
+            scale: 0.95,
+            y: 40
+        });
+
+        gsap.set(headerRef.current.children, {
+            opacity: 0,
+            y: 20
+        });
+
+        gsap.set(contentRef.current.children, {
+            opacity: 0,
+            y: 25
+        });
+
         const ctx = gsap.context(() => {
             // Card entrance
-            gsap.from(cardRef.current, {
-                opacity: 0,
-                scale: 0.95,
-                y: 40,
+            gsap.to(cardRef.current, {
+                opacity: 1,
+                scale: 1,
+                y: 0,
                 duration: 0.7,
                 ease: "power3.out"
             });
 
             // Header children stagger
-            gsap.from(headerRef.current.children, {
-                opacity: 0,
-                y: 20,
+            gsap.to(headerRef.current.children, {
+                opacity: 1,
+                y: 0,
                 duration: 0.6,
                 stagger: 0.15,
                 ease: "power2.out",
@@ -31,9 +48,9 @@ export default function AuthCard({ SetLogo = Logo, title, subtitle, children, cl
             });
 
             // Content children stagger
-            gsap.from(contentRef.current.children, {
-                opacity: 0,
-                y: 25,
+            gsap.to(contentRef.current.children, {
+                opacity: 1,
+                y: 0,
                 duration: 0.5,
                 stagger: 0.12,
                 ease: "power2.out",
@@ -51,7 +68,7 @@ export default function AuthCard({ SetLogo = Logo, title, subtitle, children, cl
         >
 
             {/* header  */}
-            <CardHeader ref={headerRef} className="md:space-y-4 text-5xl text-center pb-2">
+            <CardHeader ref={headerRef} className="space-y-2 md:space-y-4 text-5xl text-center pb-2">
                 <div className="flex items-center justify-center">
                     <SetLogo className="text-3xl md:text-5xl" />
                 </div>
