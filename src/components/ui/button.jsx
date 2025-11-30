@@ -20,11 +20,12 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
+        shiny: "before:absolute before:inset-0 before:-left-full before:w-1/3 before:bg-linear-to-r before:from-transparent before:via-gray-300/50 before:to-transparent before:skew-x-12 before:transition-all before:duration-700 hover:before:left-full"
       },
       size: {
-        default: "h-9 rounded-xl md:py-6 px-10 md:text-xl has-[>svg]:px-3",
-        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
-        lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
+        default: "h-9 rounded-xl md:py-6 px-10 md:text-xl has-[>svg]:px-6",
+        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-4",
+        lg: "h-10 rounded-md px-6 has-[>svg]:px-8",
         icon: "size-9",
         "icon-sm": "size-8",
         "icon-lg": "size-10",
