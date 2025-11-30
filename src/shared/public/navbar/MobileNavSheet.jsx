@@ -17,7 +17,7 @@ const MobileNavSheet = () => {
     return (
         <Sheet>
             <SheetTrigger asChild className="xl:hidden">
-                <Button variant="ghost">
+                <Button variant="ghost" className={'p-0! hover:bg-transparent'}>
                     <Menu className='scale-110' />
                 </Button>
             </SheetTrigger>
