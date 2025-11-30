@@ -1,11 +1,4 @@
-import React from 'react';
+import HowItWorksPage from '@/pages/landing/HowItWorksPage';
 
-const HowItWorks = () => {
-    return (
-        <div>
-            How It Works 
-        </div>
-    );
-};
-
+const HowItWorks = () => <HowItWorksPage />
 export default HowItWorks;
