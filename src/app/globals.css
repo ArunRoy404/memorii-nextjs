@@ -32,6 +32,17 @@ body {
   animation: ease-in-out;
 }
 
+/* faq classes  */
+[data-state="open"] .accordion-icon1 {
+  transform: rotate(180deg);
+  opacity: 0;
+}
+[data-state="closed"] .accordion-icon2 {
+  transform: rotate(-180deg);
+  opacity: 0;
+}
+
+
 
 @theme inline {
   --color-primary: var(--primary);
