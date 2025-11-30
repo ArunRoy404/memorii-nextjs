@@ -19,7 +19,9 @@ const HowItWorksSection = () => {
 
             <div className='max-w-max mx-auto  mt-10 md:mt-20'>
                 <Link href={'/get-started'} >
-                    <Button>
+                    <Button
+                        variant='defaultShiny'
+                    >
                         Get Started for free today
                     </Button>
                 </Link>

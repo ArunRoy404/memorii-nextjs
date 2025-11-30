@@ -51,7 +51,7 @@ export default function Navbar() {
                             <Button >Login</Button>
                         </Link>
                         <Link href="/get-started">
-                            <Button variant="outline">Get Started</Button>
+                            <Button variant="outlineShiny">Get Started</Button>
                         </Link>
                     </div>
 

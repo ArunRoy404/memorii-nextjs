@@ -18,7 +18,7 @@ const CTASection = () => {
 
                 <Button
                     variant='shiny'
-                    className={"relative overflow-hidden bg-white text-black hover:bg-white mt-4"}
+                    className={"bg-white text-black hover:bg-white mt-4"}
                 >
                     Start Creating Now
                     <ArrowRight />

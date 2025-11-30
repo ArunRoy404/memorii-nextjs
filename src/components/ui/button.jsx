@@ -6,21 +6,30 @@ import { cn } from "@/lib/utils"
 import notImplementedToast from "@/lib/notImplementedToast";
 
 const buttonVariants = cva(
-  "inline-flex  transition-colors duration-300 active:scale-97 cursor-pointer items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "inline-flex  transition-colors duration-300 active:scale-98 cursor-pointer items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:scale-102",
   {
     variants: {
       variant: {
-        default: "bg-primary hover:bg-primary/60 text-white font-medium",
+        default: "bg-primary hover:bg-primary/80 text-white font-medium",
+        defaultShiny: `bg-primary text-white font-medium
+        
+        relative overflow-hidden before:absolute before:inset-0 before:-left-full before:w-1/3 before:bg-linear-to-r before:from-transparent before:via-white/30 before:to-transparent before:skew-x-12 before:transition-all before:duration-700 hover:before:left-full
+        `,
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
-          "border border-primary text-[#525252] bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+          `border border-primary text-[#525252] bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50`,
+        outlineShiny:
+          `border border-primary text-[#525252] bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50
+          
+          relative overflow-hidden before:absolute before:inset-0 before:-left-full before:w-1/3 before:bg-linear-to-r before:from-transparent before:via-primary/30 before:to-transparent before:skew-x-12 before:transition-all before:duration-700 hover:before:left-full
+          `,
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
-        shiny: "before:absolute before:inset-0 before:-left-full before:w-1/3 before:bg-linear-to-r before:from-transparent before:via-gray-300/50 before:to-transparent before:skew-x-12 before:transition-all before:duration-700 hover:before:left-full"
+        shiny: "relative overflow-hidden before:absolute before:inset-0 before:-left-full before:w-1/3 before:bg-linear-to-r before:from-transparent before:via-primary/30 before:to-transparent before:skew-x-12 before:transition-all before:duration-700 hover:before:left-full"
       },
       size: {
         default: "h-9 rounded-xl md:py-6 px-10 md:text-xl has-[>svg]:px-6",

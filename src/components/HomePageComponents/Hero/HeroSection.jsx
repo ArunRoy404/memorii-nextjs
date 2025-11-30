@@ -33,7 +33,7 @@ export default function HeroSection() {
       {/* CTA */}
       <div className="mt-8 flex justify-center">
         <Link href="/get-started">
-          <Button className="px-6 py-5 text-base sm:text-lg">
+          <Button variant="defaultShiny" className="px-6 py-5 text-base sm:text-lg">
             Get Started for free today
           </Button>
         </Link>
