@@ -1,3 +1,5 @@
+'use client'
+
 import AuthCard from '@/shared/auth/AuthCard';
 import { Button } from '@/components/ui/button';
 import TickTeal from '@/components/svg/TickTeal';
@@ -12,7 +14,7 @@ const SuccessPage = () => {
             SetLogo={TickTeal}
         >
             <Button
-                className={'w-full mt-10'}
+                className={'w-full  md:mt-10'}
             >
                 Login Now
             </Button>
