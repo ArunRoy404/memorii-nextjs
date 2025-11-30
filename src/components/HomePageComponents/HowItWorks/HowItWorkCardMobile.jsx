@@ -13,7 +13,7 @@ const HowItWorkCardMobile = ({ step, bg = '#FEF0E7', circleColor }) => {
                 <Circle colorIn={circleColor.in} colorOut={circleColor.out} />
             </div>
             <div
-                className='p-4 text-center md:p-4'
+                className='p-4 text-center md:p-4 h-50'
                 style={{ backgroundColor: bg }}
             >
                 <p className='text-2xl font-bold md:text-xl'>{id}</p>
