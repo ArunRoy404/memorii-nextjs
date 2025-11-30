@@ -10,14 +10,27 @@ const HowItWorkCard = ({ step, bg = '#FEF0E7', circleColor }) => {
         ...(left !== undefined && { left }),
         ...(bottom !== undefined && { bottom }),
         ...(right !== undefined && { right }),
-        ...(rotate !== undefined && { transform: `rotate(${rotate})` }),
+        // ...(rotate !== undefined && { transform: `rotate(${rotate})` }),
+        ...(rotate !== undefined && { "--rotate": rotate }),
+
     };
 
     return (
         <div
-            className='md:absolute xl:p-6 md:p-3 space-y-4 md:space-y-2 xl:max-w-[300px] md:max-w-60 bg-[#F9F9F9] rounded-3xl shadow-[8px_4px_8.4px_0_rgba(0,0,0,0.25)]'
+            className="
+                transition-ease-in-out 
+                hover:scale-120 
+                transform-[rotate(var(--rotate))]
+                hover:transform-[rotate(0deg)]
+                md:absolute xl:p-6 md:p-3 
+                space-y-4 md:space-y-2 
+                xl:max-w-[300px] md:max-w-60 
+                bg-[#F9F9F9] rounded-3xl 
+                shadow-[8px_4px_8.4px_0_rgba(0,0,0,0.25)]
+                "
             style={style}
         >
+
             <div className='flex items-center justify-center'>
                 <Circle colorIn={circleColor.in} colorOut={circleColor.out} />
             </div>
@@ -27,7 +40,7 @@ const HowItWorkCard = ({ step, bg = '#FEF0E7', circleColor }) => {
                 <p className='text-[#4B5563] font-medium'>{description}</p>
             </div>
         </div>
-    );                                     
+    );
 };
 
 export default HowItWorkCard;
