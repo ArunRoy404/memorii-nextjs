@@ -8,11 +8,11 @@ const CTASection = () => {
         <CommonSection
             className={'bg-primary flex items-center'}
         >
-            <div className='flex flex-col items-center justify-center gap-4 w-full'>
-                <h1 className='text-white font-bold text-4xl'>
+            <div className='flex flex-col text-center items-center justify-center gap-4 w-full'>
+                <h1 className='text-white font-bold text-xl md:text-2xl lg:text-4xl'>
                     Found Your Perfect Template?
                 </h1>
-                <p className='text-white/90 font-medium text-lg'>
+                <p className='text-white/90 font-medium text-sm lg:text-lg'>
                     Start creating your memory book now and invite others to contribute their favorite moments.
                 </p>
 
