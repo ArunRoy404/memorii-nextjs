@@ -1,13 +1,19 @@
 import Circle from '@/components/svg/Circle';
+import { cn } from '@/lib/utils';
 
 const HowItWorkCardMobile = ({ step, bg = '#FEF0E7', circleColor }) => {
     const { id, title, description } = step;
 
     return (
         <div
-            className={`sticky top-72 p-4 space-y-4 bg-[#F9F9F9] rounded-3xl 
+            className={cn(
+                `sticky top-20 p-4 space-y-4 bg-[#F9F9F9] rounded-3xl 
                         shadow-[8px_4px_8.4px_0_rgba(0,0,0,0.25)]
-                        md:p-4 md:space-y-3 md:max-w-[220px]`}
+                        md:p-4 md:space-y-3 md:max-w-[220px]`,
+
+                //! removed classes 
+                // "top-72",
+            )}
         >
             <div className='flex items-center justify-center'>
                 <Circle colorIn={circleColor.in} colorOut={circleColor.out} />
