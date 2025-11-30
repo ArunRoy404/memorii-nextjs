@@ -7,7 +7,8 @@ import HowItWorksStepsContainer from './HowItWorksStepsContainer';
 const HowItWorksSection = () => {
     return (
         <CommonSection
-            headerClassname="sticky md:static top-20 pb-10"
+            // sticky title
+            // headerClassname="sticky md:static top-20 pb-10"
             title={<>How <ColorfulText>Memorii</ColorfulText> works</>}
             subtitle="Collect heartfelt messages and photos from everyone, then deliver a beautiful digital group card or memory book"
         >
