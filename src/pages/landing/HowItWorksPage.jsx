@@ -1,7 +1,6 @@
 import HowItWorksStepsContainer from '@/components/HomePageComponents/HowItWorks/HowItWorksStepsContainer';
 import HowItWorksHeaderSection from '@/components/HowItWorksComponents/HowItWorksHeaderSection/HowItWorksHeaderSection';
 import HowToCreateECardSection from '@/components/HowItWorksComponents/HowToCreateECardSection/HowToCreateECardSection';
-import React from 'react';
 
 const HowItWorksPage = () => {
     return (
