@@ -11,10 +11,10 @@ import TriangleShape from '@/components/svg/TriangleShape';
 
 const HowItWorksHeaderSection = () => {
     return (
-        <CommonSection>
-            <div className='flex items-center gap-44'>
+        <CommonSection className={'overflow-x-hidden'}>
+            <div className='flex flex-col-reverse lg:flex-row items-center gap-8 lg:gap-20 2xl:gap-44'>
                 <div
-                    className="max-w-[824px] space-y-4 sm:space-y-6 mb-10 sm:mb-14">
+                    className="lg:max-w-1/2 xl:max-w-[824px] space-y-4 sm:space-y-6 mb-10 sm:mb-14">
                     <h1
                         className='text-3xl sm:text-4xl md:text-5xl font-bold leading-tight sm:leading-snug md:leading-tight'>
                         How <ColorfulText>Memorii</ColorfulText> works
@@ -25,7 +25,7 @@ const HowItWorksHeaderSection = () => {
                     </h2>
                     <Button
                         variant="defaultShiny"
-                        className={'mt-6'}
+                        className={'mt-2 md:mt-6'}
                     >
                         Get Started for free today
                     </Button>
@@ -33,13 +33,13 @@ const HowItWorksHeaderSection = () => {
 
 
 
-                <div className='relative h-[672px] flex-1'>
+                <div className='relative w-full md:w-1/2 h-[380px] lg:h-[480px] 2xl:h-[672px] lg:flex-1'>
                     {/* shapes */}
-                    <TriangleShape className={'absolute -top-4 -right-4'} />
+                    <TriangleShape className={'absolute scale-60 lg:scale-100 -top-10 lg:-top-4 -right-10 lg:-right-4'} />
 
 
                     <div className='absolute right-4 top-4 max-w-3/5'>
-                        <CircleShape className='absolute -bottom-15 -right-10 z-0' />
+                        <CircleShape className='absolute scale-80 lg:scale-100 -bottom-15 -right-10 z-0' />
                         <div className='aspect-3/4 rounded-3xl overflow-hidden relative z-1'>
                             <Image
                                 src={image2}
@@ -51,7 +51,7 @@ const HowItWorksHeaderSection = () => {
 
 
                     <div className="absolute bottom-4 left-4 max-w-3/5">
-                        <CircleShape className="absolute -top-15 -left-10 z-0" />
+                        <CircleShape className="absolute scale-80 lg:scale-100 -top-15 -left-10 z-0" />
                         <div className="aspect-3/4 rounded-3xl overflow-hidden relative z-1">
                             <Image
                                 src={image1}
