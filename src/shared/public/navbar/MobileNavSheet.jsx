@@ -36,14 +36,12 @@ const MobileNavSheet = () => {
 
 
                 <SheetFooter>
-                    <div className='space-y-4'>
-                        <Link href="/login">
-                            <Button className='w-full' >Login</Button>
-                        </Link>
-                        <Link href="/get-started">
-                            <Button variant="outline" className='w-full'>Get Started</Button>
-                        </Link>
-                    </div>
+                    <Link href="/login">
+                        <Button className='w-full' >Login</Button>
+                    </Link>
+                    <Link href="/get-started">
+                        <Button variant="outline" className='w-full'>Get Started</Button>
+                    </Link>
                 </SheetFooter>
 
             </SheetContent>

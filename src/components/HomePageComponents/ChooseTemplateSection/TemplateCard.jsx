@@ -5,7 +5,7 @@ const TemplateCard = ({ template }) => {
         <div
             className='cursor-pointer flex flex-col items-center gap-4 md:gap-8'
         >
-            <div className='aspect-3/4 rounded-3xl overflow-hidden'>
+            <div className='aspect-3/4 w-full rounded-3xl overflow-hidden'>
                 <Image
                     src={template?.src}
                     alt={template?.title}
