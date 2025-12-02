@@ -2,7 +2,6 @@ import CommonSection from '@/components/common/CommonSection/CommonSection';
 import { Button } from '@/components/ui/button';
 import ColorfulText from '@/components/ui/ColorfulText';
 import templateData from '@/data/templateData';
-import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import TemplateCard from './TemplateCard';
