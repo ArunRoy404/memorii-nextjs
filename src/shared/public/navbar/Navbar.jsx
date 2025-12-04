@@ -37,7 +37,7 @@ export default function Navbar() {
             <nav
                 className={`container mx-auto px-4 py-4 w-full flex justify-between items-center`} >
                 {/* Logo */}
-                < Logo className="text-3xl" />
+                <Logo className={'text-4xl md:text-6xl'} />
 
                 {/* Desktop Links */}
                 < div className="hidden xl:flex space-x-14 items-center" >

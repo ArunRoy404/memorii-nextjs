@@ -9,7 +9,7 @@ export default function HeroSection() {
       {/* Text Content */}
       <div className="text-center space-y-4 sm:space-y-6 px-4">
         <h1 className="
-          text-3xl sm:text-4xl md:text-5xl lg:text-6xl 
+          text-2xl md:text-4xl lg:text-6xl 
           font-bold text-secondary-foreground leading-tight
         ">
           Create a group e-Card or e-Memory
@@ -18,7 +18,7 @@ export default function HeroSection() {
         </h1>
 
         <p className="
-          text-base sm:text-lg md:text-xl 
+          text-sm md:text-base lg:text-xl 
           font-medium text-icon max-w-2xl sm:max-w-3xl mx-auto
         ">
           Collect messages, photos, and well-wishes in one beautiful digital keepsake

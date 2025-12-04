@@ -19,7 +19,7 @@ export default function HeroMarquee() {
 
                 <MarqueeContent
                     speed={30}
-                    className="py-15 sm:py-16 md:py-24 lg:py-40"
+                    className="py-15 md:py-24 lg:py-40"
                 >
                     {loopedPhotos.map((photo, index) => (
                         <MarqueeItem
@@ -39,7 +39,7 @@ export default function HeroMarquee() {
                                 hover:scale-105 hover:rotate-0
                                 w-[130px] h-40
                                 sm:w-[150px] sm:h-[190px]
-                                md:w-[210px] md:h-[250px]
+                                md:w-[190px] md:h-[230px]
                                 lg:w-60 lg:h-[290px]
                                 xl:w-[260px] xl:h-[310px]
                             ">

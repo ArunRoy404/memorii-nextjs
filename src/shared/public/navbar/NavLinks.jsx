@@ -8,11 +8,17 @@ const NavLinks = ({ className }) => {
     return (
         <>
             {navLinks?.map((link) => {
+                const isActive =
+                    link.href === "/"
+                        ? pathName === "/"
+                        : pathName.startsWith(link.href);
+
+
                 return (
                     <Link
                         className={cn(
                             "relative text-lg text-black font-medium after:absolute after:-bottom-1 hover:after:left-0 after:right-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full",
-                            `${pathName.includes(link?.href) ? "after:w-full text-primary font-bold" : ""}`,
+                            `${isActive ? "after:w-full text-primary font-bold" : ""}`,
                             className
                         )}
                         key={link?.href}

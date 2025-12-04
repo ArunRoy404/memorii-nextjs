@@ -12,18 +12,18 @@ import weddingTemplate from "@/assets/templateImages/weddingTemplate.png";
 import weddingTemplate2 from "@/assets/templateImages/weddingTemplate2.png";
 
 const templateData = [
-    { id: 1, title: "anniversary", src: anniversaryTemplate },
-    { id: 2, title: "birthday", src: birthdayTemplate1 },
-    { id: 3, title: "birthday", src: birthdayTemplate2 },
-    { id: 4, title: "getWellSoon", src: getWellSoonTemplate },
-    { id: 5, title: "newBaby", src: newBabyTemplate },
-    { id: 6, title: "retirement", src: retirementTemplate1 },
-    { id: 7, title: "retirement", src: retirementTemplate2 },
-    { id: 8, title: "retirement", src: retirementTemplate3 },
-    { id: 9, title: "teachersDay", src: teachersDayTemplate },
-    { id: 10, title: "thankYou", src: thankYouTemplate },
-    { id: 11, title: "wedding", src: weddingTemplate },
-    { id: 12, title: "wedding", src: weddingTemplate2 },
+    { id: 1, title: "Birthday", src: birthdayTemplate1 },
+    { id: 2, title: "Wedding", src: weddingTemplate },
+    { id: 3, title: "Retirement", src: retirementTemplate1 },
+    { id: 4, title: "ThankYou", src: thankYouTemplate },
+    { id: 5, title: "Wedding", src: weddingTemplate2 },
+    { id: 6, title: "Retirement", src: retirementTemplate2 },
+    { id: 7, title: "Anniversary", src: anniversaryTemplate },
+    { id: 8, title: "Birthday", src: birthdayTemplate2 },
+    { id: 9, title: "Teachers day", src: teachersDayTemplate },
+    { id: 10, title: "Retirement", src: retirementTemplate3 },
+    { id: 11, title: "New baby", src: newBabyTemplate },
+    { id: 12, title: "Get well soon", src: getWellSoonTemplate },
 ];
 
 export default templateData;

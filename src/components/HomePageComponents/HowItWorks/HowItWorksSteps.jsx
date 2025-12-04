@@ -18,7 +18,7 @@ const circleColors = [
 
 const HowItWorksSteps = () => {
     return (
-        <div className='hidden md:block relative max-w-[600px] lg:max-w-[700px] h-[700px] xl:max-w-[1014px] xl:h-[900px] mx-auto mt-30'>
+        <div className='hidden md:block relative max-w-[600px] lg:max-w-[700px] h-[700px] xl:max-w-[1014px] xl:h-[900px] mx-auto lg:mt-10'>
 
             <Path className='absolute rotate-45 top-0 left-1/2 -translate-x-1/2 ' />
             <Path className='absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 ' />
