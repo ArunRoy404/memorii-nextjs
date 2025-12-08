@@ -19,22 +19,16 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel";
 import sizes from "@/data/templateSizes";
-
-const templates = [
-    birthdayTemplate2,
-    birthdayTemplate2,
-    birthdayTemplate2,
-    birthdayTemplate2,
-    birthdayTemplate2,
-];
+import { useTemplateStore } from "@/store/useTemplateStore";
+import CardBackPage from "../CardBackPage/CardBackPage";
 
 
-export default function ChooseTemplate({ open = true, setOpen }) {
-    const [activeIndex, setActiveIndex] = useState(0);
+export default function ChooseTemplate() {
+    const { selectedTemplate, resetTemplateStore } = useTemplateStore()
     const [selectedSize, setSelectedSize] = useState(1);
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={selectedTemplate !== null} onOpenChange={() => resetTemplateStore()}>
             <DialogContent className="w-[95vw] max-w-[1200px]! max-h-[95vh] overflow-y-auto p-4 sm:p-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
@@ -44,12 +38,16 @@ export default function ChooseTemplate({ open = true, setOpen }) {
                         {/* MAIN IMAGE (BIG ON ALL DEVICES) */}
                         <div className="bg-gray-200 rounded-xl p-3 sm:p-4 flex items-center justify-center">
                             <div className="relative w-full max-w-[320px] sm:max-w-[380px] md:max-w-[420px] aspect-3/4 overflow-hidden rounded-lg">
-                                <Image
-                                    src={templates[activeIndex]}
-                                    alt="Template"
-                                    fill
-                                    className="object-cover"
-                                />
+                                {
+                                    !!selectedTemplate && (
+                                        <Image
+                                            src={selectedTemplate?.src}
+                                            alt={selectedTemplate?.title || 'Template image'}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    )
+                                }
                             </div>
                         </div>
 
@@ -58,21 +56,33 @@ export default function ChooseTemplate({ open = true, setOpen }) {
                         {/* SMALL CAROUSEL */}
                         <Carousel className="w-full max-w-[380px] mx-auto">
                             <CarouselContent>
-                                {templates.map((item, index) => (
+                                {[...new Array(4)].map((_, index) => (
                                     <CarouselItem
                                         key={index}
                                         className="basis-1/3"
                                     >
-                                        <Card className="border-none bg-gray-200 p-2">
+                                        <Card className="border-none bg-gray-200 p-2 lg:p-4">
                                             <CardContent className="p-0 flex aspect-3/4 items-center justify-center">
-                                                <div className="relative w-full h-full rounded-md overflow-hidden bg-white">
-                                                    <Image
-                                                        src={item}
-                                                        alt="Template"
-                                                        fill
-                                                        className="object-cover"
-                                                    />
-                                                </div>
+                                                {
+                                                    index === 0 ? (
+                                                        <div className="relative w-full h-full rounded-md overflow-hidden">
+                                                            {
+                                                                !!selectedTemplate && (
+                                                                    <Image
+                                                                        src={selectedTemplate?.src}
+                                                                        alt={selectedTemplate?.title || 'Template image'}
+                                                                        fill
+                                                                        className="object-cover"
+                                                                    />
+                                                                )
+                                                            }
+                                                        </div>
+                                                    ) : index === 3 ? (
+                                                        <CardBackPage />
+                                                    ) : (
+                                                        <div className="relative w-full h-full bg-white" />
+                                                    )
+                                                }
                                             </CardContent>
                                         </Card>
                                     </CarouselItem>
@@ -83,6 +93,7 @@ export default function ChooseTemplate({ open = true, setOpen }) {
                             <CarouselNext className="-right-3 scale-75" />
                         </Carousel>
                     </div>
+
 
 
 
