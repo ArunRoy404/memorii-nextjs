@@ -1,5 +1,6 @@
 'use client'
 
+import CardOptions from '@/components/EditorComponents/CardOptions';
 import { useEditorStore } from '@/store/useEditorStore';
 import { LayoutPanelLeft, Type } from 'lucide-react';
 import Image from 'next/image';
@@ -17,7 +18,7 @@ const CardEditorPage = () => {
                 className='flex gap-10 w-full'
             >
                 {/* template front  */}
-                <div className="relative w-full max-w-[320px] sm:max-w-[380px] md:max-w-[420px] aspect-3/4">
+                <div className="relative w-[500px] aspect-3/4">
                     {
                         !!selectedTemplate && (
                             <Image
@@ -32,16 +33,7 @@ const CardEditorPage = () => {
 
 
                 {/* options  */}
-                <div className='flex flex-col gap-3 bg-white text-center max-h-max p-3 rounded-2xl'>
-                    {
-                        [...new Array(3)].map((_, index) => (
-                            <div key={index} className='flex border rounded-xl flex-col items-center justify-center px-4 py-2 font-semibold'>
-                                <LayoutPanelLeft />
-                                <p>Layout</p>
-                            </div>
-                        ))
-                    }
-                </div>
+                <CardOptions />
 
 
 
@@ -75,7 +67,6 @@ const CardEditorPage = () => {
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     );
