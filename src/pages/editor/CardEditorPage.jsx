@@ -18,7 +18,6 @@ const CardEditorPage = () => {
             <div
                 className='flex gap-10 w-full'
             >
-                <DiscardEditsDialog/>
                 {/* template front  */}
                 <div className="relative w-[500px] aspect-3/4">
                     {
