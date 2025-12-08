@@ -32,7 +32,7 @@ const EditorFooter = () => {
 
         {/* Front Page */}
         <div className="border cursor-pointer overflow-hidden w-16 h-20 md:w-20 md:h-28 border-gray-300 shrink-0">
-          <div className="relative w-full h-full rounded-md overflow-hidden">
+          <div className="relative w-full h-full overflow-hidden">
             {!!selectedTemplate && (
               <Image
                 src={selectedTemplate?.src}

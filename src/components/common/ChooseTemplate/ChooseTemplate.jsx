@@ -35,9 +35,8 @@ export default function ChooseTemplate() {
         setSelectedTemplate(null)
         selectTemplateForEdit(selectedTemplate)
         toast.success("Template Selected")
-        router.push('/editor')
+        router.push(`/editor/${selectedTemplate?.id}`)
     }
-
     return (
         <Dialog open={selectedTemplate !== null} onOpenChange={() => resetTemplateStore()}>
             <DialogContent className="w-[95vw] max-w-[1200px]! max-h-[95vh] overflow-y-auto p-4 sm:p-6">
