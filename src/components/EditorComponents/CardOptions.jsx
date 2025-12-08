@@ -10,6 +10,8 @@ import cardOptionsData from "@/data/cardOptionsData"
 
 import LayoutDropdown from "./LayoutDropdown"
 import TextOptions from "./TextOptions"
+import { StickerIcon } from "lucide-react"
+import StickersOptions from "./StickersOptions"
 
 const CardOptions = () => {
     const [activeTab, setActiveTab] = useState(null)   // ✅ Start closed
@@ -58,14 +60,7 @@ const CardOptions = () => {
                     {activeTab === 'text' && <TextOptions />}
 
                     {/* ✅ Sticker Content */}
-                    {activeTab === 'sticker' && (
-                        <div className="space-y-3">
-                            <h3 className="font-semibold">Sticker Options</h3>
-                            <button className="w-full border rounded p-2">Emoji</button>
-                            <button className="w-full border rounded p-2">Badge</button>
-                            <button className="w-full border rounded p-2">Icons</button>
-                        </div>
-                    )}
+                    {activeTab === 'sticker' && <StickersOptions setActiveTab={setActiveTab} setOpen={setOpen} />}
                 </>
             )}
         </DropdownMenu>
