@@ -5,7 +5,6 @@ import HeroMarquee from "./HeroMarquee";
 export default function HeroSection() {
   return (
     <section className="relative bg-white pt-10 md:pt-20 pb-14 sm:pt-24 sm:pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
-
       {/* Text Content */}
       <div className="text-center space-y-4 sm:space-y-6 px-4">
         <h1 className="

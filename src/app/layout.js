@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import ChooseTemplate from "@/components/common/ChooseTemplate/ChooseTemplate";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -20,8 +21,8 @@ export default function RootLayout({ children }) {
       >
         {children}
         <Toaster />
+        <ChooseTemplate />
       </body>
     </html>
   );
 }
- 

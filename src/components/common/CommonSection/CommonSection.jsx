@@ -17,7 +17,7 @@ const CommonSection = ({ children, className, title, subtitle, headerClassname }
                             "text-center space-y-4 sm:space-y-6 mb-10 sm:mb-14",
                             headerClassname
                         )}>
-                            <h1 className='text-3xl sm:text-4xl md:text-5xl font-bold leading-tight sm:leading-snug md:leading-tight'>
+                            <h1 className='text-2xl md:text-4xl lg:text-5xl font-bold leading-tight sm:leading-snug md:leading-tight'>
                                 {title}
                             </h1>
                             <h2 className='text-sm md:text-base lg:text-2xl font-medium text-icon'>
