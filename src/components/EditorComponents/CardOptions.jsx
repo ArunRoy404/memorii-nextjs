@@ -29,7 +29,7 @@ const CardOptions = () => {
     }
 
     return (
-        <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
+        <DropdownMenu open={open} modal={false}>
             <DropdownMenuTrigger asChild>
                 <div className='flex flex-col gap-3 bg-white text-center p-3 rounded-2xl max-h-max'>
                     {cardOptionsData?.map((item) => (
@@ -46,11 +46,12 @@ const CardOptions = () => {
                 </div>
             </DropdownMenuTrigger>
 
-            {open && !!activeTab && (
-                <DropdownMenuContent side="left" align="start" className="w-64 p-4">
 
+
+            {open && !!activeTab && (
+                <>
                     {/* ✅ Layout Content */}
-                    {activeTab === 'layout' && <LayoutDropdown />}
+                    {activeTab === 'layout' && <LayoutDropdown setActiveTab={setActiveTab} setOpen={setOpen} />}
 
 
                     {/* ✅ Text Content */}
@@ -65,8 +66,7 @@ const CardOptions = () => {
                             <button className="w-full border rounded p-2">Icons</button>
                         </div>
                     )}
-
-                </DropdownMenuContent>
+                </>
             )}
         </DropdownMenu>
     )
