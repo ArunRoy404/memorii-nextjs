@@ -9,8 +9,10 @@ import {
     DialogDescription,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import { useRouter } from "next/navigation";
 
 export function DiscardEditsDialog() {
+    const router = useRouter()
     const [open, setOpen] = useState(false);
 
     return (
@@ -37,7 +39,10 @@ export function DiscardEditsDialog() {
 
                 {/* Red "Discard" row */}
                 <button
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                        setOpen(false)
+                        router.push('/templates')
+                    }}
                     className="cursor-pointer w-full py-3 px-6 text-center text-base font-semibold text-red-600  "
                 >
                     Discard
@@ -45,7 +50,10 @@ export function DiscardEditsDialog() {
 
                 {/* Save Draft row */}
                 <button
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                        setOpen(false)
+                        router.push('/templates')
+                    }}
                     className="cursor-pointer w-full border-t py-3 px-6 text-center text-base font-semibold">
                     Save Draft
                 </button>
