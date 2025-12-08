@@ -1,6 +1,5 @@
 'use client'
 
-import birthdayTemplate2 from "@/assets/templateImages/birthdayTemplate2.png";
 import { useState } from "react";
 import {
     Dialog,
@@ -21,11 +20,23 @@ import {
 import sizes from "@/data/templateSizes";
 import { useTemplateStore } from "@/store/useTemplateStore";
 import CardBackPage from "../CardBackPage/CardBackPage";
+import { useEditorStore } from "@/store/useEditorStore";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 
 export default function ChooseTemplate() {
-    const { selectedTemplate, resetTemplateStore } = useTemplateStore()
+    const { setSelectedTemplate: selectTemplateForEdit } = useEditorStore()
+    const { selectedTemplate, resetTemplateStore, setSelectedTemplate } = useTemplateStore()
     const [selectedSize, setSelectedSize] = useState(1);
+    const router = useRouter()
+
+    const handleSelectTemplate = () => {
+        setSelectedTemplate(null)
+        selectTemplateForEdit(selectedTemplate)
+        toast.success("Template Selected")
+        router.push('/editor')
+    }
 
     return (
         <Dialog open={selectedTemplate !== null} onOpenChange={() => resetTemplateStore()}>
@@ -147,7 +158,9 @@ export default function ChooseTemplate() {
 
 
                         {/* BUTTON */}
-                        <Button className="w-full h-11 sm:h-12 text-sm sm:text-base">
+                        <Button
+                            onClick={handleSelectTemplate}
+                            className="w-full h-11 sm:h-12 text-sm sm:text-base">
                             Personalize
                         </Button>
 
