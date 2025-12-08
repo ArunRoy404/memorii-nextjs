@@ -1,6 +1,7 @@
 'use client'
 
 import CardOptions from '@/components/EditorComponents/CardOptions';
+import { DiscardEditsDialog } from '@/components/EditorComponents/DiscardEditsDialog';
 import { useEditorStore } from '@/store/useEditorStore';
 import { LayoutPanelLeft, Type } from 'lucide-react';
 import Image from 'next/image';
@@ -17,6 +18,7 @@ const CardEditorPage = () => {
             <div
                 className='flex gap-10 w-full'
             >
+                <DiscardEditsDialog/>
                 {/* template front  */}
                 <div className="relative w-[500px] aspect-3/4">
                     {

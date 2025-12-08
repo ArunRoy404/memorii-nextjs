@@ -1,6 +1,6 @@
+import { DiscardEditsDialog } from "@/components/EditorComponents/DiscardEditsDialog";
 import { Button } from "@/components/ui/button";
 import { Undo2, Redo2, UserPlus } from "lucide-react";
-import Link from "next/link";
 
 const EditorTopBar = () => {
     return (
@@ -9,9 +9,7 @@ const EditorTopBar = () => {
 
                 {/* Top / Left: Exit */}
                 <div className="w-full sm:w-auto flex justify-between sm:justify-start items-center">
-                    <Link href='/templates' className="text-primary underline font-semibold">
-                        Exit
-                    </Link>
+                    <DiscardEditsDialog />
 
                     {/* Undo/Redo on mobile next to Exit */}
                     <div className="flex items-center gap-2 sm:hidden">
