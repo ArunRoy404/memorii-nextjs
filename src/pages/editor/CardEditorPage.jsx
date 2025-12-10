@@ -2,6 +2,7 @@
 
 import CardOptions from '@/components/EditorComponents/CardOptions';
 import { DiscardEditsDialog } from '@/components/EditorComponents/DiscardEditsDialog';
+import CardEditor from '@/components/EditorComponents/Editor/CardEditor';
 import { useEditorStore } from '@/store/useEditorStore';
 import { LayoutPanelLeft, Type } from 'lucide-react';
 import Image from 'next/image';
@@ -42,9 +43,13 @@ const CardEditorPage = () => {
                 <div
                     className='bg-[#F9FAFB] flex w-full flex-1 aspect-6/4'
                 >
-                    <div
+                    {/* editor  */}
+                    {/* <div
                         className='w-1/2 aspect-3/4'
-                    ></div>
+                    ></div> */}
+                    <CardEditor />
+                    
+                    {/* add text options  */}
                     <div
                         className='bg-white w-1/2 aspect-3/4 grid grid-cols-1'
                     >
