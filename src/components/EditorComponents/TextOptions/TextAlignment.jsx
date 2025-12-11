@@ -98,8 +98,23 @@ const TextAlignment = () => {
                 disabled={disabled}
                 className="mx-auto h-7 w-7"
                 onClick={() => {
-                    // Placeholder functionality: maybe just console log or basic bullet char
-                    toast.error("List toggle not fully implemented in Fabric.js yet");
+                    if (!editorRef) return;
+                    const activeObject = editorRef.getActiveObject();
+                    if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text'))) {
+                        // Simple bullet point implementation
+                        const text = activeObject.text;
+                        const lines = text.split('\n');
+                        const hasBullets = lines.every(line => line.trim().startsWith('• '));
+
+                        const newText = hasBullets
+                            ? lines.map(line => line.replace(/^• /, '')).join('\n')
+                            : lines.map(line => `• ${line}`).join('\n');
+
+                        activeObject.set('text', newText);
+                        editorRef.renderAll();
+                    } else {
+                        toast.error("Select text to toggle list");
+                    }
                 }}
             >
                 <List size={15} />
