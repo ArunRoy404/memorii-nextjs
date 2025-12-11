@@ -11,9 +11,7 @@ export const useEditorTemplateStore = create(
             resetTemplateStore: () => set({ selectedTemplate: null }),
         }),
         {
-            name: 'editor-storage', // key in localStorage
-            // optionally, you can serialize/deserialize if needed
-            // getStorage: () => localStorage, // default is localStorage
+            name: 'editor-template-storage',
         }
     )
 );

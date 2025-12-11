@@ -1,17 +1,17 @@
 'use client'
+import { useEditorStore } from "@/store/useEditorStore";
 import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import * as fabric from "fabric";
 import { useEffect, useRef } from "react";
 
 const CardEditor = () => {
+    const { setEditorRef } = useEditorStore()
     const { selectedTemplate } = useEditorTemplateStore();
 
     let width = selectedTemplate?.src?.width;
     let height = selectedTemplate?.src?.height;
 
-
     const canvasRef = useRef(null);
-    const editorRef = useRef(null);
 
 
     useEffect(() => {
@@ -20,18 +20,20 @@ const CardEditor = () => {
         const fabricCanvas = new fabric.Canvas(canvasRef.current, {
             width,
             height,
+            backgroundColor: 'white'
         })
 
-        editorRef.current = fabricCanvas;
+        setEditorRef(fabricCanvas);
+        fabricCanvas.renderAll();
+
 
         return () => fabricCanvas.dispose();
-    }, [width, height])
-
+    }, [width, height, setEditorRef])
 
 
     return (
-        <div className='bg-gray-500'>
-            <canvas className="bg-white" ref={canvasRef} />
+        <div className=''>
+            <canvas className="" ref={canvasRef} />
         </div>
     );
 };

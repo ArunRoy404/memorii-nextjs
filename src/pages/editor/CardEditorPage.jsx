@@ -4,17 +4,14 @@ import CardOptions from '@/components/EditorComponents/CardOptions';
 import CardEditor from '@/components/EditorComponents/Editor/CardEditor';
 import CardTextInsert from '@/components/EditorComponents/Editor/CardTextInsert';
 import { useEditorTemplateStore } from '@/store/useEditorTemplateStore';
-import { Type } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
 const CardEditorPage = () => {
     const { selectedTemplate } = useEditorTemplateStore();
 
-
     let width = selectedTemplate?.src?.width;
     let height = selectedTemplate?.src?.height;
-
 
 
     return (
@@ -48,7 +45,7 @@ const CardEditorPage = () => {
 
                 {/* page and text options  */}
                 <div
-                    className='bg-[#F9FAFB] flex w-full flex-1 max-h-max'
+                    className='flex w-full flex-1 max-h-max'
                 >
                     {/* editor  */}
                     {/* <div
