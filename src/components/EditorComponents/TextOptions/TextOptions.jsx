@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import FontStyleSelection from "./FontStyleSelection";
 import { Button } from "@/components/ui/button";
+import FontSizeSelection from "./FontSizeSelection";
 
 
 const ICONS = [
@@ -27,17 +28,9 @@ const TextOptions = () => {
             align="start"
             className="space-y-2 rounded-2xl p-3 text-center"
         >
-            {/* 💡 FONT DROPDOWN IMPLEMENTATION */}
             <FontStyleSelection />
+            <FontSizeSelection />
 
-            {/* Font Size Control Placeholder - keeping layout but removing static 'Inter' */}
-            <p className="rounded-md border p-1">Inter</p>
-
-            <div className="flex items-center justify-center gap-2 rounded-md border p-1 w-[150px]">
-                <span className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 px-1 rounded">-</span>
-                <span className="text-xs">27</span>
-                <span className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 px-1 rounded">+</span>
-            </div>
 
 
             <div className="flex flex-col items-center gap-1">

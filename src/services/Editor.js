@@ -2,7 +2,7 @@ import * as fabric from 'fabric'
 import { applyCommonStyles } from './CommonControlStyle';
 
 
-export const addText = ({ text, fontFamily, ref }) => {
+export const addText = ({ text, fontFamily, fontSize, ref }) => {
     if (!ref) return;
 
     const textObj = new fabric.IText(text || 'Edit Text', {
@@ -10,7 +10,7 @@ export const addText = ({ text, fontFamily, ref }) => {
         top: 60,
         fontFamily: fontFamily || 'Arial',
 
-        fontSize: 16,
+        fontSize: fontSize || 16,
         fontWeight: 'bold',
         fill: '#000',
         editable: true,
