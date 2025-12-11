@@ -36,8 +36,6 @@ const FontStyleSelection = () => {
 
         editorRef.on("selection:created", updateFontState);
         editorRef.on("selection:updated", updateFontState);
-        // editorRef.on("selection:cleared", () => setCurrentFont("Arial"));
-
         return () => {
             editorRef.off("selection:created", updateFontState);
             editorRef.off("selection:updated", updateFontState);

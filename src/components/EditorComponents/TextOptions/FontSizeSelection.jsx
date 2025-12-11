@@ -39,7 +39,7 @@ const FontSizeSelection = () => {
 
     const updateFontSize = (newSize) => {
         if (!editorRef) return;
-        const size = Math.max(1, parseInt(newSize, 10) || 1); // Prevent < 1
+        const size = Math.max(1, parseInt(newSize, 10) || 1);
 
         setFontSizeState(size);
         setCurrentFontSize(size);
@@ -55,11 +55,9 @@ const FontSizeSelection = () => {
     const handleDecrement = () => updateFontSize(fontSize - 1);
 
     const handleInputChange = (e) => {
-        // Allow empty string for typing, but handle blur/enter later ideally. 
-        // For simplicity, we parse immediately but handle NaN gracefully-ish in updateFontSize (it defaults to 1 if NaN, which might be annoying while deleting, so let's check).
         const val = e.target.value;
         if (val === '') {
-            setFontSizeState(''); // Allow clearing input
+            setFontSizeState('');
             return;
         }
         updateFontSize(val);
