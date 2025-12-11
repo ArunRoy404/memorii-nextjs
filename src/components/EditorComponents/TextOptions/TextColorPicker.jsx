@@ -25,6 +25,7 @@ const TextColorPicker = () => {
     const { setCurrentTextColor } = useTextObjectStore();
     const { editorRef } = useEditorStore();
     const [color, setColor] = useState("#000000");
+    const [disabled, setDisabled] = useState(true);
 
     console.log(color);
 
@@ -38,10 +39,13 @@ const TextColorPicker = () => {
         const handleSelection = () => {
             const activeObject = editorRef.getActiveObject();
             if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text'))) {
+                setDisabled(false);
                 const fill = activeObject.fill;
                 if (typeof fill === 'string') {
                     setColor(fill);
                 }
+            } else {
+                setDisabled(true);
             }
         };
 
@@ -83,6 +87,7 @@ const TextColorPicker = () => {
             {/* trigger  */}
             <DropdownMenuTrigger asChild>
                 <Button
+                    disabled={disabled}
                     variant="ghost"
                     size="icon"
                     className="mx-auto flex h-7 w-7 flex-col items-center justify-center p-0"
