@@ -5,16 +5,14 @@ import { Type } from 'lucide-react';
 
 const CardTextInsert = () => {
     const { editorRef } = useEditorStore()
-    const { currentFontFamily, currentFontSize } = useTextObjectStore()
-
-    console.log(currentFontFamily);
+    const { currentFontFamily, currentFontSize, currentTextColor } = useTextObjectStore()
 
     const handleAddText = ({ text }) => {
         if (!!text) {
-            addText({ text, fontFamily: currentFontFamily, fontSize: currentFontSize, ref: editorRef })
+            addText({ text, fontFamily: currentFontFamily, fontSize: currentFontSize, color: currentTextColor, ref: editorRef })
             return
         }
-        addText({ fontFamily: currentFontFamily, fontSize: currentFontSize, ref: editorRef })
+        addText({ fontFamily: currentFontFamily, fontSize: currentFontSize, color: currentTextColor, ref: editorRef })
     }
 
     return (
