@@ -1,16 +1,20 @@
 import { addText } from '@/services/Editor';
 import { useEditorStore } from '@/store/useEditorStore';
+import { useTextObjectStore } from '@/store/useTextObjectStore';
 import { Type } from 'lucide-react';
 
 const CardTextInsert = () => {
     const { editorRef } = useEditorStore()
+    const { currentFontFamily } = useTextObjectStore()
+
+    console.log(currentFontFamily);
 
     const handleAddText = ({ text }) => {
         if (!!text) {
-            addText({ text, fontFamily: 'Arial', ref: editorRef })
+            addText({ text, fontFamily: currentFontFamily, ref: editorRef })
             return
         }
-        addText({ fontFamily: 'Arial', ref: editorRef })
+        addText({ fontFamily: currentFontFamily, ref: editorRef })
     }
 
     return (

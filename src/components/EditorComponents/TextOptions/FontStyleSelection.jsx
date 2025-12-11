@@ -6,14 +6,19 @@ import {
     SelectTrigger,
     SelectValue,
 } from "../../ui/select";
-import { FONT_OPTIONS, showSelectionError } from "@/lib/fonts"; 
+import { FONT_OPTIONS, showSelectionError } from "@/lib/fonts";
 import { useEffect, useState } from "react";
+import { useTextObjectStore } from "@/store/useTextObjectStore";
 
 
 const FontStyleSelection = () => {
     const { editorRef } = useEditorStore();
     const [currentFont, setCurrentFont] = useState("Arial");
+    const { setCurrentFontFamily } = useTextObjectStore();
 
+    useEffect(() => {
+        setCurrentFontFamily(currentFont);
+    }, [currentFont, setCurrentFontFamily])
 
     useEffect(() => {
         if (!editorRef) return;
@@ -31,7 +36,7 @@ const FontStyleSelection = () => {
 
         editorRef.on("selection:created", updateFontState);
         editorRef.on("selection:updated", updateFontState);
-        editorRef.on("selection:cleared", () => setCurrentFont("Arial"));
+        // editorRef.on("selection:cleared", () => setCurrentFont("Arial"));
 
         return () => {
             editorRef.off("selection:created", updateFontState);
