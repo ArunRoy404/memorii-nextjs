@@ -1,9 +1,8 @@
 import * as fabric from 'fabric'
+import { applyCommonStyles } from './CommonControlStyle';
 
 
 export const addText = ({ text, fontFamily, ref }) => {
-    console.log('text', text);
-
     if (!ref) return;
 
     const textObj = new fabric.IText(text || 'Edit Text', {
@@ -17,8 +16,9 @@ export const addText = ({ text, fontFamily, ref }) => {
         editable: true,
     })
 
+    applyCommonStyles(textObj)
+
     ref.add(textObj)
     ref.setActiveObject(textObj);
     ref.renderAll();
-
 }
