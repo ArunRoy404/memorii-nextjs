@@ -6,8 +6,8 @@ export const addText = ({ text, fontFamily, ref }) => {
     if (!ref) return;
 
     const textObj = new fabric.IText(text || 'Edit Text', {
-        left: 100,
-        top: 100,
+        left: 60,
+        top: 60,
         fontFamily: fontFamily || 'Arial',
 
         fontSize: 16,
