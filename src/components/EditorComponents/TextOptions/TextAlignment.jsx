@@ -74,7 +74,7 @@ const TextAlignment = () => {
                         <AlignIcon size={15} />
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent side="right" align="start" className="min-w-[40px] p-1 flex flex-col gap-1">
+                <DropdownMenuContent side="right" align="start" className="min-w-10 p-1 flex flex-col gap-1">
                     <DropdownMenuItem onClick={() => handleAlign('left')} className="justify-center cursor-pointer">
                         <TextAlignStart size={15} />
                     </DropdownMenuItem>
