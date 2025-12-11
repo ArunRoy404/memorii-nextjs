@@ -2,6 +2,14 @@ import React from "react";
 import { DropdownMenuContent } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "../ui/select";
+// 💡 Your Icon Imports
+import {
     BoldIcon,
     ItalicIcon,
     UnderlineIcon,
@@ -9,6 +17,10 @@ import {
     TextAlignCenter,
     List,
 } from "lucide-react";
+// 💡 State & Utility Imports
+import { FONT_OPTIONS, showSelectionError } from "@/lib/fonts"; // Adjust path as needed
+import { useEditorStore } from "@/store/useEditorStore";
+
 
 const ICONS = [
     BoldIcon,
@@ -20,15 +32,85 @@ const ICONS = [
 ];
 
 const TextOptions = () => {
+    const { editorRef } = useEditorStore();
+    const [currentFont, setCurrentFont] = React.useState("Arial");
+
+    React.useEffect(() => {
+        if (!editorRef) return;
+
+        const updateFontState = () => {
+            const activeObject = editorRef.getActiveObject();
+            if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text'))) {
+                setCurrentFont(activeObject.fontFamily || "Arial");
+            }
+        };
+
+        // Initial check
+        updateFontState();
+
+        // Event listeners
+        editorRef.on("selection:created", updateFontState);
+        editorRef.on("selection:updated", updateFontState);
+        editorRef.on("selection:cleared", () => setCurrentFont("Arial"));
+
+        return () => {
+            editorRef.off("selection:created", updateFontState);
+            editorRef.off("selection:updated", updateFontState);
+            editorRef.off("selection:cleared");
+        };
+    }, [editorRef]);
+
+    const handleFontChange = (newFontFamily) => {
+        if (!editorRef) return;
+
+        const activeObject = editorRef.getActiveObject();
+
+        if (!activeObject || !(activeObject.isType('i-text') || activeObject.isType('text'))) {
+            showSelectionError();
+            return;
+        }
+
+        activeObject.set({
+            fontFamily: newFontFamily,
+        });
+
+        setCurrentFont(newFontFamily);
+        editorRef.renderAll();
+    };
+
     return (
         <DropdownMenuContent
             side="left"
             align="start"
             className="space-y-2 rounded-2xl p-3 text-center"
         >
+            {/* 💡 FONT DROPDOWN IMPLEMENTATION */}
+            <Select value={currentFont} onValueChange={handleFontChange}>
+                <SelectTrigger hideIcon={true} className="w-[150px] rounded-md border p-1 h-8 shadow-none border-border flex items-center justify-center">
+                    <SelectValue placeholder="Select Font" />
+                </SelectTrigger>
+                <SelectContent>
+                    {FONT_OPTIONS.map((font) => (
+                        <SelectItem
+                            key={font.value}
+                            value={font.value}
+                            style={{ fontFamily: font.value }}
+                        >
+                            {font.label}
+                        </SelectItem>
+                    ))}
+                </SelectContent>
+            </Select>
+
+            {/* Font Size Control Placeholder - keeping layout but removing static 'Inter' */}
             <p className="rounded-md border p-1">Inter</p>
 
-            <p className="rounded-md border p-1">- 27 +</p>
+            <div className="flex items-center justify-center gap-2 rounded-md border p-1 w-[150px]">
+                <span className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 px-1 rounded">-</span>
+                <span className="text-xs">27</span>
+                <span className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 px-1 rounded">+</span>
+            </div>
+
 
             <div className="flex flex-col items-center gap-1">
                 <span>A</span>
