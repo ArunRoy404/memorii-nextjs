@@ -1,45 +1,39 @@
-import { useEffect, useRef } from "react";
+'use client'
+import { useEditorStore } from "@/store/useEditorStore";
 import * as fabric from "fabric";
-import { Button } from "@/components/ui/button";
+import { useEffect, useRef } from "react";
 
 const CardEditor = () => {
-    const canvasRef = useRef(null);
-    const addText = () => {
-        const text = new fabric.Textbox("Hello Canva!", {
-            left: 100,
-            top: 100,
-            fontSize: 28,
-            fill: "#000",
-        });
+    const { selectedTemplate } = useEditorStore();
 
-        window.canvas.add(text);
-    };
+    let width = selectedTemplate?.src?.width;
+    let height = selectedTemplate?.src?.height;
+
+
+    const canvasRef = useRef(null);
+    const editorRef = useRef(null);
 
 
     useEffect(() => {
-        const canvas = new fabric.Canvas(canvasRef.current, {
-            width: 500,
-            height: 600,
-            backgroundColor: "#fff",
-        });
+        if (!canvasRef.current || !width || !height) return
 
-        // Save reference globally (optional for now)
-        window.canvas = canvas;
+        const fabricCanvas = new fabric.Canvas(canvasRef.current, {
+            width,
+            height,
+        })
 
-        return () => canvas.dispose();
-    }, []);
+        editorRef.current = fabricCanvas;
+
+        return () => fabricCanvas.dispose();
+    }, [width, height])
+
+
 
     return (
-        <div className="aspect-3/4 flex justify-center flex-col">
-            <div
-                className="border border-gray-400 max-h-max"
-            >
-                <canvas ref={canvasRef} />
-            </div>
-            <Button onClick={addText}>Add text</Button>
+        <div className='bg-gray-500'>
+            <canvas className="bg-white" ref={canvasRef} />
         </div>
     );
 };
-
 
 export default CardEditor;
