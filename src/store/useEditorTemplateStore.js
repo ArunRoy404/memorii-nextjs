@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export const useEditorStore = create(
+export const useEditorTemplateStore = create(
     persist(
         (set) => ({
             selectedTemplate: null,

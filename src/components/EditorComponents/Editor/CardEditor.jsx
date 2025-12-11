@@ -1,10 +1,10 @@
 'use client'
-import { useEditorStore } from "@/store/useEditorStore";
+import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import * as fabric from "fabric";
 import { useEffect, useRef } from "react";
 
 const CardEditor = () => {
-    const { selectedTemplate } = useEditorStore();
+    const { selectedTemplate } = useEditorTemplateStore();
 
     let width = selectedTemplate?.src?.width;
     let height = selectedTemplate?.src?.height;

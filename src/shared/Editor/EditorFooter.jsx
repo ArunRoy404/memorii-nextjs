@@ -3,12 +3,12 @@
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
-import { useEditorStore } from "@/store/useEditorStore";
+import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import CardBackPage from "@/components/common/CardBackPage/CardBackPage";
 import { Button } from "@/components/ui/button"; // Shadcn Button
 
 const EditorFooter = () => {
-  const { selectedTemplate } = useEditorStore();
+  const { selectedTemplate } = useEditorTemplateStore();
   const [activeIndex, setActiveIndex] = useState(0);
 
   const prevTemplate = () => setActiveIndex((prev) => (prev === 0 ? 2 - 1 : prev - 1));

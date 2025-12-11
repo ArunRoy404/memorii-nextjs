@@ -3,13 +3,13 @@
 import CardOptions from '@/components/EditorComponents/CardOptions';
 import CardEditor from '@/components/EditorComponents/Editor/CardEditor';
 import CardTextInsert from '@/components/EditorComponents/Editor/CardTextInsert';
-import { useEditorStore } from '@/store/useEditorStore';
+import { useEditorTemplateStore } from '@/store/useEditorTemplateStore';
 import { Type } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
 const CardEditorPage = () => {
-    const { selectedTemplate } = useEditorStore();
+    const { selectedTemplate } = useEditorTemplateStore();
 
 
     let width = selectedTemplate?.src?.width;
