@@ -27,8 +27,6 @@ const TextColorPicker = () => {
     const [color, setColor] = useState("#000000");
     const [disabled, setDisabled] = useState(true);
 
-    console.log(color);
-
     const colorArray = hexToRgbaArray(color)
     const colorStyle = ({ backgroundColor: color })
 
