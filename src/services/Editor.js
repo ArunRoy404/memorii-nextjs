@@ -57,29 +57,30 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref }) =>
 
 
 
-export const addSticker = ({ svgURL, editorRef }) => {
-    fetch(svgURL)
-        .then(res => res.text())
-        .then(svgText => {
-            const svgBlob = new Blob([svgText], { type: "image/svg+xml;charset=utf-8" });
-            const url = URL.createObjectURL(svgBlob);
+export const addSticker = async ({ svgURL, editorRef }) => {
+    try {
+        const img = await fabric.Image.fromURL(svgURL, {
+            crossOrigin: 'anonymous'
+        });
 
-            const img = new Image();
-            img.onload = () => {
-                const fabricImg = new fabric.Image(img, {
-                    left: 50,
-                    top: 50,
+        
+        img.set({
+            left: 50,
+            top: 50,
+        });
 
-                });
-                applyCommonStyles(fabricImg)
-                editorRef.setActiveObject(fabricImg);
-                editorRef.add(fabricImg);
-                editorRef.renderAll();
-                URL.revokeObjectURL(url);
-            };
-            img.src = url;
-        })
-        .catch(() => toast.error("Error loading Sticker"));
+        if (typeof applyCommonStyles === "function") {
+            applyCommonStyles(img);
+        }
+
+        editorRef.add(img);
+        editorRef.setActiveObject(img);
+        editorRef.renderAll();
+
+    } catch (error) {
+        console.error(error);
+        toast.error("Error loading Sticker");
+    }
 };
 
 

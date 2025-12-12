@@ -7,51 +7,51 @@ import Sticker from './Sticker';
 const stickers = [
     {
         icon: Cherry,
-        url: 'http://localhost:3000/assets/stickers/cherry.svg'
+        url: '/assets/stickers/cherry.svg'
     },
     {
         icon: Cake,
-        url: 'http://localhost:3000/assets/stickers/cake.svg'
+        url: '/assets/stickers/cake.svg'
     },
     {
         icon: Bear,
-        url: 'http://localhost:3000/assets/stickers/bear.svg'
+        url: '/assets/stickers/bear.svg'
     },
     {
         icon: Balloon,
-        url: 'http://localhost:3000/assets/stickers/balloon.svg'
+        url: '/assets/stickers/balloon.svg'
     },
     {
         icon: Cherry,
-        url: 'http://localhost:3000/assets/stickers/cherry.svg'
+        url: '/assets/stickers/cherry.svg'
     },
     {
         icon: Cake,
-        url: 'http://localhost:3000/assets/stickers/cake.svg'
+        url: '/assets/stickers/cake.svg'
     },
     {
         icon: Bear,
-        url: 'http://localhost:3000/assets/stickers/bear.svg'
+        url: '/assets/stickers/bear.svg'
     },
     {
         icon: Balloon,
-        url: 'http://localhost:3000/assets/stickers/balloon.svg'
+        url: '/assets/stickers/balloon.svg'
     },
     {
         icon: Cherry,
-        url: 'http://localhost:3000/assets/stickers/cherry.svg'
+        url: '/assets/stickers/cherry.svg'
     },
     {
         icon: Cake,
-        url: 'http://localhost:3000/assets/stickers/cake.svg'
+        url: '/assets/stickers/cake.svg'
     },
     {
         icon: Bear,
-        url: 'http://localhost:3000/assets/stickers/bear.svg'
+        url: '/assets/stickers/bear.svg'
     },
     {
         icon: Balloon,
-        url: 'http://localhost:3000/assets/stickers/balloon.svg'
+        url: '/assets/stickers/balloon.svg'
     },
 ]
 
