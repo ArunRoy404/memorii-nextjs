@@ -35,7 +35,24 @@ const CardEditor = () => {
         fabricCanvas.renderAll();
 
 
-        return () => fabricCanvas.dispose();
+
+        const handleDelete = (e) => {
+            if (e.key == 'Delete' || e.key == 'Backspace') {
+                const activeObjects = fabricCanvas.getActiveObjects();
+                if (activeObjects.length) {
+                    activeObjects.forEach((obj) => fabricCanvas.remove(obj));
+                    fabricCanvas.discardActiveObject();
+                    fabricCanvas.requestRenderAll();
+                }
+            }
+        }
+        window.addEventListener("keydown", handleDelete);
+
+
+        return () => {
+            window.removeEventListener("keydown", handleDelete);
+            fabricCanvas.dispose();
+        }
     }, [width, height, setEditorRef])
 
     return (
