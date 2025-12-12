@@ -13,49 +13,33 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import CardPreview from "./CardPreview";
 
 
 const EditorFooter = () => {
-  const { editorRef, currentPage, saveCurrentPage, setCurrentPage, pages } = useEditorStore()
+  const { saveCurrentPage, setCurrentPage, pages } = useEditorStore()
   const { selectedTemplate } = useEditorTemplateStore();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [dataURL, setDataURL] = useState(null)
-
-
-  useEffect(() => {
-    if (!editorRef || !editorRef.backgroundColor) return;
-
-    const updateDataURL = () => {
-      const dataURL = editorRef.toDataURL({
-        format: 'png',
-        quality: 1,
-        multiplier: 1,
-      });
-      setDataURL(dataURL);
-    };
-
-    editorRef.on('object:added', updateDataURL);
-    editorRef.on('object:modified', updateDataURL);
-    editorRef.on('object:removed', updateDataURL);
-
-    return () => {
-      editorRef.off('object:added', updateDataURL);
-      editorRef.off('object:modified', updateDataURL);
-      editorRef.off('object:removed', updateDataURL);
-    };
-  }, [editorRef]);
 
   const handleSavePage = () => {
     saveCurrentPage();
   }
-  const handleNextPage = () => {
+
+  const handleSelectPage = (index) => {
     handleSavePage();
-    setCurrentPage(Math.min(currentPage + 1, pages.length - 1));
+    setCurrentPage(index);
+    setActiveIndex(index);
   }
-  const handlePreviousPage = () => {
-    handleSavePage();
-    setCurrentPage(Math.max(currentPage - 1, 0));
-  }
+
+
+  // const handleNextPage = () => {
+  //   handleSavePage();
+  //   setCurrentPage(Math.min(currentPage + 1, pages.length - 1));
+  // }
+  // const handlePreviousPage = () => {
+  //   handleSavePage();
+  //   setCurrentPage(Math.max(currentPage - 1, 0));
+  // }
 
   return (
     <div className="flex items-center justify-center p-2 bg-white overflow-x-auto no-scrollbar">
@@ -91,22 +75,13 @@ const EditorFooter = () => {
             </div>
           </CarouselItem>
 
-          {Array.from({ length: 5 }).map((_, index) => (
+          {pages.map((_, index) => (
             <CarouselItem key={index} className="basis-1/3 max-w-max! pl-1!">
               <div
                 className={`border cursor-pointer overflow-hidden w-16 h-20  md:w-20 md:h-28 shrink-0 ${index === activeIndex ? "border-primary" : "border-gray-300"}`}
-                onClick={() => setActiveIndex(index)}
+                onClick={() => handleSelectPage(index)}
               >
-                <div className="relative w-full h-full overflow-hidden">
-                  {!!dataURL && (
-                    <Image
-                      src={dataURL}
-                      alt={'Template preview'}
-                      fill
-                      className="object-cover"
-                    />
-                  )}
-                </div>
+                <CardPreview index={index} />
               </div>
             </CarouselItem>
           ))}
