@@ -9,7 +9,7 @@ import * as fabric from "fabric";
 import { useEffect } from "react";
 
 const CardEditor = () => {
-    const { setEditorRef, pages, currentPage, editorRef } = useEditorStore()
+    const { setEditorRef, pages, currentPage } = useEditorStore()
     const { selectedTemplate } = useEditorTemplateStore();
 
     let width = selectedTemplate?.src?.width;
