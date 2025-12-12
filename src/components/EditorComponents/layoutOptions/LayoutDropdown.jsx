@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SquarePen } from 'lucide-react';
 import { DropdownMenuContent } from '../../ui/dropdown-menu';
 import LayoutTick from './LayoutTick';
 import { useEditorStore } from '@/store/useEditorStore';
 
-// 1. Import Shadcn Dialog components
 import {
     AlertDialog,
     AlertDialogAction,
@@ -14,11 +13,10 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-} from '@/components/ui/alert-dialog'; // Update path as needed
+} from '@/components/ui/alert-dialog';
 import { addText } from '@/services/Editor';
 
 
-// Utility function to clear the canvas (add this to your canvas utilities)
 const clearCanvas = (editorRef) => {
     if (editorRef) {
         editorRef.clear();
