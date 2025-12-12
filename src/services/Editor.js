@@ -51,3 +51,4 @@ export const addSticker = ({ svgURL, editorRef }) => {
         })
         .catch(() => toast.error("Error loading Sticker"));
 };
+    
