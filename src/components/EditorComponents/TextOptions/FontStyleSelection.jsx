@@ -15,6 +15,7 @@ const FontStyleSelection = () => {
     const { editorRef } = useEditorStore();
     const [currentFont, setCurrentFont] = useState("Arial");
     const { setCurrentFontFamily } = useTextObjectStore();
+    const [disabled, setDisabled] = useState(true);
 
     useEffect(() => {
         setCurrentFontFamily(currentFont);
@@ -26,22 +27,26 @@ const FontStyleSelection = () => {
         const updateFontState = () => {
             const activeObject = editorRef.getActiveObject();
             if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text'))) {
+                setDisabled(false);
                 setCurrentFont(activeObject.fontFamily || "Arial");
+            } else {
+                setDisabled(true);
             }
         };
 
-
-        updateFontState();
-
+        updateFontState(); // run initially
 
         editorRef.on("selection:created", updateFontState);
         editorRef.on("selection:updated", updateFontState);
+        editorRef.on("selection:cleared", updateFontState); // attach handler for cleared selection
+
         return () => {
             editorRef.off("selection:created", updateFontState);
             editorRef.off("selection:updated", updateFontState);
-            editorRef.off("selection:cleared");
+            editorRef.off("selection:cleared", updateFontState);
         };
     }, [editorRef]);
+
 
 
 
@@ -61,13 +66,16 @@ const FontStyleSelection = () => {
 
         setCurrentFont(newFontFamily);
         editorRef.renderAll();
-    };
+    }
 
-
+    console.log(disabled);
 
     return (
-        <Select value={currentFont} onValueChange={handleFontChange}>
-            <SelectTrigger hideIcon={true} className="w-[150px] rounded-md border p-1 h-8 shadow-none border-border flex items-center justify-center">
+        <Select
+            disabled={disabled}
+            value={currentFont} onValueChange={handleFontChange}>
+            <SelectTrigger
+                hideIcon={true} className="w-[150px] rounded-md border p-1 h-8 shadow-none border-border flex items-center justify-center">
                 <SelectValue placeholder="Select Font" />
             </SelectTrigger>
             <SelectContent>
