@@ -22,6 +22,14 @@ const CardEditor = () => {
             height,
             backgroundColor: 'white'
         })
+        fabricCanvas.layout = 'blank'
+
+        fabricCanvas.setLayout = (newLayout) => {
+            fabricCanvas.layout = newLayout
+        }
+        fabricCanvas.setBackgroundColor = (newColor) => {
+            fabricCanvas.backgroundColor = newColor
+        }
 
         setEditorRef(fabricCanvas);
         fabricCanvas.renderAll();
