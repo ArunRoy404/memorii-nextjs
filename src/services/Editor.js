@@ -81,3 +81,16 @@ export const addSticker = ({ svgURL, editorRef }) => {
         })
         .catch(() => toast.error("Error loading Sticker"));
 };
+
+
+
+export const handleDeleteObject = ({ e, ref }) => {
+    if (e.key == 'Delete' || e.key == 'Backspace') {
+        const activeObjects = ref.getActiveObjects();
+        if (activeObjects.length) {
+            activeObjects.forEach((obj) => ref.remove(obj));
+            ref.discardActiveObject();
+            ref.requestRenderAll();
+        }
+    }
+}

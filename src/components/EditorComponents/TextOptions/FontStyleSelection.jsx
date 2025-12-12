@@ -68,8 +68,6 @@ const FontStyleSelection = () => {
         editorRef.renderAll();
     }
 
-    console.log(disabled);
-
     return (
         <Select
             disabled={disabled}

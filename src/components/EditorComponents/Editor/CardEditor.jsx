@@ -1,4 +1,5 @@
 'use client'
+import { handleDeleteObject } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import * as fabric from "fabric";
@@ -36,16 +37,7 @@ const CardEditor = () => {
 
 
 
-        const handleDelete = (e) => {
-            if (e.key == 'Delete' || e.key == 'Backspace') {
-                const activeObjects = fabricCanvas.getActiveObjects();
-                if (activeObjects.length) {
-                    activeObjects.forEach((obj) => fabricCanvas.remove(obj));
-                    fabricCanvas.discardActiveObject();
-                    fabricCanvas.requestRenderAll();
-                }
-            }
-        }
+        const handleDelete = (e) => handleDeleteObject({ e, ref: fabricCanvas })
         window.addEventListener("keydown", handleDelete);
 
 
