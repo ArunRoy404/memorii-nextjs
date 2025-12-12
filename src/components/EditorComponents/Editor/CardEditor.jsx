@@ -30,10 +30,9 @@ const CardEditor = () => {
         return () => fabricCanvas.dispose();
     }, [width, height, setEditorRef])
 
-
     return (
         <div className=''>
-            <canvas className="" ref={canvasRef} />
+            <canvas ref={canvasRef} />
         </div>
     );
 };
