@@ -2,14 +2,42 @@
 
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import CardBackPage from "@/components/common/CardBackPage/CardBackPage";
-import { Button } from "@/components/ui/button"; // Shadcn Button
+import { Button } from "@/components/ui/button"; 
+import { useEditorStore } from "@/store/useEditorStore";
 
 const EditorFooter = () => {
   const { selectedTemplate } = useEditorTemplateStore();
   const [activeIndex, setActiveIndex] = useState(0);
+  const { editorRef } = useEditorStore()
+  const [dataURL, setDataURL] = useState(null)
+
+  useEffect(() => {
+    if (!editorRef || !editorRef.backgroundColor) return;
+
+    const updateDataURL = () => {
+      const dataURL = editorRef.toDataURL({
+        format: 'png',
+        quality: 1,
+        multiplier: 1,
+      });
+      setDataURL(dataURL);
+    };
+
+    editorRef.on('object:added', updateDataURL);
+    editorRef.on('object:modified', updateDataURL);
+    editorRef.on('object:removed', updateDataURL);
+
+    return () => {
+      editorRef.off('object:added', updateDataURL);
+      editorRef.off('object:modified', updateDataURL);
+      editorRef.off('object:removed', updateDataURL);
+    };
+  }, [editorRef]);
+
+
 
   const prevTemplate = () => setActiveIndex((prev) => (prev === 0 ? 2 - 1 : prev - 1));
   const nextTemplate = () => setActiveIndex((prev) => (prev === 2 - 1 ? 0 : prev + 1));
@@ -36,7 +64,7 @@ const EditorFooter = () => {
             {!!selectedTemplate && (
               <Image
                 src={selectedTemplate?.src}
-                alt={selectedTemplate?.title || 'Template image'}
+                alt={selectedTemplate?.title || 'Template Front'}
                 fill
                 className="object-cover"
               />
@@ -52,6 +80,16 @@ const EditorFooter = () => {
               className={`border cursor-pointer overflow-hidden w-16 h-20  md:w-20 md:h-28 shrink-0 ${i === activeIndex ? "border-primary" : "border-gray-300"}`}
               onClick={() => setActiveIndex(i)}
             >
+              <div className="relative w-full h-full overflow-hidden">
+                {!!dataURL && (
+                  <Image
+                    src={dataURL}
+                    alt={'Template preview'}
+                    fill
+                    className="object-cover"
+                  />
+                )}
+              </div>
             </div>
           ))}
         </div>

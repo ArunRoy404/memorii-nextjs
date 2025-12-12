@@ -12,13 +12,11 @@ const CardEditor = () => {
     let width = selectedTemplate?.src?.width;
     let height = selectedTemplate?.src?.height;
 
-    const canvasRef = useRef(null);
-
 
     useEffect(() => {
-        if (!canvasRef.current || !width || !height) return
+        if (!width || !height) return
 
-        const fabricCanvas = new fabric.Canvas(canvasRef.current, {
+        const fabricCanvas = new fabric.Canvas('canvas', {
             width,
             height,
             backgroundColor: 'white'
@@ -49,7 +47,7 @@ const CardEditor = () => {
 
     return (
         <div className=''>
-            <canvas ref={canvasRef} />
+            <canvas id="canvas" />
         </div>
     );
 };
