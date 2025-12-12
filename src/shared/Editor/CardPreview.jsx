@@ -1,26 +1,20 @@
 import { useEditorStore } from '@/store/useEditorStore';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import * as fabric from "fabric";
+import { createDataURL } from '@/services/createDataURL';
 
 
 const CardPreview = ({ index }) => {
-    const { currentPage, pages, editorRef } = useEditorStore()
+    const { currentPage, editorRef } = useEditorStore()
     const [dataURL, setDataURL] = useState(null)
-    const pageContent = pages[index];
-
 
     useEffect(() => {
         if (currentPage !== index) return
 
-        if (!editorRef) return;
+        if (!editorRef || !editorRef.backgroundColor) return;
 
         const updateDataURL = () => {
-            const dataURL = editorRef.toDataURL({
-                format: 'png',
-                quality: 1,
-                multiplier: 1,
-            });
+            const dataURL = createDataURL(editorRef)
             setDataURL(dataURL);
         };
 

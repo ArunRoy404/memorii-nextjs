@@ -6,7 +6,7 @@ export const useTextObjectStore = create(
     persist(
         (set) => ({
             currentFontFamily: "Arial",
-            currentFontSize: 24,
+            currentFontSize: 16,
             currentTextColor: "#000000",
 
             setCurrentFontFamily: (fontFamily) => set({ currentFontFamily: fontFamily }),
