@@ -2,19 +2,18 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 
-
 export const useEditorStore = create(
     persist(
         (set, get) => ({
             editorRef: null,
-            pages: [],
+            pages: [null, null, null],
             currentPage: 0,
 
             setEditorRef: (editorRef) => set({ editorRef }),
 
-            addPage: (pageData) => {
+            addPage: () => {
                 const { pages } = get();
-                set({ pages: [...pages, pageData] });
+                set({ pages: [...pages, null] });
             },
 
             setCurrentPage: (index) => {
@@ -25,14 +24,9 @@ export const useEditorStore = create(
                 const { editorRef, pages, currentPage } = get();
                 if (!editorRef) return;
 
-                // const json = editorRef.toJSON();
+                const json = editorRef.toJSON();
                 const newPages = [...pages];
-                newPages[currentPage] = {
-                    ...newPages[currentPage],
-                    // objects: json.objects,
-                    // backgroundColor: editorRef.backgroundColor,
-                    // layout: editorRef.layout,
-                };
+                newPages[currentPage] = json;
                 set({ pages: newPages });
             },
         }),

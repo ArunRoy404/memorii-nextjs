@@ -5,14 +5,15 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import CardBackPage from "@/components/common/CardBackPage/CardBackPage";
-import { Button } from "@/components/ui/button"; 
+import { Button } from "@/components/ui/button";
 import { useEditorStore } from "@/store/useEditorStore";
 
 const EditorFooter = () => {
+  const { editorRef, currentPage, saveCurrentPage, setCurrentPage } = useEditorStore()
   const { selectedTemplate } = useEditorTemplateStore();
   const [activeIndex, setActiveIndex] = useState(0);
-  const { editorRef } = useEditorStore()
   const [dataURL, setDataURL] = useState(null)
+
 
   useEffect(() => {
     if (!editorRef || !editorRef.backgroundColor) return;
@@ -37,13 +38,25 @@ const EditorFooter = () => {
     };
   }, [editorRef]);
 
-
+  const handleSavePage = () => {
+    saveCurrentPage();
+  }
+  const handleNextPage = () => {
+    setCurrentPage(currentPage + 1);
+  }
+  const handlePreviousPage = () => {
+    setCurrentPage(currentPage - 1);
+  }
 
   const prevTemplate = () => setActiveIndex((prev) => (prev === 0 ? 2 - 1 : prev - 1));
   const nextTemplate = () => setActiveIndex((prev) => (prev === 2 - 1 ? 0 : prev + 1));
 
   return (
     <div className="flex items-center justify-center p-2 bg-white overflow-x-auto no-scrollbar">
+
+      <Button onClick={handleSavePage}>Save</Button>
+      <Button onClick={handlePreviousPage}>Previous</Button>
+      <Button onClick={handleNextPage}>Next</Button>
 
       {/* Previous Template Button - Hidden on mobile */}
       <Button

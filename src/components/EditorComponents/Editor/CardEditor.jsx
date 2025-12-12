@@ -1,16 +1,27 @@
 'use client'
+
+
+import { applyCommonStyles } from "@/services/CommonControlStyle";
 import { handleDeleteObject } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import * as fabric from "fabric";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 const CardEditor = () => {
-    const { setEditorRef } = useEditorStore()
+    const { setEditorRef, pages, currentPage, editorRef } = useEditorStore()
     const { selectedTemplate } = useEditorTemplateStore();
 
     let width = selectedTemplate?.src?.width;
     let height = selectedTemplate?.src?.height;
+
+    const renderDesign = async (ref) => {
+        if (pages[currentPage]) {
+            await ref.loadFromJSON(pages[currentPage]);
+        }
+        ref.renderAll();
+        ref.getObjects().forEach(obj => applyCommonStyles(obj));
+    }
 
 
     useEffect(() => {
@@ -19,31 +30,26 @@ const CardEditor = () => {
         const fabricCanvas = new fabric.Canvas('canvas', {
             width,
             height,
-            backgroundColor: 'white'
+            backgroundColor: 'white',
+            layout: 'blank'
         })
-        fabricCanvas.layout = 'blank'
 
-        fabricCanvas.setLayout = (newLayout) => {
-            fabricCanvas.layout = newLayout
-        }
-        fabricCanvas.setBackgroundColor = (newColor) => {
-            fabricCanvas.backgroundColor = newColor
-        }
+        fabricCanvas.setLayout = (newLayout) => { fabricCanvas.layout = newLayout }
+        fabricCanvas.setBackgroundColor = (newColor) => { fabricCanvas.backgroundColor = newColor }
+
 
         setEditorRef(fabricCanvas);
-        fabricCanvas.renderAll();
-
+        renderDesign(fabricCanvas)
 
 
         const handleDelete = (e) => handleDeleteObject({ e, ref: fabricCanvas })
         window.addEventListener("keydown", handleDelete);
 
-
         return () => {
             window.removeEventListener("keydown", handleDelete);
             fabricCanvas.dispose();
         }
-    }, [width, height, setEditorRef])
+    }, [width, height, currentPage])
 
     return (
         <div className=''>
