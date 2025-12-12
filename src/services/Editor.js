@@ -3,7 +3,7 @@ import { applyCommonStyles } from './CommonControlStyle';
 import { toast } from 'sonner';
 
 
-export const addText = ({ text, fontFamily, fontSize, color, ref }) => {
+export const addText = ({ position, text, fontFamily, fontSize, color, ref }) => {
     if (!ref) return;
 
     const textObj = new fabric.IText(text || 'Edit Text', {
@@ -16,6 +16,36 @@ export const addText = ({ text, fontFamily, fontSize, color, ref }) => {
         fill: color || '#000000',
         editable: true,
     })
+
+
+    // Get canvas width and height
+    const canvasWidth = ref.getWidth();
+    const canvasHeight = ref.getHeight();
+
+    if (position === 'top') {
+        textObj.set({
+            left: canvasWidth / 2,
+            top: canvasHeight / 7,
+            originX: 'center',
+            originY: 'center',
+        });
+    }
+    if (position === 'bottom') {
+        textObj.set({
+            left: canvasWidth / 2,
+            top: (canvasHeight / 3) * 2.5,
+            originX: 'center',
+            originY: 'center',
+        });
+    }
+    if (position === 'center') {
+        textObj.set({
+            left: canvasWidth / 2,
+            top: canvasHeight / 2,
+            originX: 'center',
+            originY: 'center',
+        });
+    }
 
     applyCommonStyles(textObj)
 
@@ -51,4 +81,3 @@ export const addSticker = ({ svgURL, editorRef }) => {
         })
         .catch(() => toast.error("Error loading Sticker"));
 };
-    
