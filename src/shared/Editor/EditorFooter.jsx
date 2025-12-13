@@ -1,11 +1,10 @@
 'use client'
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import CardBackPage from "@/components/common/CardBackPage/CardBackPage";
 import { useEditorStore } from "@/store/useEditorStore";
-import * as React from "react"
 import {
   Carousel,
   CarouselContent,
@@ -17,9 +16,13 @@ import CardPreview from "./CardPreview";
 
 
 const EditorFooter = () => {
-  const { saveCurrentPage, setCurrentPage, pages } = useEditorStore()
+  const { saveCurrentPage, setCurrentPage, pages, editorRef } = useEditorStore()
   const { selectedTemplate } = useEditorTemplateStore();
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const aspectRatio = editorRef?.getWidth() / editorRef?.getHeight() || 3 / 4;
+
+
 
   const handleSavePage = () => {
     saveCurrentPage();
@@ -61,7 +64,9 @@ const EditorFooter = () => {
       >
         <CarouselContent>
           <CarouselItem className="basis-1/3 m-0! max-w-max!">
-            <div className="border cursor-pointer overflow-hidden w-16 h-20 md:w-20 md:h-28 border-gray-300 shrink-0">
+            <div className="border cursor-pointer overflow-hidden w-16 md:w-20 border-gray-300 shrink-0"
+              style={{ aspectRatio }}
+            >
               <div className="relative w-full h-full overflow-hidden">
                 {!!selectedTemplate && (
                   <Image
@@ -78,7 +83,8 @@ const EditorFooter = () => {
           {pages.map((_, index) => (
             <CarouselItem key={index} className="basis-1/3 max-w-max! pl-1!">
               <div
-                className={`border cursor-pointer overflow-hidden w-16 h-20  md:w-20 md:h-28 shrink-0 ${index === activeIndex ? "border-primary" : "border-gray-300"}`}
+                style={{ aspectRatio }}
+                className={`border cursor-pointer overflow-hidden w-16 md:w-20 shrink-0 ${index === activeIndex ? "border-primary" : "border-gray-300"}`}
                 onClick={() => handleSelectPage(index)}
               >
                 <CardPreview index={index} />
@@ -87,7 +93,9 @@ const EditorFooter = () => {
           ))}
 
           <CarouselItem className="basis-1/3 max-w-max! pl-1!">
-            <div className="border cursor-pointer overflow-hidden w-16 h-20  md:w-20 md:h-28 border-gray-300 shrink-0">
+            <div
+              style={{ aspectRatio }}
+              className="border cursor-pointer overflow-hidden w-16 md:w-20 border-gray-300 shrink-0">
               <CardBackPage />
             </div>
           </CarouselItem>
