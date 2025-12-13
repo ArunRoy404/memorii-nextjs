@@ -6,14 +6,17 @@ import { handleDeleteObject } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import * as fabric from "fabric";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const CardEditor = () => {
-    const { setEditorRef, pages, currentPage } = useEditorStore()
+    const { editorRef, setEditorRef, pages, currentPage } = useEditorStore()
     const { selectedTemplate } = useEditorTemplateStore();
+
 
     let width = selectedTemplate?.src?.width;
     let height = selectedTemplate?.src?.height;
+    const containerRef = useRef(null);
+    const aspectRatio = width / height;
 
     const renderDesign = async (ref) => {
         if (pages[currentPage]) {
@@ -51,8 +54,39 @@ const CardEditor = () => {
         }
     }, [width, height, currentPage])
 
+
+
+
+    const resizeCanvas = () => {
+        if (!containerRef.current || !editorRef?.setZoom) return;
+
+        const parentWidth = containerRef.current.clientWidth;
+        const parentHeight = containerRef.current.clientHeight;
+
+        const scaleX = parentWidth / width;
+        const scaleY = parentHeight / height;
+
+        // Choose the smaller scale to fit inside parent
+        const scale = Math.min(scaleX, scaleY);
+
+        // editorRef.setWidth(width * scale);
+        // editorRef.setHeight(height * scale);
+
+        editorRef.setZoom(scale); // keep original content scale
+        editorRef.renderAll();
+    };
+
+    useEffect(() => {
+        resizeCanvas();
+    }, [width, height, editorRef]);
+
+
+
+
     return (
-        <div className=''>
+        <div ref={containerRef} className='max-w-[500px] overflow-hidden'
+            style={{ aspectRatio: aspectRatio }}
+        >
             <canvas id="canvas" />
         </div>
     );
