@@ -6,42 +6,46 @@ import { toast } from 'sonner';
 export const addText = ({ position, text, fontFamily, fontSize, color, ref }) => {
     if (!ref) return;
 
+    // Get canvas width and height
+    const canvasWidth = ref.getWidth();
+    const canvasHeight = ref.getHeight();
+    const zoom = ref.getZoom()
+
+
+
     const textObj = new fabric.IText(text || 'Edit Text', {
         left: 60,
         top: 60,
         fontFamily: fontFamily || 'Arial',
 
-        fontSize: fontSize || 16,
+        fontSize: fontSize || (26 / zoom),
         fontWeight: 'bold',
         fill: color || '#000000',
         editable: true,
     })
 
 
-    // Get canvas width and height
-    const canvasWidth = ref.getWidth();
-    const canvasHeight = ref.getHeight();
 
     if (position === 'top') {
         textObj.set({
-            left: canvasWidth / 2,
-            top: canvasHeight / 7,
+            left: canvasWidth / (2 * zoom),
+            top: canvasHeight / (7 * zoom),
             originX: 'center',
             originY: 'center',
         });
     }
     if (position === 'bottom') {
         textObj.set({
-            left: canvasWidth / 2,
-            top: (canvasHeight / 3) * 2.5,
+            left: canvasWidth / (2 * zoom),
+            top: (canvasHeight / (3 * zoom)) * 2.5,
             originX: 'center',
             originY: 'center',
         });
     }
     if (position === 'center') {
         textObj.set({
-            left: canvasWidth / 2,
-            top: canvasHeight / 2,
+            left: canvasWidth / (2 * zoom),
+            top: canvasHeight / (2 * zoom),
             originX: 'center',
             originY: 'center',
         });
@@ -63,7 +67,7 @@ export const addSticker = async ({ svgURL, editorRef }) => {
             crossOrigin: 'anonymous'
         });
 
-        
+
         img.set({
             left: 50,
             top: 50,

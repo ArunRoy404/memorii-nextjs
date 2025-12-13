@@ -34,7 +34,7 @@ const CardEditor = () => {
             width,
             height,
             backgroundColor: 'white',
-            layout: 'blank'
+            layout: 'blank',
         })
 
         fabricCanvas.setLayout = (newLayout) => { fabricCanvas.layout = newLayout }
@@ -66,11 +66,12 @@ const CardEditor = () => {
         const scaleX = parentWidth / width;
         const scaleY = parentHeight / height;
 
+
         // Choose the smaller scale to fit inside parent
         const scale = Math.min(scaleX, scaleY);
 
-        // editorRef.setWidth(width * scale);
-        // editorRef.setHeight(height * scale);
+        editorRef.setWidth(width * scale);
+        editorRef.setHeight(height * scale);
 
         editorRef.setZoom(scale); // keep original content scale
         editorRef.renderAll();

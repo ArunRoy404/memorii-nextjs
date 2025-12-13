@@ -24,19 +24,24 @@ import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useEditorStore } from "@/store/useEditorStore";
+import { useTextObjectStore } from "@/store/useTextObjectStore";
 
 
 export default function ChooseTemplate() {
     const { resetEditorStore } = useEditorStore()
     const { setSelectedTemplate: selectTemplateForEdit } = useEditorTemplateStore()
     const { selectedTemplate, resetTemplateStore, setSelectedTemplate } = useTemplateStore()
+    const { resetTextObjectStore } = useTextObjectStore()
+
     const [selectedSize, setSelectedSize] = useState(1);
     const router = useRouter()
+
 
     const handleSelectTemplate = () => {
         setSelectedTemplate(null)
         selectTemplateForEdit(selectedTemplate)
         resetEditorStore()
+        resetTextObjectStore()
         toast.success("Template Selected")
         router.push(`/editor/${selectedTemplate?.id}`)
     }
