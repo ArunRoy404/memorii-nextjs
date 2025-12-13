@@ -23,9 +23,11 @@ import CardBackPage from "../CardBackPage/CardBackPage";
 import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useEditorStore } from "@/store/useEditorStore";
 
 
 export default function ChooseTemplate() {
+    const { resetEditorStore } = useEditorStore()
     const { setSelectedTemplate: selectTemplateForEdit } = useEditorTemplateStore()
     const { selectedTemplate, resetTemplateStore, setSelectedTemplate } = useTemplateStore()
     const [selectedSize, setSelectedSize] = useState(1);
@@ -34,6 +36,7 @@ export default function ChooseTemplate() {
     const handleSelectTemplate = () => {
         setSelectedTemplate(null)
         selectTemplateForEdit(selectedTemplate)
+        resetEditorStore()
         toast.success("Template Selected")
         router.push(`/editor/${selectedTemplate?.id}`)
     }

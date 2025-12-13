@@ -29,6 +29,10 @@ export const useEditorStore = create(
                 newPages[currentPage] = json;
                 set({ pages: newPages });
             },
+
+            resetEditorStore: () => {
+                set({ editorRef: null, pages: [null, null, null], currentPage: 0 });
+            }
         }),
         { name: "editor-storage" }
     )
