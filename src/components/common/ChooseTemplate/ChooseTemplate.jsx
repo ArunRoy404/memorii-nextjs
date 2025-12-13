@@ -54,15 +54,14 @@ export default function ChooseTemplate() {
                     <div className="flex flex-col gap-4">
 
                         {/* MAIN IMAGE (BIG ON ALL DEVICES) */}
-                        <div className="bg-gray-200 rounded-xl p-3 sm:p-4 flex items-center justify-center">
-                            <div className="relative w-full max-w-[320px] sm:max-w-[380px] md:max-w-[420px] aspect-3/4 overflow-hidden rounded-lg">
+                        <div className="bg-gray-200 rounded-xl p-3 sm:p-4 flex items-center flex-1 justify-center">
+                            <div className="relative w-full max-w-[320px] sm:max-w-[380px] md:max-w-[420px]  overflow-hidden rounded-lg">
                                 {
                                     !!selectedTemplate && (
                                         <Image
                                             src={selectedTemplate?.src}
                                             alt={selectedTemplate?.title || 'Template image'}
-                                            fill
-                                            className="object-cover"
+                                            className=""
                                         />
                                     )
                                 }
@@ -80,25 +79,53 @@ export default function ChooseTemplate() {
                                         className="basis-1/3"
                                     >
                                         <Card className="border-none bg-gray-200 p-2 lg:p-4">
-                                            <CardContent className="p-0 flex aspect-3/4 items-center justify-center">
+                                            <CardContent className="p-0 flex items-center justify-center">
                                                 {
                                                     index === 0 ? (
-                                                        <div className="relative w-full h-full rounded-md overflow-hidden">
+                                                        <div className="relative w-full h-full flex items-center justify-center rounded-md overflow-hidden">
                                                             {
                                                                 !!selectedTemplate && (
                                                                     <Image
                                                                         src={selectedTemplate?.src}
                                                                         alt={selectedTemplate?.title || 'Template image'}
-                                                                        fill
-                                                                        className="object-cover"
+
                                                                     />
                                                                 )
                                                             }
                                                         </div>
                                                     ) : index === 3 ? (
-                                                        <CardBackPage />
+                                                        <div className="relative w-full h-full flex items-center justify-center rounded-md overflow-hidden">
+                                                            {
+                                                                !!selectedTemplate && (
+                                                                    <div
+                                                                        className="bg-white relative max-h-max"
+                                                                    >
+                                                                        <Image
+                                                                            src={selectedTemplate?.src}
+                                                                            alt={selectedTemplate?.title || 'Template image'}
+                                                                            className="opacity-0"
+                                                                        />
+                                                                        <CardBackPage className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
+                                                                    </div>
+                                                                )
+                                                            }
+                                                        </div>
                                                     ) : (
-                                                        <div className="relative w-full h-full bg-white" />
+                                                        <div className="relative w-full h-full flex items-center justify-center rounded-md overflow-hidden">
+                                                            {
+                                                                !!selectedTemplate && (
+                                                                    <div
+                                                                        className="bg-white"
+                                                                    >
+                                                                        <Image
+                                                                            src={selectedTemplate?.src}
+                                                                            alt={selectedTemplate?.title || 'Template image'}
+                                                                            className="opacity-0 "
+                                                                        />
+                                                                    </div>
+                                                                )
+                                                            }
+                                                        </div>
                                                     )
                                                 }
                                             </CardContent>
