@@ -5,13 +5,15 @@ import React from 'react';
 
 const PublicLayout = ({ children }) => {
     return (
-        <LenisProvider>
+        <>
+            {/* <LenisProvider> */}
             <Navbar />
             <main>
                 {children}
             </main>
             <Footer />
-        </LenisProvider>
+            {/* </LenisProvider> */}
+        </>
     );
 };
 
