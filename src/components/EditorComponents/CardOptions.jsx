@@ -8,10 +8,10 @@ import {
 } from "@/components/ui/dropdown-menu"
 import cardOptionsData from "@/data/cardOptionsData"
 
-import LayoutDropdown from "./LayoutDropdown"
-import TextOptions from "./TextOptions"
+import LayoutDropdown from "./layoutOptions/LayoutDropdown"
+import TextOptions from "./TextOptions/TextOptions"
 import { StickerIcon } from "lucide-react"
-import StickersOptions from "./StickersOptions"
+import StickersOptions from "./StickersOptions/StickersOptions"
 
 const CardOptions = () => {
     const [activeTab, setActiveTab] = useState(null)   // ✅ Start closed

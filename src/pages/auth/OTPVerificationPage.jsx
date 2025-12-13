@@ -20,7 +20,6 @@ const OTPVerificationPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("OTP Entered:", otp);
         if (otp.length !== 6) {
             toast.error('OTP must be 6 digits');
             return;

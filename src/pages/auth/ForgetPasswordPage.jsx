@@ -27,7 +27,6 @@ const ForgetPasswordPage = () => {
     });
 
     const onSubmit = (data) => {
-        console.log(data);
         notImplementedToast();
         router.push('/otp-verification')
     };

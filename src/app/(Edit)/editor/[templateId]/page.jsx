@@ -4,7 +4,7 @@ import React from 'react';
 const EditTemplate = () => {
     return (
         <>
-            <CardEditorPage />
+            <CardEditorPage /> 
         </>
     );
 };

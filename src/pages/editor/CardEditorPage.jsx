@@ -1,14 +1,17 @@
 'use client'
 
 import CardOptions from '@/components/EditorComponents/CardOptions';
-import { DiscardEditsDialog } from '@/components/EditorComponents/DiscardEditsDialog';
-import { useEditorStore } from '@/store/useEditorStore';
-import { LayoutPanelLeft, Type } from 'lucide-react';
+import CardEditor from '@/components/EditorComponents/Editor/CardEditor';
+import CardTextInsert from '@/components/EditorComponents/Editor/CardTextInsert';
+import { useEditorTemplateStore } from '@/store/useEditorTemplateStore';
 import Image from 'next/image';
 import React from 'react';
 
 const CardEditorPage = () => {
-    const { selectedTemplate } = useEditorStore();
+    const { selectedTemplate } = useEditorTemplateStore();
+
+    let width = selectedTemplate?.src?.width;
+    let height = selectedTemplate?.src?.height;
 
 
     return (
@@ -19,7 +22,9 @@ const CardEditorPage = () => {
                 className='flex gap-10 w-full'
             >
                 {/* template front  */}
-                <div className="relative w-[500px] aspect-3/4">
+                <div className="relative"
+                    style={{ width, height }}
+                >
                     {
                         !!selectedTemplate && (
                             <Image
@@ -40,33 +45,16 @@ const CardEditorPage = () => {
 
                 {/* page and text options  */}
                 <div
-                    className='bg-[#F9FAFB] flex w-full flex-1 aspect-6/4'
+                    className='flex w-full flex-1 max-h-max'
                 >
-                    <div
+                    {/* editor  */}
+                    {/* <div
                         className='w-1/2 aspect-3/4'
-                    ></div>
-                    <div
-                        className='bg-white w-1/2 aspect-3/4 grid grid-cols-1'
-                    >
-                        <div
-                            className='border border-dashed cursor-pointer flex gap-2 items-center text-subtitle font-semibold justify-center m-4'
-                        >
-                            <Type />
-                            <p>Add Text</p>
-                        </div>
-                        <div
-                            className='border border-dashed cursor-pointer text-center flex gap-2 items-center text-subtitle font-semibold justify-center m-4'
-                        >
-                            <p>Happy Birthday! <br />
-                                I Hope You Have a Great Day</p>
-                        </div>
-                        <div
-                            className='border border-dashed cursor-pointer flex gap-2 items-center text-subtitle font-semibold justify-center m-4'
-                        >
-                            <Type />
-                            <p>Add Text</p>
-                        </div>
-                    </div>
+                    ></div> */}
+                    <CardEditor />
+
+                    {/* add text options  */}
+                    <CardTextInsert />
                 </div>
             </div>
         </div>

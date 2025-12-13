@@ -40,7 +40,6 @@ const SignInPage = () => {
 
 
     const onSubmit = (data) => {
-        console.log(data);
         notImplementedToast()
         router.push('/')
     };

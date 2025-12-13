@@ -1,19 +1,39 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+
 
 export const useEditorStore = create(
     persist(
-        (set) => ({
-            selectedTemplate: null,
+        (set, get) => ({
+            editorRef: null,
+            pages: [null, null, null],
+            currentPage: 0,
 
-            setSelectedTemplate: (selectedTemplate) => set({ selectedTemplate }),
+            setEditorRef: (editorRef) => set({ editorRef }),
 
-            resetTemplateStore: () => set({ selectedTemplate: null }),
+            addPage: () => {
+                const { pages } = get();
+                set({ pages: [...pages, null] });
+            },
+
+            setCurrentPage: (index) => {
+                set({ currentPage: index });
+            },
+
+            saveCurrentPage: () => {
+                const { editorRef, pages, currentPage } = get();
+                if (!editorRef) return;
+
+                const json = editorRef.toJSON();
+                const newPages = [...pages];
+                newPages[currentPage] = json;
+                set({ pages: newPages });
+            },
+
+            resetEditorStore: () => {
+                set({ editorRef: null, pages: [null, null, null], currentPage: 0 });
+            }
         }),
-        {
-            name: 'editor-storage', // key in localStorage
-            // optionally, you can serialize/deserialize if needed
-            // getStorage: () => localStorage, // default is localStorage
-        }
+        { name: "editor-storage" }
     )
 );
