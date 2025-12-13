@@ -18,7 +18,7 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref }) =>
         top: 60,
         fontFamily: fontFamily || 'Arial',
 
-        fontSize: fontSize || (26 / zoom),
+        fontSize: fontSize || Math.round(26 / zoom),
         fontWeight: 'bold',
         fill: color || '#000000',
         editable: true,
@@ -28,6 +28,9 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref }) =>
 
     if (position === 'top') {
         textObj.set({
+            paintFirst: 'fill',
+            strokeUniform: true,
+            objectCaching: false,
             left: canvasWidth / (2 * zoom),
             top: canvasHeight / (7 * zoom),
             originX: 'center',
@@ -36,6 +39,9 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref }) =>
     }
     if (position === 'bottom') {
         textObj.set({
+            paintFirst: 'fill',
+            strokeUniform: true,
+            objectCaching: false,
             left: canvasWidth / (2 * zoom),
             top: (canvasHeight / (3 * zoom)) * 2.5,
             originX: 'center',
@@ -44,6 +50,9 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref }) =>
     }
     if (position === 'center') {
         textObj.set({
+            paintFirst: 'fill',
+            strokeUniform: true,
+            objectCaching: false,
             left: canvasWidth / (2 * zoom),
             top: canvasHeight / (2 * zoom),
             originX: 'center',

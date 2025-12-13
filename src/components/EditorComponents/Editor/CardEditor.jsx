@@ -31,6 +31,7 @@ const CardEditor = () => {
         if (!width || !height) return
 
         const fabricCanvas = new fabric.Canvas('canvas', {
+            enableRetinaScaling: true,
             width,
             height,
             backgroundColor: 'white',
@@ -74,6 +75,7 @@ const CardEditor = () => {
         editorRef.setHeight(height * scale);
 
         editorRef.setZoom(scale); // keep original content scale
+        editorRef.setViewportTransform([scale, 0, 0, scale, 0, 0]);
         editorRef.renderAll();
     };
 
