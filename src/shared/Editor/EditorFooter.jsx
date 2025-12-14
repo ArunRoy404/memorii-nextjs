@@ -20,9 +20,11 @@ const EditorFooter = () => {
   const { selectedTemplate } = useEditorTemplateStore();
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const aspectRatio = editorRef?.getWidth() / editorRef?.getHeight() || 3 / 4;
+  let aspectRatio = 3 / 4
 
-
+  if (editorRef?.getWidth) {
+    aspectRatio = editorRef?.getWidth() / editorRef?.getHeight()
+  }
 
   const handleSavePage = () => {
     saveCurrentPage();
