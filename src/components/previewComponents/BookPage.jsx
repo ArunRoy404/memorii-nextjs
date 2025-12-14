@@ -1,10 +1,12 @@
-import CardPreview from "@/shared/Editor/CardPreview";
 import React from "react";
+import RenderBookPage from "./RenderBookPage";
 
 
-export const BookPage = React.forwardRef(({ index }, ref) => (
+export const BookPage = React.forwardRef(({ page }, ref) => (
     <div ref={ref}>
-        <CardPreview index={index} />
+        <RenderBookPage
+            page={page}
+        />
     </div>
 ));
 BookPage.displayName = "BookPage";

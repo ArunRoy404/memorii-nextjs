@@ -36,9 +36,6 @@ const PreviewPage = () => {
         }
     }, [editorRef])
 
-
-    console.log(pages);
-
     if (!bookProps.width && !bookProps.height) return <p>Loading...</p>
     return (
         <div className="h-full w-full overflow-hidden flex items-center justify-center ">
@@ -52,7 +49,10 @@ const PreviewPage = () => {
                 <BookFrontPage src={selectedTemplate?.src} />
                 {
                     pages.map((page, index) => (
-                        <BookPage key={index} index={index} page={page} />
+                        <BookPage
+                            key={index}
+                            page={page}
+                        />
                     ))
                 }
                 <BookBackPage />
