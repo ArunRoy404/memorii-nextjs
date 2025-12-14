@@ -20,10 +20,10 @@ const CardEditor = () => {
 
     const renderDesign = async (ref) => {
         if (pages[currentPage]) {
-            await ref.loadFromJSON(pages[currentPage]);
+            await ref?.loadFromJSON(pages[currentPage]);
         }
-        ref.renderAll();
-        ref.getObjects().forEach(obj => applyCommonStyles(obj));
+        ref?.renderAll();
+        ref?.getObjects()?.forEach(obj => applyCommonStyles(obj));
     }
 
 

@@ -1,6 +1,7 @@
 import { DiscardEditsDialog } from "@/components/EditorComponents/DiscardEditsDialog";
 import { Button } from "@/components/ui/button";
 import { Undo2, Redo2, UserPlus } from "lucide-react";
+import Link from "next/link";
 
 const EditorTopBar = () => {
     return (
@@ -38,9 +39,11 @@ const EditorTopBar = () => {
                         <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
                         Invite
                     </Button>
-                    <Button size="sm" className="w-full sm:w-auto">
-                        Preview
-                    </Button>
+                    <Link href="/editor/preview">
+                        <Button size="sm" className="w-full sm:w-auto">
+                            Preview
+                        </Button>
+                    </Link>
                 </div>
 
             </div>
