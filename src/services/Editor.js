@@ -37,17 +37,6 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref }) =>
             originY: 'center',
         });
     }
-    if (position === 'bottom') {
-        textObj.set({
-            paintFirst: 'fill',
-            strokeUniform: true,
-            objectCaching: false,
-            left: canvasWidth / (2 * zoom),
-            top: (canvasHeight / (3 * zoom)) * 2.5,
-            originX: 'center',
-            originY: 'center',
-        });
-    }
     if (position === 'center') {
         textObj.set({
             paintFirst: 'fill',
@@ -57,7 +46,22 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref }) =>
             top: canvasHeight / (2 * zoom),
             originX: 'center',
             originY: 'center',
+
+            // editable: false,      // can't edit text
+            // selectable: false,    // can't select
+            // evented: false,       // no mouse events
         });
+        if (position === 'bottom') {
+            textObj.set({
+                paintFirst: 'fill',
+                strokeUniform: true,
+                objectCaching: false,
+                left: canvasWidth / (2 * zoom),
+                top: (canvasHeight / (3 * zoom)) * 2.5,
+                originX: 'center',
+                originY: 'center',
+            });
+        }
     }
 
     applyCommonStyles(textObj)
