@@ -2,6 +2,7 @@ import CommonSection from "@/components/common/CommonSection/CommonSection";
 import Logo from "@/components/common/logo/Logo";
 import footerData from "@/data/footerData";
 import FooterLinks from "./FooterLinks";
+import { Facebook, Instagram, LinkedIn, TikTok } from "@/components/svg/SocialIcons";
 
 const Footer = () => {
     return (
@@ -14,6 +15,13 @@ const Footer = () => {
                     <div className="max-w-[300px] flex flex-col gap-2 md:gap-6">
                         <Logo className={'text-4xl md:text-6xl'} />
                         <p className="text-sm md:text-base text-nav-secondary">{footerData?.about}</p>
+
+                        <div className="flex gap-5 items-center">
+                            <Facebook />
+                            <TikTok />
+                            <Instagram />
+                            <LinkedIn />
+                        </div>
                     </div>
 
                     {/* links  */}
