@@ -6,13 +6,13 @@ import React from 'react';
 const PublicLayout = ({ children }) => {
     return (
         <>
-            {/* <LenisProvider> */}
-            <Navbar />
-            <main>
-                {children}
-            </main>
-            <Footer />
-            {/* </LenisProvider> */}
+            <LenisProvider>
+                <Navbar />
+                <main>
+                    {children}
+                </main>
+                <Footer />
+            </LenisProvider>
         </>
     );
 };

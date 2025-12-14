@@ -29,6 +29,7 @@ const TemplateCategoriesDropdown = () => {
                     </SelectTrigger>
 
                     <SelectContent
+                        data-lenis-prevent
                         className='rounded-2xl'
                     >
                         {templatesCategory?.map((template) => (
@@ -54,6 +55,7 @@ const TemplateCategoriesDropdown = () => {
                     </SelectTrigger>
 
                     <SelectContent
+                        data-lenis-prevent
                         className='rounded-2xl'
                     >
                         {occasions[selectedCategory]?.map((occasion) => (
