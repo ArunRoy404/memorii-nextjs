@@ -8,9 +8,9 @@ export const applyCommonStyles = (fabricObj) => {
     // 1. Apply Styles
     fabricObj.set({
         borderColor: '#3b82f6',
-        cornerSize: 10,
+        cornerSize: 5,
         transparentCorners: true,
-        cornerColor: 'transparent',
+        cornerColor: '#3b82f6',
         padding: 10,
     });
 

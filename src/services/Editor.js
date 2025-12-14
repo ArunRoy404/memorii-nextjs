@@ -51,17 +51,17 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref }) =>
             // selectable: false,    // can't select
             // evented: false,       // no mouse events
         });
-        if (position === 'bottom') {
-            textObj.set({
-                paintFirst: 'fill',
-                strokeUniform: true,
-                objectCaching: false,
-                left: canvasWidth / (2 * zoom),
-                top: (canvasHeight / (3 * zoom)) * 2.5,
-                originX: 'center',
-                originY: 'center',
-            });
-        }
+    }
+    if (position === 'bottom') {
+        textObj.set({
+            paintFirst: 'fill',
+            strokeUniform: true,
+            objectCaching: false,
+            left: canvasWidth / (2 * zoom),
+            top: (canvasHeight / (3 * zoom)) * 2.5,
+            originX: 'center',
+            originY: 'center',
+        });
     }
 
     applyCommonStyles(textObj)
