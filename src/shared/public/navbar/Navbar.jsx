@@ -31,7 +31,7 @@ export default function Navbar() {
 
     return (
         <header
-            className={`bg-neutral/80 backdrop-blur-md sticky top-0 z-10 transition-transform duration-500 ease-in-out 
+            className={`bg-neutral/80 backdrop-blur-md sticky top-0 z-100 transition-transform duration-500 ease-in-out 
             ${isVisible ? "translate-y-0" : "-translate-y-full"}`}
         >
             <nav
