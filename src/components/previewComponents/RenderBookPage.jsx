@@ -14,7 +14,7 @@ const RenderBookPage = ({ page }) => {
         width: width,
         height: height,
     }), [width, height])
-    canvas.loadFromJSON(page)
+    if (page) canvas.loadFromJSON(page)
 
 
     useEffect(() => {
@@ -32,16 +32,19 @@ const RenderBookPage = ({ page }) => {
 
     return (
         <div className='w-full h-full relative'>
-
-            {!!dataURL && (
-                <Image
-                    src={dataURL}
-                    alt={'Template preview'}
-                    fill
-                    className="object-cover"
-                />
-            )}
-
+            {!!dataURL
+                ? (
+                    <Image
+                        src={dataURL}
+                        alt={'Template preview'}
+                        fill
+                        className="object-cover"
+                    />
+                )
+                : (
+                    <div className='bg-white w-full h-full' />
+                )
+            }
         </div>
     );
 };
