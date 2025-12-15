@@ -13,6 +13,8 @@ const PreviewPage = () => {
     const { editorRef, pages } = useEditorStore()
     const { selectedTemplate } = useEditorTemplateStore();
 
+    console.log(editorRef);
+
     const [bookProps, setBookProps] = useState({
         width: null,
         height: null,

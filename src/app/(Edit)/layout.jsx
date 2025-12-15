@@ -21,14 +21,14 @@ export default function EditorLayout({ children }) {
 
 
     return (
-        <div className="w-full h-screen bg-gray-100 flex flex-col">
+        <div className="w-full h-screen bg-gray-100 flex flex-col overflow-hidden">
             <EditorTopBar />
             <div className="flex-1" >
                 {children}
             </div>
 
             <div
-                className={`${isPreview ? 'translate-y-full' : 'translate-y-0'} transition-transform duration-300`}
+                className={`sticky bottom-0 w-full ${isPreview ? 'translate-y-full' : 'translate-y-0'} transition-transform duration-1000`}
             >
                 <EditorFooter />
             </div>

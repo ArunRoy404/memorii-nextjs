@@ -1,9 +1,13 @@
 import { DiscardEditsDialog } from "@/components/EditorComponents/DiscardEditsDialog";
 import { Button } from "@/components/ui/button";
+import { useEditorStore } from "@/store/useEditorStore";
 import { Undo2, Redo2, UserPlus } from "lucide-react";
 import Link from "next/link";
 
 const EditorTopBar = () => {
+    const { saveCurrentPage } = useEditorStore()
+
+
     return (
         <div className="p-4 bg-white shadow">
             <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
@@ -40,7 +44,9 @@ const EditorTopBar = () => {
                         Invite
                     </Button>
                     <Link href="/editor/preview">
-                        <Button size="sm" className="w-full sm:w-auto">
+                        <Button
+                            onClick={saveCurrentPage}
+                            size="sm" className="w-full sm:w-auto">
                             Preview
                         </Button>
                     </Link>

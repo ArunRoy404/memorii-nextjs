@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import CardBackPage from "@/components/common/CardBackPage/CardBackPage";
 import { useEditorStore } from "@/store/useEditorStore";
@@ -16,9 +16,11 @@ import CardPreview from "./CardPreview";
 
 
 const EditorFooter = () => {
-  const { saveCurrentPage, setCurrentPage, pages, editorRef } = useEditorStore()
+  const { saveCurrentPage, currentPage, setCurrentPage, pages, editorRef } = useEditorStore()
   const { selectedTemplate } = useEditorTemplateStore();
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(null);
+
+
 
   let aspectRatio = 3 / 4
 
@@ -36,6 +38,8 @@ const EditorFooter = () => {
     setActiveIndex(index);
   }
 
+
+  useEffect(() => { setActiveIndex(currentPage) }, [ currentPage ])
 
   // const handleNextPage = () => {
   //   handleSavePage();

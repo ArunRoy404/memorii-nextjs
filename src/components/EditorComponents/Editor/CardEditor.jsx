@@ -12,7 +12,6 @@ const CardEditor = () => {
     const { editorRef, setEditorRef, pages, currentPage } = useEditorStore()
     const { selectedTemplate } = useEditorTemplateStore();
 
-
     let width = selectedTemplate?.src?.width;
     let height = selectedTemplate?.src?.height;
     const containerRef = useRef(null);
@@ -59,7 +58,8 @@ const CardEditor = () => {
 
 
     const resizeCanvas = () => {
-        if (!containerRef.current || !editorRef?.setZoom) return;
+        if (!containerRef.current || !editorRef?.backgroundColor) return;
+
 
         const parentWidth = containerRef.current.clientWidth;
         const parentHeight = containerRef.current.clientHeight;
@@ -70,11 +70,13 @@ const CardEditor = () => {
 
         // Choose the smaller scale to fit inside parent
         const scale = Math.min(scaleX, scaleY);
+        const editorWidth = width * scale;
+        const editorHeight = height * scale;
 
-        editorRef.setWidth(width * scale);
-        editorRef.setHeight(height * scale);
+        editorRef.setWidth(editorWidth);
+        editorRef.setHeight(editorHeight);
 
-        editorRef.setZoom(scale); // keep original content scale
+        editorRef.setZoom(scale);
         editorRef.setViewportTransform([scale, 0, 0, scale, 0, 0]);
         editorRef.renderAll();
     };
@@ -82,8 +84,6 @@ const CardEditor = () => {
     useEffect(() => {
         resizeCanvas();
     }, [width, height, editorRef]);
-
-
 
 
     return (
