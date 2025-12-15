@@ -43,7 +43,7 @@ const EditorTopBar = () => {
                         <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
                         Invite
                     </Button>
-                    <Link href="/editor/preview">
+                    <Link href="/preview">
                         <Button
                             onClick={saveCurrentPage}
                             size="sm" className="w-full sm:w-auto">
