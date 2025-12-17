@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 import Link from "next/link";
 
-const PreviewTopBar = () => {
+const SendTopBar = () => {
 
 
     return (
@@ -26,11 +26,10 @@ const PreviewTopBar = () => {
 
 
 
-                    <Link href="send">
+                    <Link href="preview">
                         <Button
                             size="sm" className="w-full sm:w-auto">
-                            Send
-                            <Send />
+                            Preview
                         </Button>
                     </Link>
                 </div>
@@ -39,4 +38,4 @@ const PreviewTopBar = () => {
     );
 };
 
-export default PreviewTopBar;
+export default SendTopBar;
