@@ -1,13 +1,14 @@
 'use client';
 
 import HTMLFlipBook from "react-pageflip";
-import {  useRef } from "react";
+import { useRef } from "react";
 import { BookFrontPage } from "@/components/previewComponents/BookFrontPage";
 import { BookPage } from "@/components/previewComponents/BookPage";
 import { BookBackPage } from "@/components/previewComponents/BookBackPage";
 import { Button } from "@/components/ui/button";
 import birthdayTemplate from '@/assets/templateImages/birthdayTemplate2.png';
 import data from '@/demoTemplate/demo-preview.json';
+import Logo from "@/components/common/logo/Logo";
 
 
 const ReceivedPreview = () => {
@@ -24,6 +25,18 @@ const ReceivedPreview = () => {
 
     return (
         <div className="h-full w-full overflow-hidden flex flex-col items-center justify-center ">
+
+            <div className="text-center leading-tight mb-10">
+                <p className="text-2xl font-semibold tracking-wide">
+                    A Memorii for Maishami
+                </p>
+
+                <p className="mt-1 text-sm italic text-gray-500">
+                    From Memorii
+                </p>
+            </div>
+
+
             <HTMLFlipBook
                 ref={bookRef}
                 key={"double"}
@@ -61,6 +74,13 @@ const ReceivedPreview = () => {
                     variant="link" size="sm" className='p-0'>
                     Next
                 </Button>
+            </div>
+
+
+            <div
+                className='text-5xl mt-10'
+            >
+                <Logo />
             </div>
         </div>
     );
