@@ -6,19 +6,16 @@ import EnvelopeDecorationWaves from '@/assets/envelope/EnvelopeDecorationWaves.s
 import EnvelopeLeafBottom from '@/assets/envelope/EnvelopeLeafBottom.svg';
 import EnvelopeLeafTop from '@/assets/envelope/EnvelopeLeafTop.svg';
 import EnvelopeStamp from '@/assets/envelope/EnvelopeStamp.svg';
-import anniversaryTemplate from '@/assets/templateImages/anniversaryTemplate2.jpg';
+import birthdayTemplate from '@/assets/templateImages/birthdayTemplate2.png';
 
 
 import Image from 'next/image';
 import { Button } from '../ui/button';
-import { Type } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import FogTransition from '../fog/FogTransition';
 
-const Envelope = ({ className }) => {
-    const [showText, setShowText] = useState(false)
-    const [text, setText] = useState('')
+const Envelope = ({ className, setIsAnimation }) => {
 
     const envelopeContainerRef = useRef(null)
     const envelopeCoverRef1 = useRef(null)
@@ -97,6 +94,9 @@ const Envelope = ({ className }) => {
                     el.style.height = 'auto';
                     el.style.overflow = 'visible';
                     fogRef.current?.play()
+                    setTimeout(() => {
+                        setIsAnimation(false)
+                    }, 800)
                 }
             }
         );
@@ -111,7 +111,7 @@ const Envelope = ({ className }) => {
     }
 
 
-    
+
 
     return (
         <>
@@ -156,7 +156,7 @@ const Envelope = ({ className }) => {
                 >
                     <Image
                         ref={cardRef}
-                        src={anniversaryTemplate}
+                        src={birthdayTemplate}
                         alt='envelope content'
                         className='absolute left-[50%] -translate-x-[50%] w-[900px] h-auto z-1'
                     />

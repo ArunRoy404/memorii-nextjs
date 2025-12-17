@@ -1,11 +1,24 @@
-import Envelope from '@/components/Envelope/Envelope';
+'use client'
 
-const page = () => {
+import ReceivedPreview from '@/components/EditorComponents/ReceivedPreview/ReceivedPreview';
+import Envelope from '@/components/Envelope/Envelope';
+import { useState } from 'react';
+
+
+const ReceivedPage = () => {
+    const [isAnimation, setIsAnimation] = useState(true);
+
     return (
         <div className='w-screen h-screen flex items-center justify-center overflow-hidden'>
-            <Envelope />
+            {/* {
+                isAnimation ? (
+                    <Envelope setIsAnimation={setIsAnimation} />
+                ) : (
+                )
+            } */}
+            <ReceivedPreview />
         </div>
     );
 };
 
-export default page; 
+export default ReceivedPage; 
