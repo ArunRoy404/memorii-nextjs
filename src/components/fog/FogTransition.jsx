@@ -1,23 +1,30 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react'
 import gsap from 'gsap'
 
-export default function FogTransition() {
+const FogTransition = forwardRef(function FogTransition(_, ref) {
     const fogRef = useRef(null)
-
+    const tlRef = useRef(null)
 
     useEffect(() => {
-        const tl = gsap.timeline()
-        tl
-            // fog gently appears
-            .to(fogRef.current, {
-                opacity: 1,
-                filter: 'blur(15px)',
-                duration: 0.8,
-                ease: 'power2.out',
-            })
+        tlRef.current = gsap.timeline({ paused: true })
+
+        tlRef.current.to(fogRef.current, {
+            opacity: 1,
+            filter: 'blur(15px)',
+            duration: 0.8,
+            ease: 'power2.out',
+        })
     }, [])
+
+    
+    
+    useImperativeHandle(ref, () => ({
+        play: () => tlRef.current?.play(),
+        reverse: () => tlRef.current?.reverse(),
+    }))
+
 
 
     return (
@@ -31,4 +38,6 @@ export default function FogTransition() {
             }}
         />
     )
-}
+})
+
+export default FogTransition
