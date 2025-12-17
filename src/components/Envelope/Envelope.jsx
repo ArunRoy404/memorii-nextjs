@@ -6,19 +6,16 @@ import EnvelopeDecorationWaves from '@/assets/envelope/EnvelopeDecorationWaves.s
 import EnvelopeLeafBottom from '@/assets/envelope/EnvelopeLeafBottom.svg';
 import EnvelopeLeafTop from '@/assets/envelope/EnvelopeLeafTop.svg';
 import EnvelopeStamp from '@/assets/envelope/EnvelopeStamp.svg';
-import anniversaryTemplate from '@/assets/templateImages/anniversaryTemplate2.jpg';
+import birthdayTemplate from '@/assets/templateImages/birthdayTemplate2.png';
 
 
 import Image from 'next/image';
 import { Button } from '../ui/button';
-import { Type } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import FogTransition from '../fog/FogTransition';
 
-const Envelope = ({ className }) => {
-    const [showText, setShowText] = useState(false)
-    const [text, setText] = useState('')
+const Envelope = ({ className, setIsAnimation }) => {
 
     const envelopeContainerRef = useRef(null)
     const envelopeCoverRef1 = useRef(null)
@@ -97,6 +94,9 @@ const Envelope = ({ className }) => {
                     el.style.height = 'auto';
                     el.style.overflow = 'visible';
                     fogRef.current?.play()
+                    setTimeout(() => {
+                        setIsAnimation(false)
+                    }, 800)
                 }
             }
         );
@@ -110,7 +110,7 @@ const Envelope = ({ className }) => {
         })
     }
 
- 
+
 
 
     return (
@@ -156,7 +156,7 @@ const Envelope = ({ className }) => {
                 >
                     <Image
                         ref={cardRef}
-                        src={anniversaryTemplate}
+                        src={birthdayTemplate}
                         alt='envelope content'
                         className='absolute left-[50%] -translate-x-[50%] w-[900px] h-auto z-1'
                     />
@@ -230,29 +230,10 @@ const Envelope = ({ className }) => {
                                 onClick={() => console.log('div clicked')}
                                 className='pl-20 text-envelope-text pt-80 relative z-2'
                             >
-                                {
-                                    showText ?
-                                        (<div>
-                                            <h2 className='text-3xl'>To: </h2>
-                                            <input
-                                                type='text'
-                                                className={`text-[40px] w-80 ${!text ? 'border border-dashed' : ''}`}
-                                                value={text}
-                                                onChange={(e) => setText(e.target.value)}
-                                            />
-                                        </div>
-                                        ) : (
-                                            <div
-                                                onClick={() => setShowText(true)}
-                                                className='cursor-pointer flex items-center gap-2 border w-80 p-4 border-dashed'
-                                            >
-                                                <span className='border '>
-                                                    <Type size={14} />
-                                                </span>
-                                                <span>Add Text</span>
-                                            </div>
-                                        )
-                                }
+                                <div>
+                                    <h2 className='text-3xl'>To: </h2>
+                                    <h1 className='text-[40px] '>Maishami</h1>
+                                </div>
                             </div>
 
 
@@ -261,7 +242,7 @@ const Envelope = ({ className }) => {
                                 variant='link'
                                 className='absolute bottom-10 left-20 p-0  underline hover:scale-100! active:scale-100! text-envelope-text'
                             >
-                                Generate the link
+                                Please click here to open your Memorii mail
                             </Button>
                         </div>
                     </div>
