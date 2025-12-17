@@ -12,8 +12,8 @@ const FogTransition = forwardRef(function FogTransition(_, ref) {
 
         tlRef.current.to(fogRef.current, {
             opacity: 1,
-            filter: 'blur(15px)',
-            duration: 0.8,
+            filter: 'blur(10px)',
+            duration: 1,
             ease: 'power2.out',
         })
     }, [])
