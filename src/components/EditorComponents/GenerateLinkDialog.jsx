@@ -13,11 +13,21 @@ import { Button } from "../ui/button";
 import { Link2 } from "lucide-react";
 import { toast } from "sonner";
 
-export function GenerateLinkDialog() {
+
+
+
+export function GenerateLinkDialog({ text, setIsError }) {
     const [open, setOpen] = useState(false);
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={open} onOpenChange={() => {
+            if (!text && !open) {
+                setIsError(true)
+                return
+            }
+            setIsError(false)
+            setOpen(!open)
+        }}>
             <DialogTrigger asChild>
                 <Button
                     variant='link'

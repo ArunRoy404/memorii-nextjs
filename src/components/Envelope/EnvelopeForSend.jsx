@@ -9,7 +9,6 @@ import EnvelopeStamp from '@/assets/envelope/EnvelopeStamp.svg';
 
 
 import Image from 'next/image';
-import { Button } from '../ui/button';
 import { Type } from 'lucide-react';
 import { useState } from 'react';
 import { GenerateLinkDialog } from '../EditorComponents/GenerateLinkDialog';
@@ -17,6 +16,7 @@ import { GenerateLinkDialog } from '../EditorComponents/GenerateLinkDialog';
 const EnvelopeForSend = ({ className }) => {
     const [showText, setShowText] = useState(false)
     const [text, setText] = useState('')
+    const [isError, setIsError] = useState(false)
 
 
     return (
@@ -85,34 +85,21 @@ const EnvelopeForSend = ({ className }) => {
                                 onClick={() => console.log('div clicked')}
                                 className='pl-20 text-envelope-text pt-80 relative z-2'
                             >
-                                {
-                                    showText ?
-                                        (<div>
-                                            <h2 className='text-3xl'>To: </h2>
-                                            <input
-                                                type='text'
-                                                className={`text-[40px] w-80 ${!text ? 'border border-dashed' : ''}`}
-                                                value={text}
-                                                onChange={(e) => setText(e.target.value)}
-                                            />
-                                        </div>
-                                        ) : (
-                                            <div
-                                                onClick={() => setShowText(true)}
-                                                className='cursor-pointer flex items-center gap-2 border w-80 p-4 border-dashed'
-                                            >
-                                                <span className='border '>
-                                                    <Type size={14} />
-                                                </span>
-                                                <span>Add Text</span>
-                                            </div>
-                                        )
-                                }
+                                <div>
+                                    <h2 className='text-3xl'>To: </h2>
+                                    <input
+                                        onFocus={() => setIsError(false)}
+                                        type='text'
+                                        className={`text-[40px] w-100 ${!text ? 'border border-dashed' : ''} ${isError ? 'border-red-500' : ''}`}
+                                        value={text}
+                                        onChange={(e) => setText(e.target.value)}
+                                        placeholder="Add Recipient Name"
+                                    />
+                                </div>
                             </div>
 
 
-
-                            <GenerateLinkDialog />
+                            <GenerateLinkDialog text={text} setIsError={setIsError} />
                         </div>
                     </div>
                 </div>
