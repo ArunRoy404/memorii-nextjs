@@ -9,12 +9,10 @@ import EnvelopeStamp from '@/assets/envelope/EnvelopeStamp.svg';
 
 
 import Image from 'next/image';
-import { Type } from 'lucide-react';
 import { useState } from 'react';
 import { GenerateLinkDialog } from '../EditorComponents/GenerateLinkDialog';
 
 const EnvelopeForSend = ({ className }) => {
-    const [showText, setShowText] = useState(false)
     const [text, setText] = useState('')
     const [isError, setIsError] = useState(false)
 
