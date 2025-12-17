@@ -133,9 +133,10 @@ const LayoutDropdown = ({ setActiveTab, setOpen }) => {
                             Selecting a new layout will **remove all existing content** (text, images, shapes) <br /> from your current design. This action cannot be undone.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogFooter className='flex items-center'>
+                        <AlertDialogCancel className={'flex-1'}>Cancel</AlertDialogCancel>
                         <AlertDialogAction
+                            className='flex-1'
                             onClick={() => {
                                 // Execute the layout change upon confirmation
                                 if (pendingLayout) {

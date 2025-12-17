@@ -6,7 +6,7 @@ export const useEditorStore = create(
     persist(
         (set, get) => ({
             editorRef: null,
-            pages: [null, null, null],
+            pages: [null, null],
             currentPage: 0,
 
             setEditorRef: (editorRef) => set({ editorRef }),
@@ -31,7 +31,7 @@ export const useEditorStore = create(
             },
 
             resetEditorStore: () => {
-                set({ editorRef: null, pages: [null, null, null], currentPage: 0 });
+                set({ editorRef: null, pages: [null, null], currentPage: 0 });
             }
         }),
         { name: "editor-storage" }

@@ -13,6 +13,8 @@ const CardEditorPage = () => {
     let width = selectedTemplate?.src?.width;
     let height = selectedTemplate?.src?.height;
 
+    const aspectRatio = width / height;
+
 
     return (
         <div
@@ -22,8 +24,8 @@ const CardEditorPage = () => {
                 className='flex gap-10 w-full'
             >
                 {/* template front  */}
-                <div className="relative"
-                    style={{ width, height }}
+                <div className={`relative max-w-[500px]`}
+                    style={{ width, aspectRatio }}
                 >
                     {
                         !!selectedTemplate && (
@@ -31,7 +33,7 @@ const CardEditorPage = () => {
                                 src={selectedTemplate?.src}
                                 alt={selectedTemplate?.title || 'Template image'}
                                 fill
-                                className="object-cover"
+                            // className="object-cover"
                             />
                         )
                     }
@@ -45,7 +47,7 @@ const CardEditorPage = () => {
 
                 {/* page and text options  */}
                 <div
-                    className='flex w-full flex-1 max-h-max'
+                    className='flex w-full  flex-1 max-h-max'
                 >
                     {/* editor  */}
                     {/* <div
