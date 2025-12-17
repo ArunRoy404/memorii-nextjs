@@ -25,6 +25,7 @@ const Envelope = ({ className }) => {
     const envelopeFront = useRef(null)
     const envelopeBack = useRef(null)
     const cardContainerRef = useRef(null)
+    const cardRef = useRef(null)
 
 
 
@@ -88,6 +89,7 @@ const Envelope = ({ className }) => {
             { height: 0, overflow: 'hidden' },
             {
                 height: targetHeight,
+                translateY: '-200',
                 duration: 3.2,
                 ease: 'power3.inOut',
                 onComplete: () => {
@@ -97,6 +99,14 @@ const Envelope = ({ className }) => {
                 }
             }
         );
+
+
+        gsap.to(cardRef.current, {
+            width: '500',
+            delay: 2,
+            duration: 1.2,
+            ease: 'power3.inOut',
+        })
     }
 
 
@@ -143,6 +153,7 @@ const Envelope = ({ className }) => {
                 className='absolute overflow-hidden h-full w-full z-1'
             >
                 <Image
+                    ref={cardRef}
                     src={anniversaryTemplate}
                     alt='envelope content'
                     className='absolute left-[50%] -translate-x-[50%] w-[900px] h-auto z-1'
