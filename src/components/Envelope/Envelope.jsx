@@ -110,8 +110,8 @@ const Envelope = ({ className }) => {
         })
     }
 
- 
 
+    
 
     return (
         <>
@@ -230,29 +230,10 @@ const Envelope = ({ className }) => {
                                 onClick={() => console.log('div clicked')}
                                 className='pl-20 text-envelope-text pt-80 relative z-2'
                             >
-                                {
-                                    showText ?
-                                        (<div>
-                                            <h2 className='text-3xl'>To: </h2>
-                                            <input
-                                                type='text'
-                                                className={`text-[40px] w-80 ${!text ? 'border border-dashed' : ''}`}
-                                                value={text}
-                                                onChange={(e) => setText(e.target.value)}
-                                            />
-                                        </div>
-                                        ) : (
-                                            <div
-                                                onClick={() => setShowText(true)}
-                                                className='cursor-pointer flex items-center gap-2 border w-80 p-4 border-dashed'
-                                            >
-                                                <span className='border '>
-                                                    <Type size={14} />
-                                                </span>
-                                                <span>Add Text</span>
-                                            </div>
-                                        )
-                                }
+                                <div>
+                                    <h2 className='text-3xl'>To: </h2>
+                                    <h1 className='text-[40px] '>Maishami</h1>
+                                </div>
                             </div>
 
 
@@ -261,7 +242,7 @@ const Envelope = ({ className }) => {
                                 variant='link'
                                 className='absolute bottom-10 left-20 p-0  underline hover:scale-100! active:scale-100! text-envelope-text'
                             >
-                                Generate the link
+                                Please click here to open your Memorii mail
                             </Button>
                         </div>
                     </div>
