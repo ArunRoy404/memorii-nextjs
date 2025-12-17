@@ -39,6 +39,7 @@ const PreviewPage = () => {
         }
     }, [editorRef])
 
+    
     if (!bookProps.width && !bookProps.height) return <p>Loading...</p>
     return (
         <div className="h-full w-full overflow-hidden flex flex-col items-center justify-center ">
