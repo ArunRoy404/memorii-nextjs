@@ -6,7 +6,7 @@ import EnvelopeDecorationWaves from '@/assets/envelope/EnvelopeDecorationWaves.s
 import EnvelopeLeafBottom from '@/assets/envelope/EnvelopeLeafBottom.svg';
 import EnvelopeLeafTop from '@/assets/envelope/EnvelopeLeafTop.svg';
 import EnvelopeStamp from '@/assets/envelope/EnvelopeStamp.svg';
-import anniversaryTemplate from '@/assets/templateImages/anniversaryTemplate.png';
+import anniversaryTemplate from '@/assets/templateImages/anniversaryTemplate2.jpg';
 
 
 import Image from 'next/image';
@@ -18,25 +18,38 @@ import gsap from 'gsap';
 const Envelope = ({ className }) => {
     const [showText, setShowText] = useState(false)
     const [text, setText] = useState('')
+
     const envelopeContainerRef = useRef(null)
     const envelopeCoverRef1 = useRef(null)
     const envelopeCoverRef2 = useRef(null)
-    const envelope = useRef(null)
+    const envelopeFront = useRef(null)
+    const envelopeBack = useRef(null)
+    const cardContainerRef = useRef(null)
+
 
 
     useEffect(() => {
+        gsap.set(envelopeContainerRef.current, {
+            transformOrigin: 'top center',
+        });
         gsap.set(envelopeCoverRef1.current, {
             transformOrigin: 'top center',
         });
         gsap.set(envelopeCoverRef2.current, {
             transformOrigin: 'top center',
         });
-        gsap.set(envelopeContainerRef.current, {
-            transformOrigin: 'top center',
-        });
     }, [])
 
+
+
     const handleOpen = () => {
+        gsap.to(envelopeContainerRef.current, {
+            translateY: '100',
+            duration: 1.2,
+            ease: 'power3.inOut',
+        })
+
+
         gsap.to(envelopeCoverRef1.current, {
             rotateX: 180,
             duration: 1.2,
@@ -52,19 +65,40 @@ const Envelope = ({ className }) => {
         });
 
 
-        gsap.to(envelopeContainerRef.current, {
-            translateY: '100',
-            duration: 1.2,
-            ease: 'power3.inOut',
-        })
 
-        gsap.to(envelope.current, {
+        gsap.to(envelopeFront.current, {
             translateY: '500%',
             delay: 1.3,
             duration: 1.2,
             ease: 'power3.inOut',
         })
+        gsap.to(envelopeBack.current, {
+            translateY: '500%',
+            delay: 1.3,
+            duration: 1.2,
+            ease: 'power3.inOut',
+        })
+
+
+        const el = cardContainerRef.current;
+        const targetHeight = el.scrollHeight;
+
+        gsap.fromTo(
+            el,
+            { height: 0, overflow: 'hidden' },
+            {
+                height: targetHeight,
+                duration: 3.2,
+                ease: 'power3.inOut',
+                onComplete: () => {
+                    // allow natural resizing after animation
+                    el.style.height = 'auto';
+                    el.style.overflow = 'visible';
+                }
+            }
+        );
     }
+
 
 
 
@@ -74,30 +108,11 @@ const Envelope = ({ className }) => {
             className='relative max-w-max max-h-max '>
 
 
-            {/* content  */}
-            {/* <div
-                className='absolute overflow-hidden h-full w-full -top-[100px]'
-            > */}
-            {/* content */}
-            {/* <Image
-                    src={anniversaryTemplate}
-                    alt='envelope content'
-                    className='absolute left-[50%] -translate-x-[50%] w-[900px] h-auto z-1'
-                />
-            </div> */}
-
-
-
-
-
-
-
-            {/* envelope  */}
+            {/* envelope back part */}
             <div
-                ref={envelope}
-                onClick={handleOpen}
+                ref={envelopeBack}
                 className={cn(
-                    'cursor-pointer w-[1000px] aspect-[1.76]! bg-envelope relative flex flex-col z-2',
+                    'absolute cursor-pointer w-[1000px] aspect-[1.76]! bg-envelope flex flex-col z-1',
                     className
                 )}
             >
@@ -115,20 +130,40 @@ const Envelope = ({ className }) => {
                 </div>
 
 
-                {/* content */}
-                <div
-                    className='absolute overflow-hidden -top-[100px] h-full w-full'
-                >
-                    <Image
-                        src={anniversaryTemplate}
-                        alt='envelope content'
-                        className='absolute left-[50%] -top-[100px] -translate-x-[50%] w-[900px] h-auto z-1'
-                    />
-                </div>
+                {/* envelope body */}
+                <div className='bg-envelope relative z-10 h-full ' />
+            </div>
 
 
 
-                {/* envelope upper content  */}
+
+            {/* card container */}
+            <div
+                ref={cardContainerRef}
+                className='absolute overflow-hidden h-full w-full z-1'
+            >
+                <Image
+                    src={anniversaryTemplate}
+                    alt='envelope content'
+                    className='absolute left-[50%] -translate-x-[50%] w-[900px] h-auto z-1'
+                />
+            </div>
+
+
+
+
+
+            {/* envelope upper part */}
+            <div
+                ref={envelopeFront}
+                onClick={handleOpen}
+                className={cn(
+                    'cursor-pointer w-[1000px] aspect-[1.76]! bg-envelope relative flex flex-col z-3',
+                    className
+                )}
+            >
+
+                {/* envelope body  */}
                 <div
                     className='bg-envelope relative z-10 h-full '
                 >
