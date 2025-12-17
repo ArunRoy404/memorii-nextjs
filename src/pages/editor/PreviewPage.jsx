@@ -8,6 +8,7 @@ import { BookFrontPage } from "@/components/previewComponents/BookFrontPage";
 import { BookPage } from "@/components/previewComponents/BookPage";
 import { BookBackPage } from "@/components/previewComponents/BookBackPage";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 
 const PreviewPage = () => {
@@ -39,8 +40,10 @@ const PreviewPage = () => {
         }
     }, [editorRef])
 
-    
-    if (!bookProps.width && !bookProps.height) return <p>Loading...</p>
+
+    if (!bookProps.width && !bookProps.height) return <p>Template load failed, create a new template from {" "}
+        <Link className="text-primary underline" href="/templates">here</Link>
+    </p>
     return (
         <div className="h-full w-full overflow-hidden flex flex-col items-center justify-center ">
             <HTMLFlipBook
