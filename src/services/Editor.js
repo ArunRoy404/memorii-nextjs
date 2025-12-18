@@ -3,7 +3,7 @@ import { applyCommonStyles } from './CommonControlStyle';
 import { toast } from 'sonner';
 
 
-export const addText = ({ position, text, fontFamily, fontSize, color, ref }) => {
+export const addText = ({ position, text, fontFamily, fontSize, color, ref, fontWeight }) => {
     if (!ref) return;
 
     // Get canvas width and height
@@ -19,7 +19,7 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref }) =>
         fontFamily: fontFamily || 'Arial',
 
         fontSize: fontSize || Math.round(26 / zoom),
-        fontWeight: 'bold',
+        fontWeight: fontWeight || 'bold',
         fill: color || '#000000',
         editable: true,
     })
