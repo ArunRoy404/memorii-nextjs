@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from "@/components/ui/button"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Select,
     SelectContent,
@@ -10,11 +10,17 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import templatesCategory, { occasions } from "@/data/templateCategories";
+import { useCardTypeStore } from "@/store/useCardTypeStore";
 
 
 const TemplateCategoriesDropdown = () => {
+    const { setCardType } = useCardTypeStore();
     const [selectedCategory, setSelectedCategory] = useState();
     const [selectedOccasion, setSelectedOccasion] = useState();
+
+    useEffect(() => {
+        setCardType(selectedCategory);
+    }, [selectedCategory, setCardType])
 
 
     return (
