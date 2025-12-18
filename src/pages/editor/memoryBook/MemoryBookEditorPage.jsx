@@ -1,26 +1,26 @@
-'use client'
-
 import MemoryEditor from '@/components/EditorComponents/Editor/MemoryEditor';
-import { useEditorTemplateStore } from '@/store/useEditorTemplateStore';
-import React from 'react';
+import TextOptionsMemory from '@/components/EditorComponents/TextOptions/TextOptionsMemory';
+import { Plus } from 'lucide-react';
+
 
 const MemoryBookEditorPage = () => {
-    const { selectedTemplate } = useEditorTemplateStore();
-
-    let width = selectedTemplate?.src?.width;
-    let height = selectedTemplate?.src?.height;
-
-    const aspectRatio = width / height;
-
-
     return (
         <div
             className='container mx-auto px-4 lg:px-0 py-10 flex items-center justify-center'
         >
-            <div
-                className='flex gap-10'
-            >
-                <MemoryEditor />
+            <div>
+                <div
+                    className='flex flex-col gap-10'
+                >
+                    <TextOptionsMemory />
+                    <MemoryEditor />
+                    <div
+                    className='flex items-center gap-2 w-full justify-center border-2 rounded-full py-2 cursor-pointer'
+                    >
+                        <Plus />
+                        <p>Add Page</p>
+                    </div>
+                </div>
             </div>
         </div>
     );
