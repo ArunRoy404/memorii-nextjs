@@ -1,4 +1,5 @@
 import MemoryEditor from '@/components/EditorComponents/Editor/MemoryEditor';
+import MemoryOptions from '@/components/EditorComponents/MemoryOptions';
 import TextOptionsMemory from '@/components/EditorComponents/TextOptions/TextOptionsMemory';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
@@ -7,11 +8,12 @@ import { Plus } from 'lucide-react';
 const MemoryBookEditorPage = () => {
     return (
         <div>
-
             {/* left options  */}
             <div
-                className='h-10 w-10 sticky top-[50%] -translate-y-[50%] left-10 '
+                className='max-w-max max-h-max flex flex-col gap-6 items-center fixed top-[50%] -translate-y-[50%] left-10'
             >
+                <MemoryOptions />
+
                 <Button
                     className='rounded-full'
                     size='icon'
@@ -24,13 +26,13 @@ const MemoryBookEditorPage = () => {
 
             {/* center elements  */}
             <div
-                className='container mx-auto px-4 lg:px-0 py-5 flex items-center justify-center relative'
+                className='max-w-max max-h-max mx-auto px-4 lg:px-0 py-10 flex items-center justify-center relative'
             >
                 <div
                     className='flex flex-col gap-5'
                 >
                     <div
-                    className='sticky top-10 z-1'
+                        className='sticky top-10 z-1'
                     >
                         <TextOptionsMemory />
                     </div>
