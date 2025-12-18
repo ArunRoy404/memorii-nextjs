@@ -30,7 +30,7 @@ export default function EditorLayout({ children }) {
 
 
     return (
-        <div className="w-full h-screen bg-gray-100 flex flex-col overflow-hidden">
+        <div className="w-full h-screen bg-gray-100 flex flex-col">
             <div
                 className={`absolute top-0 w-full ${isEditor ? '-translate-y-full' : 'translate-y-0'} transition-transform duration-500`}
             >
@@ -50,7 +50,7 @@ export default function EditorLayout({ children }) {
             </div>
 
 
-            <div className="flex-1" >
+            <div className="flex-1 overflow-y-scroll" >
                 {children}
             </div>
 

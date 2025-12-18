@@ -1,9 +1,15 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export const useCardTypeStore = create(
-    (set) => ({
-        cardType: 'eCard',
-        setCardType: (type) => set({ cardType: type }),
-        resetCardType: () => set({ cardType: 'eCard' }),
-    })
+    persist(
+        (set) => ({
+            cardType: "memory",
+            setCardType: (type) => set({ cardType: type }),
+            resetCardType: () => set({ cardType: "eCard" }),
+        }),
+        {
+            name: "card-type-store",
+        }
+    )
 );
