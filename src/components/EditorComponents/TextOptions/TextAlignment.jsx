@@ -12,7 +12,7 @@ import {
 import { List, TextAlignCenter, TextAlignEnd, TextAlignJustify, TextAlignStart } from 'lucide-react';
 import { toast } from 'sonner';
 
-const TextAlignment = () => {
+const TextAlignment = ({ className }) => {
     const { editorRef } = useEditorStore();
     const [textAlign, setTextAlign] = useState('left');
     const [disabled, setDisabled] = useState(true);
@@ -62,7 +62,10 @@ const TextAlignment = () => {
     }[textAlign] || TextAlignStart;
 
     return (
-        <div className="flex flex-col gap-1 w-full">
+        <div className={cn(
+            "flex flex-col gap-1 w-full",
+            className
+        )}>
             {/* Alignment Dropdown */}
             <DropdownMenu>
                 <DropdownMenuTrigger asChild disabled={disabled}>

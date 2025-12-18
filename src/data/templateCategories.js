@@ -1,7 +1,7 @@
 const templatesCategory = [
     {
-        key: 'card',
-        category: 'Card',
+        key: 'eCard',
+        category: 'E Card',
     },
     {
         key: 'memory_book',
@@ -10,7 +10,7 @@ const templatesCategory = [
 ];
 
 export const occasions = {
-    card: [
+    eCard: [
         { key: 'birthday_adults', occasion: 'Birthday – Adults' },
         { key: 'birthday_kids', occasion: 'Birthday – Kids' },
         { key: 'birthday_milestones', occasion: 'Birthday – Milestones' },

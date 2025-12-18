@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { cn } from '@/lib/utils';
 
-const TextStyles = () => {
+const TextStyles = ({ className }) => {
     const { editorRef } = useEditorStore();
     const [styles, setStyles] = useState({
         fontWeight: 'normal',
@@ -80,7 +80,10 @@ const TextStyles = () => {
     };
 
     return (
-        <div className="flex flex-col gap-1 w-full">
+        <div className={cn(
+            "flex flex-col gap-1 w-full",
+            className
+        )}>
             <Button
                 variant="ghost"
                 size="icon"
