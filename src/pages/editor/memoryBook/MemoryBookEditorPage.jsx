@@ -2,10 +2,13 @@ import MemoryEditor from '@/components/EditorComponents/Editor/MemoryEditor';
 import MemoryOptions from '@/components/EditorComponents/MemoryOptions';
 import TextOptionsMemory from '@/components/EditorComponents/TextOptions/TextOptionsMemory';
 import { Button } from '@/components/ui/button';
+import { useEditorStore } from '@/store/useEditorStore';
 import { Plus } from 'lucide-react';
 
 
 const MemoryBookEditorPage = () => {
+    const { addPage } = useEditorStore();
+
     return (
         <div>
             {/* left options  */}
@@ -38,6 +41,7 @@ const MemoryBookEditorPage = () => {
                     </div>
                     <MemoryEditor />
                     <div
+                        onClick={() => addPage()}
                         className='flex items-center gap-2 w-full justify-center border-2 rounded-full py-2 cursor-pointer'
                     >
                         <Plus />

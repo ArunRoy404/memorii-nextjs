@@ -103,7 +103,7 @@ export const addSticker = async ({ svgURL, editorRef }) => {
 
 
 export const handleDeleteObject = ({ e, ref }) => {
-    if (e.key == 'Delete' || e.key == 'Backspace') {
+    if (e.key == 'Delete') {
         const activeObjects = ref.getActiveObjects();
         if (activeObjects.length) {
             activeObjects.forEach((obj) => ref.remove(obj));

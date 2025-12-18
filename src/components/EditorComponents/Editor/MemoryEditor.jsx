@@ -2,7 +2,7 @@
 
 
 import { applyCommonStyles } from "@/services/CommonControlStyle";
-import { handleDeleteObject } from "@/services/Editor";
+import { addText, handleDeleteObject } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import * as fabric from "fabric";
 import { useEffect, useRef } from "react";
@@ -46,6 +46,24 @@ const MemoryEditor = () => {
 
         const handleDelete = (e) => handleDeleteObject({ e, ref: fabricCanvas })
         window.addEventListener("keydown", handleDelete);
+
+        // double click text
+        // fabricCanvas.upperCanvasEl.addEventListener("dblclick", (e) => {
+        //     const rect = fabricCanvas.upperCanvasEl.getBoundingClientRect();
+        //     const x = e.clientX - rect.left;
+        //     const y = e.clientY - rect.top;
+
+        //     const text = new fabric.Textbox("New Text", {
+        //         left: x,
+        //         top: y,
+        //         fontSize: 20,
+        //         fill: "#000",
+        //     });
+
+        //     fabricCanvas.add(text);
+        //     fabricCanvas.setActiveObject(text);
+        //     text.enterEditing();
+        // });
 
         return () => {
             window.removeEventListener("keydown", handleDelete);
