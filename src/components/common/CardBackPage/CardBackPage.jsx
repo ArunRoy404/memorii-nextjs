@@ -11,8 +11,8 @@ const CardBackPage = ({ className }) => {
             )}
             style={{ containerType: 'inline-size' }}
         >
-            <Logo noAction className='text-[15cqw]' />
-            <p className='text-[6cqw]' >Where memories live forever</p>
+            <Logo noAction className='text-[10cqw]' />
+            <p className='text-[4cqw]' >Where memories live forever</p>
         </div>
     );
 };

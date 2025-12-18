@@ -23,7 +23,6 @@ const MemoryBookEditorPage = () => {
                 >
                     <Plus />
                 </Button>
-
             </div>
 
 
