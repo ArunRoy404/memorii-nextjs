@@ -7,7 +7,7 @@ import TextAlignment from "./TextAlignment";
 const TextOptionsMemory = () => {
     return (
         <div
-            className="bg-white flex gap-1 mx-auto items-center max-w-max rounded-2xl p-3"
+            className="flex gap-1 bg-white shadow-md mx-auto items-center max-w-max rounded-2xl p-3"
         >
             <FontStyleSelection />
             <FontSizeSelection />
