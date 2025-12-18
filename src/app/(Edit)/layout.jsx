@@ -32,19 +32,19 @@ export default function EditorLayout({ children }) {
     return (
         <div className="w-full h-screen bg-gray-100 flex flex-col">
             <div
-                className={`absolute top-0 w-full ${isEditor ? '-translate-y-full' : 'translate-y-0'} transition-transform duration-500`}
+                className={`absolute z-10 top-0 w-full ${isEditor ? '-translate-y-full' : 'translate-y-0'} transition-transform duration-500`}
             >
                 <EditorTopBar />
             </div>
 
             <div
-                className={`absolute top-0 w-full ${!isPreview ? '-translate-y-full' : 'translate-y-0'} transition-transform duration-1000`}
+                className={`absolute z-10 top-0 w-full ${!isPreview ? '-translate-y-full' : 'translate-y-0'} transition-transform duration-1000`}
             >
                 <PreviewTopBar />
             </div>
 
             <div
-                className={`sticky top-0 w-full ${!isSend ? '-translate-y-full' : 'translate-y-0'} transition-transform duration-1000`}
+                className={`sticky top-0 z-10 w-full ${!isSend ? '-translate-y-full' : 'translate-y-0'} transition-transform duration-1000`}
             >
                 <SendTopBar />
             </div>

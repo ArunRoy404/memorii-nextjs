@@ -1,6 +1,11 @@
-import { Sticker, Type } from "lucide-react";
+import { Image, Sticker, Type } from "lucide-react";
 
 const memoryOptionsData = [
+    {
+        icon: <Image />,
+        label: 'Image',
+        key: 'image',
+    },
     {
         icon: <Type />,
         label: 'Text',

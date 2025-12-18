@@ -11,6 +11,7 @@ import TextOptions from "./TextOptions/TextOptions"
 import StickersOptions from "./StickersOptions/StickersOptions"
 import memoryOptionsData from "@/data/memoryOptionsData"
 import MemoryTextInsert from "./Editor/MemoryTextInsert"
+import MemoryImageInsert from "./Editor/MemoryImageInsert"
 
 const MemoryOptions = () => {
     const [activeTab, setActiveTab] = useState(null)
@@ -51,6 +52,9 @@ const MemoryOptions = () => {
 
             {open && !!activeTab && (
                 <>
+                    {/* ✅ Image Content */}
+                    {activeTab === 'image' && <MemoryImageInsert />}
+
                     {/* ✅ Text Content */}
                     {activeTab === 'text' && <MemoryTextInsert />}
 
