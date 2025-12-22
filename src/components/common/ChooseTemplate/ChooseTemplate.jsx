@@ -36,8 +36,14 @@ export default function ChooseTemplate() {
     const [selectedSize, setSelectedSize] = useState(1);
     const router = useRouter()
 
-
+    
     const handleSelectTemplate = () => {
+        localStorage.removeItem('card-type-store')
+        localStorage.removeItem('editor-storage')
+        localStorage.removeItem('editor-template-storage')
+        localStorage.removeItem('text-object')
+
+
         setSelectedTemplate(null)
         selectTemplateForEdit(selectedTemplate)
         resetEditorStore()
