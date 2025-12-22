@@ -10,10 +10,12 @@ import cardOptionsData from "@/data/cardOptionsData"
 
 import LayoutDropdown from "./layoutOptions/LayoutDropdown"
 import TextOptions from "./TextOptions/TextOptions"
-import { StickerIcon } from "lucide-react"
+import { Plus, StickerIcon } from "lucide-react"
 import StickersOptions from "./StickersOptions/StickersOptions"
+import { useEditorStore } from "@/store/useEditorStore"
 
 const CardOptions = () => {
+    const { addPage } = useEditorStore();
     const [activeTab, setActiveTab] = useState(null)   // ✅ Start closed
     const [open, setOpen] = useState(false)           // ✅ Control Dropdown
 
@@ -45,6 +47,14 @@ const CardOptions = () => {
                             <p>{item.label}</p>
                         </button>
                     ))}
+
+                    <button
+                        onClick={() => addPage()}
+                        className={`cursor-pointer flex border rounded-xl flex-col items-center justify-center px-4 py-2 font-semibold`}
+                    >
+                        <Plus />
+                        <p>Add Page</p>
+                    </button>
                 </div>
             </DropdownMenuTrigger>
 
