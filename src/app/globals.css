@@ -45,6 +45,33 @@ body {
 
 
 
+/* Width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track (background) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle (thumb) — SQUARE */
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 0;
+  /* ✅ makes it square */
+}
+
+/* Hover effect */
+::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
+}
+
+
+
+
+
+
 @theme inline {
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
