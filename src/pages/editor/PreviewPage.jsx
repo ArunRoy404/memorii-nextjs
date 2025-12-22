@@ -9,28 +9,34 @@ import { BookPage } from "@/components/previewComponents/BookPage";
 import { BookBackPage } from "@/components/previewComponents/BookBackPage";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useCardTypeStore } from "@/store/useCardTypeStore";
 
 
 const PreviewPage = () => {
     const { editorRef, pages } = useEditorStore()
     const { selectedTemplate } = useEditorTemplateStore();
-
     const bookRef = useRef(null)
+    const { cardType } = useCardTypeStore()
+
 
     const [bookProps, setBookProps] = useState({
         width: null,
         height: null,
     })
 
-
     useEffect(() => {
         if (editorRef?.getWidth) {
-            let width = Math.round(editorRef?.getWidth())
-            let height = Math.round(editorRef?.getHeight())
+            const maxWidth = 500
 
-            if (width > 500) {
-                width = 500
-                height = Math.round(height * (500 / width))
+            const originalWidth = Math.round(editorRef?.getWidth())
+            const originalHeight = Math.round(editorRef?.getHeight())
+            let width = originalWidth
+            let height = originalHeight
+
+
+            if (width > maxWidth) {
+                height = Math.round(height * (maxWidth / width))
+                width = maxWidth
             }
 
             setBookProps({
@@ -56,12 +62,25 @@ const PreviewPage = () => {
             >
                 <BookFrontPage src={selectedTemplate?.src} />
                 {
-                    pages.map((page, index) => (
-                        <BookPage
-                            key={index}
-                            page={page}
-                        />
-                    ))
+                    pages.map((page, index) => {
+                        if (cardType === 'eCard') {
+                            return (
+                                <BookPage
+                                    key={index}
+                                    page={page}
+                                />
+                            )
+                        } else {
+                            return (
+                                <BookPage
+                                    key={index}
+                                    page={page}
+                                    width={760}
+                                    height={1080}
+                                />
+                            )
+                        }
+                    })
                 }
                 <BookBackPage />
             </HTMLFlipBook>

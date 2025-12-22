@@ -2,7 +2,7 @@
 
 
 import { applyCommonStyles } from "@/services/CommonControlStyle";
-import { handleDeleteObject } from "@/services/Editor";
+import { doubleClickToText, handleDeleteObject, handleRemoveText } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import * as fabric from "fabric";
@@ -40,46 +40,43 @@ const CardEditor = () => {
         fabricCanvas.setLayout = (newLayout) => { fabricCanvas.layout = newLayout }
         fabricCanvas.setBackgroundColor = (newColor) => { fabricCanvas.backgroundColor = newColor }
 
+        doubleClickToText({ ref: fabricCanvas })
 
         setEditorRef(fabricCanvas);
         renderDesign(fabricCanvas)
 
-
         const handleDelete = (e) => handleDeleteObject({ e, ref: fabricCanvas })
+        const handleRemove = (e) => handleRemoveText({ e, ref: fabricCanvas })
         window.addEventListener("keydown", handleDelete);
+        window.addEventListener("keydown", handleRemove);
+
+
 
         return () => {
             window.removeEventListener("keydown", handleDelete);
+            window.removeEventListener("keydown", handleRemove);
             fabricCanvas.dispose();
         }
     }, [width, height, currentPage])
 
 
 
-
     const resizeCanvas = () => {
-        if (!containerRef.current || !editorRef?.backgroundColor) return;
-
+        // Check if the actual Fabric DOM elements are ready
+        if (!editorRef || !editorRef.lowerCanvasEl || !containerRef.current) return;
 
         const parentWidth = containerRef.current.clientWidth;
-        const parentHeight = containerRef.current.clientHeight;
+        const scale = parentWidth / width;
 
-        const scaleX = parentWidth / width;
-        const scaleY = parentHeight / height;
-
-
-        // Choose the smaller scale to fit inside parent
-        const scale = Math.min(scaleX, scaleY);
-        const editorWidth = width * scale;
-        const editorHeight = height * scale;
-
-        editorRef.setWidth(editorWidth);
-        editorRef.setHeight(editorHeight);
-
+        editorRef.setDimensions({
+            width: width * scale,
+            height: height * scale
+        });
         editorRef.setZoom(scale);
-        editorRef.setViewportTransform([scale, 0, 0, scale, 0, 0]);
-        editorRef.renderAll();
+        editorRef.requestRenderAll();
     };
+
+
 
     useEffect(() => {
         resizeCanvas();

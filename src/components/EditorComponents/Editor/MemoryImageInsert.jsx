@@ -30,7 +30,6 @@ const MemoryImageInsert = () => {
             reader.onload = async () => {
                 const img = await fabric.Image.fromURL(reader.result);
 
-                console.log(img);
 
                 img.scaleToWidth(200);
 

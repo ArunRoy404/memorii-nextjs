@@ -17,9 +17,9 @@ import weddingTemplate2 from "@/assets/templateImages/weddingTemplate2.png";
 
 const templateData = [
     { id: 1, title: "Anniversary", src: anniversaryTemplate1 },
-    { id: 2, title: "Anniversary", src: anniversaryTemplate2 },
-    { id: 3, title: "Anniversary", src: anniversaryTemplate3 },
-    { id: 4, title: "ThankYou", src: thankYouTemplate1 },
+    // { id: 2, title: "Anniversary", src: anniversaryTemplate2 },
+    // { id: 3, title: "Anniversary", src: anniversaryTemplate3 },
+    // { id: 4, title: "ThankYou", src: thankYouTemplate1 },
     { id: 5, title: "Birthday", src: birthdayTemplate1 },
     { id: 6, title: "Wedding", src: weddingTemplate },
     { id: 7, title: "Retirement", src: retirementTemplate1 },

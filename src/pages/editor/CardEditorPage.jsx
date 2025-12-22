@@ -2,14 +2,12 @@
 
 import CardOptions from '@/components/EditorComponents/CardOptions';
 import CardEditor from '@/components/EditorComponents/Editor/CardEditor';
-import CardTextInsert from '@/components/EditorComponents/Editor/CardTextInsert';
 import { useEditorTemplateStore } from '@/store/useEditorTemplateStore';
 import Image from 'next/image';
 import React from 'react';
 
 const CardEditorPage = () => {
     const { selectedTemplate } = useEditorTemplateStore();
-
     let width = selectedTemplate?.src?.width;
     let height = selectedTemplate?.src?.height;
 
@@ -20,8 +18,9 @@ const CardEditorPage = () => {
         <div
             className='container mx-auto px-4 lg:px-0 h-full flex items-center justify-center'
         >
+
             <div
-                className='flex gap-10 w-full'
+                className='flex gap-10 mx-auto'
             >
                 {/* template front  */}
                 <div className={`relative max-w-[500px]`}
@@ -47,7 +46,7 @@ const CardEditorPage = () => {
 
                 {/* page and text options  */}
                 <div
-                    className='flex w-full  flex-1 max-h-max'
+                    className='flex max-h-max'
                 >
                     {/* editor  */}
                     {/* <div
@@ -56,7 +55,7 @@ const CardEditorPage = () => {
                     <CardEditor />
 
                     {/* add text options  */}
-                    <CardTextInsert />
+                    {/* <CardTextInsert /> */}
                 </div>
             </div>
         </div>

@@ -112,3 +112,47 @@ export const handleDeleteObject = ({ e, ref }) => {
         }
     }
 }
+
+export const handleRemoveText = ({ e, ref }) => {
+    if (e.key === 'Backspace') {
+        const activeObject = ref.getActiveObject();
+
+        if (activeObject && activeObject.type === 'i-text' || activeObject.type === 'textbox') {
+            activeObject.set('text', '')
+            activeObject.enterEditing()
+            activeObject.hiddenTextarea.focus()
+            ref.requestRenderAll()
+        }
+
+    }
+}
+
+
+export const doubleClickToText = ({ ref }) => {
+    ref.on('mouse:dblclick', (options) => {
+        if (options.target) return;
+
+        const pointer = ref.getPointer(options.e);
+
+        const newText = new fabric.IText('', {
+            left: pointer.x,
+            top: pointer.y,
+            fontFamily: 'Arial',
+            fontSize: 26,
+            fontWeight: 'bold',
+            fill: '#000000',
+            editable: true,
+            objectCaching: false
+        });
+
+        applyCommonStyles(newText);
+
+        ref.add(newText);
+        ref.setActiveObject(newText);
+
+        newText.enterEditing();
+        newText.hiddenTextarea?.focus();
+
+        ref.requestRenderAll();
+    });
+}
