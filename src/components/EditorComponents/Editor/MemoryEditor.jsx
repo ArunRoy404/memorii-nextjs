@@ -39,6 +39,7 @@ const MemoryEditor = () => {
         fabricCanvas.setLayout = (newLayout) => { fabricCanvas.layout = newLayout }
         fabricCanvas.setBackgroundColor = (newColor) => { fabricCanvas.backgroundColor = newColor }
 
+        doubleClickToText({ ref: fabricCanvas })
 
         setEditorRef(fabricCanvas);
         renderDesign(fabricCanvas);
@@ -46,17 +47,14 @@ const MemoryEditor = () => {
 
         const handleDelete = (e) => handleDeleteObject({ e, ref: fabricCanvas })
         const handleRemove = (e) => handleRemoveText({ e, ref: fabricCanvas })
-        const handleDoubleClick = () => doubleClickToText({ ref: fabricCanvas })
         window.addEventListener("keydown", handleDelete);
         window.addEventListener("keydown", handleRemove);
-        window.addEventListener("dblclick", handleDoubleClick);
 
 
 
         return () => {
             window.removeEventListener("keydown", handleDelete);
             window.removeEventListener("keydown", handleRemove);
-            window.removeEventListener("dblclick", handleDoubleClick);
             fabricCanvas.dispose();
         }
     }, [currentPage])

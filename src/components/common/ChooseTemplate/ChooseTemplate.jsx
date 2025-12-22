@@ -38,7 +38,7 @@ export default function ChooseTemplate() {
 
     
     const handleSelectTemplate = () => {
-        localStorage.removeItem('card-type-store')
+        // localStorage.removeItem('card-type-store')
         localStorage.removeItem('editor-storage')
         localStorage.removeItem('editor-template-storage')
         localStorage.removeItem('text-object')
