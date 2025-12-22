@@ -1,6 +1,6 @@
 import { DiscardEditsDialog } from "@/components/EditorComponents/DiscardEditsDialog";
 import { Button } from "@/components/ui/button";
-import { Send } from "lucide-react";
+import { ArrowDownToLine, Send } from "lucide-react";
 import Link from "next/link";
 
 const PreviewTopBar = () => {
@@ -18,12 +18,19 @@ const PreviewTopBar = () => {
 
                 {/* Right / bottom: Invite + Preview */}
                 <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
+
+
                     <Link href="/editor/1">
                         <Button variant='outline' size="sm" className="flex items-center gap-1 justify-center w-full sm:w-auto">
                             Edit Design
                         </Button>
                     </Link>
 
+
+                    <Button notImplemented variant='outline' size="sm" className="flex items-center gap-1 justify-center w-full sm:w-auto">
+                        Download
+                        <ArrowDownToLine />
+                    </Button>
 
 
                     <Link href="send">
