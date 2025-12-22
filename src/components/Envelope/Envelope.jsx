@@ -227,7 +227,6 @@ const Envelope = ({ className, setIsAnimation }) => {
 
 
                             <div
-                                onClick={() => console.log('div clicked')}
                                 className='pl-20 text-envelope-text pt-80 relative z-2'
                             >
                                 <div>

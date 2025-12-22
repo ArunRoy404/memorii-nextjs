@@ -63,11 +63,6 @@ const RenderBookPage = ({ page, width: w, height: h }) => {
     }, [page, canvas]);
 
 
-
-    console.log('page', page);
-
-
-
     return (
         <div className='w-full h-full relative'>
             {!!dataURL
