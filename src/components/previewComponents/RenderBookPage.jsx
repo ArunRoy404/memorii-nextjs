@@ -23,7 +23,7 @@ const RenderBookPage = ({ page, width: w, height: h }) => {
         canvas.renderAll();
     }
 
-    
+
 
     useEffect(() => {
         const renderCanvas = async () => {
@@ -64,7 +64,7 @@ const RenderBookPage = ({ page, width: w, height: h }) => {
 
 
     return (
-        <div className='w-full h-full relative'>
+        <div className='w-full h-full relative shadow-[0_4px_12px_rgba(0,0,0,0.15),0_1px_3px_rgba(0,0,0,0.1)]'>
             {!!dataURL
                 ? (
                     <Image

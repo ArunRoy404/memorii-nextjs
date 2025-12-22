@@ -56,7 +56,7 @@ export default function EditorLayout({ children }) {
 
 
             <div
-                className={`sticky bottom-0 w-full ${isEditor ? 'translate-y-full' : 'translate-y-0'} transition-transform duration-500`}
+                className={`bottom-0 w-full ${isEditor ? 'fixed translate-y-full' : 'translate-y-0'} transition-transform duration-500`}
             >
                 <EditorFooter />
             </div>
