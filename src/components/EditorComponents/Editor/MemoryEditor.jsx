@@ -2,7 +2,7 @@
 
 
 import { applyCommonStyles } from "@/services/CommonControlStyle";
-import { addText, handleDeleteObject } from "@/services/Editor";
+import { addText, handleDeleteObject, handleRemoveText } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import * as fabric from "fabric";
 import { useEffect, useRef } from "react";
@@ -45,7 +45,10 @@ const MemoryEditor = () => {
 
 
         const handleDelete = (e) => handleDeleteObject({ e, ref: fabricCanvas })
+        const handleRemove = (e) => handleRemoveText({ e, ref: fabricCanvas })
         window.addEventListener("keydown", handleDelete);
+        window.addEventListener("keydown", handleRemove);
+
 
         // double click text
         // fabricCanvas.upperCanvasEl.addEventListener("dblclick", (e) => {
@@ -67,6 +70,7 @@ const MemoryEditor = () => {
 
         return () => {
             window.removeEventListener("keydown", handleDelete);
+            window.removeEventListener("keydown", handleRemove);
             fabricCanvas.dispose();
         }
     }, [currentPage])

@@ -112,3 +112,17 @@ export const handleDeleteObject = ({ e, ref }) => {
         }
     }
 }
+
+export const handleRemoveText = ({ e, ref }) => {
+    if (e.key === 'Backspace') {
+        const activeObject = ref.getActiveObject();
+
+        if (activeObject && activeObject.type === 'i-text' || activeObject.type === 'textbox') {
+            activeObject.set('text', '')
+            activeObject.enterEditing()
+            activeObject.hiddenTextarea.focus()
+            ref.requestRenderAll()
+        }
+
+    }
+}
