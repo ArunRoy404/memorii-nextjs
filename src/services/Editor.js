@@ -126,3 +126,32 @@ export const handleRemoveText = ({ e, ref }) => {
 
     }
 }
+
+export const doubleClickToText = ({ ref }) => {
+    ref.on('mouse:dblclick', (options) => {
+        if (options.target) return
+
+        const pointer = ref.getPointer(options.e);
+
+        const newText = new fabric.IText('', {
+            left: pointer.x,
+            top: pointer.y,
+            fontFamily: 'Arial',
+            fontSize: 26,
+            fontWeight: 'bold',
+            fill: '#000000',
+            editable: true,
+        })
+
+        applyCommonStyles(newText)
+    
+        ref.add(newText)
+        ref.setActiveObject(newText)
+
+        newText.enterEditing()
+        newText.selectAll()
+        newText.hiddenTextarea.focus()
+
+        ref.requestRenderAll()
+    })
+}

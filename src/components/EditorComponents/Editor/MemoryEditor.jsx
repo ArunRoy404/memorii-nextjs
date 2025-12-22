@@ -2,7 +2,7 @@
 
 
 import { applyCommonStyles } from "@/services/CommonControlStyle";
-import { addText, handleDeleteObject, handleRemoveText } from "@/services/Editor";
+import { addText, doubleClickToText, handleDeleteObject, handleRemoveText } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import * as fabric from "fabric";
 import { useEffect, useRef } from "react";
@@ -46,31 +46,17 @@ const MemoryEditor = () => {
 
         const handleDelete = (e) => handleDeleteObject({ e, ref: fabricCanvas })
         const handleRemove = (e) => handleRemoveText({ e, ref: fabricCanvas })
+        const handleDoubleClick = () => doubleClickToText({ ref: fabricCanvas })
         window.addEventListener("keydown", handleDelete);
         window.addEventListener("keydown", handleRemove);
+        window.addEventListener("dblclick", handleDoubleClick);
 
 
-        // double click text
-        // fabricCanvas.upperCanvasEl.addEventListener("dblclick", (e) => {
-        //     const rect = fabricCanvas.upperCanvasEl.getBoundingClientRect();
-        //     const x = e.clientX - rect.left;
-        //     const y = e.clientY - rect.top;
-
-        //     const text = new fabric.Textbox("New Text", {
-        //         left: x,
-        //         top: y,
-        //         fontSize: 20,
-        //         fill: "#000",
-        //     });
-
-        //     fabricCanvas.add(text);
-        //     fabricCanvas.setActiveObject(text);
-        //     text.enterEditing();
-        // });
 
         return () => {
             window.removeEventListener("keydown", handleDelete);
             window.removeEventListener("keydown", handleRemove);
+            window.removeEventListener("dblclick", handleDoubleClick);
             fabricCanvas.dispose();
         }
     }, [currentPage])

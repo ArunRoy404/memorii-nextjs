@@ -2,7 +2,7 @@
 
 
 import { applyCommonStyles } from "@/services/CommonControlStyle";
-import { handleDeleteObject, handleRemoveText } from "@/services/Editor";
+import { doubleClickToText, handleDeleteObject, handleRemoveText } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import * as fabric from "fabric";
@@ -46,12 +46,17 @@ const CardEditor = () => {
 
         const handleDelete = (e) => handleDeleteObject({ e, ref: fabricCanvas })
         const handleRemove = (e) => handleRemoveText({ e, ref: fabricCanvas })
+        const handleDoubleClick = () => doubleClickToText({ ref: fabricCanvas })
         window.addEventListener("keydown", handleDelete);
         window.addEventListener("keydown", handleRemove);
+        window.addEventListener("dblclick", handleDoubleClick);
+
+
 
         return () => {
             window.removeEventListener("keydown", handleDelete);
             window.removeEventListener("keydown", handleRemove);
+            window.removeEventListener("dblclick", handleDoubleClick);
             fabricCanvas.dispose();
         }
     }, [width, height, currentPage])
