@@ -127,9 +127,10 @@ export const handleRemoveText = ({ e, ref }) => {
     }
 }
 
+
 export const doubleClickToText = ({ ref }) => {
     ref.on('mouse:dblclick', (options) => {
-        if (options.target) return
+        if (options.target) return;
 
         const pointer = ref.getPointer(options.e);
 
@@ -141,17 +142,17 @@ export const doubleClickToText = ({ ref }) => {
             fontWeight: 'bold',
             fill: '#000000',
             editable: true,
-        })
+            objectCaching: false
+        });
 
-        applyCommonStyles(newText)
-    
-        ref.add(newText)
-        ref.setActiveObject(newText)
+        applyCommonStyles(newText);
 
-        newText.enterEditing()
-        newText.selectAll()
-        newText.hiddenTextarea.focus()
+        ref.add(newText);
+        ref.setActiveObject(newText);
 
-        ref.requestRenderAll()
-    })
+        newText.enterEditing();
+        newText.hiddenTextarea?.focus();
+
+        ref.requestRenderAll();
+    });
 }
