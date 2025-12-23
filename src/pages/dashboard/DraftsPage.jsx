@@ -7,7 +7,7 @@ function DraftsPage() {
         title: 'Birthday Wishes for Mom',
         type: 'e-card',
         lastEdited: 'Last edited 2 days ago',
-        status: 'Active',
+        status: 'Draft',
         image: draftImage,
         viewButton: true,
         editButton: true,
