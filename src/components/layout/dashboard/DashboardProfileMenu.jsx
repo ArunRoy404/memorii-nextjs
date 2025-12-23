@@ -6,6 +6,7 @@ import {
     SidebarMenuSub,
     SidebarMenuSubButton,
     SidebarMenuSubItem,
+    useSidebar,
 } from "@/components/ui/sidebar"
 import {
     ChevronRight,
@@ -19,6 +20,11 @@ import { usePathname } from "next/navigation";
 
 const DashboardProfileMenu = () => {
     const pathname = usePathname()
+    const { setOpenMobile } = useSidebar()
+
+    const handleLinkClick = () => {
+        setOpenMobile(false)
+    }
 
     return (
         <Collapsible
@@ -42,8 +48,12 @@ const DashboardProfileMenu = () => {
 
                         {/* account details  */}
                         <SidebarMenuSubItem>
-                            <SidebarMenuSubButton asChild className={`${pathname === '/dashboard/my-account' ? 'text-primary' : 'text-dashboard-primary'} hover:text-primary`}>
-                                <Link href='/dashboard/my-account' >
+                            <SidebarMenuSubButton
+                                onClick={handleLinkClick}
+                                asChild className={`${pathname === '/dashboard/my-account' ? 'text-primary' : 'text-dashboard-primary'} hover:text-primary`}>
+                                <Link href='/dashboard/my-account'
+                                    onClick={handleLinkClick}
+                                >
                                     My Account Details
                                 </Link>
                             </SidebarMenuSubButton>
@@ -52,8 +62,12 @@ const DashboardProfileMenu = () => {
 
                         {/* account password  */}
                         <SidebarMenuSubItem>
-                            <SidebarMenuSubButton asChild className={`${pathname === '/dashboard/my-password' ? 'text-primary' : 'text-dashboard-primary'} hover:text-primary`}>
-                                <Link href='/dashboard/my-password' >
+                            <SidebarMenuSubButton
+                                onClick={handleLinkClick}
+                                asChild className={`${pathname === '/dashboard/my-password' ? 'text-primary' : 'text-dashboard-primary'} hover:text-primary`}>
+                                <Link href='/dashboard/my-password'
+                                    onClick={handleLinkClick}
+                                >
                                     Password
                                 </Link>
                             </SidebarMenuSubButton>

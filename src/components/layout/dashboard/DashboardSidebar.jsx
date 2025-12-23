@@ -14,9 +14,6 @@ import {
     LogOut,
 } from 'lucide-react';
 import Logo from "@/components/common/logo/Logo";
-import Link from "next/link";
-import DashboardProfileMenu from "./DashboardProfileMenu";
-import dashboardMenuItems from "@/data/dashboardMenuItems";
 import DashboardNavigation from "@/components/dashboardComponents/DashboardNavigation";
 
 

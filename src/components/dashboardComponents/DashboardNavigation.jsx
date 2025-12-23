@@ -3,30 +3,38 @@
 import dashboardMenuItems from '@/data/dashboardMenuItems';
 import Link from 'next/link';
 import React from 'react';
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar';
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '../ui/sidebar'; // Added useSidebar
 import DashboardProfileMenu from '../layout/dashboard/DashboardProfileMenu';
 import { usePathname } from 'next/navigation';
 
-
-
 const DashboardNavigation = () => {
-    const pathname = usePathname()
+    const pathname = usePathname();
+    const { setOpenMobile } = useSidebar();
+
+    const handleLinkClick = () => {
+        setOpenMobile(false);
+    };
 
     return (
         <SidebarMenu>
-
             {/* profile option  */}
             <DashboardProfileMenu />
-
 
             {/* navigation  */}
             {
                 dashboardMenuItems?.map(menu => (
-                    <Link href={menu?.link} key={menu?.label}>
+                    <Link
+                        href={menu?.link}
+                        key={menu?.label}
+                        onClick={handleLinkClick}
+                    >
                         <SidebarMenuItem
                             className={`${pathname === menu?.link ? 'bg-primary' : ''} rounded-md`}
                         >
-                            <SidebarMenuButton tooltip={menu?.label} className="text-white cursor-pointer">
+                            <SidebarMenuButton
+                                tooltip={menu?.label}
+                                className="text-white cursor-pointer"
+                            >
                                 {menu?.icon && <menu.icon />}
                                 {menu?.label}
                             </SidebarMenuButton>
