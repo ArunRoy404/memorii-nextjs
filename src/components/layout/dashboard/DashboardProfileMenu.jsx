@@ -25,11 +25,11 @@ const DashboardProfileMenu = () => {
         >
             <SidebarMenuItem>
 
-                <CollapsibleTrigger asChild className='bg-dashboard-primary data-[state=open]:bg-primary cursor-pointer'>
+                <CollapsibleTrigger asChild className='bg-dashboard-primary data-[state=open]:bg-primary hover:data-[state=open]:bg-primary hover:data-[state=open]:text-white cursor-pointer'>
                     <SidebarMenuButton tooltip="My Account" className='text-white'>
                         <LayoutDashboard />
                         <span>My Account</span>
-                        <ChevronRight className="text-white ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                        <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                     </SidebarMenuButton>
                 </CollapsibleTrigger>
 
