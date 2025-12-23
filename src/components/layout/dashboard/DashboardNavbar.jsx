@@ -10,7 +10,7 @@ const DashboardNavbar = () => {
             <div className='flex justify-between items-center w-full'>
                 {/* text-lg on mobile, text-xl on desktop to save space */}
                 <h2 className="text-lg sm:text-xl font-semibold text-gray-900 truncate mr-2">
-                    My Account Details
+                    Dashboard
                 </h2>
 
                 <div className="flex items-center gap-3 sm:gap-4 shrink-0">
