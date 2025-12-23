@@ -21,7 +21,7 @@ const MobileNavSheet = () => {
                     <Menu className='scale-110' />
                 </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-64">
+            <SheetContent side="left" className="w-64 z-100">
                 <SheetHeader>
                     <SheetTitle>
                         <Logo />
