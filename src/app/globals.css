@@ -3,7 +3,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-
 body {
   font-family: var(--font-inter);
 }
@@ -43,8 +42,6 @@ body {
   opacity: 0;
 }
 
-
-
 /* Width */
 ::-webkit-scrollbar {
   width: 4px;
@@ -67,12 +64,9 @@ body {
   cursor: pointer;
 }
 
-
-
-
-
-
 @theme inline {
+  --color-dashboard-primary: var(--dashboard-primary);
+
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
 
@@ -89,12 +83,9 @@ body {
   --color-placeholder: var(--placeholder-color);
   --color-footer: var(--footer-color);
 
-
   --color-border: var(--border);
   --color-envelope: var(--envelope);
   --color-envelope-text: var(--envelope-text);
-
-
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -130,6 +121,8 @@ body {
 }
 
 :root {
+  --dashboard-primary: #0E1F3A;
+
   --primary: #08A2A6;
   --secondary: #E2F6F6;
   --primary-foreground: #111827;
@@ -146,11 +139,8 @@ body {
 
   --border: #CCC;
 
-
   --envelope: #84AC88;
   --envelope-text: #FFFBEC;
-
-
 
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -183,6 +173,8 @@ body {
 }
 
 .dark {
+  --dashboard-primary: #0E1F3A;
+
   --primary: #08A2A6;
   --secondary: #E2F6F6;
   --primary-foreground: #111827;
@@ -199,11 +191,8 @@ body {
 
   --border: #CCC;
 
-
   --envelope: #84AC88;
   --envelope-text: #FFFBEC;
-
-
 
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -243,7 +232,6 @@ body {
     @apply bg-background text-foreground;
   }
 }
-
 
 .page {
   background: white;

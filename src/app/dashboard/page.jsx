@@ -59,72 +59,12 @@ export default function MemoriiDashboard() {
         },
     ];
 
-    const menuItems = [
-        { icon: CreditCard, label: 'My Account', active: true, submenu: ['My Account Details', 'Password'] },
-        { icon: CreditCard, label: 'Active eCards', active: false },
-        { icon: Book, label: 'Active eMemory Books', active: false },
-        { icon: FileText, label: 'Drafts', active: false },
-        { icon: Send, label: 'Sent', active: false },
-        { icon: Inbox, label: 'Received', active: false },
-        { icon: PlusCircle, label: 'Create New', active: false },
-    ];
 
     return (
-        <div className="flex h-screen bg-gray-50">
-            {/* Sidebar */}
-            <aside className="w-48 bg-slate-900 text-white flex flex-col">
-                {/* Logo */}
-                <div className="p-6">
-                    <h1 className="text-2xl font-bold">
-                        <span className="text-white">Mem</span>
-                        <span className="text-orange-500">o</span>
-                        <span className="text-white">rii</span>
-                    </h1>
-                </div>
-
-                {/* Navigation */}
-                <nav className="flex-1 px-3">
-                    {menuItems.map((item, index) => (
-                        <div key={index}>
-                            <button
-                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg mb-1 transition-colors ${item.active
-                                    ? 'bg-teal-500 text-white'
-                                    : 'text-gray-300 hover:bg-slate-800'
-                                    }`}
-                            >
-                                <item.icon className="w-4 h-4" />
-                                <span className="text-sm">{item.label}</span>
-                            </button>
-                            {item.submenu && item.active && (
-                                <div className="ml-4 mb-2">
-                                    {item.submenu.map((sub, subIndex) => (
-                                        <button
-                                            key={subIndex}
-                                            className={`w-full text-left px-3 py-2 text-sm rounded-lg transition-colors ${subIndex === 0
-                                                ? 'text-white bg-slate-800'
-                                                : 'text-gray-400 hover:text-white hover:bg-slate-800'
-                                                }`}
-                                        >
-                                            {sub}
-                                        </button>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    ))}
-                </nav>
-
-                {/* Sign Out */}
-                <div className="p-3">
-                    <button className="w-full flex items-center gap-3 px-3 py-2.5 text-red-400 hover:bg-slate-800 rounded-lg transition-colors">
-                        <LogOut className="w-4 h-4" />
-                        <span className="text-sm">Sign Out</span>
-                    </button>
-                </div>
-            </aside>
-
+        <div className="h-screen w-full bg-gray-50">
+          
             {/* Main Content */}
-            <main className="flex-1 overflow-auto">
+            <main className="overflow-auto">
                 {/* Header */}
                 <header className="bg-white border-b px-8 py-4 flex justify-between items-center">
                     <h2 className="text-xl font-semibold text-gray-900">My Account Details</h2>
