@@ -1,7 +1,7 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Eye, Edit, FileHeart, BookOpen } from 'lucide-react';
+import { Eye, Edit, FileHeart, BookOpen, Download, Link2 } from 'lucide-react';
 import Image from 'next/image';
 
 
@@ -72,6 +72,28 @@ const DashboardCard = ({ card }) => {
                             >
                                 <Edit className="w-4 h-4" />
                                 Edit
+                            </Button>
+                        )
+                    }
+                    {
+                        card?.downloadButton && (
+                            <Button
+                                variant="outline"
+                                className="flex items-center justify-center gap-2"
+                                size="sm"
+                            >
+                                <Download className="w-4 h-4" />
+                            </Button>
+                        )
+                    }
+                    {
+                        card?.copyButton && (
+                            <Button
+                                variant="outline"
+                                className=" flex items-center justify-center gap-2"
+                                size="sm"
+                            >
+                                <Link2 className="w-4 h-4" />
                             </Button>
                         )
                     }
