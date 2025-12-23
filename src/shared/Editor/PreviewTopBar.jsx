@@ -1,7 +1,8 @@
 import { DiscardEditsDialog } from "@/components/EditorComponents/DiscardEditsDialog";
 import { Button } from "@/components/ui/button";
-import { ArrowDownToLine, Send } from "lucide-react";
+import { Send } from "lucide-react";
 import Link from "next/link";
+import DownloadCard from "./DownloadCard";
 
 const PreviewTopBar = () => {
 
@@ -27,10 +28,7 @@ const PreviewTopBar = () => {
                     </Link>
 
 
-                    <Button notImplemented variant='outline' size="sm" className="flex items-center gap-1 justify-center w-full sm:w-auto">
-                        Download
-                        <ArrowDownToLine />
-                    </Button>
+                    <DownloadCard />
 
 
                     <Link href="send">
