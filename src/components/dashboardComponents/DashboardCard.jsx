@@ -1,7 +1,7 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Eye, Edit, FileHeart } from 'lucide-react';
+import { Eye, Edit, FileHeart, BookOpen } from 'lucide-react';
 import Image from 'next/image';
 
 
@@ -29,7 +29,13 @@ const DashboardCard = ({ card }) => {
             <CardContent className="p-4">
                 {/* Type Badge */}
                 <div className="flex items-center gap-1.5 text-gray-500 mb-2">
-                    <FileHeart className="w-4 h-4" />
+                    {
+                        card?.type === 'e-card' ? (
+                            <FileHeart className="w-4 h-4" />
+                        ) : card?.type === 'e-memory-book' ? (
+                            <BookOpen className="w-4 h-4" />
+                        ) : null
+                    }
                     <span className="text-sm">{card?.type}</span>
                 </div>
 

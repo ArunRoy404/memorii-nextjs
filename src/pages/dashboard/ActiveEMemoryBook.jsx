@@ -1,14 +1,14 @@
-import cardImage from '@/assets/images/cardImage.jpg'
+import bookImage from '@/assets/images/bookImage.jpg'
 import DashboardCard from '@/components/dashboardComponents/DashboardCard';
 
 
-function ActiveECardsPage() {
+const ActiveEMemoryBook = () => {
     const cards = Array(9).fill({
-        title: 'Birthday Wishes for Mom',
-        type: 'e-card',
-        lastEdited: 'Last edited 2 days ago',
+        title: "Sarah's Wedding Memory Book",
+        type: 'e-memory-book',
+        lastEdited: 'Last edited 1 days ago',
         status: 'Active',
-        image: cardImage,
+        image: bookImage,
         viewButton: true,
         editButton: true,
     });
@@ -27,4 +27,4 @@ function ActiveECardsPage() {
     );
 };
 
-export default ActiveECardsPage;
+export default ActiveEMemoryBook;
