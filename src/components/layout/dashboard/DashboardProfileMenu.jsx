@@ -1,3 +1,5 @@
+'use client'
+
 import {
     SidebarMenuButton,
     SidebarMenuItem,
@@ -11,10 +13,13 @@ import {
 } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 
 
 const DashboardProfileMenu = () => {
+    const pathname = usePathname()
+
     return (
         <Collapsible
             asChild
@@ -37,7 +42,7 @@ const DashboardProfileMenu = () => {
 
                         {/* account details  */}
                         <SidebarMenuSubItem>
-                            <SidebarMenuSubButton asChild className="text-dashboard-primary hover:text-primary">
+                            <SidebarMenuSubButton asChild className={`${pathname === '/dashboard/my-account' ? 'text-primary' : 'text-dashboard-primary'} hover:text-primary`}>
                                 <Link href='/dashboard/my-account' >
                                     My Account Details
                                 </Link>
@@ -47,7 +52,7 @@ const DashboardProfileMenu = () => {
 
                         {/* account password  */}
                         <SidebarMenuSubItem>
-                            <SidebarMenuSubButton asChild className="text-dashboard-primary hover:text-primary">
+                            <SidebarMenuSubButton asChild className={`${pathname === '/dashboard/my-password' ? 'text-primary' : 'text-dashboard-primary'} hover:text-primary`}>
                                 <Link href='/dashboard/my-password' >
                                     Password
                                 </Link>

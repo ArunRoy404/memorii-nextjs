@@ -15,7 +15,7 @@ const DashboardNavbar = () => {
 
                 <div className="flex items-center gap-3 sm:gap-4 shrink-0">
                     <div className="flex items-center gap-2">
-                        <AvatarUser src="/placeholder.jpg" alt="Esther Howard" />
+                        <AvatarUser src="" alt="Esther Howard" />
                         {/* Hidden on small screens, shown on sm (640px) and up */}
                         <span className="hidden sm:block text-sm font-medium whitespace-nowrap">
                             Esther Howard

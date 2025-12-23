@@ -17,6 +17,7 @@ import Logo from "@/components/common/logo/Logo";
 import Link from "next/link";
 import DashboardProfileMenu from "./DashboardProfileMenu";
 import dashboardMenuItems from "@/data/dashboardMenuItems";
+import DashboardNavigation from "@/components/dashboardComponents/DashboardNavigation";
 
 
 
@@ -45,27 +46,9 @@ export function DashboardSidebar(props) {
                 className='bg-dashboard-primary'
             >
                 <SidebarGroup>
-                    <SidebarGroupLabel>Platform</SidebarGroupLabel>
-                    <SidebarMenu>
+                    <SidebarGroupLabel className='text-white'>Navigation</SidebarGroupLabel>
 
-                        {/* profile option  */}
-                        <DashboardProfileMenu />
-
-
-                        {/* navigation  */}
-                        {
-                            dashboardMenuItems?.map(menu => (
-                                <Link href={menu?.link} key={menu?.label}>
-                                    <SidebarMenuItem>
-                                        <SidebarMenuButton tooltip={menu?.label} className="text-white cursor-pointer">
-                                            {menu?.icon && <menu.icon />}
-                                            {menu?.label}
-                                        </SidebarMenuButton>
-                                    </SidebarMenuItem>
-                                </Link>
-                            ))
-                        }
-                    </SidebarMenu>
+                    <DashboardNavigation />
                 </SidebarGroup>
             </SidebarContent>
 

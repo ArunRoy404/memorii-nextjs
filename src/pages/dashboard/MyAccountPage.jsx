@@ -27,7 +27,7 @@ const MyAccountPage = () => {
 
                         {/* Stacks on mobile (flex-col), stays row on larger devices (md:flex-row) */}
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 border-b pb-6">
-                            <AvatarUser className="w-20 h-20" src="/placeholder.jpg" alt={name} />
+                            <AvatarUser className="w-20 h-20" src="" alt={name} />
 
                             <div className="flex gap-3">
                                 <Button variant="outline" notImplemented size="sm" className="flex-1 md:flex-none">Remove photo</Button>
