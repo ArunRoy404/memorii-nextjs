@@ -19,7 +19,11 @@ const DashboardCard = ({ card }) => {
                     sizes="(max-width: 768px) 100vw, 50vw"
                 />
                 <Badge
-                    className={` ${card?.status === 'Draft' ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-teal-500 hover:bg-teal-600'} absolute top-3 right-3 text-white border-0`}
+                    className={`
+                        ${card?.status === 'Draft' ? 'bg-yellow-500 hover:bg-yellow-600'
+                            : card?.status === 'Received' ? 'bg-blue-500 hover:bg-blue-600'
+                                : card?.status === 'Sent' ? 'bg-green-500 hover:bg-green-600'
+                                    : 'bg-teal-500 hover:bg-teal-600'} absolute top-3 right-3 text-white border-0`}
                 >
                     {card?.status}
                 </Badge>
