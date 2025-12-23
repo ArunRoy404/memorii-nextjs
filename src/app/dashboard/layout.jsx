@@ -11,7 +11,7 @@ const layout = ({ children }) => {
 
             <SidebarInset>
                 <main
-                    className='flex flex-col max-h-screen overflow-hidden'
+                    className='flex flex-col min-h-screen max-h-screen overflow-hidden'
                 >
                     <DashboardNavbar />
 
@@ -22,7 +22,7 @@ const layout = ({ children }) => {
                             {children}
 
                             {/* Footer */}
-                            <div className="text-center pt-6">
+                            <div className="text-center py-6">
                                 <p className="text-xs text-gray-500">{footerData.copyright}</p>
                             </div>
                         </div>
