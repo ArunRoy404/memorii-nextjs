@@ -11,7 +11,7 @@ const layout = ({ children }) => {
 
             <SidebarInset>
                 <main
-                    className='flex flex-col min-h-screen overflow-hidden'
+                    className='flex flex-col max-h-screen overflow-hidden'
                 >
                     <DashboardNavbar />
 

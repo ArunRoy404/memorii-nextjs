@@ -1,11 +1,4 @@
-import React from 'react';
+import ActiveECardsPage from '@/pages/dashboard/ActiveECardsPage';
 
-const page = () => {
-    return (
-        <div>
-            e cards
-        </div>
-    );
-};
-
+const page = () => <ActiveECardsPage />
 export default page;
