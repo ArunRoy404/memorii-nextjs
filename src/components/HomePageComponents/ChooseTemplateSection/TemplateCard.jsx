@@ -3,7 +3,7 @@ import TemplateCardClick from './TemplateCardClick';
 
 const TemplateCard = ({ template }) => {
     return (
-        <div className='relative cursor-pointer flex flex-col items-center gap-4 md:gap-8'>
+        <div className='relative cursor-pointer flex flex-col items-center gap-4 md:gap-8 group'>
             <div className='overflow-hidden rounded-3xl group'>
                 <TemplateCardClick template={template} />
                 <div className='aspect-3/4 w-full'>
