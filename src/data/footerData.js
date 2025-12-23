@@ -51,7 +51,7 @@ const footerData = {
             ],
         },
     ],
-    copyright: "Copyright @ Memorii 2025. All Rights Reserved.",
+    copyright: `Copyright @ Memorii ${new Date().getFullYear()}. All Rights Reserved.`,
 };
 
 export default footerData;
