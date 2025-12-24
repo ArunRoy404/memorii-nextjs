@@ -14,10 +14,10 @@ const footerData = {
         {
             label: "My Memorii",
             links: [
-                { label: "My e-Cards", link: "/my-ecards" },
-                { label: "My e-Memory Books", link: "/my-memory-books" },
-                { label: "Create New e-Card", link: "/create-ecard" },
-                { label: "Create New e-Memory Book", link: "/create-memory-book" },
+                { label: "My e-Cards", link: "/dashboard/active-e-cards" },
+                { label: "My e-Memory Books", link: "/dashboard/active-e-memory-books" },
+                { label: "Create New e-Card", link: "/templates" },
+                { label: "Create New e-Memory Book", link: "/templates" },
             ],
         },
         {
