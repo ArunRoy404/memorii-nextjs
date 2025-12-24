@@ -6,7 +6,7 @@ const TermsCTA = () => {
         <section className="bg-gray-900 py-12 md:py-16 px-6 text-center text-white">
             <div className="max-w-2xl mx-auto">
                 <h2 className="text-2xl md:text-3xl font-bold mb-4">Questions about these terms?</h2>
-                <p className="opacity-70 mb-8 text-sm md:text-base">If you're unsure about any part of this agreement, our legal team is happy to clarify.</p>
+                <p className="opacity-70 mb-8 text-sm md:text-base">{`If you're unsure about any part of this agreement, our legal team is happy to clarify.`}</p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link
                         href='/contact'

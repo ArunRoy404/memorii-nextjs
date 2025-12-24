@@ -1,5 +1,15 @@
 const { EyeOff, Lock, UserCheck, FileText } = require("lucide-react");
 
+const getTodayDate = () =>
+    new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+
+const lastUpdated = getTodayDate();
+
+
 const policySections = [
     {
         id: "item-1",
@@ -26,8 +36,6 @@ const policySections = [
         content: "You have the right to access, update, or delete your personal information at any time. If you wish to remove a contribution from a Memory Book you've signed, you can do so through your dashboard or by contacting support."
     }
 ];
-
-const lastUpdated = "October 24, 2025";
 
 
 

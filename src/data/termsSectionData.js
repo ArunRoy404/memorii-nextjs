@@ -1,6 +1,14 @@
 import { AlertCircle, CreditCard, FileText, Gavel, UserPlus } from "lucide-react";
 
-const termsValidTo = "December 24, 2025";
+const getTodayDate = () =>
+    new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+
+const termsValidTo = getTodayDate();
+
 
 const termSections = [
     {
