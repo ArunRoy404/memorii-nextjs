@@ -61,7 +61,7 @@ const ContactInformation = () => {
 
                     return (
                         <div key={index} className="flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-primary">
+                            <div className="h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-primary">
                                 <Icon size={20} />
                             </div>
 
