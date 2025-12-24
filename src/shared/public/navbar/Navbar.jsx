@@ -50,9 +50,9 @@ export default function Navbar() {
                         <Link href="/login">
                             <Button >Login</Button>
                         </Link>
-                        <Link href="/get-started">
+                        {/* <Link href="/get-started">
                             <Button variant="outlineShiny">Get Started</Button>
-                        </Link>
+                        </Link> */}
                     </div>
 
                     {/* Mobile Menu */}

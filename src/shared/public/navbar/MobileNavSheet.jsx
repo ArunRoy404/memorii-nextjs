@@ -39,9 +39,9 @@ const MobileNavSheet = () => {
                     <Link href="/login">
                         <Button className='w-full' >Login</Button>
                     </Link>
-                    <Link href="/get-started">
+                    {/* <Link href="/get-started">
                         <Button variant="outline" className='w-full'>Get Started</Button>
-                    </Link>
+                    </Link> */}
                 </SheetFooter>
 
             </SheetContent>
