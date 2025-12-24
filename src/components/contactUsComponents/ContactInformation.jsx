@@ -6,6 +6,7 @@ import {
     Phone,
     Twitter,
 } from "lucide-react";
+import Link from "next/link";
 
 const contactInfo = [
     {
@@ -46,7 +47,7 @@ const socialLinks = [
 
 const ContactInformation = () => {
     return (
-        <div className="bg-blue-50/50 p-8 rounded-3xl border border-blue-100 shadow-sm relative overflow-hidden">
+        <div className="bg-blue-50/50 p-6 md:p-8 rounded-3xl border border-blue-100 shadow-sm relative overflow-hidden">
             {/* Decorative blob */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-teal-100 rounded-full blur-3xl opacity-50 -translate-y-1/2 translate-x-1/2" />
 
@@ -61,7 +62,7 @@ const ContactInformation = () => {
 
                     return (
                         <div key={index} className="flex items-center gap-4">
-                            <div className="h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-primary">
+                            <div className="p-2 rounded-full bg-white shadow-sm flex items-center justify-center text-primary">
                                 <Icon size={20} />
                             </div>
 
@@ -82,13 +83,13 @@ const ContactInformation = () => {
                     const Icon = social.icon;
 
                     return (
-                        <a
+                        <Link
                             key={index}
                             href={social.href}
                             className={`p-2 bg-white rounded-full text-gray-600 ${social.hoverColor} shadow-sm transition`}
                         >
                             <Icon size={20} />
-                        </a>
+                        </Link>
                     );
                 })}
             </div>
