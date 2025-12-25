@@ -2,7 +2,7 @@
 
 
 import { applyCommonStyles } from "@/services/CommonControlStyle";
-import { addText, doubleClickToText, handleDeleteObject, handleRemoveText } from "@/services/Editor";
+import { addText, doubleClickToText, handleDeleteObject, handleRemoveText, touchToText } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import * as fabric from "fabric";
 import { useEffect, useRef } from "react";
@@ -40,6 +40,7 @@ const MemoryEditor = () => {
         fabricCanvas.setBackgroundColor = (newColor) => { fabricCanvas.backgroundColor = newColor }
 
         doubleClickToText({ ref: fabricCanvas })
+        touchToText({ ref: fabricCanvas })
 
         setEditorRef(fabricCanvas);
         renderDesign(fabricCanvas);

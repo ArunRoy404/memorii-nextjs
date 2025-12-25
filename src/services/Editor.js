@@ -161,6 +161,44 @@ export const doubleClickToText = ({ ref }) => {
 
 
 
+export const touchToText = ({ ref }) => {
+    let lastTapTime = 0
+    const doubleTapDelay = 300
+
+
+    ref.on('touchstart', (options) => {
+        const currentTapTime = new Date().getTime()
+        const pointer = ref.getPointer(options.e)
+
+        if (currentTapTime - lastTapTime < doubleTapDelay) {
+
+            const newText = new fabric.IText('', {
+                left: pointer.x,
+                top: pointer.y,
+                fontFamily: 'Arial',
+                fontSize: 26,
+                fontWeight: 'bold',
+                fill: '#000000',
+                editable: true,
+                objectCaching: false
+            });
+
+            applyCommonStyles(newText)
+            ref.add(newText);
+            ref.setActiveObject(newText);
+
+            newText.enterEditing();
+            newText.hiddenTextarea?.focus();
+
+            ref.requestRenderAll();
+        } else {
+            lastTapTime = currentTapTime
+        }
+    })
+}
+
+
+
 
 export const handleDownloadPDF = (images = [], fileName = "test.pdf") => {
     toast.success("Downloading PDF...");
