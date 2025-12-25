@@ -23,7 +23,7 @@ const CardEditorPage = () => {
                 className='flex gap-10 mx-auto'
             >
                 {/* template front  */}
-                <div className={`relative max-w-[500px]`}
+                <div className={`hidden xl:block relative max-w-[500px]`}
                     style={{ width, aspectRatio }}
                 >
                     {
@@ -39,8 +39,11 @@ const CardEditorPage = () => {
                 </div>
 
 
+
                 {/* options  */}
-                <CardOptions />
+                <div className='hidden md:block'>
+                    <CardOptions />
+                </div>
 
 
 
