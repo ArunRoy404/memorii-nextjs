@@ -21,7 +21,7 @@ const EditorTopBar = () => {
                         <DiscardEditsDialog />
 
                         {/* actions for mobile drawer  */}
-                        <div className="md:hidden">
+                        <div className="md:hidden ">
                             <ActionDrawer>
                                 <Button variant='outline' size="sm" className="flex items-center gap-1 justify-center w-full sm:w-auto">
                                     <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
