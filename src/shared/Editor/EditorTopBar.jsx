@@ -3,11 +3,11 @@ import StickersDrawer from "@/components/EditorComponents/Drawer/StickersDrawer"
 import TextOptionsDrawer from "@/components/EditorComponents/Drawer/TextOptionsDrawer";
 import { Button } from "@/components/ui/button";
 import { useEditorStore } from "@/store/useEditorStore";
-import { Undo2, Redo2, UserPlus } from "lucide-react";
+import { Undo2, Redo2, UserPlus, Plus } from "lucide-react";
 import Link from "next/link";
 
 const EditorTopBar = () => {
-    const { saveCurrentPage } = useEditorStore()
+    const { saveCurrentPage, addPage } = useEditorStore()
 
 
     return (
@@ -18,10 +18,19 @@ const EditorTopBar = () => {
                 <div className="w-full sm:w-auto flex justify-between sm:justify-start items-center">
                     <DiscardEditsDialog />
 
-                    <div className="flex items-center gap-3">
+
+
+                    <div className="flex items-center gap-4 ">
                         <TextOptionsDrawer />
                         <StickersDrawer />
+                        <Button
+                            onClick={() => addPage()}
+                            variant='ghost' size="sm" className='p-0!'>
+                            <Plus />
+                        </Button>
                     </div>
+
+
 
                     {/* Undo/Redo on mobile next to Exit */}
                     <div className="flex items-center md:gap-2 sm:hidden">
@@ -34,6 +43,8 @@ const EditorTopBar = () => {
                     </div>
                 </div>
 
+
+
                 {/* Center / desktop: Undo/Redo */}
                 <div className="hidden md:flex items-center gap-2">
                     <Button variant='ghost' size="sm">
@@ -43,6 +54,7 @@ const EditorTopBar = () => {
                         <Redo2 className="w-5 h-5" />
                     </Button>
                 </div>
+
 
 
                 {/* Right / bottom: Invite + Preview */}
