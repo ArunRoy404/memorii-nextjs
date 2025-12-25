@@ -1,11 +1,11 @@
 import { LayoutPanelLeft, Sticker, Type } from "lucide-react";
 
 const cardOptionsData = [
-    {
-        icon: <LayoutPanelLeft />,
-        label: 'Layout',
-        key: 'layout',
-    },
+    // {
+    //     icon: <LayoutPanelLeft />,
+    //     label: 'Layout',
+    //     key: 'layout',
+    // },
     {
         icon: <Type />,
         label: 'Text',
