@@ -24,7 +24,7 @@ const ActionDrawer = ({ children }) => {
 
 
                 <div
-                    className="p-4 space-y-2"
+                    className="p-4 flex flex-col gap-2"
                 >
                     {children}
                 </div>
