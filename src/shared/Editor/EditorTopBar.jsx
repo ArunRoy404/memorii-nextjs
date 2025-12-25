@@ -21,19 +21,21 @@ const EditorTopBar = () => {
                         <DiscardEditsDialog />
 
                         {/* actions for mobile drawer  */}
-                        <ActionDrawer>
-                            <Button variant='outline' size="sm" className="flex items-center gap-1 justify-center w-full sm:w-auto">
-                                <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
-                                Invite
-                            </Button>
-                            <Link href="/preview" className="w-full">
-                                <Button
-                                    onClick={saveCurrentPage}
-                                    size="sm" className="w-full md:w-auto">
-                                    Preview
+                        <div className="md:hidden">
+                            <ActionDrawer>
+                                <Button variant='outline' size="sm" className="flex items-center gap-1 justify-center w-full sm:w-auto">
+                                    <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
+                                    Invite
                                 </Button>
-                            </Link>
-                        </ActionDrawer>
+                                <Link href="/preview" className="w-full">
+                                    <Button
+                                        onClick={saveCurrentPage}
+                                        size="sm" className="w-full md:w-auto">
+                                        Preview
+                                    </Button>
+                                </Link>
+                            </ActionDrawer>
+                        </div>
                     </div>
 
 
