@@ -16,25 +16,28 @@ const PreviewTopBar = () => {
                 <div className="w-full sm:w-auto flex justify-between sm:justify-start items-center">
                     <DiscardEditsDialog />
 
-                    <ActionDrawer>
-                        <Link href="/editor/1" className="w-full">
-                            <Button variant='outline' size="sm" className="flex items-center gap-1 justify-center w-full sm:w-auto">
-                                Edit Design
-                            </Button>
-                        </Link>
+
+                    <div className="md:hidden">
+                        <ActionDrawer>
+                            <Link href="/editor/1" className="w-full">
+                                <Button variant='outline' size="sm" className="flex items-center gap-1 justify-center w-full sm:w-auto">
+                                    Edit Design
+                                </Button>
+                            </Link>
 
 
-                        <DownloadCard />
+                            <DownloadCard />
 
 
-                        <Link href="send" className="w-full">
-                            <Button
-                                size="sm" className="w-full sm:w-auto">
-                                Send
-                                <Send />
-                            </Button>
-                        </Link>
-                    </ActionDrawer>
+                            <Link href="send" className="w-full">
+                                <Button
+                                    size="sm" className="w-full sm:w-auto">
+                                    Send
+                                    <Send />
+                                </Button>
+                            </Link>
+                        </ActionDrawer>
+                    </div>
                 </div>
 
 
