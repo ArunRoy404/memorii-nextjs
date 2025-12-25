@@ -31,7 +31,7 @@ export default function EditorLayout({ children }) {
 
 
     return (
-        <div className="w-full h-screen overflow-hidden bg-gray-100 flex flex-col">
+        <div className="w-full h-dvh overflow-hidden bg-gray-100 flex flex-col">
             <div
                 className={`absolute z-10 top-0 w-full ${isEditor ? '-translate-y-full' : 'translate-y-0'} transition-transform duration-500`}
             >
