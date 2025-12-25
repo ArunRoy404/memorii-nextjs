@@ -67,7 +67,7 @@ const FontSizeSelection = () => {
         <div className={`flex items-center justify-center gap-2 rounded-md border p-1 w-[150px] ${isDisabled ? 'opacity-50 pointer-events-none' : ''}`}>
             <span
                 onClick={handleDecrement}
-                className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 px-2 rounded select-none text-lg"
+                className="hidden md:block cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 px-2 rounded select-none text-lg"
             >
                 -
             </span>
@@ -75,11 +75,11 @@ const FontSizeSelection = () => {
                 type="number"
                 value={fontSize}
                 onChange={handleInputChange}
-                className="w-10 text-xs text-center border-none bg-transparent focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                className="w-6 md:w-10 text-xs text-center border-none bg-transparent focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
             <span
                 onClick={handleIncrement}
-                className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 px-2 rounded select-none text-lg"
+                className="hidden md:block cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 px-2 rounded select-none text-lg"
             >
                 +
             </span>

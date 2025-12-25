@@ -4,7 +4,7 @@ import TextColorPicker from "./TextColorPicker";
 import TextStyles from "./TextStyles";
 import TextAlignment from "./TextAlignment";
 
-const TextOptionsMemory = () => {
+const TextOptionsHorizontal = () => {
     return (
         <div
             className="flex gap-1 bg-white shadow-md mx-auto items-center max-w-max rounded-2xl p-3"
@@ -21,4 +21,4 @@ const TextOptionsMemory = () => {
     );
 };
 
-export default TextOptionsMemory;
+export default TextOptionsHorizontal;

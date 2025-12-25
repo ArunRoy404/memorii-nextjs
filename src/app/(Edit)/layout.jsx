@@ -2,10 +2,11 @@
 
 import EditorTopBar from "@/shared/Editor/EditorTopBar";
 import EditorFooter from "@/shared/Editor/EditorFooter";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import PreviewTopBar from "@/shared/Editor/PreviewTopBar";
 import SendTopBar from "@/shared/Editor/SendTopBar";
+import TextOptionsHorizontal from "@/components/EditorComponents/TextOptions/TextOptionsHorizontal";
 
 
 export default function EditorLayout({ children }) {

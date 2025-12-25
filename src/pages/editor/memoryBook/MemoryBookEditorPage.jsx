@@ -1,6 +1,6 @@
 import MemoryEditor from '@/components/EditorComponents/Editor/MemoryEditor';
 import MemoryOptions from '@/components/EditorComponents/MemoryOptions';
-import TextOptionsMemory from '@/components/EditorComponents/TextOptions/TextOptionsMemory';
+import TextOptionsHorizontal from '@/components/EditorComponents/TextOptions/TextOptionsHorizontal';
 import { Button } from '@/components/ui/button';
 import { useEditorStore } from '@/store/useEditorStore';
 import { Plus } from 'lucide-react';
@@ -36,7 +36,7 @@ const MemoryBookEditorPage = () => {
                     <div
                         className='sticky top-10 z-1'
                     >
-                        <TextOptionsMemory />
+                        <TextOptionsHorizontal />
                     </div>
                     <MemoryEditor />
                     <div
