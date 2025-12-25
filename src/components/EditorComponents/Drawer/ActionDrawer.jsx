@@ -12,7 +12,7 @@ import { PanelBottom } from "lucide-react";
 const ActionDrawer = ({ children }) => {
     return (
         <Drawer>
-            <DrawerTrigger className='mt-1.5'>
+            <DrawerTrigger>
                 <PanelBottom size={15} />
             </DrawerTrigger>
 

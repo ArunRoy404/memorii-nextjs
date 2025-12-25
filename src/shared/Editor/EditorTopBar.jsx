@@ -17,27 +17,8 @@ const EditorTopBar = () => {
 
                 {/* Top / Left: Exit */}
                 <div className="w-full sm:w-auto flex justify-between sm:justify-start items-center">
-                    <div className="flex items-center gap-4">
-                        <DiscardEditsDialog />
 
-                        {/* actions for mobile drawer  */}
-                        <div className="md:hidden ">
-                            <ActionDrawer>
-                                <Button variant='outline' size="sm" className="flex items-center gap-1 justify-center w-full sm:w-auto">
-                                    <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
-                                    Invite
-                                </Button>
-                                <Link href="/preview" className="w-full">
-                                    <Button
-                                        onClick={saveCurrentPage}
-                                        size="sm" className="w-full md:w-auto">
-                                        Preview
-                                    </Button>
-                                </Link>
-                            </ActionDrawer>
-                        </div>
-                    </div>
-
+                    <DiscardEditsDialog />
 
 
                     <div className="flex md:hidden items-center gap-4">
@@ -53,13 +34,28 @@ const EditorTopBar = () => {
 
 
                     {/* Undo/Redo on mobile next to Exit */}
-                    <div className="flex items-center md:gap-2 sm:hidden">
-                        <Button variant='ghost' size="sm" className='p-2!'>
+                    <div className="flex items-center gap-4 sm:hidden">
+                        <Button variant='ghost' size="sm" className='p-0!'>
                             <Undo2 className="w-4 h-4 " />
                         </Button>
-                        <Button variant='ghost' size="sm" className='p-2!'>
+
+                        <Button variant='ghost' size="sm" className='p-0!'>
                             <Redo2 className="w-4 h-4" />
                         </Button>
+
+                        <ActionDrawer>
+                            <Button variant='outline' size="sm" className="flex items-center gap-1 justify-center w-full sm:w-auto">
+                                <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
+                                Invite
+                            </Button>
+                            <Link href="/preview" className="w-full">
+                                <Button
+                                    onClick={saveCurrentPage}
+                                    size="sm" className="w-full md:w-auto">
+                                    Preview
+                                </Button>
+                            </Link>
+                        </ActionDrawer>
                     </div>
                 </div>
 
