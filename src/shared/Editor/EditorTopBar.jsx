@@ -1,4 +1,5 @@
 import { DiscardEditsDialog } from "@/components/EditorComponents/DiscardEditsDialog";
+import ActionDrawer from "@/components/EditorComponents/Drawer/ActionDrawer";
 import StickersDrawer from "@/components/EditorComponents/Drawer/StickersDrawer";
 import TextOptionsDrawer from "@/components/EditorComponents/Drawer/TextOptionsDrawer";
 import { Button } from "@/components/ui/button";
@@ -16,11 +17,28 @@ const EditorTopBar = () => {
 
                 {/* Top / Left: Exit */}
                 <div className="w-full sm:w-auto flex justify-between sm:justify-start items-center">
-                    <DiscardEditsDialog />
+                    <div className="flex items-center gap-4">
+                        <DiscardEditsDialog />
+
+                        {/* actions for mobile drawer  */}
+                        <ActionDrawer>
+                            <Button variant='outline' size="sm" className="flex items-center gap-1 justify-center w-full sm:w-auto">
+                                <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
+                                Invite
+                            </Button>
+                            <Link href="/preview" className="w-full">
+                                <Button
+                                    onClick={saveCurrentPage}
+                                    size="sm" className="w-full md:w-auto">
+                                    Preview
+                                </Button>
+                            </Link>
+                        </ActionDrawer>
+                    </div>
 
 
 
-                    <div className="flex items-center gap-4 ">
+                    <div className="flex md:hidden items-center gap-4">
                         <TextOptionsDrawer />
                         <StickersDrawer />
                         <Button
