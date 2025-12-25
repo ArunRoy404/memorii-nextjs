@@ -1,4 +1,5 @@
 import { DiscardEditsDialog } from "@/components/EditorComponents/DiscardEditsDialog";
+import StickersDrawer from "@/components/EditorComponents/Drawer/StickersDrawer";
 import TextOptionsDrawer from "@/components/EditorComponents/Drawer/TextOptionsDrawer";
 import { Button } from "@/components/ui/button";
 import { useEditorStore } from "@/store/useEditorStore";
@@ -17,8 +18,9 @@ const EditorTopBar = () => {
                 <div className="w-full sm:w-auto flex justify-between sm:justify-start items-center">
                     <DiscardEditsDialog />
 
-                    <div>
+                    <div className="flex items-center gap-3">
                         <TextOptionsDrawer />
+                        <StickersDrawer />
                     </div>
 
                     {/* Undo/Redo on mobile next to Exit */}

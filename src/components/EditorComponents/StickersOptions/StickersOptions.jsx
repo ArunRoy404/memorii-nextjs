@@ -1,59 +1,6 @@
 import React from 'react';
 import { DropdownMenuContent } from '../../ui/dropdown-menu';
-import { Balloon, Bear, Cake, Cherry, } from '../../svg/Stickers';
-import Sticker from './Sticker';
-
-
-const stickers = [
-    {
-        icon: Cherry,
-        url: '/assets/stickers/cherry.svg'
-    },
-    {
-        icon: Cake,
-        url: '/assets/stickers/cake.svg'
-    },
-    {
-        icon: Bear,
-        url: '/assets/stickers/bear.svg'
-    },
-    {
-        icon: Balloon,
-        url: '/assets/stickers/balloon.svg'
-    },
-    {
-        icon: Cherry,
-        url: '/assets/stickers/cherry.svg'
-    },
-    {
-        icon: Cake,
-        url: '/assets/stickers/cake.svg'
-    },
-    {
-        icon: Bear,
-        url: '/assets/stickers/bear.svg'
-    },
-    {
-        icon: Balloon,
-        url: '/assets/stickers/balloon.svg'
-    },
-    {
-        icon: Cherry,
-        url: '/assets/stickers/cherry.svg'
-    },
-    {
-        icon: Cake,
-        url: '/assets/stickers/cake.svg'
-    },
-    {
-        icon: Bear,
-        url: '/assets/stickers/bear.svg'
-    },
-    {
-        icon: Balloon,
-        url: '/assets/stickers/balloon.svg'
-    },
-]
+import StickersContainer from './StickersContainer';
 
 
 const stickersOptions = ({ setActiveTab, setOpen }) => {
@@ -75,15 +22,9 @@ const stickersOptions = ({ setActiveTab, setOpen }) => {
                     </button>
                 </div>
 
-                {/* Layout Grid */}
-                <div className="grid grid-cols-3 gap-3">
-                    {
-                        stickers.map(({ icon, url }, i) => <Sticker key={i} icon={icon} url={url} />)
-                    }
-
-                </div>
+                {/* stickers container  */}
+                <StickersContainer />
             </div>
-
         </DropdownMenuContent>
     );
 };
