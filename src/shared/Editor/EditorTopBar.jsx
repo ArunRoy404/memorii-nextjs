@@ -1,5 +1,6 @@
 import { DiscardEditsDialog } from "@/components/EditorComponents/DiscardEditsDialog";
 import ActionDrawer from "@/components/EditorComponents/Drawer/ActionDrawer";
+import ImageDrawer from "@/components/EditorComponents/Drawer/ImageDrawer";
 import StickersDrawer from "@/components/EditorComponents/Drawer/StickersDrawer";
 import TextOptionsDrawer from "@/components/EditorComponents/Drawer/TextOptionsDrawer";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,7 @@ const EditorTopBar = () => {
                     <div className="flex md:hidden items-center gap-4">
                         <TextOptionsDrawer />
                         <StickersDrawer />
+                        <ImageDrawer />
                         <Button
                             onClick={() => addPage()}
                             variant='ghost' size="sm" className='p-0!'>
