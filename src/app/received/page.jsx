@@ -9,7 +9,7 @@ const ReceivedPage = () => {
     const [isAnimation, setIsAnimation] = useState(true);
 
     return (
-        <div className='w-screen h-screen flex items-center justify-center overflow-hidden'>
+        <div className='w-dvw h-dvh flex items-center justify-center overflow-hidden'>
             {
                 isAnimation ? (
                     <Envelope setIsAnimation={setIsAnimation} />
