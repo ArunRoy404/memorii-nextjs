@@ -85,7 +85,7 @@ const CardEditor = () => {
 
 
     return (
-        <div ref={containerRef} className='max-w-[360px] md:max-w-[450px] xl:max-w-[500px] overflow-hidden'
+        <div ref={containerRef} className='max-w-[310px] sm:max-w-[400px] md:max-w-[450px] xl:max-w-[500px] overflow-hidden'
             style={{ aspectRatio: aspectRatio }}
         >
             <canvas id="canvas" />
