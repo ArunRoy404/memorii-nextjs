@@ -67,14 +67,14 @@ const Envelope = ({ className, setIsAnimation }) => {
 
         gsap.to(envelopeFront.current, {
             translateY: '500%',
-            delay: 1.3,
-            duration: 1.2,
+            delay: 1.5,
+            duration: 1.5,
             ease: 'power3.inOut',
         })
         gsap.to(envelopeBack.current, {
             translateY: '500%',
-            delay: 1.3,
-            duration: 1.2,
+            delay: 1.5,
+            duration: 1.5,
             ease: 'power3.inOut',
         })
 
@@ -88,7 +88,8 @@ const Envelope = ({ className, setIsAnimation }) => {
             {
                 height: targetHeight,
                 translateY: '-200',
-                duration: 3.2,
+                delay:0.2,
+                duration: 3,
                 ease: 'power3.inOut',
                 onComplete: () => {
                     el.style.height = 'auto';
@@ -124,7 +125,7 @@ const Envelope = ({ className, setIsAnimation }) => {
                 <div
                     ref={envelopeBack}
                     className={cn(
-                        'absolute cursor-pointer w-[1000px] aspect-[1.76]! bg-envelope flex flex-col z-1',
+                        'cursor-pointer xl:w-[1000px] w-[90dvw] aspect-[1.76]! bg-envelope relative flex flex-col z-1',
                         className
                     )}
                 >
@@ -152,7 +153,7 @@ const Envelope = ({ className, setIsAnimation }) => {
                 {/* card container */}
                 <div
                     ref={cardContainerRef}
-                    className='absolute overflow-hidden h-full w-full z-1'
+                    className='absolute top-0 overflow-hidden h-full w-full z-1'
                 >
                     <Image
                         ref={cardRef}
@@ -171,7 +172,7 @@ const Envelope = ({ className, setIsAnimation }) => {
                     ref={envelopeFront}
                     onClick={handleOpen}
                     className={cn(
-                        'cursor-pointer w-[1000px] aspect-[1.76]! bg-envelope relative flex flex-col z-3',
+                        'cursor-pointer absolute xl:w-[1000px] w-[90dvw] aspect-[1.76]! bg-envelope top-0 flex flex-col z-3',
                         className
                     )}
                 >
@@ -212,26 +213,26 @@ const Envelope = ({ className, setIsAnimation }) => {
                             <Image
                                 src={EnvelopeLeafBottom}
                                 alt='envelope content'
-                                className='absolute bottom-0 left-0'
+                                className='absolute w-[20%] bottom-0 left-0'
                             />
                             <Image
                                 src={EnvelopeLeafTop}
                                 alt='envelope content'
-                                className='absolute top-0 right-0'
+                                className='absolute w-[20%] top-0 right-0'
                             />
                             <Image
                                 src={EnvelopeStamp}
                                 alt='envelope content'
-                                className='absolute bottom-4 right-4'
+                                className='absolute w-[15%] bottom-4 right-4'
                             />
 
 
                             <div
-                                className='pl-20 text-envelope-text pt-80 relative z-2'
+                                className='absolute top-[50%] left-5 md:left-20 text-envelope-text'
                             >
                                 <div>
-                                    <h2 className='text-3xl'>To: </h2>
-                                    <h1 className='text-[40px] '>Maishami</h1>
+                                    <h2 className='text-sm md:text-3xl'>To: </h2>
+                                    <h1 className='md:text-[40px] '>Maishami</h1>
                                 </div>
                             </div>
 
@@ -239,7 +240,7 @@ const Envelope = ({ className, setIsAnimation }) => {
 
                             <Button
                                 variant='link'
-                                className='absolute bottom-10 left-20 p-0  underline hover:scale-100! active:scale-100! text-envelope-text'
+                                className='absolute text-[10px] md:text-base bottom-2 left-5 md:bottom-10 md:left-20 p-0 underline hover:scale-100! active:scale-100! text-envelope-text'
                             >
                                 Please click here to open your Memorii mail
                             </Button>
