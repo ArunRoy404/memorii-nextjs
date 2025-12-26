@@ -5,7 +5,7 @@ import { useEditorStore } from '@/store/useEditorStore';
 import * as fabric from 'fabric';
 import { applyCommonStyles } from '@/services/CommonControlStyle';
 
-const MemoryImageInsert = () => {
+const ImageOptions = () => {
     const { editorRef } = useEditorStore();
     const [images, setImages] = useState([]);
 
@@ -92,4 +92,4 @@ const MemoryImageInsert = () => {
     );
 };
 
-export default MemoryImageInsert;
+export default ImageOptions;

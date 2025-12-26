@@ -12,11 +12,12 @@ import TextOptions from "./TextOptions/TextOptions"
 import { Plus } from "lucide-react"
 import StickersOptions from "./StickersOptions/StickersOptions"
 import { useEditorStore } from "@/store/useEditorStore"
+import ImageOptions from "./Editor/ImageOptions"
 
 const CardOptions = () => {
     const { addPage } = useEditorStore();
-    const [activeTab, setActiveTab] = useState(null)   
-    const [open, setOpen] = useState(false)       
+    const [activeTab, setActiveTab] = useState(null)
+    const [open, setOpen] = useState(false)
 
     const handleClick = (key) => {
         if (activeTab === key) {
@@ -62,9 +63,11 @@ const CardOptions = () => {
                     {/* ✅ Layout Content */}
                     {activeTab === 'layout' && <LayoutDropdown setActiveTab={setActiveTab} setOpen={setOpen} />}
 
-
                     {/* ✅ Text Content */}
                     {activeTab === 'text' && <TextOptions />}
+
+                    {/* ✅ Image Content */}
+                    {activeTab === 'image' && <ImageOptions />}
 
                     {/* ✅ Sticker Content */}
                     {activeTab === 'sticker' && <StickersOptions setActiveTab={setActiveTab} setOpen={setOpen} />}
