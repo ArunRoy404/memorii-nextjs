@@ -13,7 +13,7 @@ const MemoryBookEditorPage = () => {
         <div>
             {/* left options  */}
             <div
-                className='max-w-max max-h-max flex flex-col gap-6 items-center fixed top-[50%] -translate-y-[50%] left-10'
+                className='max-w-max max-h-max hidden md:flex flex-col gap-6 items-center fixed top-[50%] -translate-y-[50%] left-10'
             >
                 <MemoryOptions />
 
@@ -34,17 +34,23 @@ const MemoryBookEditorPage = () => {
                     className='flex flex-col gap-5'
                 >
                     <div
-                        className='sticky top-10 z-1'
+                        className='sticky top-10 z-1 hidden md:block'
                     >
                         <TextOptionsHorizontal />
                     </div>
-                    <MemoryEditor />
-                    <div
-                        onClick={() => addPage()}
-                        className='flex items-center gap-2 w-full justify-center border-2 rounded-full py-2 cursor-pointer'
-                    >
-                        <Plus />
-                        <p>Add Page</p>
+
+                    <div className='max-w-max mx-auto flex flex-col gap-5' >
+                        {/* editor  */}
+                        <MemoryEditor />
+
+                        {/* add page button for desktop  */}
+                        <div
+                            onClick={() => addPage()}
+                            className='hidden md:flex items-center gap-2 w-full justify-center border-2 rounded-full py-2 cursor-pointer'
+                        >
+                            <Plus />
+                            <p>Add Page</p>
+                        </div>
                     </div>
                 </div>
             </div>

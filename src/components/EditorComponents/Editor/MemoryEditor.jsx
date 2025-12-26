@@ -2,7 +2,7 @@
 
 
 import { applyCommonStyles } from "@/services/CommonControlStyle";
-import { addText, doubleClickToText, handleDeleteObject, handleRemoveText, touchToText } from "@/services/Editor";
+import { doubleClickToText, handleDeleteObject, handleRemoveText, touchToText } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import * as fabric from "fabric";
 import { useEffect, useRef } from "react";
@@ -10,11 +10,12 @@ import { useEffect, useRef } from "react";
 
 
 const MemoryEditor = () => {
-    const { setEditorRef, pages, currentPage } = useEditorStore()
+    const { editorRef, setEditorRef, pages, currentPage } = useEditorStore()
 
     let width = 760;
     let height = 1080;
     const containerRef = useRef(null);
+    const aspectRatio = width / height;
 
     const renderDesign = async (ref) => {
         if (pages[currentPage]) {
@@ -61,8 +62,32 @@ const MemoryEditor = () => {
     }, [currentPage])
 
 
+    const resizeCanvas = () => {
+        // Check if the actual Fabric DOM elements are ready
+        if (!editorRef || !editorRef.lowerCanvasEl || !containerRef.current) return;
+
+        const parentWidth = containerRef.current.clientWidth;
+        const scale = parentWidth / width;
+
+        editorRef.setDimensions({
+            width: width * scale,
+            height: height * scale
+        });
+        editorRef.setZoom(scale);
+        editorRef.requestRenderAll();
+    };
+
+
+
+    useEffect(() => {
+        resizeCanvas();
+    }, [width, height, editorRef]);
+
+
+
     return (
-        <div ref={containerRef} className='overflow-hidden'
+        <div ref={containerRef} className='max-w-[310px] sm:max-w-[400px] md:max-w-[450px] lg:max-w-[700px] overflow-hidden '
+            style={{ aspectRatio: aspectRatio }}
         >
             <canvas id="canvas" />
         </div>
