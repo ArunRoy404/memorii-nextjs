@@ -25,14 +25,14 @@ const EnvelopeForSend = ({ className }) => {
                 {/* envelope upper part */}
                 <div
                     className={cn(
-                        'cursor-pointer w-[1000px] aspect-[1.76]! bg-envelope relative flex flex-col z-3',
+                        'cursor-pointer xl:w-[1000px] w-[90dvw] aspect-[1.76]! bg-envelope relative flex flex-col z-3',
                         className
                     )}
                 >
 
                     {/* envelope body  */}
                     <div
-                        className='bg-envelope relative z-10 h-full '
+                        className='bg-envelope relative z-10 h-full'
                     >
 
                         <div
@@ -60,43 +60,43 @@ const EnvelopeForSend = ({ className }) => {
 
                         {/* decorations  */}
                         <div
-                            className='relative w-full h-full flex-1'
+                            className='relative w-full h-full flex-1 '
                         >
                             <Image
                                 src={EnvelopeLeafBottom}
                                 alt='envelope content'
-                                className='absolute bottom-0 left-0'
+                                className='absolute w-[20%] bottom-0 left-0'
                             />
                             <Image
                                 src={EnvelopeLeafTop}
                                 alt='envelope content'
-                                className='absolute top-0 right-0'
+                                className='absolute w-[20%] top-0 right-0'
                             />
                             <Image
                                 src={EnvelopeStamp}
                                 alt='envelope content'
-                                className='absolute bottom-4 right-4'
+                                className='absolute w-[15%] bottom-4 right-4'
                             />
 
 
                             <div
-                                className='pl-20 text-envelope-text pt-80 relative z-2'
+                                className='absolute top-[50%] left-5 md:left-20 text-envelope-text'
                             >
-                                <div>
-                                    <h2 className='text-3xl'>To: </h2>
-                                    <input
-                                        onFocus={() => setIsError(false)}
-                                        type='text'
-                                        className={`text-[40px] w-100 ${!text ? 'border border-dashed' : ''} ${isError ? 'border-red-500' : ''}`}
-                                        value={text}
-                                        onChange={(e) => setText(e.target.value)}
-                                        placeholder="Add Recipient Name"
-                                    />
-                                </div>
+                                <h2 className='text-sm md:text-3xl'>To: </h2>
+                                <input
+                                    onFocus={() => setIsError(false)}
+                                    type='text'
+                                    className={`md:text-[40px] md:w-100 ${!text ? 'border border-dashed' : ''} ${isError ? 'border-red-500' : ''}`}
+                                    value={text}
+                                    onChange={(e) => setText(e.target.value)}
+                                    placeholder="Add Recipient Name"
+                                />
                             </div>
 
 
-                            <GenerateLinkDialog text={text} setIsError={setIsError} />
+                            <GenerateLinkDialog
+                                className='absolute bottom-2 left-5 md:bottom-10 md:left-20'
+                                text={text} setIsError={setIsError} />
                         </div>
                     </div>
                 </div>
