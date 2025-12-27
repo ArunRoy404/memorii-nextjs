@@ -140,7 +140,7 @@ export const doubleClickToText = ({ ref }) => {
             left: pointer.x,
             top: pointer.y,
             fontFamily: 'Arial',
-            fontSize: 26,
+            fontSize: 48,
             fontWeight: 'bold',
             fill: '#000000',
             editable: true,
@@ -160,43 +160,61 @@ export const doubleClickToText = ({ ref }) => {
 }
 
 
-
 export const touchToText = ({ ref }) => {
-    let lastTapTime = 0
-    const doubleTapDelay = 300
+    // Move this outside or ensure it persists across calls
+    let lastTapTime = 0;
+    const doubleTapDelay = 300;
 
+    ref.on('mouse:down', (options) => {
+        // Fabric.js normalizes 'mouse:down' to include 'touchstart'
+        const currentTapTime = new Date().getTime();
+        const timeDiff = currentTapTime - lastTapTime;
 
-    ref.on('touchstart', (options) => {
-        const currentTapTime = new Date().getTime()
-        const pointer = ref.getPointer(options.e)
+        if (timeDiff < doubleTapDelay && timeDiff > 0) {
+            // Prevent mobile browser defaults (zoom/scroll)
+            if (options.e) {
+                options.e.preventDefault();
+                options.e.stopPropagation();
+            }
 
-        if (currentTapTime - lastTapTime < doubleTapDelay) {
+            const pointer = ref.getPointer(options.e);
 
             const newText = new fabric.IText('', {
                 left: pointer.x,
                 top: pointer.y,
                 fontFamily: 'Arial',
-                fontSize: 26,
+                fontSize: 48,
                 fontWeight: 'bold',
                 fill: '#000000',
-                editable: true,
+                originX: 'center', // Helps positioning on small screens
+                originY: 'center',
                 objectCaching: false
             });
 
-            applyCommonStyles(newText)
+            if (typeof applyCommonStyles === 'function') {
+                applyCommonStyles(newText);
+            }
+
             ref.add(newText);
             ref.setActiveObject(newText);
 
+            // Critical for Mobile: Enter editing first
             newText.enterEditing();
-            newText.hiddenTextarea?.focus();
+
+            // Use a slight timeout if the keyboard fails to appear
+            setTimeout(() => {
+                newText.hiddenTextarea?.focus();
+            }, 50);
 
             ref.requestRenderAll();
-        } else {
-            lastTapTime = currentTapTime
-        }
-    })
-}
 
+            // Reset tap time so a 3rd tap doesn't trigger another text immediately
+            lastTapTime = 0;
+        } else {
+            lastTapTime = currentTapTime;
+        }
+    });
+};
 
 
 
