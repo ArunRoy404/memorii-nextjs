@@ -36,7 +36,7 @@ export default function ChooseTemplate() {
     const [selectedSize, setSelectedSize] = useState(1);
     const router = useRouter()
 
-    
+
     const handleSelectTemplate = () => {
         // localStorage.removeItem('card-type-store')
         localStorage.removeItem('editor-storage')
@@ -53,7 +53,7 @@ export default function ChooseTemplate() {
     }
     return (
         <Dialog open={selectedTemplate !== null} onOpenChange={() => resetTemplateStore()}>
-            <DialogContent className="w-[95vw] max-w-[1200px]! max-h-[80vh] overflow-y-auto p-4 sm:p-6">
+            <DialogContent data-lenis-prevent className="w-[95vw] max-w-[1200px]! max-h-[80vh] overflow-y-auto p-4 sm:p-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                     {/* LEFT COLUMN */}
