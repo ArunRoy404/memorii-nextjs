@@ -40,7 +40,7 @@ const CardEditor = () => {
         fabricCanvas.setLayout = (newLayout) => { fabricCanvas.layout = newLayout }
         fabricCanvas.setBackgroundColor = (newColor) => { fabricCanvas.backgroundColor = newColor }
 
-        doubleClickToText({ ref: fabricCanvas })
+        // doubleClickToText({ ref: fabricCanvas })
         touchToText({ ref: fabricCanvas })
 
         setEditorRef(fabricCanvas);
