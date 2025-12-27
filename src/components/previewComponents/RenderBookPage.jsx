@@ -3,8 +3,10 @@ import { useEffect, useMemo, useState } from 'react';
 import * as fabric from 'fabric'
 
 import { useEditorTemplateStore } from '@/store/useEditorTemplateStore';
+import { usePagesImagesStore } from '@/store/usePagesImageStore';
 
-const RenderBookPage = ({ page, width: w, height: h }) => {
+const RenderBookPage = ({ page, width: w, height: h, index }) => {
+    const { insertImageAt } = usePagesImagesStore()
     const { selectedTemplate } = useEditorTemplateStore()
     const [dataURL, setDataURL] = useState(null)
 
@@ -24,7 +26,13 @@ const RenderBookPage = ({ page, width: w, height: h }) => {
     }
 
 
+    useEffect(() => {
+        if (dataURL) {
+            insertImageAt(index + 1, dataURL)
+        }
+    }, [dataURL, insertImageAt, index])
 
+    
     useEffect(() => {
         const renderCanvas = async () => {
             if (!page || !canvas) return;

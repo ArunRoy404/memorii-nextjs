@@ -11,9 +11,9 @@ const HomePage = () => {
             <HeroSection />
             <HowItWorksSection />
             <ChooseTemplateSection />
-            <FAQSection />
+            <FAQSection limit={6} />
             <AboutUsSection />
-            <CTASection/>
+            <CTASection />
         </>
     );
 };

@@ -51,7 +51,7 @@ const EditorFooter = () => {
   // }
 
   return (
-    <div className="flex items-center justify-center p-2 bg-white overflow-x-auto no-scrollbar">
+    <div className="flex items-center justify-center py-2 bg-white overflow-x-auto no-scrollbar">
       {/* <Button
         variant="ghost"
         size="icon"

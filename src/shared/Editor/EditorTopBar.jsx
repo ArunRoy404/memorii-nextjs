@@ -1,11 +1,15 @@
 import { DiscardEditsDialog } from "@/components/EditorComponents/DiscardEditsDialog";
+import ActionDrawer from "@/components/EditorComponents/Drawer/ActionDrawer";
+import ImageDrawer from "@/components/EditorComponents/Drawer/ImageDrawer";
+import StickersDrawer from "@/components/EditorComponents/Drawer/StickersDrawer";
+import TextOptionsDrawer from "@/components/EditorComponents/Drawer/TextOptionsDrawer";
 import { Button } from "@/components/ui/button";
 import { useEditorStore } from "@/store/useEditorStore";
-import { Undo2, Redo2, UserPlus } from "lucide-react";
+import { Undo2, Redo2, UserPlus, Plus } from "lucide-react";
 import Link from "next/link";
 
 const EditorTopBar = () => {
-    const { saveCurrentPage } = useEditorStore()
+    const { saveCurrentPage, addPage } = useEditorStore()
 
 
     return (
@@ -14,21 +18,53 @@ const EditorTopBar = () => {
 
                 {/* Top / Left: Exit */}
                 <div className="w-full sm:w-auto flex justify-between sm:justify-start items-center">
+
                     <DiscardEditsDialog />
 
-                    {/* Undo/Redo on mobile next to Exit */}
-                    <div className="flex items-center gap-2 sm:hidden">
-                        <Button variant='ghost' size="sm">
-                            <Undo2 className="w-4 h-4" />
+
+                    <div className="flex md:hidden items-center gap-4">
+                        <TextOptionsDrawer />
+                        <StickersDrawer />
+                        <ImageDrawer />
+                        <Button
+                            onClick={() => addPage()}
+                            variant='ghost' size="sm" className='p-0!'>
+                            <Plus />
                         </Button>
-                        <Button variant='ghost' size="sm">
+                    </div>
+
+
+
+                    {/* Undo/Redo on mobile next to Exit */}
+                    <div className="flex items-center gap-4 sm:hidden">
+                        <Button variant='ghost' size="sm" className='p-0!'>
+                            <Undo2 className="w-4 h-4 " />
+                        </Button>
+
+                        <Button variant='ghost' size="sm" className='p-0!'>
                             <Redo2 className="w-4 h-4" />
                         </Button>
+
+                        <ActionDrawer>
+                            <Button variant='outline' size="sm" className="flex items-center gap-1 justify-center w-full sm:w-auto">
+                                <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
+                                Invite
+                            </Button>
+                            <Link href="/preview" className="w-full">
+                                <Button
+                                    onClick={saveCurrentPage}
+                                    size="sm" className="w-full md:w-auto">
+                                    Preview
+                                </Button>
+                            </Link>
+                        </ActionDrawer>
                     </div>
                 </div>
 
+
+
                 {/* Center / desktop: Undo/Redo */}
-                <div className="hidden sm:flex items-center gap-2">
+                <div className="hidden md:flex items-center gap-2">
                     <Button variant='ghost' size="sm">
                         <Undo2 className="w-5 h-5" />
                     </Button>
@@ -37,16 +73,18 @@ const EditorTopBar = () => {
                     </Button>
                 </div>
 
+
+
                 {/* Right / bottom: Invite + Preview */}
-                <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
+                <div className="hidden md:flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
                     <Button variant='outline' size="sm" className="flex items-center gap-1 justify-center w-full sm:w-auto">
                         <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
                         Invite
                     </Button>
-                    <Link href="/preview">
+                    <Link href="/preview" className="w-full">
                         <Button
                             onClick={saveCurrentPage}
-                            size="sm" className="w-full sm:w-auto">
+                            size="sm" className="w-full md:w-auto">
                             Preview
                         </Button>
                     </Link>

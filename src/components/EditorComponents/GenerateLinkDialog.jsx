@@ -12,11 +12,12 @@ import {
 import { Button } from "../ui/button";
 import { Link2 } from "lucide-react";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 
 
 
-export function GenerateLinkDialog({ text, setIsError }) {
+export function GenerateLinkDialog({ text, setIsError, className }) {
     const [open, setOpen] = useState(false);
 
     return (
@@ -31,7 +32,10 @@ export function GenerateLinkDialog({ text, setIsError }) {
             <DialogTrigger asChild>
                 <Button
                     variant='link'
-                    className='absolute bottom-10 left-20 p-0  underline hover:scale-100! active:scale-100! text-envelope-text'
+                    className={cn(
+                        'p-0 text-xs underline hover:scale-100! active:scale-100! text-envelope-text',
+                        className
+                    )}
                 >
                     Generate the link
                 </Button>
@@ -40,21 +44,22 @@ export function GenerateLinkDialog({ text, setIsError }) {
 
 
             <DialogContent
-                className="max-w-[360px] gap-0 rounded-2xl px-0 pt-6 border-0 bg-white shadow-xl pb-3"
+                className="w-[95vw] sm:max-w-[425px] md:max-w-[500px] gap-0 rounded-2xl px-0 pt-6 border-0 bg-white shadow-xl pb-3"
             >
                 <DialogHeader className="px-6 pb-3">
                     <DialogTitle className="text-lg font-semibold text-icon">
-                        <button className='flex items-center gap-2 cursor-pointer'
+                        <button
+                            className='flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity'
                             onClick={() => toast.error("feature not implemented yet")}
                         >
-                            <Link2 />
-                            Copy link
+                            <Link2 className="shrink-0" />
+                            <span className="truncate">Copy link</span>
                         </button>
                     </DialogTitle>
 
-                    <DialogDescription className="mt-2text-sm text-icon">
+                    <DialogDescription className="mt-2 text-sm text-icon leading-relaxed">
                         <span className="font-bold">Anyone with the link</span> <br />
-                        <span>Anyone who has the link can access this card. </span>
+                        <span className="block sm:inline">Anyone who has the link can access this card.</span>
                     </DialogDescription>
                 </DialogHeader>
             </DialogContent>

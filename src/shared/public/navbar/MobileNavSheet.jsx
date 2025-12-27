@@ -11,17 +11,21 @@ import {
 import { Menu } from 'lucide-react'
 import NavLinks from './NavLinks';
 import Logo from '@/components/common/logo/Logo';
+import { useState } from 'react';
+
 
 
 const MobileNavSheet = () => {
+    const [open, setOpen] = useState(false);
+
     return (
-        <Sheet>
+        <Sheet open={open} onOpenChange={setOpen} >
             <SheetTrigger asChild className="xl:hidden">
                 <Button variant="ghost" className={'p-0! hover:bg-transparent'}>
                     <Menu className='scale-110' />
                 </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-64">
+            <SheetContent side="left" className="w-64 z-100">
                 <SheetHeader>
                     <SheetTitle>
                         <Logo />
@@ -30,7 +34,7 @@ const MobileNavSheet = () => {
 
 
                 <div className="grid flex-1 auto-rows-min gap-6 px-4">
-                    <NavLinks />
+                    <NavLinks onNavigate={() => setOpen(false)} />
                 </div>
 
 
@@ -39,9 +43,9 @@ const MobileNavSheet = () => {
                     <Link href="/login">
                         <Button className='w-full' >Login</Button>
                     </Link>
-                    <Link href="/get-started">
+                    {/* <Link href="/get-started">
                         <Button variant="outline" className='w-full'>Get Started</Button>
-                    </Link>
+                    </Link> */}
                 </SheetFooter>
 
             </SheetContent>

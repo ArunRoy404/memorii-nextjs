@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { DropdownMenuContent } from '@/components/ui/dropdown-menu';
 import { useEditorStore } from '@/store/useEditorStore';
 import * as fabric from 'fabric';
 import { applyCommonStyles } from '@/services/CommonControlStyle';
 
-const MemoryImageInsert = () => {
+const ImageContainerEditor = () => {
     const { editorRef } = useEditorStore();
     const [images, setImages] = useState([]);
 
@@ -71,7 +70,7 @@ const MemoryImageInsert = () => {
     };
 
     return (
-        <DropdownMenuContent side="left" align="start" className="p-4 w-80">
+        <div>
             <Button className="w-full mb-4" onClick={handleUploadClick}>
                 Upload Files
             </Button>
@@ -88,8 +87,8 @@ const MemoryImageInsert = () => {
                     />
                 ))}
             </div>
-        </DropdownMenuContent>
+        </div>
     );
 };
 
-export default MemoryImageInsert;
+export default ImageContainerEditor;

@@ -1,6 +1,8 @@
 import * as fabric from 'fabric'
 import { applyCommonStyles } from './CommonControlStyle';
 import { toast } from 'sonner';
+import jsPDF from 'jspdf';
+import { useEditorStore } from '@/store/useEditorStore';
 
 
 export const addText = ({ position, text, fontFamily, fontSize, color, ref, fontWeight }) => {
@@ -155,4 +157,93 @@ export const doubleClickToText = ({ ref }) => {
 
         ref.requestRenderAll();
     });
+}
+
+
+
+export const touchToText = ({ ref }) => {
+    let lastTapTime = 0
+    const doubleTapDelay = 300
+
+
+    ref.on('touchstart', (options) => {
+        const currentTapTime = new Date().getTime()
+        const pointer = ref.getPointer(options.e)
+
+        if (currentTapTime - lastTapTime < doubleTapDelay) {
+
+            const newText = new fabric.IText('', {
+                left: pointer.x,
+                top: pointer.y,
+                fontFamily: 'Arial',
+                fontSize: 26,
+                fontWeight: 'bold',
+                fill: '#000000',
+                editable: true,
+                objectCaching: false
+            });
+
+            applyCommonStyles(newText)
+            ref.add(newText);
+            ref.setActiveObject(newText);
+
+            newText.enterEditing();
+            newText.hiddenTextarea?.focus();
+
+            ref.requestRenderAll();
+        } else {
+            lastTapTime = currentTapTime
+        }
+    })
+}
+
+
+
+
+export const handleDownloadPDF = (images = [], fileName = "test.pdf") => {
+    toast.success("Downloading PDF...");
+
+    if (images.length === 0) return;
+
+    const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'px',
+        format: 'a4',
+    })
+
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
+
+    const addImageToPDF = (imageDataUrl, isFirstPage = false) => {
+        return new Promise((resolve) => {
+
+            const img = new Image()
+            img.src = imageDataUrl
+
+            img.onload = () => {
+                const imgWidth = img.width
+                const imgHeight = img.height
+
+                const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight)
+                const width = imgWidth * ratio
+                const height = imgHeight * ratio
+                const x = (pageWidth - width) / 2
+                const y = (pageHeight - height) / 2
+
+                if (!isFirstPage) pdf.addPage()
+                pdf.addImage(imageDataUrl, "PNG", x, y, width, height)
+                resolve()
+
+            }
+        })
+    }
+
+
+    (async () => {
+        for (let i = 0; i < images.length; i++) {
+            await addImageToPDF(images[i], i === 0)
+        }
+        pdf.save(fileName)
+    })();
 }

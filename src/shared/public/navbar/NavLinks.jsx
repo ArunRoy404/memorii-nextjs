@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const NavLinks = ({ className }) => {
+const NavLinks = ({ className, onNavigate }) => {
     const pathName = usePathname();
     return (
         <>
@@ -16,6 +16,7 @@ const NavLinks = ({ className }) => {
 
                 return (
                     <Link
+                        onClick={onNavigate}
                         className={cn(
                             "relative text-lg text-black font-medium after:absolute after:-bottom-1 hover:after:left-0 after:right-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full",
                             `${isActive ? "after:w-full text-primary font-bold" : ""}`,

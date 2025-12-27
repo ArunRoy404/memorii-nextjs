@@ -7,11 +7,10 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 
-import TextOptions from "./TextOptions/TextOptions"
 import StickersOptions from "./StickersOptions/StickersOptions"
 import memoryOptionsData from "@/data/memoryOptionsData"
 import MemoryTextInsert from "./Editor/MemoryTextInsert"
-import MemoryImageInsert from "./Editor/MemoryImageInsert"
+import ImageOptions from "./Editor/ImageOptions"
 
 const MemoryOptions = () => {
     const [activeTab, setActiveTab] = useState(null)
@@ -53,7 +52,7 @@ const MemoryOptions = () => {
             {open && !!activeTab && (
                 <>
                     {/* ✅ Image Content */}
-                    {activeTab === 'image' && <MemoryImageInsert />}
+                    {activeTab === 'image' && <ImageOptions />}
 
                     {/* ✅ Text Content */}
                     {activeTab === 'text' && <MemoryTextInsert />}

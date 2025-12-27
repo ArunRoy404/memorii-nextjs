@@ -3,29 +3,27 @@
 import { useState } from "react"
 import {
     DropdownMenu,
-    DropdownMenuContent,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import cardOptionsData from "@/data/cardOptionsData"
 
 import LayoutDropdown from "./layoutOptions/LayoutDropdown"
 import TextOptions from "./TextOptions/TextOptions"
-import { Plus, StickerIcon } from "lucide-react"
+import { Plus } from "lucide-react"
 import StickersOptions from "./StickersOptions/StickersOptions"
 import { useEditorStore } from "@/store/useEditorStore"
+import ImageOptions from "./Editor/ImageOptions"
 
 const CardOptions = () => {
     const { addPage } = useEditorStore();
-    const [activeTab, setActiveTab] = useState(null)   // ✅ Start closed
-    const [open, setOpen] = useState(false)           // ✅ Control Dropdown
+    const [activeTab, setActiveTab] = useState(null)
+    const [open, setOpen] = useState(false)
 
     const handleClick = (key) => {
-        // ✅ If clicking same active tab → close everything
         if (activeTab === key) {
             setActiveTab(null)
             setOpen(false)
         }
-        // ✅ If clicking different tab → switch + open dropdown
         else {
             setActiveTab(key)
             setOpen(true)
@@ -65,9 +63,11 @@ const CardOptions = () => {
                     {/* ✅ Layout Content */}
                     {activeTab === 'layout' && <LayoutDropdown setActiveTab={setActiveTab} setOpen={setOpen} />}
 
-
                     {/* ✅ Text Content */}
                     {activeTab === 'text' && <TextOptions />}
+
+                    {/* ✅ Image Content */}
+                    {activeTab === 'image' && <ImageOptions />}
 
                     {/* ✅ Sticker Content */}
                     {activeTab === 'sticker' && <StickersOptions setActiveTab={setActiveTab} setOpen={setOpen} />}

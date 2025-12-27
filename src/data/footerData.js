@@ -14,10 +14,10 @@ const footerData = {
         {
             label: "My Memorii",
             links: [
-                { label: "My e-Cards", link: "/my-ecards" },
-                { label: "My e-Memory Books", link: "/my-memory-books" },
-                { label: "Create New e-Card", link: "/create-ecard" },
-                { label: "Create New e-Memory Book", link: "/create-memory-book" },
+                { label: "My e-Cards", link: "/dashboard/active-e-cards" },
+                { label: "My e-Memory Books", link: "/dashboard/active-e-memory-books" },
+                { label: "Create New e-Card", link: "/templates" },
+                { label: "Create New e-Memory Book", link: "/templates" },
             ],
         },
         {
@@ -26,32 +26,32 @@ const footerData = {
                 { label: "Contact Us", link: "/contact" },
                 { label: "How It Works", link: "/how-it-works" },
                 { label: "FAQs", link: "/faq" },
-                { label: "Report a Problem", link: "/report-problem" },
+                // { label: "Report a Problem", link: "/report-problem" },
             ],
         },
-        {
-            label: "About Us",
-            links: [
-                { label: "Our Story", link: "/about" },
-                { label: "Blog", link: "/blog" },
-                { label: "Press Enquiries", link: "/press" },
-                { label: "Partnerships", link: "/partnerships" },
-                { label: "Careers", link: "/careers" },
-            ],
-        },
+        // {
+        //     label: "About Us",
+        //     links: [
+        //         { label: "Our Story", link: "/about" },
+        //         { label: "Blog", link: "/blog" },
+        //         { label: "Press Enquiries", link: "/press" },
+        //         { label: "Partnerships", link: "/partnerships" },
+        //         { label: "Careers", link: "/careers" },
+        //     ],
+        // },
         {
             label: "The Small Details",
             links: [
                 { label: "Privacy Policy", link: "/privacy-policy" },
                 { label: "Terms and Conditions", link: "/terms" },
-                { label: "Cookie Policy", link: "/cookie-policy" },
-                { label: "Accessibility", link: "/accessibility" },
-                { label: "Site Map", link: "/sitemap" },
-                { label: "Data Protection Information", link: "/data-protection" },
+                // { label: "Cookie Policy", link: "/cookie-policy" },
+                // { label: "Accessibility", link: "/accessibility" },
+                // { label: "Site Map", link: "/sitemap" },
+                // { label: "Data Protection Information", link: "/data-protection" },
             ],
         },
     ],
-    copyright: "Copyright @ Memorii 2025. All Rights Reserved.",
+    copyright: `Copyright @ Memorii ${new Date().getFullYear()}. All Rights Reserved.`,
 };
 
 export default footerData;

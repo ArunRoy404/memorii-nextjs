@@ -2,7 +2,7 @@
 
 
 import { applyCommonStyles } from "@/services/CommonControlStyle";
-import { doubleClickToText, handleDeleteObject, handleRemoveText } from "@/services/Editor";
+import { doubleClickToText, handleDeleteObject, handleRemoveText, touchToText } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import * as fabric from "fabric";
@@ -41,6 +41,7 @@ const CardEditor = () => {
         fabricCanvas.setBackgroundColor = (newColor) => { fabricCanvas.backgroundColor = newColor }
 
         doubleClickToText({ ref: fabricCanvas })
+        touchToText({ ref: fabricCanvas })
 
         setEditorRef(fabricCanvas);
         renderDesign(fabricCanvas)
@@ -84,12 +85,13 @@ const CardEditor = () => {
 
 
     return (
-        <div ref={containerRef} className='max-w-[500px] overflow-hidden'
+        <div ref={containerRef} className='max-w-[310px] sm:max-w-[400px] md:max-w-[450px] xl:max-w-[500px] overflow-hidden'
             style={{ aspectRatio: aspectRatio }}
         >
             <canvas id="canvas" />
         </div>
     );
 };
+
 
 export default CardEditor;

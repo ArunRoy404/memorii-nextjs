@@ -66,6 +66,7 @@ const PreviewPage = () => {
                         if (cardType === 'eCard') {
                             return (
                                 <BookPage
+                                    index={index}
                                     key={index}
                                     page={page}
                                 />
@@ -73,6 +74,7 @@ const PreviewPage = () => {
                         } else {
                             return (
                                 <BookPage
+                                    index={index}
                                     key={index}
                                     page={page}
                                     width={760}

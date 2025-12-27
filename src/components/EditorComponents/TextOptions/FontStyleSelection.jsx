@@ -73,7 +73,7 @@ const FontStyleSelection = () => {
             disabled={disabled}
             value={currentFont} onValueChange={handleFontChange}>
             <SelectTrigger
-                hideIcon={true} className="w-[150px] rounded-md border p-1 h-8 shadow-none border-border flex items-center justify-center">
+                hideIcon={true} className="w-[150px] text-[10px] rounded-md border p-0 md:p-1 h-3 md:h-8 shadow-none border-border flex items-center justify-center">
                 <SelectValue placeholder="Select Font" />
             </SelectTrigger>
             <SelectContent>

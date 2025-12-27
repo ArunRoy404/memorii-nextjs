@@ -105,7 +105,7 @@ const TextColorPicker = () => {
                 <ColorPicker
                     defaultValue={colorArray}
                     onChange={(newColor) => handleColorChange(newColor)}
-                    className="min-w-60 h-60 bg-background">
+                    className="min-w-45 md:min-w-60 h-50 md:h-60 bg-background">
                     <ColorPickerSelection />
                     <div className="flex items-center gap-4">
                         <ColorPickerEyeDropper />
