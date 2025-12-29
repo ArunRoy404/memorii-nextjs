@@ -1,3 +1,4 @@
+import ChooseBookLayout from '@/components/EditorComponents/Editor/ChooseBookLayout';
 import MemoryEditor from '@/components/EditorComponents/Editor/MemoryEditor';
 import MemoryOptions from '@/components/EditorComponents/MemoryOptions';
 import TextOptionsHorizontal from '@/components/EditorComponents/TextOptions/TextOptionsHorizontal';
@@ -25,6 +26,7 @@ const MemoryBookEditorPage = () => {
                 </Button>
             </div>
 
+            <ChooseBookLayout/>
 
             {/* center elements  */}
             <div

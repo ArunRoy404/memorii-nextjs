@@ -2,13 +2,11 @@ import * as fabric from 'fabric'
 import { applyCommonStyles } from './CommonControlStyle';
 import { toast } from 'sonner';
 import jsPDF from 'jspdf';
-import { useEditorStore } from '@/store/useEditorStore';
 
 
-export const addText = ({ position, text, fontFamily, fontSize, color, ref, fontWeight }) => {
+export const addText = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left }) => {
     if (!ref) return;
 
-    // Get canvas width and height
     const canvasWidth = ref.getWidth();
     const canvasHeight = ref.getHeight();
     const zoom = ref.getZoom()
@@ -16,8 +14,8 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref, font
 
 
     const textObj = new fabric.IText(text || 'Edit Text', {
-        left: 60,
-        top: 60,
+        left: left || 60,
+        top: top || 60,
         fontFamily: fontFamily || 'Arial',
 
         fontSize: fontSize || Math.round(26 / zoom),
@@ -70,6 +68,80 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref, font
 
     ref.add(textObj)
     ref.setActiveObject(textObj);
+    ref.renderAll();
+}
+
+
+
+export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left }) => {
+    if (!ref) return;
+
+    const canvasWidth = ref.getWidth();
+    const canvasHeight = ref.getHeight();
+    const zoom = ref.getZoom()
+
+
+
+    const texBoxObj = new fabric.Textbox(text || 'Edit Text', {
+        left: left || 60,
+        top: top || 60,
+
+        width: 250,
+        height: 150,
+
+        fontFamily: fontFamily || 'Arial',
+        fontSize: fontSize || Math.round(26 / zoom),
+        fontWeight: fontWeight || 'bold',
+
+        fill: color || '#000000',
+        breakWords: true,
+        editable: true,
+    })
+
+
+
+    if (position === 'top') {
+        texBoxObj.set({
+            paintFirst: 'fill',
+            strokeUniform: true,
+            objectCaching: false,
+            left: canvasWidth / (2 * zoom),
+            top: canvasHeight / (7 * zoom),
+            originX: 'center',
+            originY: 'center',
+        });
+    }
+    if (position === 'center') {
+        texBoxObj.set({
+            paintFirst: 'fill',
+            strokeUniform: true,
+            objectCaching: false,
+            left: canvasWidth / (2 * zoom),
+            top: canvasHeight / (2 * zoom),
+            originX: 'center',
+            originY: 'center',
+
+            // editable: false,      // can't edit text
+            // selectable: false,    // can't select
+            // evented: false,       // no mouse events
+        });
+    }
+    if (position === 'bottom') {
+        texBoxObj.set({
+            paintFirst: 'fill',
+            strokeUniform: true,
+            objectCaching: false,
+            left: canvasWidth / (2 * zoom),
+            top: (canvasHeight / (3 * zoom)) * 2.5,
+            originX: 'center',
+            originY: 'center',
+        });
+    }
+
+    applyCommonStyles(texBoxObj)
+
+    ref.add(texBoxObj)
+    ref.setActiveObject(texBoxObj);
     ref.renderAll();
 }
 
@@ -136,9 +208,11 @@ export const doubleClickToText = ({ ref }) => {
 
         const pointer = ref.getPointer(options.e);
 
-        const newText = new fabric.IText('', {
+        const newTextBox = new fabric.Textbox('ok', {
             left: pointer.x,
             top: pointer.y,
+            width: 250,
+            height: 150,
             fontFamily: 'Arial',
             fontSize: 48,
             fontWeight: 'bold',
@@ -147,13 +221,13 @@ export const doubleClickToText = ({ ref }) => {
             objectCaching: false
         });
 
-        applyCommonStyles(newText);
+        applyCommonStyles(newTextBox);
 
-        ref.add(newText);
-        ref.setActiveObject(newText);
+        ref.add(newTextBox);
+        ref.setActiveObject(newTextBox);
 
-        newText.enterEditing();
-        newText.hiddenTextarea?.focus();
+        newTextBox.enterEditing();
+        newTextBox.hiddenTextarea?.focus();
 
         ref.requestRenderAll();
     });
@@ -179,31 +253,33 @@ export const touchToText = ({ ref }) => {
 
             const pointer = ref.getPointer(options.e);
 
-            const newText = new fabric.IText('', {
+            const newTextBox = new fabric.Textbox('', {
                 left: pointer.x,
                 top: pointer.y,
+                width: 250,
+                height: 150,
                 fontFamily: 'Arial',
-                fontSize: 48,
+                fontSize: 26,
                 fontWeight: 'bold',
                 fill: '#000000',
-                originX: 'center', // Helps positioning on small screens
-                originY: 'center',
+                editable: true,
                 objectCaching: false
             });
 
+
             if (typeof applyCommonStyles === 'function') {
-                applyCommonStyles(newText);
+                applyCommonStyles(newTextBox);
             }
 
-            ref.add(newText);
-            ref.setActiveObject(newText);
+            ref.add(newTextBox);
+            ref.setActiveObject(newTextBox);
 
             // Critical for Mobile: Enter editing first
-            newText.enterEditing();
+            newTextBox.enterEditing();
 
             // Use a slight timeout if the keyboard fails to appear
             setTimeout(() => {
-                newText.hiddenTextarea?.focus();
+                newTextBox.hiddenTextarea?.focus();
             }, 50);
 
             ref.requestRenderAll();
@@ -265,3 +341,144 @@ export const handleDownloadPDF = (images = [], fileName = "test.pdf") => {
         pdf.save(fileName)
     })();
 }
+
+
+
+export const initClipboard = (canvas) => {
+    let clipboard = null;
+
+    const handleKeyDown = async (e) => {
+        const activeObject = canvas.getActiveObject();
+        if (!activeObject || activeObject.isEditing) return;
+
+        const isCopy = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "c";
+        const isPaste = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "v";
+
+        /* ================= COPY ================= */
+        if (isCopy) {
+            clipboard = await activeObject.clone([]);
+            return;
+        }
+
+        /* ================= PASTE ================= */
+        if (isPaste && clipboard) {
+            canvas.discardActiveObject();
+            const OFFSET = 20;
+
+            if (clipboard.type === "activeSelection") {
+                // Create new clones for each object
+                const newObjects = await Promise.all(
+                    clipboard._objects.map((obj) => obj.clone())
+                );
+
+                newObjects.forEach((obj) => {
+                    applyCommonStyles?.(obj);
+                    obj.set({
+                        left: obj.left + OFFSET,
+                        top: obj.top + OFFSET,
+                        evented: true,
+                        selectable: true,
+                    });
+                    canvas.add(obj);
+                });
+
+                const selection = new fabric.ActiveSelection(newObjects, { canvas });
+                canvas.setActiveObject(selection);
+                selection.setCoords();
+            } else {
+                // Single object
+                const clonedObj = await clipboard.clone([]);
+                applyCommonStyles?.(clonedObj);
+
+                clonedObj.set({
+                    left: clonedObj.left + OFFSET,
+                    top: clonedObj.top + OFFSET,
+                    evented: true,
+                    selectable: true,
+                });
+
+                canvas.add(clonedObj);
+                canvas.setActiveObject(clonedObj);
+                clonedObj.setCoords();
+            }
+
+            canvas.requestRenderAll();
+        }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+};
+
+
+export const initUndoRedo = (canvas) => {
+    let history = [];
+    let redoStack = [];
+    let isLocked = false; // Prevents saving state while loading a state
+
+    const saveState = () => {
+        if (isLocked) return;
+
+        const json = JSON.stringify(canvas.toDatalessJSON());
+
+        // Only save if the state actually changed
+        if (history.length > 0 && history[history.length - 1] === json) return;
+
+        history.push(json);
+        redoStack = []; // Clear redo when user performs a new action
+
+        // Limit history size to 50 for performance
+        if (history.length > 50) history.shift();
+    };
+
+    // 1. Listen for changes
+    canvas.on('object:modified', saveState);
+    canvas.on('object:added', saveState);
+    canvas.on('object:removed', saveState);
+
+    // Save initial state
+    saveState();
+
+    const handleKeyDown = async (e) => {
+        const isUndo = (e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey;
+        const isRedo = ((e.ctrlKey || e.metaKey) && e.key === 'y') ||
+            ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'z');
+
+        if (isUndo) {
+            e.preventDefault();
+            if (history.length <= 1) return; // Nothing to undo
+
+            isLocked = true;
+            const currentState = history.pop();
+            redoStack.push(currentState);
+
+            const previousState = history[history.length - 1];
+
+            await canvas.loadFromJSON(previousState);
+            canvas.renderAll();
+            isLocked = false;
+        }
+
+        if (isRedo) {
+            e.preventDefault();
+            if (redoStack.length === 0) return;
+
+            isLocked = true;
+            const nextState = redoStack.pop();
+            history.push(nextState);
+
+            await canvas.loadFromJSON(nextState);
+            canvas.renderAll();
+            isLocked = false;
+        }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+        window.removeEventListener('keydown', handleKeyDown);
+        canvas.off('object:modified', saveState);
+        canvas.off('object:added', saveState);
+        canvas.off('object:removed', saveState);
+    };
+};

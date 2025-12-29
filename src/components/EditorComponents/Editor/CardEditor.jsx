@@ -2,7 +2,7 @@
 
 
 import { applyCommonStyles } from "@/services/CommonControlStyle";
-import { doubleClickToText, handleDeleteObject, handleRemoveText, touchToText } from "@/services/Editor";
+import { handleDeleteObject, handleRemoveText, touchToText } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import * as fabric from "fabric";
@@ -40,7 +40,6 @@ const CardEditor = () => {
         fabricCanvas.setLayout = (newLayout) => { fabricCanvas.layout = newLayout }
         fabricCanvas.setBackgroundColor = (newColor) => { fabricCanvas.backgroundColor = newColor }
 
-        // doubleClickToText({ ref: fabricCanvas })
         touchToText({ ref: fabricCanvas })
 
         setEditorRef(fabricCanvas);

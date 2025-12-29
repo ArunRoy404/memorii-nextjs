@@ -26,7 +26,7 @@ const FontStyleSelection = () => {
 
         const updateFontState = () => {
             const activeObject = editorRef.getActiveObject();
-            if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text'))) {
+            if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text') || activeObject.isType('textbox'))) {
                 setDisabled(false);
                 setCurrentFont(activeObject.fontFamily || "Arial");
             } else {
@@ -34,7 +34,7 @@ const FontStyleSelection = () => {
             }
         };
 
-        updateFontState(); // run initially
+        updateFontState();
 
         editorRef.on("selection:created", updateFontState);
         editorRef.on("selection:updated", updateFontState);
@@ -55,7 +55,7 @@ const FontStyleSelection = () => {
 
         const activeObject = editorRef.getActiveObject();
 
-        if (!activeObject || !(activeObject.isType('i-text') || activeObject.isType('text'))) {
+        if (!activeObject || !(activeObject.isType('i-text') || activeObject.isType('text') || activeObject.isType('textbox'))) {
             showSelectionError();
             return;
         }

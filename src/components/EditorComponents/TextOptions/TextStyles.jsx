@@ -24,7 +24,7 @@ const TextStyles = ({ className }) => {
 
         const updateState = () => {
             const activeObject = editorRef.getActiveObject();
-            if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text'))) {
+            if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text') || activeObject.isType('textbox'))) {
                 setStyles({
                     fontWeight: activeObject.fontWeight || 'normal',
                     fontStyle: activeObject.fontStyle || 'normal',
@@ -52,7 +52,7 @@ const TextStyles = ({ className }) => {
     const toggleStyle = (property, valueOn, valueOff = 'normal') => {
         if (!editorRef) return;
         const activeObject = editorRef.getActiveObject();
-        if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text'))) {
+        if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text') || activeObject.isType('textbox'))) {
             const currentValue = activeObject[property];
             const newValue = currentValue === valueOn ? valueOff : valueOn;
 

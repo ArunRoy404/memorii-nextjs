@@ -2,7 +2,7 @@
 
 
 import { applyCommonStyles } from "@/services/CommonControlStyle";
-import { doubleClickToText, handleDeleteObject, handleRemoveText, touchToText } from "@/services/Editor";
+import { handleDeleteObject, handleRemoveText, initClipboard, initUndoRedo, touchToText } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import * as fabric from "fabric";
 import { useEffect, useRef } from "react";
@@ -13,9 +13,10 @@ const MemoryEditor = () => {
     const { editorRef, setEditorRef, pages, currentPage } = useEditorStore()
 
     let width = 760;
-    let height = 1080;
+    let height = Math.round(1.412 * width);
     const containerRef = useRef(null);
     const aspectRatio = width / height;
+
 
     const renderDesign = async (ref) => {
         if (pages[currentPage]) {
@@ -40,12 +41,13 @@ const MemoryEditor = () => {
         fabricCanvas.setLayout = (newLayout) => { fabricCanvas.layout = newLayout }
         fabricCanvas.setBackgroundColor = (newColor) => { fabricCanvas.backgroundColor = newColor }
 
-        // doubleClickToText({ ref: fabricCanvas })
         touchToText({ ref: fabricCanvas })
 
         setEditorRef(fabricCanvas);
         renderDesign(fabricCanvas);
 
+        const removeClipboardListeners = initClipboard(fabricCanvas);
+        const cleanupUndo = initUndoRedo(fabricCanvas);
 
         const handleDelete = (e) => handleDeleteObject({ e, ref: fabricCanvas })
         const handleRemove = (e) => handleRemoveText({ e, ref: fabricCanvas })
@@ -57,6 +59,8 @@ const MemoryEditor = () => {
         return () => {
             window.removeEventListener("keydown", handleDelete);
             window.removeEventListener("keydown", handleRemove);
+            removeClipboardListeners();
+            cleanupUndo();
             fabricCanvas.dispose();
         }
     }, [currentPage])
