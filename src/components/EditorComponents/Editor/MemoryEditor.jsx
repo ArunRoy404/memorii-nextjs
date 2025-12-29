@@ -2,7 +2,7 @@
 
 
 import { applyCommonStyles } from "@/services/CommonControlStyle";
-import { handleDeleteObject, handleRemoveText, initClipboard, touchToText } from "@/services/Editor";
+import { handleDeleteObject, handleRemoveText, initClipboard, initUndoRedo, touchToText } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import * as fabric from "fabric";
 import { useEffect, useRef } from "react";
@@ -47,6 +47,8 @@ const MemoryEditor = () => {
         renderDesign(fabricCanvas);
 
         const removeClipboardListeners = initClipboard(fabricCanvas);
+        const cleanupUndo = initUndoRedo(fabricCanvas);
+
         const handleDelete = (e) => handleDeleteObject({ e, ref: fabricCanvas })
         const handleRemove = (e) => handleRemoveText({ e, ref: fabricCanvas })
         window.addEventListener("keydown", handleDelete);
@@ -58,6 +60,7 @@ const MemoryEditor = () => {
             window.removeEventListener("keydown", handleDelete);
             window.removeEventListener("keydown", handleRemove);
             removeClipboardListeners();
+            cleanupUndo();
             fabricCanvas.dispose();
         }
     }, [currentPage])

@@ -409,3 +409,76 @@ export const initClipboard = (canvas) => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
 };
+
+
+export const initUndoRedo = (canvas) => {
+    let history = [];
+    let redoStack = [];
+    let isLocked = false; // Prevents saving state while loading a state
+
+    const saveState = () => {
+        if (isLocked) return;
+
+        const json = JSON.stringify(canvas.toDatalessJSON());
+
+        // Only save if the state actually changed
+        if (history.length > 0 && history[history.length - 1] === json) return;
+
+        history.push(json);
+        redoStack = []; // Clear redo when user performs a new action
+
+        // Limit history size to 50 for performance
+        if (history.length > 50) history.shift();
+    };
+
+    // 1. Listen for changes
+    canvas.on('object:modified', saveState);
+    canvas.on('object:added', saveState);
+    canvas.on('object:removed', saveState);
+
+    // Save initial state
+    saveState();
+
+    const handleKeyDown = async (e) => {
+        const isUndo = (e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey;
+        const isRedo = ((e.ctrlKey || e.metaKey) && e.key === 'y') ||
+            ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'z');
+
+        if (isUndo) {
+            e.preventDefault();
+            if (history.length <= 1) return; // Nothing to undo
+
+            isLocked = true;
+            const currentState = history.pop();
+            redoStack.push(currentState);
+
+            const previousState = history[history.length - 1];
+
+            await canvas.loadFromJSON(previousState);
+            canvas.renderAll();
+            isLocked = false;
+        }
+
+        if (isRedo) {
+            e.preventDefault();
+            if (redoStack.length === 0) return;
+
+            isLocked = true;
+            const nextState = redoStack.pop();
+            history.push(nextState);
+
+            await canvas.loadFromJSON(nextState);
+            canvas.renderAll();
+            isLocked = false;
+        }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+        window.removeEventListener('keydown', handleKeyDown);
+        canvas.off('object:modified', saveState);
+        canvas.off('object:added', saveState);
+        canvas.off('object:removed', saveState);
+    };
+};
