@@ -6,14 +6,22 @@ export const useEditorStore = create(
     persist(
         (set, get) => ({
             editorRef: null,
-            pages: [null, null],
+            pages: [null],
             currentPage: 0,
+            chosenBookPage: null,
 
             setEditorRef: (editorRef) => set({ editorRef }),
+            setChosenBookPage: (page) => set({ chosenBookPage: page }),
 
             addPage: () => {
-                const { pages } = get();
-                set({ pages: [...pages, null] });
+                const { chosenBookPage } = get()
+                if (chosenBookPage) {
+                    const { pages } = get();
+                    set({ pages: [...pages, null] });
+                } else {
+                    const { pages } = get();
+                    set({ pages: [...pages, null] });
+                }
             },
 
             setCurrentPage: (index) => {
@@ -31,7 +39,10 @@ export const useEditorStore = create(
             },
 
             resetEditorStore: () => {
-                set({ editorRef: null, pages: [null, null], currentPage: 0 });
+                set({ editorRef: null, pages: [null], currentPage: 0, chosenBookPage: null });
+            },
+            removeChosenBookPage: () => {
+                set({ chosenBookPage: null });
             }
         }),
         { name: "editor-storage" }

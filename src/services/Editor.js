@@ -341,3 +341,71 @@ export const handleDownloadPDF = (images = [], fileName = "test.pdf") => {
         pdf.save(fileName)
     })();
 }
+
+
+
+export const initClipboard = (canvas) => {
+    let clipboard = null;
+
+    const handleKeyDown = async (e) => {
+        const activeObject = canvas.getActiveObject();
+        if (!activeObject || activeObject.isEditing) return;
+
+        const isCopy = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "c";
+        const isPaste = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "v";
+
+        /* ================= COPY ================= */
+        if (isCopy) {
+            clipboard = await activeObject.clone([]);
+            return;
+        }
+
+        /* ================= PASTE ================= */
+        if (isPaste && clipboard) {
+            canvas.discardActiveObject();
+            const OFFSET = 20;
+
+            if (clipboard.type === "activeSelection") {
+                // Create new clones for each object
+                const newObjects = await Promise.all(
+                    clipboard._objects.map((obj) => obj.clone())
+                );
+
+                newObjects.forEach((obj) => {
+                    applyCommonStyles?.(obj);
+                    obj.set({
+                        left: obj.left + OFFSET,
+                        top: obj.top + OFFSET,
+                        evented: true,
+                        selectable: true,
+                    });
+                    canvas.add(obj);
+                });
+
+                const selection = new fabric.ActiveSelection(newObjects, { canvas });
+                canvas.setActiveObject(selection);
+                selection.setCoords();
+            } else {
+                // Single object
+                const clonedObj = await clipboard.clone([]);
+                applyCommonStyles?.(clonedObj);
+
+                clonedObj.set({
+                    left: clonedObj.left + OFFSET,
+                    top: clonedObj.top + OFFSET,
+                    evented: true,
+                    selectable: true,
+                });
+
+                canvas.add(clonedObj);
+                canvas.setActiveObject(clonedObj);
+                clonedObj.setCoords();
+            }
+
+            canvas.requestRenderAll();
+        }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+};
