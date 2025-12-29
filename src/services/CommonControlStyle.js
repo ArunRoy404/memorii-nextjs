@@ -8,9 +8,11 @@ export const applyCommonStyles = (fabricObj) => {
     // 1. Apply Styles
     fabricObj.set({
         borderColor: '#3b82f6',
-        cornerSize: 5,
-        transparentCorners: true,
+        borderScaleFactor: 3,      // Higher number = thicker outline
+        cornerSize: 10,
+        transparentCorners: false, // Solid corners often look better with thick borders
         cornerColor: '#3b82f6',
+        cornerStrokeColor: '#ffffff', // Adds a white ring around the corner for contrast
         padding: 10,
     });
 

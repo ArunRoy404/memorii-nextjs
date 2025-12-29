@@ -2,7 +2,7 @@
 
 
 import { applyCommonStyles } from "@/services/CommonControlStyle";
-import { doubleClickToText, handleDeleteObject, handleRemoveText, touchToText } from "@/services/Editor";
+import { handleDeleteObject, handleRemoveText, touchToText } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import * as fabric from "fabric";
 import { useEffect, useRef } from "react";
@@ -13,9 +13,10 @@ const MemoryEditor = () => {
     const { editorRef, setEditorRef, pages, currentPage } = useEditorStore()
 
     let width = 760;
-    let height = 1080;
+    let height = Math.round(1.412 * width);
     const containerRef = useRef(null);
     const aspectRatio = width / height;
+
 
     const renderDesign = async (ref) => {
         if (pages[currentPage]) {

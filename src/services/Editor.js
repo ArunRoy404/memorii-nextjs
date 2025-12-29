@@ -2,13 +2,11 @@ import * as fabric from 'fabric'
 import { applyCommonStyles } from './CommonControlStyle';
 import { toast } from 'sonner';
 import jsPDF from 'jspdf';
-import { useEditorStore } from '@/store/useEditorStore';
 
 
 export const addText = ({ position, text, fontFamily, fontSize, color, ref, fontWeight }) => {
     if (!ref) return;
 
-    // Get canvas width and height
     const canvasWidth = ref.getWidth();
     const canvasHeight = ref.getHeight();
     const zoom = ref.getZoom()
