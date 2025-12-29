@@ -1,69 +1,94 @@
 import * as fabric from 'fabric'
 import { applyCommonStyles } from './CommonControlStyle';
 
-export const addMemoryLayoutVertical = ({ text, fontFamily, fontSize, color, ref, fontWeight }) => {
+export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref, fontWeight }) => {
     if (!ref) return;
 
     const canvasWidth = ref.getWidth();
     const canvasHeight = ref.getHeight();
     const zoom = ref.getZoom() || 1;
 
-    // --- Configuration ---
-    const horizontalPadding = 40; // Total padding (left + right)
-    const verticalMargin = 40;    // Margin at the very top and very bottom
-    const gapBetweenBoxes = 20;   // The "eye-pleasing" gap
-    const numBoxes = 4;
+    // --- Layout Configuration ---
+    const horizontalPadding = 100; // Large side padding
+    const verticalMargin = 60;
+    const gapBetweenPairs = 40;   // Space between Question 1 and Question 2
+    const internalGap = 4;        // TIGHT GAP between Question and its Answer
+    const numPairs = 4;
 
-    // --- Calculations ---
-    // Adjust dimensions based on zoom to maintain visual size
+    const questions = [
+        "1. How you know me?",
+        "2. What is your favorite memory of us?",
+        "3. Describe me in one word.",
+        "4. What should we do next?"
+    ];
+
+    // --- Math Calculations ---
     const availableWidth = (canvasWidth / zoom) - horizontalPadding;
-    const totalGapsHeight = gapBetweenBoxes * (numBoxes - 1);
-    const availableHeight = (canvasHeight / zoom) - (verticalMargin * 2) - totalGapsHeight;
+    const totalGapsHeight = gapBetweenPairs * (numPairs - 1);
+    // Calculate how much height one "Block" (Q + A + Internal Gap) can take
+    const blockHeight = ((canvasHeight / zoom) - (verticalMargin * 2) - totalGapsHeight) / numPairs;
 
-    const boxWidth = availableWidth;
-    const boxHeight = availableHeight / numBoxes;
+    // Split the block height: Question gets ~30%, Answer gets ~70%
+    const qHeight = blockHeight * 0.3;
+    const aHeight = blockHeight * 0.7 - internalGap;
 
-    // Array to hold our box configurations
-    const boxes = [];
+    for (let i = 0; i < numPairs; i++) {
+        const blockTop = verticalMargin + (i * (blockHeight + gapBetweenPairs));
 
-    for (let i = 0; i < numBoxes; i++) {
-        // Calculate top position: 
-        // Start Margin + (Index * BoxHeight) + (Index * Gap)
-        const topPos = verticalMargin + (i * boxHeight) + (i * gapBetweenBoxes);
+        // 1. Question Textbox (Non-interactive)
+        const questionBox = new fabric.Textbox(questions[i], {
+            left: (canvasWidth / zoom) / 2,
+            top: blockTop,
+            width: availableWidth,
+            height: qHeight,
 
-        const textBox = new fabric.Textbox(text || `Memory Slot ${i + 1}`, {
-            left: (canvasWidth / zoom) / 2, // Center horizontally
-            top: topPos,
-            width: boxWidth,
-            height: boxHeight, // Fixed height
-
-            // Visual Properties
             fontFamily: fontFamily || 'Arial',
-            fontSize: fontSize || Math.round(22 / zoom),
-            fontWeight: fontWeight || 'normal',
-            fill: color || '#333333',
-            textAlign: 'center',
+            fontSize: fontSize || Math.round(20 / zoom),
+            fontWeight: 'bold',
+            fill: color || '#000000',
+            textAlign: 'left',
             originX: 'center',
             originY: 'top',
 
-            // Constraints
+            editable: false,
+            selectable: false,
+            evented: false,
+        });
+
+        // 2. Answer Textbox (Strict Height)
+        const answerBox = new fabric.Textbox('Write your answers here...', {
+            left: (canvasWidth / zoom) / 2,
+            top: blockTop + qHeight + internalGap - 30, // Positioned right under question
+            width: availableWidth,
+            height: aHeight, // FIXED HEIGHT
+
+            fontFamily: fontFamily || 'Arial',
+            fontSize: Math.round((20) * 0.85 / zoom),
+            fontWeight: 'normal',
+            fill: '#555555',
+            textAlign: 'left',
+            originX: 'center',
+            originY: 'top',
+
+            // Strict constraints to prevent overlapping other questions
+            editable: true,
+            selectable: true,
+            hasControls: false,
+            lockScalingX: true,
+            lockScalingY: true,
+            lockMovementX: true,
+            lockMovementY: true,
+
+            // This ensures text wraps within the box width
             splitByGrapheme: true,
-            breakWords: true,
-            lockScalingX: true, // Lock width
-            lockScalingY: true, // Lock height
             objectCaching: false,
         });
 
-        // Apply your shared styles
-        applyCommonStyles(textBox);
+        applyCommonStyles(questionBox);
+        applyCommonStyles(answerBox);
 
-        ref.add(textBox);
-        boxes.push(textBox);
-    }
-
-    // Optional: Select the first box by default
-    if (boxes.length > 0) {
-        ref.setActiveObject(boxes[0]);
+        ref.add(questionBox);
+        ref.add(answerBox);
     }
 
     ref.renderAll();
