@@ -1,10 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { DropdownMenuContent } from '@/components/ui/dropdown-menu';
 import { addTextBox } from '@/services/Editor';
-import { addMemoryLayoutGrid } from '@/services/MemoryLayoutEditor';
 import { useEditorStore } from '@/store/useEditorStore';
 import { useTextObjectStore } from '@/store/useTextObjectStore';
-
 
 
 const MemoryTextInsert = () => {
@@ -13,10 +11,10 @@ const MemoryTextInsert = () => {
 
     const handleAddText = ({ text, position, fontSize, fontWeight }) => {
         if (!!text) {
-            addMemoryLayoutGrid({ position, text, fontFamily: currentFontFamily, fontSize: fontSize || currentFontSize, color: currentTextColor, ref: editorRef, fontWeight })
+            addTextBox({ position, text, fontFamily: currentFontFamily, fontSize: fontSize || currentFontSize, color: currentTextColor, ref: editorRef, fontWeight })
             return
         }
-        addMemoryLayoutGrid({ position, fontFamily: currentFontFamily, fontSize: fontSize || currentFontSize, color: currentTextColor, ref: editorRef })
+        addTextBox({ position, fontFamily: currentFontFamily, fontSize: fontSize || currentFontSize, color: currentTextColor, ref: editorRef })
     }
 
 
