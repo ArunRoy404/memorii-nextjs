@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 import jsPDF from 'jspdf';
 
 
-export const addText = ({ position, text, fontFamily, fontSize, color, ref, fontWeight }) => {
+export const addText = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left }) => {
     if (!ref) return;
 
     const canvasWidth = ref.getWidth();
@@ -14,8 +14,8 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref, font
 
 
     const textObj = new fabric.IText(text || 'Edit Text', {
-        left: 60,
-        top: 60,
+        left: left || 60,
+        top: top || 60,
         fontFamily: fontFamily || 'Arial',
 
         fontSize: fontSize || Math.round(26 / zoom),
@@ -73,7 +73,7 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref, font
 
 
 
-export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, fontWeight }) => {
+export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left }) => {
     if (!ref) return;
 
     const canvasWidth = ref.getWidth();
@@ -83,8 +83,8 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
 
 
     const texBoxObj = new fabric.Textbox(text || 'Edit Text', {
-        left: 60,
-        top: 60,
+        left: left || 60,
+        top: top || 60,
 
         width: 250,
         height: 150,
@@ -208,9 +208,11 @@ export const doubleClickToText = ({ ref }) => {
 
         const pointer = ref.getPointer(options.e);
 
-        const newText = new fabric.IText('', {
+        const newTextBox = new fabric.Textbox('ok', {
             left: pointer.x,
             top: pointer.y,
+            width: 250,
+            height: 150,
             fontFamily: 'Arial',
             fontSize: 48,
             fontWeight: 'bold',
@@ -219,13 +221,13 @@ export const doubleClickToText = ({ ref }) => {
             objectCaching: false
         });
 
-        applyCommonStyles(newText);
+        applyCommonStyles(newTextBox);
 
-        ref.add(newText);
-        ref.setActiveObject(newText);
+        ref.add(newTextBox);
+        ref.setActiveObject(newTextBox);
 
-        newText.enterEditing();
-        newText.hiddenTextarea?.focus();
+        newTextBox.enterEditing();
+        newTextBox.hiddenTextarea?.focus();
 
         ref.requestRenderAll();
     });
@@ -251,31 +253,33 @@ export const touchToText = ({ ref }) => {
 
             const pointer = ref.getPointer(options.e);
 
-            const newText = new fabric.IText('', {
+            const newTextBox = new fabric.Textbox('', {
                 left: pointer.x,
                 top: pointer.y,
+                width: 250,
+                height: 150,
                 fontFamily: 'Arial',
-                fontSize: 48,
+                fontSize: 26,
                 fontWeight: 'bold',
                 fill: '#000000',
-                originX: 'center', // Helps positioning on small screens
-                originY: 'center',
+                editable: true,
                 objectCaching: false
             });
 
+
             if (typeof applyCommonStyles === 'function') {
-                applyCommonStyles(newText);
+                applyCommonStyles(newTextBox);
             }
 
-            ref.add(newText);
-            ref.setActiveObject(newText);
+            ref.add(newTextBox);
+            ref.setActiveObject(newTextBox);
 
             // Critical for Mobile: Enter editing first
-            newText.enterEditing();
+            newTextBox.enterEditing();
 
             // Use a slight timeout if the keyboard fails to appear
             setTimeout(() => {
-                newText.hiddenTextarea?.focus();
+                newTextBox.hiddenTextarea?.focus();
             }, 50);
 
             ref.requestRenderAll();

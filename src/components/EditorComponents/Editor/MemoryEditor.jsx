@@ -41,7 +41,6 @@ const MemoryEditor = () => {
         fabricCanvas.setLayout = (newLayout) => { fabricCanvas.layout = newLayout }
         fabricCanvas.setBackgroundColor = (newColor) => { fabricCanvas.backgroundColor = newColor }
 
-        // doubleClickToText({ ref: fabricCanvas })
         touchToText({ ref: fabricCanvas })
 
         setEditorRef(fabricCanvas);
