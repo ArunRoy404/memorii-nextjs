@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { DropdownMenuContent } from '@/components/ui/dropdown-menu';
-import { addText } from '@/services/Editor';
+import { addTextBox } from '@/services/Editor';
 import { useEditorStore } from '@/store/useEditorStore';
 import { useTextObjectStore } from '@/store/useTextObjectStore';
 
@@ -12,24 +12,24 @@ const MemoryTextInsert = () => {
 
     const handleAddText = ({ text, position, fontSize, fontWeight }) => {
         if (!!text) {
-            addText({ position, text, fontFamily: currentFontFamily, fontSize: fontSize || currentFontSize, color: currentTextColor, ref: editorRef, fontWeight })
+            addTextBox({ position, text, fontFamily: currentFontFamily, fontSize: fontSize || currentFontSize, color: currentTextColor, ref: editorRef, fontWeight })
             return
         }
-        addText({ position, fontFamily: currentFontFamily, fontSize: fontSize || currentFontSize, color: currentTextColor, ref: editorRef })
+        addTextBox({ position, fontFamily: currentFontFamily, fontSize: fontSize || currentFontSize, color: currentTextColor, ref: editorRef })
     }
 
 
-    
+
     return (
         <DropdownMenuContent side="left" align="start" className="p-4 w-80">
             <Button
-                onClick={() => handleAddText({ text: 'This is a body text', fontSize: 16, fontWeight: 'normal' })}
+                onClick={() => handleAddText({ text: 'This is a text box', fontSize: 24, fontWeight: 'normal' })}
                 className='w-full hover:scale-100 active:scale-100'
             >
                 T   Add a text box
             </Button>
 
-            <p className='py-4'>Default text styles</p>
+            {/* <p className='py-4'>Default text styles</p>
 
             <div
                 className='flex flex-col gap-2'
@@ -55,7 +55,7 @@ const MemoryTextInsert = () => {
                 >
                     Add a little bit of body text
                 </Button>
-            </div>
+            </div> */}
         </DropdownMenuContent>
     );
 };

@@ -22,7 +22,7 @@ const TextAlignment = ({ className }) => {
 
         const updateState = () => {
             const activeObject = editorRef.getActiveObject();
-            if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text'))) {
+            if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text') || activeObject.isType('textbox'))) {
                 setTextAlign(activeObject.textAlign || 'left');
                 setDisabled(false);
             } else {
@@ -45,7 +45,7 @@ const TextAlignment = ({ className }) => {
     const handleAlign = (align) => {
         if (!editorRef) return;
         const activeObject = editorRef.getActiveObject();
-        if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text'))) {
+        if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text') || activeObject.isType('textbox'))) {
             activeObject.set('textAlign', align);
             activeObject.setCoords();
             editorRef.renderAll();
@@ -103,7 +103,7 @@ const TextAlignment = ({ className }) => {
                 onClick={() => {
                     if (!editorRef) return;
                     const activeObject = editorRef.getActiveObject();
-                    if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text'))) {
+                    if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text') || activeObject.isType('textbox'))) {
                         // Simple bullet point implementation
                         const text = activeObject.text;
                         const lines = text.split('\n');

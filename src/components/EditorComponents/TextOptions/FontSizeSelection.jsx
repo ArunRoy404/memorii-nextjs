@@ -13,7 +13,7 @@ const FontSizeSelection = () => {
 
         const handleSelection = () => {
             const activeObject = editorRef.getActiveObject();
-            if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text'))) {
+            if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text') || activeObject.isType('textbox'))) {
                 const size = activeObject.fontSize || 24;
                 setFontSizeState(size);
                 setCurrentFontSize(size);
@@ -45,7 +45,7 @@ const FontSizeSelection = () => {
         setCurrentFontSize(size);
 
         const activeObject = editorRef.getActiveObject();
-        if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text'))) {
+        if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text') || activeObject.isType('textbox'))) {
             activeObject.set('fontSize', size);
             editorRef.renderAll();
         }

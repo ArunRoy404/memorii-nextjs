@@ -36,7 +36,7 @@ const TextColorPicker = () => {
 
         const handleSelection = () => {
             const activeObject = editorRef.getActiveObject();
-            if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text'))) {
+            if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text') || activeObject.isType('textbox'))) {
                 setDisabled(false);
                 const fill = activeObject.fill;
                 if (typeof fill === 'string') {
@@ -67,7 +67,7 @@ const TextColorPicker = () => {
 
         if (editorRef) {
             const activeObject = editorRef.getActiveObject();
-            if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text'))) {
+            if (activeObject && (activeObject.isType('i-text') || activeObject.isType('text') || activeObject.isType('textbox'))) {
                 activeObject.set('fill', formattedColor);
                 editorRef.renderAll();
             }

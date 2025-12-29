@@ -73,6 +73,80 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref, font
 
 
 
+export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, fontWeight }) => {
+    if (!ref) return;
+
+    const canvasWidth = ref.getWidth();
+    const canvasHeight = ref.getHeight();
+    const zoom = ref.getZoom()
+
+
+
+    const texBoxObj = new fabric.Textbox(text || 'Edit Text', {
+        left: 60,
+        top: 60,
+
+        width: 250,
+        height: 150,
+
+        fontFamily: fontFamily || 'Arial',
+        fontSize: fontSize || Math.round(26 / zoom),
+        fontWeight: fontWeight || 'bold',
+
+        fill: color || '#000000',
+        breakWords: true,
+        editable: true,
+    })
+
+
+
+    if (position === 'top') {
+        texBoxObj.set({
+            paintFirst: 'fill',
+            strokeUniform: true,
+            objectCaching: false,
+            left: canvasWidth / (2 * zoom),
+            top: canvasHeight / (7 * zoom),
+            originX: 'center',
+            originY: 'center',
+        });
+    }
+    if (position === 'center') {
+        texBoxObj.set({
+            paintFirst: 'fill',
+            strokeUniform: true,
+            objectCaching: false,
+            left: canvasWidth / (2 * zoom),
+            top: canvasHeight / (2 * zoom),
+            originX: 'center',
+            originY: 'center',
+
+            // editable: false,      // can't edit text
+            // selectable: false,    // can't select
+            // evented: false,       // no mouse events
+        });
+    }
+    if (position === 'bottom') {
+        texBoxObj.set({
+            paintFirst: 'fill',
+            strokeUniform: true,
+            objectCaching: false,
+            left: canvasWidth / (2 * zoom),
+            top: (canvasHeight / (3 * zoom)) * 2.5,
+            originX: 'center',
+            originY: 'center',
+        });
+    }
+
+    applyCommonStyles(texBoxObj)
+
+    ref.add(texBoxObj)
+    ref.setActiveObject(texBoxObj);
+    ref.renderAll();
+}
+
+
+
 
 export const addSticker = async ({ svgURL, editorRef }) => {
     try {
