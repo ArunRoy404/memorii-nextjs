@@ -63,7 +63,7 @@ export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref, font
             height: aHeight, // FIXED HEIGHT
 
             fontFamily: fontFamily || 'Arial',
-            fontSize: Math.round((20) * 0.85 / zoom),
+            fontSize: Math.round((fontSize || 20) * 0.85 / zoom),
             fontWeight: 'normal',
             fill: '#555555',
             textAlign: 'left',
@@ -80,6 +80,112 @@ export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref, font
             lockMovementY: true,
 
             // This ensures text wraps within the box width
+            splitByGrapheme: true,
+            objectCaching: false,
+        });
+
+        applyCommonStyles(questionBox);
+        applyCommonStyles(answerBox);
+
+        ref.add(questionBox);
+        ref.add(answerBox);
+    }
+
+    ref.renderAll();
+}
+
+
+
+
+
+
+
+
+export const addMemoryLayoutGrid = ({ fontFamily, fontSize, color, ref }) => {
+    if (!ref) return;
+
+    const canvasWidth = ref.getWidth();
+    const canvasHeight = ref.getHeight();
+    const zoom = ref.getZoom() || 1;
+
+    // --- Configuration ---
+    const padding = 60;          // Outer canvas padding
+    const horizontalGap = 30;    // Gap between left and right columns
+    const verticalGap = 40;      // Gap between top and bottom rows
+    const internalGap = 4;       // Gap between Question and Answer
+    const numBoxes = 4;
+
+    const questions = [
+        "1. How you know me?",
+        "2. Favorite memory?",
+        "3. Describe me?",
+        "4. What's next?"
+    ];
+
+    // --- Grid Calculations ---
+    const totalAvailableWidth = (canvasWidth / zoom) - (padding * 2);
+    const totalAvailableHeight = (canvasHeight / zoom) - (padding * 2);
+
+    // Calculate dimensions for a single "Cell" in the 2x2 grid
+    const cellWidth = (totalAvailableWidth - horizontalGap) / 2;
+    const cellHeight = (totalAvailableHeight - verticalGap) / 2;
+
+    // Split cell height between Question (30%) and Answer (70%)
+    const qHeight = cellHeight * 0.3;
+    const aHeight = cellHeight * 0.7 - internalGap;
+
+    for (let i = 0; i < numBoxes; i++) {
+        // Determine column (0 or 1) and row (0 or 1)
+        const col = i % 2;
+        const row = Math.floor(i / 2);
+
+        // Calculate X and Y coordinates
+        const leftPos = padding + (col * (cellWidth + horizontalGap));
+        const topPos = padding + (row * (cellHeight + verticalGap));
+
+        // 1. Question Textbox (Grid Mode)
+        const questionBox = new fabric.Textbox(questions[i], {
+            left: leftPos,
+            top: topPos,
+            width: cellWidth,
+            height: qHeight,
+
+            fontFamily: fontFamily || 'Arial',
+            fontSize: fontSize || Math.round(20 / zoom),
+            fontWeight: 'bold',
+            fill: color || '#000000',
+            textAlign: 'left',
+            originX: 'left',
+            originY: 'top',
+
+            editable: false,
+            selectable: false,
+            evented: false,
+        });
+
+        // 2. Answer Textbox (Grid Mode)
+        const answerBox = new fabric.Textbox('Write answer here...', {
+            left: leftPos,
+            top: topPos + qHeight + internalGap - 100,
+            width: cellWidth,
+            height: aHeight,
+
+            fontFamily: fontFamily || 'Arial',
+            fontSize: Math.round((fontSize || 20) * 0.85 / zoom),
+            fontWeight: 'normal',
+            fill: '#555555',
+            textAlign: 'left',
+            originX: 'left',
+            originY: 'top',
+
+            // Constraints
+            editable: true,
+            selectable: true,
+            hasControls: false,
+            lockScalingX: true,
+            lockScalingY: true,
+            lockMovementX: true,
+            lockMovementY: true,
             splitByGrapheme: true,
             objectCaching: false,
         });

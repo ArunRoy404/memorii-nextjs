@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { DropdownMenuContent } from '@/components/ui/dropdown-menu';
 import { addTextBox } from '@/services/Editor';
-import { addMemoryLayoutVertical } from '@/services/MemoryLayoutEditor';
+import { addMemoryLayoutGrid } from '@/services/MemoryLayoutEditor';
 import { useEditorStore } from '@/store/useEditorStore';
 import { useTextObjectStore } from '@/store/useTextObjectStore';
 
@@ -13,10 +13,10 @@ const MemoryTextInsert = () => {
 
     const handleAddText = ({ text, position, fontSize, fontWeight }) => {
         if (!!text) {
-            addMemoryLayoutVertical({ position, text, fontFamily: currentFontFamily, fontSize: fontSize || currentFontSize, color: currentTextColor, ref: editorRef, fontWeight })
+            addMemoryLayoutGrid({ position, text, fontFamily: currentFontFamily, fontSize: fontSize || currentFontSize, color: currentTextColor, ref: editorRef, fontWeight })
             return
         }
-        addMemoryLayoutVertical({ position, fontFamily: currentFontFamily, fontSize: fontSize || currentFontSize, color: currentTextColor, ref: editorRef })
+        addMemoryLayoutGrid({ position, fontFamily: currentFontFamily, fontSize: fontSize || currentFontSize, color: currentTextColor, ref: editorRef })
     }
 
 
