@@ -86,7 +86,7 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
         left: left || 60,
         top: top || 60,
 
-        width: 250,
+        width: 300,
         height: 150,
 
         fontFamily: fontFamily || 'Arial',
@@ -259,7 +259,7 @@ export const touchToText = ({ ref }) => {
                 width: 250,
                 height: 150,
                 fontFamily: 'Arial',
-                fontSize: 26,
+                fontSize: 32,
                 fontWeight: 'bold',
                 fill: '#000000',
                 editable: true,
