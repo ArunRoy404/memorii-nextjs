@@ -9,13 +9,11 @@ import { Button } from "@/components/ui/button";
 import birthdayTemplate from '@/assets/templateImages/birthdayTemplate2.png';
 import data from '@/demoTemplate/demo-preview.json';
 import Logo from "@/components/common/logo/Logo";
+import { Download, Printer } from "lucide-react";
 
 
 const ReceivedPreview = () => {
-
     const bookRef = useRef(null)
-
-
 
     const width = data.state.width
     const height = data.state.height
@@ -24,7 +22,7 @@ const ReceivedPreview = () => {
 
 
     return (
-        <div className="h-full w-full overflow-hidden flex flex-col items-center justify-center ">
+        <div className="h-full w-full overflow-hidden flex flex-col items-center justify-center bg-slate-100">
 
             <div className="text-center leading-tight mb-10">
                 <p className="text-2xl font-semibold tracking-wide">
@@ -78,8 +76,18 @@ const ReceivedPreview = () => {
 
 
             <div
-                className='text-5xl mt-10'
+                className='text-5xl mt-10 flex flex-col items-center justify-center gap-2'
             >
+                <div className="flex gap-2 max-w-max">
+                    <Button notImplemented size='icon' variant='outline' className='rounded-full text-primary'>
+                        <Printer />
+                    </Button>
+
+                    <Button notImplemented size='icon' variant='outline' className='rounded-full text-primary'>
+                        <Download />
+                    </Button>
+                </div>
+
                 <Logo />
             </div>
         </div>
