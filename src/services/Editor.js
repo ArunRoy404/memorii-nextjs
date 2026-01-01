@@ -444,32 +444,34 @@ export const initUndoRedo = (canvas) => {
         const isRedo = ((e.ctrlKey || e.metaKey) && e.key === 'y') ||
             ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'z');
 
-        if (isUndo) {
+        if (isUndo || isRedo) {
             e.preventDefault();
-            if (history.length <= 1) return; // Nothing to undo
 
-            isLocked = true;
-            const currentState = history.pop();
-            redoStack.push(currentState);
+            let stateToLoad;
+            if (isUndo && history.length > 1) {
+                isLocked = true;
+                const currentState = history.pop();
+                redoStack.push(currentState);
+                stateToLoad = history[history.length - 1];
+            } else if (isRedo && redoStack.length > 0) {
+                isLocked = true;
+                stateToLoad = redoStack.pop();
+                history.push(stateToLoad);
+            }
 
-            const previousState = history[history.length - 1];
+            if (stateToLoad) {
+                // 1. Load the state
+                await canvas.loadFromJSON(stateToLoad);
 
-            await canvas.loadFromJSON(previousState);
-            canvas.renderAll();
-            isLocked = false;
-        }
+                // 2. PINPOINT: Re-apply your custom controls and styles
+                // Fabric objects lose custom controls when serialized to JSON
+                canvas.getObjects().forEach((obj) => {
+                    applyCommonStyles(obj);
+                });
 
-        if (isRedo) {
-            e.preventDefault();
-            if (redoStack.length === 0) return;
-
-            isLocked = true;
-            const nextState = redoStack.pop();
-            history.push(nextState);
-
-            await canvas.loadFromJSON(nextState);
-            canvas.renderAll();
-            isLocked = false;
+                canvas.renderAll();
+                isLocked = false;
+            }
         }
     };
 
