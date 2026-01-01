@@ -13,7 +13,7 @@ const RenderBookPage = ({ page, width: w, height: h, index }) => {
     let width = w || selectedTemplate?.src?.width;
     let height = h || selectedTemplate?.src?.height;
 
-    // 1. Initialize the canvas only once
+
     const canvas = useMemo(() => new fabric.Canvas(null, {
         width: width,
         height: height,
@@ -28,7 +28,7 @@ const RenderBookPage = ({ page, width: w, height: h, index }) => {
 
     useEffect(() => {
         if (dataURL) {
-            insertImageAt(index + 1, dataURL)
+            insertImageAt(index + 2, dataURL)
         }
     }, [dataURL, insertImageAt, index])
 

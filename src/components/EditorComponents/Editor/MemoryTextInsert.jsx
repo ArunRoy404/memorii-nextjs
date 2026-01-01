@@ -22,7 +22,7 @@ const MemoryTextInsert = () => {
     return (
         <DropdownMenuContent side="left" align="start" className="p-4 w-80">
             <Button
-                onClick={() => handleAddText({ text: 'This is a text box', fontSize: 24, fontWeight: 'normal' })}
+                onClick={() => handleAddText({ text: 'This is a text box', fontSize: 32, fontWeight: 'bold' })}
                 className='w-full hover:scale-100 active:scale-100'
             >
                 T   Add a text box

@@ -86,7 +86,7 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
         left: left || 60,
         top: top || 60,
 
-        width: 250,
+        width: 300,
         height: 150,
 
         fontFamily: fontFamily || 'Arial',
@@ -259,7 +259,7 @@ export const touchToText = ({ ref }) => {
                 width: 250,
                 height: 150,
                 fontFamily: 'Arial',
-                fontSize: 26,
+                fontSize: 32,
                 fontWeight: 'bold',
                 fill: '#000000',
                 editable: true,
@@ -414,71 +414,101 @@ export const initClipboard = (canvas) => {
 export const initUndoRedo = (canvas) => {
     let history = [];
     let redoStack = [];
-    let isLocked = false; // Prevents saving state while loading a state
+    let isLocked = false;
 
     const saveState = () => {
         if (isLocked) return;
-
         const json = JSON.stringify(canvas.toDatalessJSON());
-
-        // Only save if the state actually changed
         if (history.length > 0 && history[history.length - 1] === json) return;
-
         history.push(json);
-        redoStack = []; // Clear redo when user performs a new action
-
-        // Limit history size to 50 for performance
+        redoStack = [];
         if (history.length > 50) history.shift();
     };
 
-    // 1. Listen for changes
     canvas.on('object:modified', saveState);
     canvas.on('object:added', saveState);
     canvas.on('object:removed', saveState);
-
-    // Save initial state
     saveState();
 
-    const handleKeyDown = async (e) => {
+    const loadState = async (stateToLoad) => {
+        if (!stateToLoad) return; // Guard against empty history
+        await canvas.loadFromJSON(stateToLoad);
+        canvas.getObjects().forEach((obj) => applyCommonStyles(obj));
+        canvas.renderAll();
+        isLocked = false;
+    }
+
+    const handleUndo = () => {
+        if (history.length <= 1) return; // Keep initial state
+        isLocked = true;
+        const currentState = history.pop();
+        redoStack.push(currentState);
+        const stateToLoad = history[history.length - 1];
+        loadState(stateToLoad);
+    }
+
+    const handleRedo = () => {
+        if (redoStack.length === 0) return;
+        isLocked = true;
+        const stateToLoad = redoStack.pop();
+        history.push(stateToLoad);
+        loadState(stateToLoad);
+    }
+
+    const handleKeyDown = (e) => {
         const isUndo = (e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey;
         const isRedo = ((e.ctrlKey || e.metaKey) && e.key === 'y') ||
             ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'z');
 
-        if (isUndo) {
+        if (isUndo || isRedo) {
             e.preventDefault();
-            if (history.length <= 1) return; // Nothing to undo
-
-            isLocked = true;
-            const currentState = history.pop();
-            redoStack.push(currentState);
-
-            const previousState = history[history.length - 1];
-
-            await canvas.loadFromJSON(previousState);
-            canvas.renderAll();
-            isLocked = false;
-        }
-
-        if (isRedo) {
-            e.preventDefault();
-            if (redoStack.length === 0) return;
-
-            isLocked = true;
-            const nextState = redoStack.pop();
-            history.push(nextState);
-
-            await canvas.loadFromJSON(nextState);
-            canvas.renderAll();
-            isLocked = false;
+            if (isUndo) handleUndo();
+            if (isRedo) handleRedo();
         }
     };
 
     window.addEventListener('keydown', handleKeyDown);
 
-    return () => {
-        window.removeEventListener('keydown', handleKeyDown);
-        canvas.off('object:modified', saveState);
-        canvas.off('object:added', saveState);
-        canvas.off('object:removed', saveState);
+
+    return {
+        undo: handleUndo,
+        redo: handleRedo,
+        historyLength: history.length,
+        redoLength: redoStack.length,
+        dispose: () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            canvas.off('object:modified', saveState);
+            canvas.off('object:added', saveState);
+            canvas.off('object:removed', saveState);
+        }
     };
 };
+
+
+
+export const handleRemoveEmptyText = ({ ref }) => {
+    if (!ref) return;
+
+    const onSelectionCleared = (options) => {
+        const deselectedObjects = options.deselected || [];
+
+        deselectedObjects.forEach((obj) => {
+            if (obj.type === 'i-text' || obj.type === 'textbox') {
+                if (!obj.text || obj.text.trim() === "") {
+                    ref.remove(obj);
+                }
+            }
+        });
+        ref.requestRenderAll();
+    };
+
+    ref.on('selection:cleared', onSelectionCleared);
+    ref.on('selection:updated', onSelectionCleared);
+
+    return () => {
+        ref.off('selection:cleared', onSelectionCleared);
+        ref.off('selection:updated', onSelectionCleared);
+    };
+};
+
+
