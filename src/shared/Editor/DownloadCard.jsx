@@ -4,11 +4,12 @@ import { usePagesImagesStore } from '@/store/usePagesImageStore';
 import { ArrowDownToLine } from 'lucide-react';
 
 const DownloadCard = () => {
-    const { getImagesArray } = usePagesImagesStore()
+    const { getImagesArray, images } = usePagesImagesStore()
     const handleDownload = () => {
         const images = getImagesArray()
         handleDownloadPDF(images)
     }
+    console.log(images);
 
     return (
         <Button
@@ -19,4 +20,4 @@ const DownloadCard = () => {
     );
 };
 
-export default DownloadCard;
+export default DownloadCard; 

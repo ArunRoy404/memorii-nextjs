@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import birthdayTemplate from '@/assets/templateImages/birthdayTemplate2.png';
 import data from '@/demoTemplate/demo-preview.json';
 import Logo from "@/components/common/logo/Logo";
-import { Download, Printer } from "lucide-react";
+import { Printer } from "lucide-react";
 import DownloadCard from "@/shared/Editor/DownloadCard";
 
 
@@ -52,6 +52,7 @@ const ReceivedPreview = () => {
                             height={height}
                             key={index}
                             page={page}
+                            index={index}
                         />
                     ))
                 }
