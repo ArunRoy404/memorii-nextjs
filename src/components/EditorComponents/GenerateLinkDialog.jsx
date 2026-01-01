@@ -71,11 +71,11 @@ export function GenerateLinkDialog({ text, setIsError, className }) {
                     <div className="space-y-4">
                         <div className="flex flex-col md:flex-row items-center gap-2 p-1.5 pl-4 bg-gray-50 border border-gray-100 rounded-xl">
                             <span className="text-xs text-gray-400 truncate select-none">
-                                app.example.com/card/123...
+                                https://maishami.vercel.app/received
                             </span>
                             <button
                                 onClick={() => {
-                                    navigator.clipboard.writeText("https://app.example.com/card/123");
+                                    navigator.clipboard.writeText("https://maishami.vercel.app/received");
                                     toast.success("Link copied");
                                 }}
                                 className="ml-auto w-full md:max-w-max flex justify-center items-center gap-2 px-4 py-2 bg-white border border-gray-200 text-sm font-medium rounded-lg hover:bg-gray-50 hover:shadow-sm transition-all active:scale-95"
