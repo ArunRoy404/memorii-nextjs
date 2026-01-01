@@ -13,8 +13,7 @@ const RedoUndo = ({ className }) => {
     const isLocked = useRef(false);
 
 
-    const saveState = useCallback((e) => {
-        console.log(e);
+    const saveState = useCallback(() => {
         if (isLocked.current || !editorRef) return;
 
         const json = JSON.stringify(editorRef.toDatalessJSON());
@@ -37,13 +36,13 @@ const RedoUndo = ({ className }) => {
 
         saveState();
 
+        // editorRef.on('object:added', saveState);
         editorRef.on('object:modified', saveState);
-        editorRef.on('object:added', saveState);
         editorRef.on('object:removed', saveState);
 
         return () => {
+            // editorRef.off('object:added', saveState);
             editorRef.off('object:modified', saveState);
-            editorRef.off('object:added', saveState);
             editorRef.off('object:removed', saveState);
         };
     }, [editorRef, saveState]);
