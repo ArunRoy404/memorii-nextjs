@@ -482,3 +482,32 @@ export const initUndoRedo = (canvas) => {
         canvas.off('object:removed', saveState);
     };
 };
+
+
+
+export const handleRemoveEmptyText = ({ ref }) => {
+    if (!ref) return;
+
+    const onSelectionCleared = (options) => {
+        const deselectedObjects = options.deselected || [];
+
+        deselectedObjects.forEach((obj) => {
+            if (obj.type === 'i-text' || obj.type === 'textbox') {
+                if (!obj.text || obj.text.trim() === "") {
+                    ref.remove(obj);
+                }
+            }
+        });
+        ref.requestRenderAll();
+    };
+
+    ref.on('selection:cleared', onSelectionCleared);
+    ref.on('selection:updated', onSelectionCleared);
+
+    return () => {
+        ref.off('selection:cleared', onSelectionCleared);
+        ref.off('selection:updated', onSelectionCleared);
+    };
+};
+
+
