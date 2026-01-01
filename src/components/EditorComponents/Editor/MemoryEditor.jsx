@@ -47,7 +47,7 @@ const MemoryEditor = () => {
         renderDesign(fabricCanvas);
 
         const removeClipboardListeners = initClipboard(fabricCanvas);
-        const cleanupUndo = initUndoRedo(fabricCanvas);
+        const cleanupUndoRedo = initUndoRedo(fabricCanvas);
 
         const handleDelete = (e) => handleDeleteObject({ e, ref: fabricCanvas })
         const handleRemove = (e) => handleRemoveText({ e, ref: fabricCanvas })
@@ -61,7 +61,7 @@ const MemoryEditor = () => {
             window.removeEventListener("keydown", handleDelete);
             window.removeEventListener("keydown", handleRemove);
             removeClipboardListeners();
-            cleanupUndo();
+            cleanupUndoRedo();
             cleanupEmptyText();
             fabricCanvas.dispose();
         }

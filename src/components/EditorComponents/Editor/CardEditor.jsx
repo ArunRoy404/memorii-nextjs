@@ -49,6 +49,7 @@ const CardEditor = () => {
         const handleRemove = (e) => handleRemoveText({ e, ref: fabricCanvas })
         window.addEventListener("keydown", handleDelete);
         window.addEventListener("keydown", handleRemove);
+        const cleanupUndoRedo = initUndoRedo(fabricCanvas);
         const cleanupEmptyText = handleRemoveEmptyText({ ref: fabricCanvas });
 
 
@@ -57,6 +58,7 @@ const CardEditor = () => {
         return () => {
             window.removeEventListener("keydown", handleDelete);
             window.removeEventListener("keydown", handleRemove);
+            cleanupUndoRedo()
             cleanupEmptyText();
             fabricCanvas.dispose();
         }
