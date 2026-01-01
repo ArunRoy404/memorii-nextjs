@@ -35,13 +35,13 @@ const PreviewTopBar = () => {
                                 <Nfc />
                             </Button>
 
-                            {/* <Link href="send" className="w-full">
+                            <Link href="send" className="w-full">
                                 <Button
                                     size="sm" className="w-full sm:w-auto">
                                     Send
                                     <Send />
                                 </Button>
-                            </Link> */}
+                            </Link>
                         </ActionDrawer>
                     </div>
                 </div>
@@ -69,13 +69,13 @@ const PreviewTopBar = () => {
                     </Button>
 
 
-                    {/* <Link href="send" className="w-full">
+                    <Link href="send" className="w-full">
                         <Button
                             size="sm" className="w-full sm:w-auto">
                             Send
                             <Send />
                         </Button>
-                    </Link> */}
+                    </Link>
                 </div>
             </div>
         </div>
