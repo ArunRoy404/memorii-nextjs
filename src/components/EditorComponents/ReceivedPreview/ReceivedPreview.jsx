@@ -56,7 +56,7 @@ const ReceivedPreview = () => {
                         />
                     ))
                 }
-                <BookBackPage />
+                <BookBackPage length={pages.length} />
             </HTMLFlipBook>
 
 

@@ -9,7 +9,6 @@ const DownloadCard = () => {
         const images = getImagesArray()
         handleDownloadPDF(images)
     }
-    console.log(images);
 
     return (
         <Button
