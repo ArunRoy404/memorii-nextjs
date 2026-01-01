@@ -1,6 +1,6 @@
 import { DiscardEditsDialog } from "@/components/EditorComponents/DiscardEditsDialog";
 import { Button } from "@/components/ui/button";
-import { Send } from "lucide-react";
+import { Nfc, Send } from "lucide-react";
 import Link from "next/link";
 import DownloadCard from "./DownloadCard";
 import ActionDrawer from "@/components/EditorComponents/Drawer/ActionDrawer";
@@ -29,13 +29,19 @@ const PreviewTopBar = () => {
                             <DownloadCard />
 
 
-                            <Link href="send" className="w-full">
+                            <Button notImplemented
+                                size="sm" className="w-full sm:w-auto">
+                                Pay
+                                <Nfc />
+                            </Button>
+
+                            {/* <Link href="send" className="w-full">
                                 <Button
                                     size="sm" className="w-full sm:w-auto">
                                     Send
                                     <Send />
                                 </Button>
-                            </Link>
+                            </Link> */}
                         </ActionDrawer>
                     </div>
                 </div>
@@ -55,13 +61,21 @@ const PreviewTopBar = () => {
                     <DownloadCard />
 
 
-                    <Link href="send" className="w-full">
+
+                    <Button notImplemented
+                        size="sm" className="w-full sm:w-auto">
+                        Pay
+                        <Nfc />
+                    </Button>
+
+
+                    {/* <Link href="send" className="w-full">
                         <Button
                             size="sm" className="w-full sm:w-auto">
                             Send
                             <Send />
                         </Button>
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
         </div>
