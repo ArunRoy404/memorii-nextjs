@@ -2,7 +2,6 @@ import { DiscardEditsDialog } from "@/components/EditorComponents/DiscardEditsDi
 import { Button } from "@/components/ui/button";
 import { Nfc, Send } from "lucide-react";
 import Link from "next/link";
-import DownloadCard from "./DownloadCard";
 import ActionDrawer from "@/components/EditorComponents/Drawer/ActionDrawer";
 
 const PreviewTopBar = () => {
@@ -24,9 +23,6 @@ const PreviewTopBar = () => {
                                     Edit Design
                                 </Button>
                             </Link>
-
-
-                            <DownloadCard />
 
 
                             <Button notImplemented
@@ -56,10 +52,6 @@ const PreviewTopBar = () => {
                             Edit Design
                         </Button>
                     </Link>
-
-
-                    <DownloadCard />
-
 
 
                     <Button notImplemented

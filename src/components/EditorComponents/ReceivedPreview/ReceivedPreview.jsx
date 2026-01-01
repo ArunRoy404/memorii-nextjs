@@ -10,6 +10,7 @@ import birthdayTemplate from '@/assets/templateImages/birthdayTemplate2.png';
 import data from '@/demoTemplate/demo-preview.json';
 import Logo from "@/components/common/logo/Logo";
 import { Download, Printer } from "lucide-react";
+import DownloadCard from "@/shared/Editor/DownloadCard";
 
 
 const ReceivedPreview = () => {
@@ -83,9 +84,7 @@ const ReceivedPreview = () => {
                         <Printer />
                     </Button>
 
-                    <Button notImplemented size='icon' variant='outline' className='rounded-full text-primary'>
-                        <Download />
-                    </Button>
+                    <DownloadCard />
                 </div>
 
                 <Logo />

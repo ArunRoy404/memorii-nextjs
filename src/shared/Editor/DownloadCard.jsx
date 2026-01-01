@@ -13,10 +13,7 @@ const DownloadCard = () => {
     return (
         <Button
             onClick={handleDownload}
-            variant='outline'
-            size="sm"
-            className="flex items-center gap-1 justify-center w-full sm:w-auto">
-            Download
+            size='icon' variant='outline' className='rounded-full text-primary'>
             <ArrowDownToLine />
         </Button>
     );
