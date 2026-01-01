@@ -3,6 +3,7 @@ import ActionDrawer from "@/components/EditorComponents/Drawer/ActionDrawer";
 import ImageDrawer from "@/components/EditorComponents/Drawer/ImageDrawer";
 import StickersDrawer from "@/components/EditorComponents/Drawer/StickersDrawer";
 import TextOptionsDrawer from "@/components/EditorComponents/Drawer/TextOptionsDrawer";
+import RedoUndo from "@/components/EditorComponents/RedoUndo/RedoUndo";
 import { Button } from "@/components/ui/button";
 import { useEditorStore } from "@/store/useEditorStore";
 import { Undo2, Redo2, UserPlus, Plus } from "lucide-react";
@@ -37,13 +38,8 @@ const EditorTopBar = () => {
 
                     {/* Undo/Redo on mobile next to Exit */}
                     <div className="flex items-center gap-4 sm:hidden">
-                        <Button variant='ghost' size="sm" className='p-0!'>
-                            <Undo2 className="w-4 h-4 " />
-                        </Button>
 
-                        <Button variant='ghost' size="sm" className='p-0!'>
-                            <Redo2 className="w-4 h-4" />
-                        </Button>
+                        <RedoUndo className="flex items-center gap-4" />
 
                         <ActionDrawer>
                             <Button variant='outline' size="sm" className="flex items-center gap-1 justify-center w-full sm:w-auto">
@@ -64,15 +60,7 @@ const EditorTopBar = () => {
 
 
                 {/* Center / desktop: Undo/Redo */}
-                <div className="hidden md:flex items-center gap-2">
-                    <Button variant='ghost' size="sm">
-                        <Undo2 className="w-5 h-5" />
-                    </Button>
-                    <Button variant='ghost' size="sm">
-                        <Redo2 className="w-5 h-5" />
-                    </Button>
-                </div>
-
+                <RedoUndo className="hidden md:flex items-center gap-4" />
 
 
                 {/* Right / bottom: Invite + Preview */}
