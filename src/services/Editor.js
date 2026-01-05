@@ -75,7 +75,7 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref, font
 
 
 
-export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left }) => {
+export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left, preAddedText }) => {
     if (!ref) return;
 
     const canvasWidth = ref.getWidth();
@@ -98,6 +98,7 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
         breakWords: true,
         // lockInteraction: true,
     })
+    texBoxObj.set('preAddedText', preAddedText || false);
 
 
 
@@ -110,6 +111,7 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
             top: canvasHeight / (7 * zoom),
             originX: 'center',
             originY: 'center',
+            preAddedText: preAddedText || false,
         });
     }
     if (position === 'center') {
@@ -121,6 +123,7 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
             top: canvasHeight / (2 * zoom),
             originX: 'center',
             originY: 'center',
+            preAddedText: preAddedText || false,
         });
     }
     if (position === 'bottom') {
@@ -132,6 +135,7 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
             top: (canvasHeight / (3 * zoom)) * 2.5,
             originX: 'center',
             originY: 'center',
+            preAddedText: preAddedText || false,
         });
     }
 
@@ -185,6 +189,7 @@ export const handleDeleteObject = ({ e, ref }) => {
     }
 }
 
+
 export const handleRemoveText = ({ e, ref }) => {
     if (e.key === 'Backspace') {
         const activeObject = ref.getActiveObject();
@@ -201,7 +206,43 @@ export const handleRemoveText = ({ e, ref }) => {
 
 
 
+// remove pre added text 
+export const handleRemovePreAddedText = ({ ref }) => {
+    if (!ref) return;
 
+    const onMouseDown = (options) => {
+        const selectedObj = options.target;
+
+        if (
+            selectedObj &&
+            selectedObj.preAddedText === true &&
+            (selectedObj.type === 'i-text' || selectedObj.type === 'textbox')
+        ) {
+            selectedObj.set({
+                text: '',
+                preAddedText: false
+            });
+
+
+            selectedObj.enterEditing();
+            if (selectedObj.hiddenTextarea) {
+                selectedObj.hiddenTextarea.focus();
+            }
+
+            ref.requestRenderAll();
+        }
+    };
+
+    
+    ref.on('mouse:down', onMouseDown);
+    return () => {
+        ref.off('mouse:down', onMouseDown);
+    };
+}
+
+
+
+// unused 
 export const doubleClickToText = ({ ref }) => {
     ref.on('mouse:dblclick', (options) => {
         if (options.target) return;

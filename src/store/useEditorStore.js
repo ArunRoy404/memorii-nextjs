@@ -30,9 +30,9 @@ export const useEditorStore = create(
         saveCurrentPage: () => {
             const { editorRef, pages, currentPage } = get();
             if (!editorRef) return;
-            
 
-            const json = editorRef.toJSON(['lockInteraction'])
+
+            const json = editorRef.toJSON(['lockInteraction', 'preAddedText'])
             const newPages = [...pages];
             newPages[currentPage] = json;
             set({ pages: newPages });

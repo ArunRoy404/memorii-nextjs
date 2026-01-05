@@ -3,7 +3,7 @@
 import '@/lib/fabricSetup';
 import { fabric } from '@/lib/fabricSetup';
 import { applyCommonStyles } from "@/services/CommonControlStyle";
-import { handleDeleteObject, handleRemoveEmptyText, handleRemoveText, initClipboard, touchToText } from "@/services/Editor";
+import { handleDeleteObject, handleRemoveEmptyText, handleRemovePreAddedText, handleRemoveText, initClipboard, touchToText } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import { useEffect, useRef } from "react";
 
@@ -25,6 +25,7 @@ const MemoryEditor = () => {
         ref?.getObjects()?.forEach(obj => {
             applyCommonStyles(obj)
 
+            console.log('object', obj.preAddedText);
 
             if (obj.lockInteraction) {
                 obj.set({
@@ -82,6 +83,7 @@ const MemoryEditor = () => {
 
         const handleDelete = (e) => handleDeleteObject({ e, ref: fabricCanvas })
         const handleRemove = (e) => handleRemoveText({ e, ref: fabricCanvas })
+        const cleanupPreAdded = handleRemovePreAddedText({ ref: fabricCanvas })
         window.addEventListener("keydown", handleDelete);
         window.addEventListener("keydown", handleRemove);
         const cleanupEmptyText = handleRemoveEmptyText({ ref: fabricCanvas });
@@ -93,6 +95,7 @@ const MemoryEditor = () => {
             window.removeEventListener("keydown", handleRemove);
             removeClipboardListeners();
             cleanupEmptyText();
+            cleanupPreAdded();
             fabricCanvas.dispose();
         }
     }, [currentPage])

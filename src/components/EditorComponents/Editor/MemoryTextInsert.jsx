@@ -11,10 +11,10 @@ const MemoryTextInsert = () => {
 
     const handleAddText = ({ text, position, fontSize, fontWeight }) => {
         if (!!text) {
-            addTextBox({ position, text, fontFamily: currentFontFamily, fontSize: fontSize || currentFontSize, color: currentTextColor, ref: editorRef, fontWeight })
+            addTextBox({ position, text, fontFamily: currentFontFamily, fontSize: fontSize || currentFontSize, color: currentTextColor, ref: editorRef, fontWeight, preAddedText: true })
             return
         }
-        addTextBox({ position, fontFamily: currentFontFamily, fontSize: fontSize || currentFontSize, color: currentTextColor, ref: editorRef })
+        addTextBox({ position, fontFamily: currentFontFamily, fontSize: fontSize || currentFontSize, color: currentTextColor, ref: editorRef, preAddedText: true })
     }
 
 
