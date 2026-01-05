@@ -16,7 +16,8 @@ const RedoUndo = ({ className }) => {
     const [history, setHistory] = useState([]);
     const [redoStack, setRedoStack] = useState([]);
     const isLocked = useRef(false);
-    
+    console.log(getPageState(currentPage));
+
 
 
     // load state to editorRef 
@@ -85,10 +86,13 @@ const RedoUndo = ({ className }) => {
 
     useEffect(() => {
         // if (!editorRef || !editorRef.backgroundColor || lastPage === currentPage) return;
-        if (!editorRef || !editorRef.backgroundColor ) return;
-        
-        // setLastPage(currentPage);
+        if (!editorRef || !editorRef.backgroundColor) return;
+
         // saveState();
+
+
+        // setLastPage(currentPage);
+        // marking this page as last page 
 
         // editorRef.on('object:added', saveState);
         editorRef.on('object:modified', saveState);
@@ -105,43 +109,39 @@ const RedoUndo = ({ className }) => {
 
 
 
-
-
     // set page history and redoStack when history or redoStack changes
-    // useEffect(() => {
-    //     if (currentPage >= 0) {
-    //         setHistoryAt(currentPage, history);
-    //         setRedoStackAt(currentPage, redoStack);
-    //     }
-    // }, [history, redoStack, setHistoryAt, setRedoStackAt]);
+    useEffect(() => {
+        if (currentPage >= 0) {
+            if (lastPage === currentPage) return;
+            isLocked.current = true;
 
+            // making copy of stack 
+            const currentHistoryCopy = [...history];
+            const currentRedoStackCopy = [...redoStack];
 
+            // loading current page stack 
+            const saved = getPageState(currentPage);
+            setHistory(saved.history);
+            setRedoStack(saved.redoStack);
 
-    // load history and redoStack when currentPage changes
-    // useEffect(() => {
-    //     if (lastPage === currentPage) return;
-
-    //     isLocked.current = true;
-    //     const saved = getPageState(currentPage);
-    //     setHistory(saved.history);
-    //     setRedoStack(saved.redoStack);
-    //     isLocked.current = false;
-    // }, [currentPage]);
-
-
+            // setting the copy state to last page 
+            setHistoryAt(lastPage, currentHistoryCopy);
+            setRedoStackAt(lastPage, currentRedoStackCopy);
+            isLocked.current = false;
+            setLastPage(currentPage);
+        }
+    }, [currentPage]);
 
 
 
     return (
         <div className={cn("flex gap-2", className)}>
-            {history.length}
             <Button onClick={handleUndo} disabled={history.length <= 1} variant='ghost' className='p-1!' size="sm">
                 <Undo2 className="w-4 h-4" />
             </Button>
             <Button onClick={handleRedo} disabled={redoStack.length === 0} variant='ghost' className='p-1!' size="sm">
                 <Redo2 className="w-4 h-4" />
             </Button>
-            {redoStack.length}
         </div>
     );
 };
