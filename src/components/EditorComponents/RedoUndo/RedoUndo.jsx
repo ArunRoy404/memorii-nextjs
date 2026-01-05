@@ -16,7 +16,6 @@ const RedoUndo = ({ className }) => {
     const [history, setHistory] = useState([]);
     const [redoStack, setRedoStack] = useState([]);
     const isLocked = useRef(false);
-    console.log(getPageState(currentPage));
 
 
 

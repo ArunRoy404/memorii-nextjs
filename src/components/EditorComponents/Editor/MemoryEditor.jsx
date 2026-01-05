@@ -1,10 +1,10 @@
-'use client'
+'use client';
 
-
+import '@/lib/fabricSetup';
+import { fabric } from '@/lib/fabricSetup';
 import { applyCommonStyles } from "@/services/CommonControlStyle";
 import { handleDeleteObject, handleRemoveEmptyText, handleRemoveText, initClipboard, touchToText } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
-import * as fabric from "fabric";
 import { useEffect, useRef } from "react";
 
 
@@ -22,8 +22,19 @@ const MemoryEditor = () => {
         if (pages[currentPage]) {
             await ref?.loadFromJSON(pages[currentPage]);
         }
+        ref?.getObjects()?.forEach(obj => {
+            applyCommonStyles(obj)
+
+
+            if (obj.lockInteraction) {
+                obj.set({
+                    selectable: false,
+                    editable: false,
+                    evented: false,
+                });
+            }
+        });
         ref?.renderAll();
-        ref?.getObjects()?.forEach(obj => applyCommonStyles(obj));
     }
 
 
