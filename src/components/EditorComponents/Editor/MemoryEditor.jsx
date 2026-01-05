@@ -31,6 +31,27 @@ const MemoryEditor = () => {
                     selectable: false,
                     editable: false,
                     evented: false,
+
+                    // selectable: true,   // ✅ can select
+                    // evented: true,      // ✅ can receive click
+
+                    // // ❌ movement
+                    // lockMovementX: true,
+                    // lockMovementY: true,
+
+                    // // ❌ scaling
+                    // lockScalingX: true,
+                    // lockScalingY: true,
+                    // lockScalingFlip: true,
+
+                    // // ❌ rotation
+                    // lockRotation: true,
+
+                    // // ❌ resizing from corners
+                    // hasControls: false,
+
+                    // // ❌ text editing
+                    // editable: false,
                 });
             }
         });

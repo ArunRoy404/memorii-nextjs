@@ -96,7 +96,7 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
         fill: color || '#000000',
 
         breakWords: true,
-        lockInteraction: true,
+        // lockInteraction: true,
     })
 
 
