@@ -73,6 +73,7 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref, font
 
 
 
+
 export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left }) => {
     if (!ref) return;
 
@@ -95,7 +96,9 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
 
         fill: color || '#000000',
         breakWords: true,
-        editable: true,
+        // editable: false,      // can't edit text
+        // selectable: false,    // can't select
+        // evented: false,       // no mouse events
     })
 
 
@@ -144,6 +147,7 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
     ref.setActiveObject(texBoxObj);
     ref.renderAll();
 }
+
 
 
 
@@ -202,6 +206,8 @@ export const handleRemoveText = ({ e, ref }) => {
 }
 
 
+
+
 export const doubleClickToText = ({ ref }) => {
     ref.on('mouse:dblclick', (options) => {
         if (options.target) return;
@@ -232,6 +238,8 @@ export const doubleClickToText = ({ ref }) => {
         ref.requestRenderAll();
     });
 }
+
+
 
 
 export const touchToText = ({ ref }) => {
@@ -294,6 +302,8 @@ export const touchToText = ({ ref }) => {
 
 
 
+
+
 export const handleDownloadPDF = (images = [], fileName = "test.pdf") => {
     toast.success("Downloading PDF...");
 
@@ -341,6 +351,8 @@ export const handleDownloadPDF = (images = [], fileName = "test.pdf") => {
         pdf.save(fileName)
     })();
 }
+
+
 
 
 
@@ -410,79 +422,6 @@ export const initClipboard = (canvas) => {
     return () => window.removeEventListener("keydown", handleKeyDown);
 };
 
-
-export const initUndoRedo = (canvas) => {
-    let history = [];
-    let redoStack = [];
-    let isLocked = false;
-
-    const saveState = () => {
-        if (isLocked) return;
-        const json = JSON.stringify(canvas.toDatalessJSON());
-        if (history.length > 0 && history[history.length - 1] === json) return;
-        history.push(json);
-        redoStack = [];
-        if (history.length > 50) history.shift();
-    };
-
-    canvas.on('object:modified', saveState);
-    canvas.on('object:added', saveState);
-    canvas.on('object:removed', saveState);
-    saveState();
-
-    const loadState = async (stateToLoad) => {
-        if (!stateToLoad) return; // Guard against empty history
-        await canvas.loadFromJSON(stateToLoad);
-        canvas.getObjects().forEach((obj) => applyCommonStyles(obj));
-        canvas.renderAll();
-        isLocked = false;
-    }
-
-    const handleUndo = () => {
-        if (history.length <= 1) return; // Keep initial state
-        isLocked = true;
-        const currentState = history.pop();
-        redoStack.push(currentState);
-        const stateToLoad = history[history.length - 1];
-        loadState(stateToLoad);
-    }
-
-    const handleRedo = () => {
-        if (redoStack.length === 0) return;
-        isLocked = true;
-        const stateToLoad = redoStack.pop();
-        history.push(stateToLoad);
-        loadState(stateToLoad);
-    }
-
-    const handleKeyDown = (e) => {
-        const isUndo = (e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey;
-        const isRedo = ((e.ctrlKey || e.metaKey) && e.key === 'y') ||
-            ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'z');
-
-        if (isUndo || isRedo) {
-            e.preventDefault();
-            if (isUndo) handleUndo();
-            if (isRedo) handleRedo();
-        }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-
-
-    return {
-        undo: handleUndo,
-        redo: handleRedo,
-        historyLength: history.length,
-        redoLength: redoStack.length,
-        dispose: () => {
-            window.removeEventListener('keydown', handleKeyDown);
-            canvas.off('object:modified', saveState);
-            canvas.off('object:added', saveState);
-            canvas.off('object:removed', saveState);
-        }
-    };
-};
 
 
 
