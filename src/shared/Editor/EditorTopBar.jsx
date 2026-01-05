@@ -6,7 +6,7 @@ import TextOptionsDrawer from "@/components/EditorComponents/Drawer/TextOptionsD
 import RedoUndo from "@/components/EditorComponents/RedoUndo/RedoUndo";
 import { Button } from "@/components/ui/button";
 import { useEditorStore } from "@/store/useEditorStore";
-import { Undo2, Redo2, UserPlus, Plus } from "lucide-react";
+import { UserPlus, Plus } from "lucide-react";
 import Link from "next/link";
 
 const EditorTopBar = () => {

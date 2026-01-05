@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import { applyCommonStyles } from '@/services/CommonControlStyle';
 import { useEditorStore } from '@/store/useEditorStore';
 import { useRedoUndoStateStore } from '@/store/useRedoUndoStateStore';
-import { Redo2, Undo2 } from 'lucide-react';
+import { Redo2, Save, Undo2 } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 
@@ -141,6 +141,9 @@ const RedoUndo = ({ className }) => {
             </Button>
             <Button onClick={handleRedo} disabled={redoStack.length === 0} variant='ghost' className='p-1!' size="sm">
                 <Redo2 className="w-4 h-4" />
+            </Button>
+            <Button notImplemented variant='ghost' className='p-1!' size="sm">
+                <Save className="w-4 h-4" />
             </Button>
         </div>
     );
