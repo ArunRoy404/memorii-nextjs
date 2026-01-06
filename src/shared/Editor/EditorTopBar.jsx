@@ -5,12 +5,13 @@ import StickersDrawer from "@/components/EditorComponents/Drawer/StickersDrawer"
 import TextOptionsDrawer from "@/components/EditorComponents/Drawer/TextOptionsDrawer";
 import RedoUndo from "@/components/EditorComponents/RedoUndo/RedoUndo";
 import { Button } from "@/components/ui/button";
+import { addMemoryLayoutGrid, addMemoryLayoutVertical } from "@/services/MemoryLayoutFunctions";
 import { useEditorStore } from "@/store/useEditorStore";
 import { UserPlus, Plus } from "lucide-react";
 import Link from "next/link";
 
 const EditorTopBar = () => {
-    const { saveCurrentPage, addPage } = useEditorStore()
+    const { saveCurrentPage, addPage, editorRef } = useEditorStore()
 
 
     return (
@@ -65,6 +66,15 @@ const EditorTopBar = () => {
 
                 {/* Right / bottom: Invite + Preview */}
                 <div className="hidden md:flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
+
+                    <Button size="sm" onClick={() => addMemoryLayoutVertical({ ref: editorRef })} >
+                        add vertical  layout
+                    </Button>
+
+                    <Button size="sm" onClick={() => addMemoryLayoutGrid({ ref: editorRef })} >
+                        add grid layout
+                    </Button>
+
                     <Button variant='outline' size="sm" className="flex items-center gap-1 justify-center w-full sm:w-auto">
                         <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
                         Invite

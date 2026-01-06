@@ -3,7 +3,7 @@
 import '@/lib/fabricSetup';
 import { fabric } from '@/lib/fabricSetup';
 import { applyCommonStyles } from "@/services/CommonControlStyle";
-import { handleDeleteObject, handleRemoveEmptyText, handleRemovePreAddedText, handleRemoveText, initClipboard, touchToText } from "@/services/Editor";
+import { handleDeleteObject, handleRemoveEmptyText, handleRemovePreAddedText, handleRemoveText, initClipboard, setObjProperties, touchToText } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import { useEffect, useRef } from "react";
 
@@ -24,43 +24,14 @@ const MemoryEditor = () => {
         }
         ref?.getObjects()?.forEach(obj => {
             applyCommonStyles(obj)
-
-            console.log('object', obj.preAddedText);
-
-            if (obj.lockInteraction) {
-                obj.set({
-                    selectable: false,
-                    editable: false,
-                    evented: false,
-
-                    // selectable: true,   // ✅ can select
-                    // evented: true,      // ✅ can receive click
-
-                    // // ❌ movement
-                    // lockMovementX: true,
-                    // lockMovementY: true,
-
-                    // // ❌ scaling
-                    // lockScalingX: true,
-                    // lockScalingY: true,
-                    // lockScalingFlip: true,
-
-                    // // ❌ rotation
-                    // lockRotation: true,
-
-                    // // ❌ resizing from corners
-                    // hasControls: false,
-
-                    // // ❌ text editing
-                    // editable: false,
-                });
-            }
+            setObjProperties({ obj: obj })
         });
         ref?.renderAll();
     }
 
 
-    useEffect(() => {
+
+    useEffect(() => { 
         if (!width || !height) return
 
         const fabricCanvas = new fabric.Canvas('canvas', {
@@ -99,6 +70,7 @@ const MemoryEditor = () => {
             fabricCanvas.dispose();
         }
     }, [currentPage])
+
 
 
     const resizeCanvas = () => {

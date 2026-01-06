@@ -213,14 +213,16 @@ export const handleRemovePreAddedText = ({ ref }) => {
     const onMouseDown = (options) => {
         const selectedObj = options.target;
 
-        if (
-            selectedObj &&
-            selectedObj.preAddedText === true &&
-            (selectedObj.type === 'i-text' || selectedObj.type === 'textbox')
-        ) {
+        if (selectedObj
+            && selectedObj.preAddedText === true
+            && (selectedObj.type === 'i-text' || selectedObj.type === 'textbox')) {
+
+            console.log('here 1');
+
             selectedObj.set({
                 text: '',
-                preAddedText: false
+                preAddedText: false,
+                lastPreAddedText: selectedObj.text,
             });
 
 
@@ -233,11 +235,9 @@ export const handleRemovePreAddedText = ({ ref }) => {
         }
     };
 
-    
+
     ref.on('mouse:down', onMouseDown);
-    return () => {
-        ref.off('mouse:down', onMouseDown);
-    };
+    return () => ref.off('mouse:down', onMouseDown);
 }
 
 
@@ -460,16 +460,25 @@ export const initClipboard = (canvas) => {
 
 
 
+
 export const handleRemoveEmptyText = ({ ref }) => {
     if (!ref) return;
 
     const onSelectionCleared = (options) => {
         const deselectedObjects = options.deselected || [];
 
+
         deselectedObjects.forEach((obj) => {
             if (obj.type === 'i-text' || obj.type === 'textbox') {
                 if (!obj.text || obj.text.trim() === "") {
-                    ref.remove(obj);
+                    if (obj.preAddedText == false ) {
+                        obj.set({
+                            text: obj.lastPreAddedText,
+                            preAddedText: true
+                        });
+                    } else {
+                        ref.remove(obj);
+                    }
                 }
             }
         });
@@ -486,3 +495,60 @@ export const handleRemoveEmptyText = ({ ref }) => {
 };
 
 
+
+export const setObjProperties = ({ obj }) => {
+    if (obj.lockInteraction) {
+        obj.set({
+            selectable: false,
+            editable: false,
+            evented: false,
+
+            // selectable: true,   // ✅ can select
+            // evented: true,      // ✅ can receive click
+
+            // // ❌ movement
+            // lockMovementX: true,
+            // lockMovementY: true,
+
+            // // ❌ scaling
+            // lockScalingX: true,
+            // lockScalingY: true,
+            // lockScalingFlip: true,
+
+            // // ❌ rotation
+            // lockRotation: true,
+
+            // // ❌ resizing from corners
+            // hasControls: false,
+
+            // // ❌ text editing
+            // editable: false,
+        });
+    }
+
+
+    if (obj.isMemoryQuestion) {
+        obj.set({
+            selectable: false,
+            evented: false,
+        })
+    }
+
+
+    if (obj.isMemoryAnswer) {
+        obj.set({
+            // Strict constraints to prevent overlapping other questions
+            editable: true,
+            selectable: true,
+            hasControls: false,
+            lockScalingX: true,
+            lockScalingY: true,
+            lockMovementX: true,
+            lockMovementY: true,
+
+            // This ensures text wraps within the box width
+            splitByGrapheme: true,
+            objectCaching: false,
+        })
+    }
+}

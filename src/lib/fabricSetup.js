@@ -13,6 +13,9 @@ if (!fabric.Object.prototype.__customPropsPatched) {
 
             lockInteraction: this.lockInteraction,
             preAddedText: this.preAddedText,
+            lastPreAddedText: this.lastPreAddedText,
+            isMemoryQuestion: this.isMemoryQuestion,
+            isMemoryAnswer: this.isMemoryAnswer,
         };
     };
 }
