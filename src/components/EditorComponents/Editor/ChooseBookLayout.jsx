@@ -17,13 +17,13 @@ import gridImg from '@/assets/layoutImages/gridLayout.png';
 import gridJson from '@/demoTemplate/grid-layout-json.json';
 import verticalJson from '@/demoTemplate/vertical-layout-json.json';
 import { useEditorStore } from '@/store/useEditorStore';
+import { toast } from 'sonner';
 
 
 
 const LayoutModal = () => {
     const [selected, setSelected] = useState(null);
-    const [isOpen, setIsOpen] = useState(true);
-    const { setChosenBookPage } = useEditorStore()
+    const { chosenBookPage, setChosenBookPage } = useEditorStore()
 
 
     const layouts = [
@@ -47,14 +47,14 @@ const LayoutModal = () => {
     const handleApply = () => {
         if (selected) {
             setChosenBookPage(selected.json)
-            setIsOpen(false);
+            toast.success('Layout applied successfully!')
         }
     };
 
 
 
     return (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <Dialog open={!chosenBookPage}>
             <DialogContent className="max-w-4xl sm:max-h-[90vh] overflow-hidden flex flex-col">
                 <DialogHeader>
                     <DialogTitle className="text-2xl font-bold text-center">

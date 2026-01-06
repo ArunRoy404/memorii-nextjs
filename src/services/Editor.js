@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import jsPDF from 'jspdf';
 
 
+
 export const addText = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left }) => {
     if (!ref) return;
 
@@ -76,7 +77,7 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref, font
 
 
 export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left, preAddedText }) => {
-    if (!ref) return;
+    if (!ref || ref?.layout !== 'blank') return;
 
     const canvasWidth = ref.getWidth();
     const canvasHeight = ref.getHeight();
@@ -149,8 +150,9 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
 
 
 
-
 export const addSticker = async ({ svgURL, editorRef }) => {
+    if (!editorRef || editorRef?.layout !== 'blank') return;
+
     try {
         const img = await fabric.Image.fromURL(svgURL, {
             crossOrigin: 'anonymous'
@@ -179,6 +181,7 @@ export const addSticker = async ({ svgURL, editorRef }) => {
 
 
 export const handleDeleteObject = ({ e, ref }) => {
+    if (!ref || ref?.layout !== 'blank') return;
     if (e.key == 'Delete') {
         const activeObjects = ref.getActiveObjects();
         if (activeObjects.length) {
@@ -188,6 +191,7 @@ export const handleDeleteObject = ({ e, ref }) => {
         }
     }
 }
+
 
 
 export const handleRemoveText = ({ e, ref }) => {
@@ -213,14 +217,15 @@ export const handleRemovePreAddedText = ({ ref }) => {
     const onMouseDown = (options) => {
         const selectedObj = options.target;
 
-        if (
-            selectedObj &&
-            selectedObj.preAddedText === true &&
-            (selectedObj.type === 'i-text' || selectedObj.type === 'textbox')
-        ) {
+        if (selectedObj
+            && selectedObj.preAddedText === true
+            && (selectedObj.type === 'i-text' || selectedObj.type === 'textbox')) {
+
+
             selectedObj.set({
                 text: '',
-                preAddedText: false
+                preAddedText: false,
+                lastPreAddedText: selectedObj.text,
             });
 
 
@@ -233,11 +238,9 @@ export const handleRemovePreAddedText = ({ ref }) => {
         }
     };
 
-    
+
     ref.on('mouse:down', onMouseDown);
-    return () => {
-        ref.off('mouse:down', onMouseDown);
-    };
+    return () => ref.off('mouse:down', onMouseDown);
 }
 
 
@@ -284,6 +287,9 @@ export const touchToText = ({ ref }) => {
 
     ref.on('mouse:down', (options) => {
         // Fabric.js normalizes 'mouse:down' to include 'touchstart'
+
+        if (ref?.layout !== 'blank') return
+
         const currentTapTime = new Date().getTime();
         const timeDiff = currentTapTime - lastTapTime;
 
@@ -338,7 +344,6 @@ export const touchToText = ({ ref }) => {
 
 
 
-
 export const handleDownloadPDF = (images = [], fileName = "test.pdf") => {
     toast.success("Downloading PDF...");
 
@@ -386,7 +391,6 @@ export const handleDownloadPDF = (images = [], fileName = "test.pdf") => {
         pdf.save(fileName)
     })();
 }
-
 
 
 
@@ -466,10 +470,18 @@ export const handleRemoveEmptyText = ({ ref }) => {
     const onSelectionCleared = (options) => {
         const deselectedObjects = options.deselected || [];
 
+
         deselectedObjects.forEach((obj) => {
             if (obj.type === 'i-text' || obj.type === 'textbox') {
                 if (!obj.text || obj.text.trim() === "") {
-                    ref.remove(obj);
+                    if (obj.preAddedText == false) {
+                        obj.set({
+                            text: obj.lastPreAddedText,
+                            preAddedText: true
+                        });
+                    } else {
+                        ref.remove(obj);
+                    }
                 }
             }
         });
@@ -486,3 +498,61 @@ export const handleRemoveEmptyText = ({ ref }) => {
 };
 
 
+
+
+export const setObjProperties = ({ obj }) => {
+    if (obj.lockInteraction) {
+        obj.set({
+            selectable: false,
+            editable: false,
+            evented: false,
+
+            // selectable: true,   // ✅ can select
+            // evented: true,      // ✅ can receive click
+
+            // // ❌ movement
+            // lockMovementX: true,
+            // lockMovementY: true,
+
+            // // ❌ scaling
+            // lockScalingX: true,
+            // lockScalingY: true,
+            // lockScalingFlip: true,
+
+            // // ❌ rotation
+            // lockRotation: true,
+
+            // // ❌ resizing from corners
+            // hasControls: false,
+
+            // // ❌ text editing
+            // editable: false,
+        });
+    }
+
+
+    if (obj.isMemoryQuestion) {
+        obj.set({
+            selectable: false,
+            evented: false,
+        })
+    }
+
+
+    if (obj.isMemoryAnswer) {
+        obj.set({
+            // Strict constraints to prevent overlapping other questions
+            editable: true,
+            selectable: true,
+            hasControls: false,
+            lockScalingX: true,
+            lockScalingY: true,
+            lockMovementX: true,
+            lockMovementY: true,
+
+            // This ensures text wraps within the box width
+            splitByGrapheme: true,
+            objectCaching: false,
+        })
+    }
+}

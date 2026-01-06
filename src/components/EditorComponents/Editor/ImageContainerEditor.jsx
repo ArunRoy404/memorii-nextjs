@@ -20,6 +20,7 @@ const ImageContainerEditor = () => {
 
     // Add image(s) to canvas and save to history
     const handleImageAdd = async (e) => {
+        if (editorRef?.layout !== 'blank') return
         const files = Array.from(e.target.files);
         if (!files.length) return;
 
@@ -55,6 +56,7 @@ const ImageContainerEditor = () => {
 
     // Add image from history
     const handleAddFromHistory = async (src) => {
+        if (editorRef?.layout !== 'blank') return
         const img = await fabric.Image.fromURL(src);
 
         img.scaleToWidth(200);

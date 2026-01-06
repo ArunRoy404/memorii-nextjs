@@ -3,7 +3,7 @@
 import '@/lib/fabricSetup';
 import { fabric } from '@/lib/fabricSetup';
 import { applyCommonStyles } from "@/services/CommonControlStyle";
-import { handleDeleteObject, handleRemoveEmptyText, handleRemovePreAddedText, handleRemoveText, initClipboard, touchToText } from "@/services/Editor";
+import { handleDeleteObject, handleRemoveEmptyText, handleRemovePreAddedText, handleRemoveText, initClipboard, setObjProperties, touchToText } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import { useEffect, useRef } from "react";
 
@@ -19,45 +19,27 @@ const MemoryEditor = () => {
 
 
     const renderDesign = async (ref) => {
-        if (pages[currentPage]) {
-            await ref?.loadFromJSON(pages[currentPage]);
-        }
+        const pageJson = pages[currentPage]
+        if (!pageJson) return
+
+
+        await ref?.loadFromJSON(pageJson);
+
         ref?.getObjects()?.forEach(obj => {
             applyCommonStyles(obj)
-
-            console.log('object', obj.preAddedText);
-
-            if (obj.lockInteraction) {
-                obj.set({
-                    selectable: false,
-                    editable: false,
-                    evented: false,
-
-                    // selectable: true,   // ✅ can select
-                    // evented: true,      // ✅ can receive click
-
-                    // // ❌ movement
-                    // lockMovementX: true,
-                    // lockMovementY: true,
-
-                    // // ❌ scaling
-                    // lockScalingX: true,
-                    // lockScalingY: true,
-                    // lockScalingFlip: true,
-
-                    // // ❌ rotation
-                    // lockRotation: true,
-
-                    // // ❌ resizing from corners
-                    // hasControls: false,
-
-                    // // ❌ text editing
-                    // editable: false,
-                });
-            }
+            setObjProperties({ obj: obj })
         });
+
+        if (pageJson.layout) {
+            ref.setLayout(pageJson.layout || 'blank');
+
+            if (pageJson.layout !== 'blank') {
+                ref.setSelection(false)
+            }
+        }
         ref?.renderAll();
     }
+
 
 
     useEffect(() => {
@@ -69,10 +51,14 @@ const MemoryEditor = () => {
             height,
             backgroundColor: 'white',
             layout: 'blank',
+            selection: true,
         })
 
         fabricCanvas.setLayout = (newLayout) => { fabricCanvas.layout = newLayout }
         fabricCanvas.setBackgroundColor = (newColor) => { fabricCanvas.backgroundColor = newColor }
+        fabricCanvas.setSelection = (newSelection) => { fabricCanvas.selection = newSelection }
+        fabricCanvas.getLayout = () => { return fabricCanvas.layout }
+
 
         touchToText({ ref: fabricCanvas })
 
@@ -99,6 +85,7 @@ const MemoryEditor = () => {
             fabricCanvas.dispose();
         }
     }, [currentPage])
+
 
 
     const resizeCanvas = () => {

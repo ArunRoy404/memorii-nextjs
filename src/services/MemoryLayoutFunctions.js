@@ -1,9 +1,11 @@
 import * as fabric from 'fabric'
 import { applyCommonStyles } from './CommonControlStyle';
 
-export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref, fontWeight }) => {
+export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref }) => {
     if (!ref) return;
 
+    ref.setSelection(false);
+    ref.setLayout('memory_vertical');
     const canvasWidth = ref.getWidth();
     const canvasHeight = ref.getHeight();
     const zoom = ref.getZoom() || 1;
@@ -44,16 +46,24 @@ export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref, font
 
             fontFamily: fontFamily || 'Arial',
             fontSize: fontSize || Math.round(20 / zoom),
+
             fontWeight: 'bold',
             fill: color || '#000000',
             textAlign: 'left',
             originX: 'center',
             originY: 'top',
 
-            editable: false,
+            // editable: false,
             selectable: false,
             evented: false,
         });
+
+
+        questionBox.set({
+            isMemoryQuestion: true,
+        })
+
+
 
         // 2. Answer Textbox (Strict Height)
         const answerBox = new fabric.Textbox('Write your answers here...', {
@@ -84,7 +94,15 @@ export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref, font
             objectCaching: false,
         });
 
-        applyCommonStyles(questionBox);
+
+        answerBox.set({
+            isMemoryAnswer: true,
+            preAddedText: true,
+        })
+
+
+
+        // applyCommonStyles(questionBox);
         applyCommonStyles(answerBox);
 
         ref.add(questionBox);
@@ -99,11 +117,11 @@ export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref, font
 
 
 
-
-
 export const addMemoryLayoutGrid = ({ fontFamily, fontSize, color, ref }) => {
     if (!ref) return;
 
+    ref.setSelection(false);
+    ref.setLayout('memory_grid');
     const canvasWidth = ref.getWidth();
     const canvasHeight = ref.getHeight();
     const zoom = ref.getZoom() || 1;
@@ -163,6 +181,12 @@ export const addMemoryLayoutGrid = ({ fontFamily, fontSize, color, ref }) => {
             evented: false,
         });
 
+
+        questionBox.set({
+            isMemoryQuestion: true,
+        })
+
+
         // 2. Answer Textbox (Grid Mode)
         const answerBox = new fabric.Textbox('Write answer here...', {
             left: leftPos,
@@ -189,6 +213,12 @@ export const addMemoryLayoutGrid = ({ fontFamily, fontSize, color, ref }) => {
             splitByGrapheme: true,
             objectCaching: false,
         });
+
+        answerBox.set({
+            isMemoryAnswer: true,
+            preAddedText: true,
+        })
+
 
         applyCommonStyles(questionBox);
         applyCommonStyles(answerBox);
