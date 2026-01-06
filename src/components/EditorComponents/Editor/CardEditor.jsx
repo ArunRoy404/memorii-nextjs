@@ -1,11 +1,11 @@
 'use client'
 
-
+import '@/lib/fabricSetup';
+import { fabric } from '@/lib/fabricSetup';
 import { applyCommonStyles } from "@/services/CommonControlStyle";
 import { handleDeleteObject, handleRemoveEmptyText, handleRemoveText, touchToText } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
-import * as fabric from "fabric";
 import { useEffect, useRef } from "react";
 
 const CardEditor = () => {

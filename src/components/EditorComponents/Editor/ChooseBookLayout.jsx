@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
     Dialog,
     DialogContent,
@@ -46,7 +46,6 @@ const LayoutModal = () => {
 
     const handleApply = () => {
         if (selected) {
-            console.log('selected', selected);
             setChosenBookPage(selected.json)
             setIsOpen(false);
         }

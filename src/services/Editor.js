@@ -1,4 +1,5 @@
-import * as fabric from 'fabric'
+import '@/lib/fabricSetup';
+import { fabric } from '@/lib/fabricSetup';
 import { applyCommonStyles } from './CommonControlStyle';
 import { toast } from 'sonner';
 import jsPDF from 'jspdf';
@@ -73,7 +74,8 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref, font
 
 
 
-export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left }) => {
+
+export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left, preAddedText }) => {
     if (!ref) return;
 
     const canvasWidth = ref.getWidth();
@@ -85,18 +87,18 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
     const texBoxObj = new fabric.Textbox(text || 'Edit Text', {
         left: left || 60,
         top: top || 60,
-
         width: 300,
         height: 150,
 
         fontFamily: fontFamily || 'Arial',
         fontSize: fontSize || Math.round(26 / zoom),
         fontWeight: fontWeight || 'bold',
-
         fill: color || '#000000',
+
         breakWords: true,
-        editable: true,
+        // lockInteraction: true,
     })
+    texBoxObj.set('preAddedText', preAddedText || false);
 
 
 
@@ -109,6 +111,7 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
             top: canvasHeight / (7 * zoom),
             originX: 'center',
             originY: 'center',
+            preAddedText: preAddedText || false,
         });
     }
     if (position === 'center') {
@@ -120,10 +123,7 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
             top: canvasHeight / (2 * zoom),
             originX: 'center',
             originY: 'center',
-
-            // editable: false,      // can't edit text
-            // selectable: false,    // can't select
-            // evented: false,       // no mouse events
+            preAddedText: preAddedText || false,
         });
     }
     if (position === 'bottom') {
@@ -135,15 +135,17 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
             top: (canvasHeight / (3 * zoom)) * 2.5,
             originX: 'center',
             originY: 'center',
+            preAddedText: preAddedText || false,
         });
     }
 
-    applyCommonStyles(texBoxObj)
 
+    applyCommonStyles(texBoxObj)
     ref.add(texBoxObj)
     ref.setActiveObject(texBoxObj);
     ref.renderAll();
 }
+
 
 
 
@@ -187,6 +189,7 @@ export const handleDeleteObject = ({ e, ref }) => {
     }
 }
 
+
 export const handleRemoveText = ({ e, ref }) => {
     if (e.key === 'Backspace') {
         const activeObject = ref.getActiveObject();
@@ -202,6 +205,44 @@ export const handleRemoveText = ({ e, ref }) => {
 }
 
 
+
+// remove pre added text 
+export const handleRemovePreAddedText = ({ ref }) => {
+    if (!ref) return;
+
+    const onMouseDown = (options) => {
+        const selectedObj = options.target;
+
+        if (
+            selectedObj &&
+            selectedObj.preAddedText === true &&
+            (selectedObj.type === 'i-text' || selectedObj.type === 'textbox')
+        ) {
+            selectedObj.set({
+                text: '',
+                preAddedText: false
+            });
+
+
+            selectedObj.enterEditing();
+            if (selectedObj.hiddenTextarea) {
+                selectedObj.hiddenTextarea.focus();
+            }
+
+            ref.requestRenderAll();
+        }
+    };
+
+    
+    ref.on('mouse:down', onMouseDown);
+    return () => {
+        ref.off('mouse:down', onMouseDown);
+    };
+}
+
+
+
+// unused 
 export const doubleClickToText = ({ ref }) => {
     ref.on('mouse:dblclick', (options) => {
         if (options.target) return;
@@ -232,6 +273,8 @@ export const doubleClickToText = ({ ref }) => {
         ref.requestRenderAll();
     });
 }
+
+
 
 
 export const touchToText = ({ ref }) => {
@@ -294,6 +337,8 @@ export const touchToText = ({ ref }) => {
 
 
 
+
+
 export const handleDownloadPDF = (images = [], fileName = "test.pdf") => {
     toast.success("Downloading PDF...");
 
@@ -341,6 +386,8 @@ export const handleDownloadPDF = (images = [], fileName = "test.pdf") => {
         pdf.save(fileName)
     })();
 }
+
+
 
 
 
@@ -410,79 +457,6 @@ export const initClipboard = (canvas) => {
     return () => window.removeEventListener("keydown", handleKeyDown);
 };
 
-
-export const initUndoRedo = (canvas) => {
-    let history = [];
-    let redoStack = [];
-    let isLocked = false;
-
-    const saveState = () => {
-        if (isLocked) return;
-        const json = JSON.stringify(canvas.toDatalessJSON());
-        if (history.length > 0 && history[history.length - 1] === json) return;
-        history.push(json);
-        redoStack = [];
-        if (history.length > 50) history.shift();
-    };
-
-    canvas.on('object:modified', saveState);
-    canvas.on('object:added', saveState);
-    canvas.on('object:removed', saveState);
-    saveState();
-
-    const loadState = async (stateToLoad) => {
-        if (!stateToLoad) return; // Guard against empty history
-        await canvas.loadFromJSON(stateToLoad);
-        canvas.getObjects().forEach((obj) => applyCommonStyles(obj));
-        canvas.renderAll();
-        isLocked = false;
-    }
-
-    const handleUndo = () => {
-        if (history.length <= 1) return; // Keep initial state
-        isLocked = true;
-        const currentState = history.pop();
-        redoStack.push(currentState);
-        const stateToLoad = history[history.length - 1];
-        loadState(stateToLoad);
-    }
-
-    const handleRedo = () => {
-        if (redoStack.length === 0) return;
-        isLocked = true;
-        const stateToLoad = redoStack.pop();
-        history.push(stateToLoad);
-        loadState(stateToLoad);
-    }
-
-    const handleKeyDown = (e) => {
-        const isUndo = (e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey;
-        const isRedo = ((e.ctrlKey || e.metaKey) && e.key === 'y') ||
-            ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'z');
-
-        if (isUndo || isRedo) {
-            e.preventDefault();
-            if (isUndo) handleUndo();
-            if (isRedo) handleRedo();
-        }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-
-
-    return {
-        undo: handleUndo,
-        redo: handleRedo,
-        historyLength: history.length,
-        redoLength: redoStack.length,
-        dispose: () => {
-            window.removeEventListener('keydown', handleKeyDown);
-            canvas.off('object:modified', saveState);
-            canvas.off('object:added', saveState);
-            canvas.off('object:removed', saveState);
-        }
-    };
-};
 
 
 

@@ -1,10 +1,10 @@
-'use client'
+'use client';
 
-
+import '@/lib/fabricSetup';
+import { fabric } from '@/lib/fabricSetup';
 import { applyCommonStyles } from "@/services/CommonControlStyle";
-import { handleDeleteObject, handleRemoveEmptyText, handleRemoveText, initClipboard, touchToText } from "@/services/Editor";
+import { handleDeleteObject, handleRemoveEmptyText, handleRemovePreAddedText, handleRemoveText, initClipboard, touchToText } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
-import * as fabric from "fabric";
 import { useEffect, useRef } from "react";
 
 
@@ -22,8 +22,41 @@ const MemoryEditor = () => {
         if (pages[currentPage]) {
             await ref?.loadFromJSON(pages[currentPage]);
         }
+        ref?.getObjects()?.forEach(obj => {
+            applyCommonStyles(obj)
+
+            console.log('object', obj.preAddedText);
+
+            if (obj.lockInteraction) {
+                obj.set({
+                    selectable: false,
+                    editable: false,
+                    evented: false,
+
+                    // selectable: true,   // ✅ can select
+                    // evented: true,      // ✅ can receive click
+
+                    // // ❌ movement
+                    // lockMovementX: true,
+                    // lockMovementY: true,
+
+                    // // ❌ scaling
+                    // lockScalingX: true,
+                    // lockScalingY: true,
+                    // lockScalingFlip: true,
+
+                    // // ❌ rotation
+                    // lockRotation: true,
+
+                    // // ❌ resizing from corners
+                    // hasControls: false,
+
+                    // // ❌ text editing
+                    // editable: false,
+                });
+            }
+        });
         ref?.renderAll();
-        ref?.getObjects()?.forEach(obj => applyCommonStyles(obj));
     }
 
 
@@ -50,6 +83,7 @@ const MemoryEditor = () => {
 
         const handleDelete = (e) => handleDeleteObject({ e, ref: fabricCanvas })
         const handleRemove = (e) => handleRemoveText({ e, ref: fabricCanvas })
+        const cleanupPreAdded = handleRemovePreAddedText({ ref: fabricCanvas })
         window.addEventListener("keydown", handleDelete);
         window.addEventListener("keydown", handleRemove);
         const cleanupEmptyText = handleRemoveEmptyText({ ref: fabricCanvas });
@@ -61,6 +95,7 @@ const MemoryEditor = () => {
             window.removeEventListener("keydown", handleRemove);
             removeClipboardListeners();
             cleanupEmptyText();
+            cleanupPreAdded();
             fabricCanvas.dispose();
         }
     }, [currentPage])

@@ -1,50 +1,51 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
-
 
 export const useEditorStore = create(
-    persist(
-        (set, get) => ({
-            editorRef: null,
-            pages: [null],
-            currentPage: 0,
-            chosenBookPage: null,
+    (set, get) => ({
+        editorRef: null,
+        pages: [null],
+        currentPage: 0,
+        chosenBookPage: null,
 
-            setEditorRef: (editorRef) => set({ editorRef }),
-            setChosenBookPage: (page) => set({ chosenBookPage: page }),
 
-            addPage: () => {
-                const { chosenBookPage } = get()
-                if (chosenBookPage) {
-                    const { pages } = get();
-                    set({ pages: [...pages, chosenBookPage] });
-                } else {
-                    const { pages } = get();
-                    set({ pages: [...pages, null] });
-                }
-            },
+        setEditorRef: (editorRef) => set({ editorRef }),
+        setChosenBookPage: (page) => set({ chosenBookPage: page }),
 
-            setCurrentPage: (index) => {
-                set({ currentPage: index });
-            },
 
-            saveCurrentPage: () => {
-                const { editorRef, pages, currentPage } = get();
-                if (!editorRef) return;
-
-                const json = editorRef.toJSON();
-                const newPages = [...pages];
-                newPages[currentPage] = json;
-                set({ pages: newPages });
-            },
-
-            resetEditorStore: () => {
-                set({ editorRef: null, pages: [null], currentPage: 0, chosenBookPage: null });
-            },
-            removeChosenBookPage: () => {
-                set({ chosenBookPage: null });
+        addPage: () => {
+            const { chosenBookPage } = get()
+            if (chosenBookPage) {
+                const { pages } = get();
+                set({ pages: [...pages, chosenBookPage] });
+            } else {
+                const { pages } = get();
+                set({ pages: [...pages, null] });
             }
-        }),
-        { name: "editor-storage" }
-    )
+        },
+
+        setCurrentPage: (index) => {
+            set({ currentPage: index });
+        },
+
+        saveCurrentPage: () => {
+            const { editorRef, pages, currentPage } = get();
+            if (!editorRef) return;
+
+
+            const json = editorRef.toJSON(['lockInteraction', 'preAddedText'])
+            const newPages = [...pages];
+            newPages[currentPage] = json;
+            set({ pages: newPages });
+        },
+
+
+
+        resetEditorStore: () => {
+            set({ editorRef: null, pages: [null], currentPage: 0, chosenBookPage: null });
+        },
+        removeChosenBookPage: () => {
+            set({ chosenBookPage: null });
+        }
+    }),
+    { name: "editor-storage" }
 );

@@ -15,7 +15,7 @@ import { useCardTypeStore } from "@/store/useCardTypeStore";
 
 const TemplateCategoriesDropdown = () => {
     const { setCardType } = useCardTypeStore();
-    const [selectedCategory, setSelectedCategory] = useState();
+    const [selectedCategory, setSelectedCategory] = useState(templatesCategory[0]?.key);
     const [selectedOccasion, setSelectedOccasion] = useState();
 
     useEffect(() => {
@@ -76,13 +76,6 @@ const TemplateCategoriesDropdown = () => {
                     </SelectContent>
                 </Select>
             </div>
-
-
-            <Button
-                className='w-full lg:w-auto'
-                variant='defaultShiny'>
-                Start a blank template
-            </Button>
         </div>
     );
 };
