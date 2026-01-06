@@ -19,19 +19,30 @@ const MemoryEditor = () => {
 
 
     const renderDesign = async (ref) => {
-        if (pages[currentPage]) {
-            await ref?.loadFromJSON(pages[currentPage]);
-        }
+        const pageJson = pages[currentPage]
+        if (!pageJson) return
+
+
+        await ref?.loadFromJSON(pageJson);
+
         ref?.getObjects()?.forEach(obj => {
             applyCommonStyles(obj)
             setObjProperties({ obj: obj })
         });
+
+        if (pageJson.layout) {
+            ref.setLayout(pageJson.layout || 'blank');
+
+            if (pageJson.layout !== 'blank') {
+                ref.setSelection(false)
+            }
+        }
         ref?.renderAll();
     }
 
 
 
-    useEffect(() => { 
+    useEffect(() => {
         if (!width || !height) return
 
         const fabricCanvas = new fabric.Canvas('canvas', {
@@ -40,10 +51,14 @@ const MemoryEditor = () => {
             height,
             backgroundColor: 'white',
             layout: 'blank',
+            selection: true,
         })
 
         fabricCanvas.setLayout = (newLayout) => { fabricCanvas.layout = newLayout }
         fabricCanvas.setBackgroundColor = (newColor) => { fabricCanvas.backgroundColor = newColor }
+        fabricCanvas.setSelection = (newSelection) => { fabricCanvas.selection = newSelection }
+        fabricCanvas.getLayout = () => { return fabricCanvas.layout }
+
 
         touchToText({ ref: fabricCanvas })
 

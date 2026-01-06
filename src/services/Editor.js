@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import jsPDF from 'jspdf';
 
 
+
 export const addText = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left }) => {
     if (!ref) return;
 
@@ -76,7 +77,7 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref, font
 
 
 export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left, preAddedText }) => {
-    if (!ref) return;
+    if (!ref || ref?.layout !== 'blank') return;
 
     const canvasWidth = ref.getWidth();
     const canvasHeight = ref.getHeight();
@@ -149,8 +150,9 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
 
 
 
-
 export const addSticker = async ({ svgURL, editorRef }) => {
+    if (!editorRef || editorRef?.layout !== 'blank') return;
+
     try {
         const img = await fabric.Image.fromURL(svgURL, {
             crossOrigin: 'anonymous'
@@ -179,6 +181,7 @@ export const addSticker = async ({ svgURL, editorRef }) => {
 
 
 export const handleDeleteObject = ({ e, ref }) => {
+    if (!ref || ref?.layout !== 'blank') return;
     if (e.key == 'Delete') {
         const activeObjects = ref.getActiveObjects();
         if (activeObjects.length) {
@@ -188,6 +191,7 @@ export const handleDeleteObject = ({ e, ref }) => {
         }
     }
 }
+
 
 
 export const handleRemoveText = ({ e, ref }) => {
@@ -217,7 +221,6 @@ export const handleRemovePreAddedText = ({ ref }) => {
             && selectedObj.preAddedText === true
             && (selectedObj.type === 'i-text' || selectedObj.type === 'textbox')) {
 
-            console.log('here 1');
 
             selectedObj.set({
                 text: '',
@@ -284,6 +287,9 @@ export const touchToText = ({ ref }) => {
 
     ref.on('mouse:down', (options) => {
         // Fabric.js normalizes 'mouse:down' to include 'touchstart'
+
+        if (ref?.layout !== 'blank') return
+
         const currentTapTime = new Date().getTime();
         const timeDiff = currentTapTime - lastTapTime;
 
@@ -338,7 +344,6 @@ export const touchToText = ({ ref }) => {
 
 
 
-
 export const handleDownloadPDF = (images = [], fileName = "test.pdf") => {
     toast.success("Downloading PDF...");
 
@@ -386,7 +391,6 @@ export const handleDownloadPDF = (images = [], fileName = "test.pdf") => {
         pdf.save(fileName)
     })();
 }
-
 
 
 
@@ -460,7 +464,6 @@ export const initClipboard = (canvas) => {
 
 
 
-
 export const handleRemoveEmptyText = ({ ref }) => {
     if (!ref) return;
 
@@ -471,7 +474,7 @@ export const handleRemoveEmptyText = ({ ref }) => {
         deselectedObjects.forEach((obj) => {
             if (obj.type === 'i-text' || obj.type === 'textbox') {
                 if (!obj.text || obj.text.trim() === "") {
-                    if (obj.preAddedText == false ) {
+                    if (obj.preAddedText == false) {
                         obj.set({
                             text: obj.lastPreAddedText,
                             preAddedText: true
@@ -493,6 +496,7 @@ export const handleRemoveEmptyText = ({ ref }) => {
         ref.off('selection:updated', onSelectionCleared);
     };
 };
+
 
 
 

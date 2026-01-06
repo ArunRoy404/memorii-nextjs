@@ -4,6 +4,8 @@ import { applyCommonStyles } from './CommonControlStyle';
 export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref }) => {
     if (!ref) return;
 
+    ref.setSelection(false);
+    ref.setLayout('memory_vertical');
     const canvasWidth = ref.getWidth();
     const canvasHeight = ref.getHeight();
     const zoom = ref.getZoom() || 1;
@@ -115,11 +117,11 @@ export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref }) =>
 
 
 
-
-
 export const addMemoryLayoutGrid = ({ fontFamily, fontSize, color, ref }) => {
     if (!ref) return;
 
+    ref.setSelection(false);
+    ref.setLayout('memory_grid');
     const canvasWidth = ref.getWidth();
     const canvasHeight = ref.getHeight();
     const zoom = ref.getZoom() || 1;

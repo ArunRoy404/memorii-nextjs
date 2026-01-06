@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
     DropdownMenu,
     DropdownMenuTrigger,
@@ -11,10 +11,28 @@ import StickersOptions from "./StickersOptions/StickersOptions"
 import memoryOptionsData from "@/data/memoryOptionsData"
 import MemoryTextInsert from "./Editor/MemoryTextInsert"
 import ImageOptions from "./Editor/ImageOptions"
+import { useEditorStore } from "@/store/useEditorStore"
+
+
 
 const MemoryOptions = () => {
+    const { pages, currentPage } = useEditorStore()
     const [activeTab, setActiveTab] = useState(null)
     const [open, setOpen] = useState(false)
+    const [isDisabled, setIsDisabled] = useState(false)
+
+
+
+    useEffect(() => {
+        const pageJson = pages[currentPage]
+        if (!pageJson?.layout) return
+        const state = pageJson?.layout === 'blank' ? false : true;
+        setIsDisabled(state)
+
+    }, [currentPage])
+
+
+
 
     const handleClick = (key) => {
         // ✅ If clicking same active tab → close everything
@@ -29,10 +47,12 @@ const MemoryOptions = () => {
         }
     }
 
+
+
     return (
-        <DropdownMenu open={open} modal={false}>
+        <DropdownMenu open={isDisabled ? false : open} modal={false}>
             <DropdownMenuTrigger asChild>
-                <div className='flex flex-col gap-3 bg-white text-center p-3 rounded-2xl max-h-max'>
+                <div className={`${isDisabled ? 'cursor-not-allowed opacity-50 pointer-events-none' : ''} flex flex-col gap-3 bg-white text-center p-3 rounded-2xl max-h-max`}>
                     {memoryOptionsData?.map((item) => (
                         <button
                             key={item.key}
