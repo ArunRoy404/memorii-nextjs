@@ -55,9 +55,9 @@ const MemoryEditor = () => {
         })
 
         fabricCanvas.setLayout = (newLayout) => { fabricCanvas.layout = newLayout }
+        fabricCanvas.getLayout = () => { return fabricCanvas.layout }
         fabricCanvas.setBackgroundColor = (newColor) => { fabricCanvas.backgroundColor = newColor }
         fabricCanvas.setSelection = (newSelection) => { fabricCanvas.selection = newSelection }
-        fabricCanvas.getLayout = () => { return fabricCanvas.layout }
 
 
         touchToText({ ref: fabricCanvas })
