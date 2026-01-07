@@ -38,6 +38,7 @@ const CardEditor = () => {
         })
 
         fabricCanvas.setLayout = (newLayout) => { fabricCanvas.layout = newLayout }
+        fabricCanvas.getLayout = () => { return fabricCanvas.layout }
         fabricCanvas.setBackgroundColor = (newColor) => { fabricCanvas.backgroundColor = newColor }
 
         touchToText({ ref: fabricCanvas })
