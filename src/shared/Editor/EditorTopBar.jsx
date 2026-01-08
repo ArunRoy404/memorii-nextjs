@@ -1,15 +1,11 @@
 import { DiscardEditsDialog } from "@/components/EditorComponents/DiscardEditsDialog";
 import ActionDrawer from "@/components/EditorComponents/Drawer/ActionDrawer";
-import ImageDrawer from "@/components/EditorComponents/Drawer/ImageDrawer";
-import LayerDrawer from "@/components/EditorComponents/Drawer/LayerDrawer";
-import StickersDrawer from "@/components/EditorComponents/Drawer/StickersDrawer";
-import TextOptionsDrawer from "@/components/EditorComponents/Drawer/TextOptionsDrawer";
 import RedoUndo from "@/components/EditorComponents/RedoUndo/RedoUndo";
 import { Button } from "@/components/ui/button";
-import { addMemoryLayoutGrid, addMemoryLayoutVertical } from "@/services/MemoryLayoutFunctions";
 import { useEditorStore } from "@/store/useEditorStore";
-import { UserPlus, Plus } from "lucide-react";
+import { UserPlus } from "lucide-react";
 import Link from "next/link";
+import EditorOptionsMobileView from "./EditorOptionsMobileView";
 
 const EditorTopBar = () => {
     const { saveCurrentPage, addPage, editorRef } = useEditorStore()
@@ -25,18 +21,7 @@ const EditorTopBar = () => {
                     <DiscardEditsDialog />
 
 
-                    <div className="flex md:hidden items-center gap-4">
-                        <TextOptionsDrawer />
-                        <StickersDrawer />
-                        <ImageDrawer />
-                        <LayerDrawer />
-                        <Button
-                            onClick={() => addPage()}
-                            variant='ghost' size="sm" className='p-0!'>
-                            <Plus />
-                        </Button>
-                    </div>
-
+                    <EditorOptionsMobileView />
 
 
                     {/* Undo/Redo on mobile next to Exit */}

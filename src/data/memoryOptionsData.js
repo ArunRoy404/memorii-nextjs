@@ -1,4 +1,4 @@
-import { Image, Layers, Sticker, Type } from "lucide-react";
+import { Image, Layers, MessageSquareMore, Sticker, Type } from "lucide-react";
 
 const memoryOptionsData = [
     {
@@ -20,6 +20,14 @@ const memoryOptionsData = [
         icon: <Layers />,
         label: 'Layers',
         key: 'layers',
+    },
+]
+
+export const memoryPromptsData = [
+    {
+        icon: <MessageSquareMore />,
+        label: 'Prompts',
+        key: 'prompts',
     },
 ]
 

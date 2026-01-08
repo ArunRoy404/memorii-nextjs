@@ -51,7 +51,7 @@ const LayersList = () => {
             } else {
                 editorRef.setBackgroundColor(bgColor)
             }
-            
+
             newOrder.forEach(obj => editorRef.add(obj))
             editorRef.requestRenderAll()
             setObjectsArray(newOrder);
@@ -85,7 +85,7 @@ const LayersList = () => {
 
 
     return (
-        <div className='min-h-[300px] max-h-[500px] w-full overflow-y-auto overflow-x-hidden border border-gray-200 rounded-md relative'>
+        <div className='min-h-[300px] max-h-[500px] w-full overflow-y-auto overflow-x-hidden relative'>
             <DndContext
                 sensors={sensors}
                 collisionDetection={closestCenter}
@@ -96,7 +96,7 @@ const LayersList = () => {
                 modifiers={[restrictToVerticalAxis, restrictToParentElement]}
             >
                 <SortableContext items={objectsArray} strategy={verticalListSortingStrategy}>
-                    <div className="p-2">
+                    <div className="pr-2">
                         {[...objectsArray].reverse().map((obj) => (
                             <SortableItem key={obj.id} obj={obj} />
                         ))}

@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { downloadJsonVariable } from '@/lib/downloadJsonVariable';
 import { cn } from '@/lib/utils';
 import { applyCommonStyles } from '@/services/CommonControlStyle';
 import { useEditorStore } from '@/store/useEditorStore';
@@ -144,6 +145,11 @@ const RedoUndo = ({ className }) => {
             <Button notImplemented variant='ghost' className='p-1!' size="sm">
                 <Save className="w-4 h-4" />
             </Button>
+
+            {/* test mode  */}
+            {/* <Button onClick={() => downloadJsonVariable(pages[0], 'vertical-layout-json.json')} variant='ghost' className='p-1!' size="sm">
+                <Save className="w-4 h-4" />
+            </Button> */}
         </div>
     );
 };

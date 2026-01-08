@@ -9,9 +9,12 @@ import { useEffect, useRef } from "react";
 
 
 
-const FabricEditor = ({ width, height }) => {
+const FabricEditor = ({ variant }) => {
     const { editorRef, setEditorRef, pages, currentPage } = useEditorStore()
     const containerRef = useRef(null);
+
+    const width = variant === 'memory' ? 1240 : 1800
+    const height = variant === 'memory' ? 1754 : 2400
     const aspectRatio = width / height;
 
 
@@ -106,6 +109,16 @@ const FabricEditor = ({ width, height }) => {
         resizeCanvas();
     }, [width, height, editorRef]);
 
+
+    if (variant === 'memory') {
+        return (
+            <div ref={containerRef} className='max-w-[310px] sm:max-w-[400px] md:max-w-[450px] lg:max-w-[700px] overflow-hidden '
+                style={{ aspectRatio: aspectRatio }}
+            >
+                <canvas id="canvas" />
+            </div>
+        );
+    }
 
 
     return (

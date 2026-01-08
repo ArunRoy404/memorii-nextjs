@@ -1,5 +1,6 @@
 import * as fabric from 'fabric'
 import { applyCommonStyles } from './CommonControlStyle';
+import { addIdToObj } from './Editor';
 
 export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref }) => {
     if (!ref) return;
@@ -62,13 +63,14 @@ export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref }) =>
         questionBox.set({
             isMemoryQuestion: true,
         })
+        addIdToObj(questionBox);
 
 
 
         // 2. Answer Textbox (Strict Height)
         const answerBox = new fabric.Textbox('Write your answers here...', {
             left: (canvasWidth / zoom) / 2,
-            top: blockTop + qHeight + internalGap - 30, // Positioned right under question
+            top: blockTop + qHeight + internalGap - 60, // Positioned right under question
             width: availableWidth,
             height: aHeight, // FIXED HEIGHT
 
@@ -105,6 +107,7 @@ export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref }) =>
         // applyCommonStyles(questionBox);
         applyCommonStyles(answerBox);
 
+        addIdToObj(answerBox);
         ref.add(questionBox);
         ref.add(answerBox);
     }
@@ -185,13 +188,13 @@ export const addMemoryLayoutGrid = ({ fontFamily, fontSize, color, ref }) => {
         questionBox.set({
             isMemoryQuestion: true,
         })
-
+        addIdToObj(questionBox);
 
         // 2. Answer Textbox (Grid Mode)
         const answerBox = new fabric.Textbox('Write answer here...', {
             left: leftPos,
-            top: topPos + qHeight + internalGap - 100,
-            width: cellWidth,
+            top: topPos + qHeight + internalGap - 180,
+            width: cellWidth - 30,
             height: aHeight,
 
             fontFamily: fontFamily || 'Arial',
@@ -223,6 +226,8 @@ export const addMemoryLayoutGrid = ({ fontFamily, fontSize, color, ref }) => {
         applyCommonStyles(questionBox);
         applyCommonStyles(answerBox);
 
+
+        addIdToObj(answerBox);
         ref.add(questionBox);
         ref.add(answerBox);
     }
