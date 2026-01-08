@@ -13,6 +13,7 @@ import MemoryTextInsert from "./Editor/MemoryTextInsert"
 import ImageOptions from "./Editor/ImageOptions"
 import { useEditorStore } from "@/store/useEditorStore"
 import LayersOptions from "./LayerOption/LayersOptions"
+import PromptOptions from "./PromptOptions/PromptOptions"
 
 
 
@@ -80,6 +81,9 @@ const MemoryOptions = () => {
 
                     {/* ✅ Sticker Content */}
                     {activeTab === 'sticker' && <StickersOptions setActiveTab={setActiveTab} setOpen={setOpen} />}
+
+                    {/* ✅ Prompts Content */}
+                    {activeTab === 'prompts' && <PromptOptions setActiveTab={setActiveTab} setOpen={setOpen} />}
 
                     {/* ✅ Layers Content */}
                     {activeTab === 'layers' && <LayersOptions setActiveTab={setActiveTab} setOpen={setOpen} />}
