@@ -149,6 +149,19 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
 
 
 
+export const addImage = async ({ img, ref }) => {
+    const imgObj = await fabric.Image.fromURL(img);
+    imgObj.set({
+        left: Math.random() * 200,
+        top: Math.random() * 200,
+    })
+    imgObj.scaleToWidth(600);
+    applyCommonStyles(imgObj);
+    ref.add(imgObj)
+    ref.renderAll();
+}
+
+
 
 export const addSticker = async ({ svgURL, editorRef }) => {
     if (!editorRef || editorRef?.layout !== 'blank') return;
@@ -158,16 +171,18 @@ export const addSticker = async ({ svgURL, editorRef }) => {
             crossOrigin: 'anonymous'
         });
 
-
         img.set({
-            left: 50,
-            top: 50,
+            scaleX: 5,
+            scaleY: 5,
+            left: Math.random() * 200,
+            top: Math.random() * 200,
         });
 
         if (typeof applyCommonStyles === "function") {
             applyCommonStyles(img);
         }
 
+        img.scaleToWidth(600);
         editorRef.add(img);
         editorRef.setActiveObject(img);
         editorRef.renderAll();
@@ -303,6 +318,8 @@ export const touchToText = ({ ref }) => {
             const pointer = ref.getPointer(options.e);
 
             const newTextBox = new fabric.Textbox('', {
+                scaleX: 2,
+                scaleY: 2,
                 left: pointer.x,
                 top: pointer.y,
                 width: 250,
