@@ -3,6 +3,10 @@ import { create } from "zustand";
 export const useRedoUndoStateStore = create((set, get) => ({
     allHistory: {},
     allRedoStack: {},
+    isLockedRef: null,
+
+
+    setIsLockedRef: (isLockedRef) => set({ isLockedRef }),
 
     setHistoryAt: (pageIndex, history) => {
         set((state) => ({

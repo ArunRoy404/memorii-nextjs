@@ -16,14 +16,16 @@ import {
 } from '@dnd-kit/sortable';
 import { SortableItem } from './SortableItem';
 import { useEditorStore } from '@/store/useEditorStore';
+import { useRedoUndoStateStore } from '@/store/useRedoUndoStateStore';
 
 
 
 
 const LayersList = () => {
     const { editorRef } = useEditorStore()
-
+    const { isLockedRef } = useRedoUndoStateStore()
     const [objectsArray, setObjectsArray] = useState([]);
+
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -38,6 +40,7 @@ const LayersList = () => {
         const { active: activeObj, over: overObj } = event;
 
         if (activeObj.id !== overObj.id) {
+            isLockedRef.current = true
             const oldIndex = objectsArray.findIndex(obj => obj.id === activeObj.id);
             const newIndex = objectsArray.findIndex(obj => obj.id === overObj.id);
             const newOrder = arrayMove([...objectsArray], oldIndex, newIndex);
@@ -55,6 +58,8 @@ const LayersList = () => {
             newOrder.forEach(obj => editorRef.add(obj))
             editorRef.requestRenderAll()
             setObjectsArray(newOrder);
+            isLockedRef.current = false
+            editorRef.fire('object:modified')
         }
     };
 
