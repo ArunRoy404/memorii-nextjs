@@ -36,7 +36,8 @@ const RedoUndo = ({ className }) => {
 
 
     // save state to history and redoStack
-    const saveState = useCallback(() => {
+    const saveState = useCallback((objType, opType) => {
+        if (objType !== 'image' && opType === 'added') return
         if (isLocked.current || !editorRef || !editorRef.backgroundColor) return;
 
         const json = JSON.stringify(editorRef.toDatalessJSON());
@@ -93,15 +94,18 @@ const RedoUndo = ({ className }) => {
 
         // setLastPage(currentPage);
         // marking this page as last page 
+        const handleAdded = (e) => saveState(e.target.type, 'added');
+        const handleModified = (e) => saveState(e.target.type, 'modified');
+        const handleRemoved = (e) => saveState(e.target.type, 'removed');
 
-        // editorRef.on('object:added', saveState);
-        editorRef.on('object:modified', saveState);
-        editorRef.on('object:removed', saveState);
+        editorRef.on('object:added', handleAdded);
+        editorRef.on('object:modified', handleModified);
+        editorRef.on('object:removed', handleRemoved);
 
         return () => {
-            // editorRef.off('object:added', saveState);
-            editorRef.off('object:modified', saveState);
-            editorRef.off('object:removed', saveState);
+            editorRef.off('object:added', handleAdded);
+            editorRef.off('object:modified', handleModified);
+            editorRef.off('object:removed', handleRemoved);
         };
     }, [editorRef, saveState]);
 
@@ -136,6 +140,7 @@ const RedoUndo = ({ className }) => {
 
     return (
         <div className={cn("flex gap-2", className)}>
+            {history.length}
             <Button onClick={handleUndo} disabled={history.length <= 1} variant='ghost' className='p-1!' size="sm">
                 <Undo2 className="w-4 h-4" />
             </Button>
@@ -145,6 +150,7 @@ const RedoUndo = ({ className }) => {
             <Button notImplemented variant='ghost' className='p-1!' size="sm">
                 <Save className="w-4 h-4" />
             </Button>
+            {redoStack.length}
 
             {/* test mode  */}
             {/* <Button onClick={() => downloadJsonVariable(pages[0], 'vertical-layout-json.json')} variant='ghost' className='p-1!' size="sm">
