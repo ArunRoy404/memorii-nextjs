@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useEditorStore } from '@/store/useEditorStore';
 import * as fabric from 'fabric';
 import { applyCommonStyles } from '@/services/CommonControlStyle';
+import { addImage } from '@/services/Editor';
 
 const ImageContainerEditor = () => {
     const { editorRef } = useEditorStore();
@@ -18,6 +19,7 @@ const ImageContainerEditor = () => {
         input.click();
     };
 
+
     // Add image(s) to canvas and save to history
     const handleImageAdd = async (e) => {
         if (editorRef?.layout !== 'blank') return
@@ -28,48 +30,23 @@ const ImageContainerEditor = () => {
             const reader = new FileReader();
 
             reader.onload = async () => {
-                const img = await fabric.Image.fromURL(reader.result);
-
-
-                img.scaleToWidth(200);
-
-                // ✅ Random placement to avoid overlap
-                img.set({
-                    left: Math.random() * 200,
-                    top: Math.random() * 300,
-                });
-
-                applyCommonStyles(img);
-
-                editorRef?.add(img);
-                editorRef?.renderAll();
-
-                // Save to history
+                await addImage({ img: reader.result, ref: editorRef })
                 setImages(prev => [...prev, reader.result]);
             };
 
             reader.readAsDataURL(file);
         }
-
         e.target.value = "";
     };
+
+
 
     // Add image from history
     const handleAddFromHistory = async (src) => {
         if (editorRef?.layout !== 'blank') return
-        const img = await fabric.Image.fromURL(src);
-
-        img.scaleToWidth(200);
-        img.set({
-            left: Math.random() * 200,
-            top: Math.random() * 300,
-        });
-
-        applyCommonStyles(img);
-
-        editorRef?.add(img);
-        editorRef?.renderAll();
+        await addImage({ img: src, ref: editorRef })
     };
+
 
     return (
         <div>
