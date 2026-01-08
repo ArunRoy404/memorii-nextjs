@@ -1,5 +1,5 @@
 import FabricEditor from './FabricEditor';
 
 
-const MemoryEditor = () => <FabricEditor width={1240} height={1754} />
+const MemoryEditor = () => <FabricEditor variant="memory" />
 export default MemoryEditor;

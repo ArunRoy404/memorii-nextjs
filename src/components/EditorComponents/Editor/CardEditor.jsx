@@ -1,5 +1,5 @@
 import FabricEditor from './FabricEditor';
 
 
-const CardEditor = () => <FabricEditor width={1800} height={2400} />
+const CardEditor = () => <FabricEditor variant="card" />
 export default CardEditor;
