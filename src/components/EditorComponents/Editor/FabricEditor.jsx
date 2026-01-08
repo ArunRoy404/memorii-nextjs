@@ -44,9 +44,11 @@ const FabricEditor = ({ width, height }) => {
 
         const fabricCanvas = new fabric.Canvas('canvas', {
             enableRetinaScaling: true,
+            preserveObjectStacking: true,
             width,
             height,
             backgroundColor: 'white',
+            backgroundImage: null,
             layout: 'blank',
             selection: true,
         })
@@ -68,7 +70,7 @@ const FabricEditor = ({ width, height }) => {
         const cleanupPreAdded = handleRemovePreAddedText({ ref: fabricCanvas })
         window.addEventListener("keydown", handleDelete);
         window.addEventListener("keydown", handleRemove);
-        
+
 
 
         return () => {

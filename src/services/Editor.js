@@ -5,6 +5,14 @@ import { toast } from 'sonner';
 import jsPDF from 'jspdf';
 
 
+export const addIdToObj = (obj) => {
+    const timeStamp = Date.now();
+    obj.set({
+        id: `${obj.type}-${timeStamp}`,
+    })
+}
+
+
 
 export const addText = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left }) => {
     if (!ref) return;
@@ -25,6 +33,7 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref, font
         fill: color || '#000000',
         editable: true,
     })
+    addIdToObj(textObj)
 
 
 
@@ -75,7 +84,6 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref, font
 
 
 
-
 export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left, preAddedText }) => {
     if (!ref || ref?.layout !== 'blank') return;
 
@@ -100,6 +108,7 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
         // lockInteraction: true,
     })
     texBoxObj.set('preAddedText', preAddedText || false);
+    addIdToObj(texBoxObj)
 
 
 
@@ -155,6 +164,7 @@ export const addImage = async ({ img, ref }) => {
         left: Math.random() * 200,
         top: Math.random() * 200,
     })
+    addIdToObj(imgObj)
     imgObj.scaleToWidth(600);
     applyCommonStyles(imgObj);
     ref.add(imgObj)
@@ -177,6 +187,7 @@ export const addSticker = async ({ svgURL, editorRef }) => {
             left: Math.random() * 200,
             top: Math.random() * 200,
         });
+        addIdToObj(img)
 
         if (typeof applyCommonStyles === "function") {
             applyCommonStyles(img);
@@ -331,6 +342,7 @@ export const touchToText = ({ ref }) => {
                 editable: true,
                 objectCaching: false
             });
+            addIdToObj(newTextBox)
 
 
             if (typeof applyCommonStyles === 'function') {
@@ -411,7 +423,7 @@ export const handleDownloadPDF = (images = [], fileName = "test.pdf") => {
 
 
 
-
+// copy paste clipboard
 export const initClipboard = (canvas) => {
     let clipboard = null;
 
@@ -431,7 +443,7 @@ export const initClipboard = (canvas) => {
         /* ================= PASTE ================= */
         if (isPaste && clipboard) {
             canvas.discardActiveObject();
-            const OFFSET = 20;
+            const OFFSET = Math.random() * 100;
 
             if (clipboard.type === "activeSelection") {
                 // Create new clones for each object
@@ -464,7 +476,7 @@ export const initClipboard = (canvas) => {
                     evented: true,
                     selectable: true,
                 });
-
+                addIdToObj(clonedObj)
                 canvas.add(clonedObj);
                 canvas.setActiveObject(clonedObj);
                 clonedObj.setCoords();

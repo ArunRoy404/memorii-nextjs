@@ -12,6 +12,7 @@ import memoryOptionsData from "@/data/memoryOptionsData"
 import MemoryTextInsert from "./Editor/MemoryTextInsert"
 import ImageOptions from "./Editor/ImageOptions"
 import { useEditorStore } from "@/store/useEditorStore"
+import LayersOptions from "./LayerOption/LayersOptions"
 
 
 
@@ -79,6 +80,9 @@ const MemoryOptions = () => {
 
                     {/* ✅ Sticker Content */}
                     {activeTab === 'sticker' && <StickersOptions setActiveTab={setActiveTab} setOpen={setOpen} />}
+
+                    {/* ✅ Layers Content */}
+                    {activeTab === 'layers' && <LayersOptions setActiveTab={setActiveTab} setOpen={setOpen} />}
                 </>
             )}
         </DropdownMenu>

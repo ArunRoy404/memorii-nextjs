@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useEditorStore } from '@/store/useEditorStore';
-import * as fabric from 'fabric';
-import { applyCommonStyles } from '@/services/CommonControlStyle';
 import { addImage } from '@/services/Editor';
 
 const ImageContainerEditor = () => {
