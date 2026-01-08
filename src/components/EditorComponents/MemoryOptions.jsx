@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import {
     DropdownMenu,
     DropdownMenuTrigger,
@@ -11,27 +11,15 @@ import StickersOptions from "./StickersOptions/StickersOptions"
 import memoryOptionsData, { memoryPromptsData } from "@/data/memoryOptionsData"
 import MemoryTextInsert from "./Editor/MemoryTextInsert"
 import ImageOptions from "./Editor/ImageOptions"
-import { useEditorStore } from "@/store/useEditorStore"
 import LayersOptions from "./LayerOption/LayersOptions"
 import PromptOptions from "./PromptOptions/PromptOptions"
 
 
 
-const MemoryOptions = () => {
-    const { pages, currentPage } = useEditorStore()
+const MemoryOptions = ({ isMemoryPage }) => {
     const [activeTab, setActiveTab] = useState(null)
     const [open, setOpen] = useState(false)
-    const [isMemoryPage, setIsMemoryPage] = useState(false)
 
-
-
-    useEffect(() => {
-        const pageJson = pages[currentPage]
-        if (!pageJson?.layout) return
-        const state = pageJson?.layout === 'blank' ? false : true;
-        setIsMemoryPage(state)
-
-    }, [currentPage])
 
 
 

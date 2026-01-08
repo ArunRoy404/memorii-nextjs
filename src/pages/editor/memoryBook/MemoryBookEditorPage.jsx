@@ -5,10 +5,24 @@ import TextOptionsHorizontal from '@/components/EditorComponents/TextOptions/Tex
 import { Button } from '@/components/ui/button';
 import { useEditorStore } from '@/store/useEditorStore';
 import { Plus } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 
 const MemoryBookEditorPage = () => {
-    const { addPage } = useEditorStore();
+    const { addPage, pages, currentPage } = useEditorStore();
+    const [isMemoryPage, setIsMemoryPage] = useState(false)
+
+
+
+    useEffect(() => {
+        const pageJson = pages[currentPage]
+        if (!pageJson?.layout) return
+        const state = pageJson?.layout === 'blank' ? false : true;
+        setIsMemoryPage(state)
+
+    }, [currentPage])
+
+
 
     return (
         <div>
@@ -16,7 +30,7 @@ const MemoryBookEditorPage = () => {
             <div
                 className='max-w-max max-h-max hidden md:flex flex-col gap-6 items-center fixed top-[50%] -translate-y-[50%] left-10'
             >
-                <MemoryOptions />
+                <MemoryOptions isMemoryPage={isMemoryPage} />
 
                 <Button
                     className='rounded-full'
@@ -26,7 +40,7 @@ const MemoryBookEditorPage = () => {
                 </Button>
             </div>
 
-            <ChooseBookLayout/>
+            <ChooseBookLayout />
 
             {/* center elements  */}
             <div
@@ -35,11 +49,15 @@ const MemoryBookEditorPage = () => {
                 <div
                     className='flex flex-col gap-5'
                 >
-                    <div
-                        className='sticky top-10 z-1 hidden md:block'
-                    >
-                        <TextOptionsHorizontal />
-                    </div>
+                    {
+                        !isMemoryPage && (
+                            <div
+                                className='sticky top-10 z-1 hidden md:block'
+                            >
+                                <TextOptionsHorizontal />
+                            </div>
+                        )
+                    }
 
                     <div className='max-w-max mx-auto flex flex-col gap-5' >
                         {/* editor  */}
