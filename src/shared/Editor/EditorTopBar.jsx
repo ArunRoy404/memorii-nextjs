@@ -70,13 +70,13 @@ const EditorTopBar = () => {
                 <div className="hidden md:flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
 
                     {/* test buttons  */}
-                    <Button size="sm" onClick={() => addMemoryLayoutVertical({ ref: editorRef })} >
+                    {/* <Button size="sm" onClick={() => addMemoryLayoutVertical({ ref: editorRef })} >
                         add vertical  layout
                     </Button>
 
                     <Button size="sm" onClick={() => addMemoryLayoutGrid({ ref: editorRef })} >
                         add grid layout
-                    </Button>
+                    </Button> */}
 
 
                     <Button variant='outline' size="sm" className="flex items-center gap-1 justify-center w-full sm:w-auto">
