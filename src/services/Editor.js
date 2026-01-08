@@ -535,37 +535,38 @@ export const setObjProperties = ({ obj }) => {
             selectable: false,
             editable: false,
             evented: false,
-
-            // selectable: true,   // ✅ can select
-            // evented: true,      // ✅ can receive click
-
-            // // ❌ movement
-            // lockMovementX: true,
-            // lockMovementY: true,
-
-            // // ❌ scaling
-            // lockScalingX: true,
-            // lockScalingY: true,
-            // lockScalingFlip: true,
-
-            // // ❌ rotation
-            // lockRotation: true,
-
-            // // ❌ resizing from corners
-            // hasControls: false,
-
-            // // ❌ text editing
-            // editable: false,
         });
     }
 
 
+
     if (obj.isMemoryQuestion) {
         obj.set({
-            selectable: false,
-            evented: false,
-        })
+            selectable: true,
+            evented: true,
+            hasControls: false,
+            hasBorders: true,
+            editable: false,
+
+            lockMovementX: true,
+            lockMovementY: true,
+            lockRotation: true,
+            lockScalingX: true,
+            lockScalingY: true,
+
+
+            hoverCursor: 'default',
+            selectionBackgroundColor: 'transparent',
+        });
+
+        // Optional: If you want to be 100% sure dblclick does nothing
+        obj.on('mousedblclick', (options) => {
+            options.e.preventDefault();
+            options.e.stopPropagation();
+        });
     }
+
+
 
 
     if (obj.isMemoryAnswer) {
