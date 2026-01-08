@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button';
-import { downloadJsonVariable } from '@/lib/downloadJsonVariable';
 import { cn } from '@/lib/utils';
 import { applyCommonStyles } from '@/services/CommonControlStyle';
 import { useEditorStore } from '@/store/useEditorStore';
@@ -11,12 +10,17 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 const RedoUndo = ({ className }) => {
     const { editorRef, currentPage } = useEditorStore();
-    const { getPageState, setHistoryAt, setRedoStackAt } = useRedoUndoStateStore();
+    const { setIsLockedRef, getPageState, setHistoryAt, setRedoStackAt } = useRedoUndoStateStore();
 
     const [lastPage, setLastPage] = useState(null);
     const [history, setHistory] = useState([]);
     const [redoStack, setRedoStack] = useState([]);
     const isLocked = useRef(false);
+
+
+    useEffect(() => {
+        setIsLockedRef(isLocked);
+    }, [setIsLockedRef]);
 
 
 
@@ -36,7 +40,8 @@ const RedoUndo = ({ className }) => {
 
 
     // save state to history and redoStack
-    const saveState = useCallback(() => {
+    const saveState = useCallback((objType, opType) => {
+        if (objType !== 'image' && opType === 'added') return
         if (isLocked.current || !editorRef || !editorRef.backgroundColor) return;
 
         const json = JSON.stringify(editorRef.toDatalessJSON());
@@ -85,23 +90,20 @@ const RedoUndo = ({ className }) => {
 
 
     useEffect(() => {
-        // if (!editorRef || !editorRef.backgroundColor || lastPage === currentPage) return;
         if (!editorRef || !editorRef.backgroundColor) return;
 
-        // saveState();
+        const handleAdded = (e) => saveState(e?.target?.type, 'added');
+        const handleModified = (e) => saveState(e?.target?.type, 'modified');
+        const handleRemoved = (e) => saveState(e?.target?.type, 'removed');
 
-
-        // setLastPage(currentPage);
-        // marking this page as last page 
-
-        // editorRef.on('object:added', saveState);
-        editorRef.on('object:modified', saveState);
-        editorRef.on('object:removed', saveState);
+        editorRef.on('object:added', handleAdded);
+        editorRef.on('object:modified', handleModified);
+        editorRef.on('object:removed', handleRemoved);
 
         return () => {
-            // editorRef.off('object:added', saveState);
-            editorRef.off('object:modified', saveState);
-            editorRef.off('object:removed', saveState);
+            editorRef.off('object:added', handleAdded);
+            editorRef.off('object:modified', handleModified);
+            editorRef.off('object:removed', handleRemoved);
         };
     }, [editorRef, saveState]);
 
@@ -136,12 +138,14 @@ const RedoUndo = ({ className }) => {
 
     return (
         <div className={cn("flex gap-2", className)}>
+            {/* {history.length} */}
             <Button onClick={handleUndo} disabled={history.length <= 1} variant='ghost' className='p-1!' size="sm">
                 <Undo2 className="w-4 h-4" />
             </Button>
             <Button onClick={handleRedo} disabled={redoStack.length === 0} variant='ghost' className='p-1!' size="sm">
                 <Redo2 className="w-4 h-4" />
             </Button>
+            {/* {redoStack.length} */}
             <Button notImplemented variant='ghost' className='p-1!' size="sm">
                 <Save className="w-4 h-4" />
             </Button>

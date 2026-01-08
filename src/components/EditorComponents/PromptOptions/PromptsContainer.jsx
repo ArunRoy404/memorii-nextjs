@@ -1,7 +1,6 @@
 import { promptsList } from "@/data/promptsList";
 import { useEditorStore } from "@/store/useEditorStore";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 
 const PromptsContainer = () => {
     const { editorRef } = useEditorStore();
@@ -15,7 +14,9 @@ const PromptsContainer = () => {
             const activeObject = editorRef.getActiveObjects()[0]
             if (activeObject && activeObject.isMemoryQuestion) {
                 setIsQuestion(true);
-                console.log(activeObject.text, activeObject.isMemoryQuestion);
+                
+                // const lineCount = activeObject._textLines.length;
+                // console.log(`This textbox has ${lineCount} lines.`);
             } else {
                 setIsQuestion(false);
             }
