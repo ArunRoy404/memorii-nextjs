@@ -1,6 +1,7 @@
 import { DiscardEditsDialog } from "@/components/EditorComponents/DiscardEditsDialog";
 import ActionDrawer from "@/components/EditorComponents/Drawer/ActionDrawer";
 import ImageDrawer from "@/components/EditorComponents/Drawer/ImageDrawer";
+import LayerDrawer from "@/components/EditorComponents/Drawer/LayerDrawer";
 import StickersDrawer from "@/components/EditorComponents/Drawer/StickersDrawer";
 import TextOptionsDrawer from "@/components/EditorComponents/Drawer/TextOptionsDrawer";
 import RedoUndo from "@/components/EditorComponents/RedoUndo/RedoUndo";
@@ -28,6 +29,7 @@ const EditorTopBar = () => {
                         <TextOptionsDrawer />
                         <StickersDrawer />
                         <ImageDrawer />
+                        <LayerDrawer />
                         <Button
                             onClick={() => addPage()}
                             variant='ghost' size="sm" className='p-0!'>
@@ -38,9 +40,9 @@ const EditorTopBar = () => {
 
 
                     {/* Undo/Redo on mobile next to Exit */}
-                    <div className="flex items-center gap-4 sm:hidden">
+                    <div className="flex items-center gap-2 sm:hidden">
 
-                        <RedoUndo className="flex items-center gap-4" />
+                        <RedoUndo className="flex items-center gap-2" />
 
                         <ActionDrawer>
                             <Button variant='outline' size="sm" className="flex items-center gap-1 justify-center w-full sm:w-auto">
