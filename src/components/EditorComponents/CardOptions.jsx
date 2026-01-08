@@ -13,6 +13,7 @@ import { Plus } from "lucide-react"
 import StickersOptions from "./StickersOptions/StickersOptions"
 import { useEditorStore } from "@/store/useEditorStore"
 import ImageOptions from "./Editor/ImageOptions"
+import LayersOptions from "./LayerOption/LayersOptions"
 
 const CardOptions = () => {
     const { addPage } = useEditorStore();
@@ -71,6 +72,9 @@ const CardOptions = () => {
 
                     {/* ✅ Sticker Content */}
                     {activeTab === 'sticker' && <StickersOptions setActiveTab={setActiveTab} setOpen={setOpen} />}
+
+                    {/* ✅ Layers Content */}
+                    {activeTab === 'layers' && <LayersOptions setActiveTab={setActiveTab} setOpen={setOpen} />}
                 </>
             )}
         </DropdownMenu>

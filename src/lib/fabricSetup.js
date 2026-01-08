@@ -16,6 +16,7 @@ if (!fabric.Object.prototype.__customPropsPatched) {
             lastPreAddedText: this.lastPreAddedText,
             isMemoryQuestion: this.isMemoryQuestion,
             isMemoryAnswer: this.isMemoryAnswer,
+            id: this.id,
         };
     };
 }

@@ -1,4 +1,4 @@
-import { Image, LayoutPanelLeft, Sticker, Type } from "lucide-react";
+import { Image, Layers, LayoutPanelLeft, Sticker, Type } from "lucide-react";
 
 const cardOptionsData = [
     // {
@@ -20,6 +20,11 @@ const cardOptionsData = [
         icon: <Image />,
         label: 'Image',
         key: 'image',
+    },
+    {
+        icon: <Layers />,
+        label: 'Layers',
+        key: 'layers',
     },
 ]
 
