@@ -17,18 +17,13 @@ const memoryOptionsData = [
         key: 'sticker',
     },
     {
-        icon: <MessageSquareMore />,
-        label: 'Prompts',
-        key: 'prompts',
-    },
-    {
         icon: <Layers />,
         label: 'Layers',
         key: 'layers',
     },
 ]
 
-export const memoryPrompts = [
+export const memoryPromptsData = [
     {
         icon: <MessageSquareMore />,
         label: 'Prompts',

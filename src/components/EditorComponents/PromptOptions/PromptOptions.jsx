@@ -1,15 +1,9 @@
 import React from 'react';
 import { DropdownMenuContent } from '../../ui/dropdown-menu';
 import PromptsContainer from './PromptsContainer';
-import { toast } from 'sonner';
 
 const PromptOptions = ({ setActiveTab, setOpen }) => {
 
-    const handleSelect = (prompt) => {
-        toast(`Selected: ${prompt}`);
-    };
-
-    
     return (
         <DropdownMenuContent side="left" align="start" className="w-80 p-4">
             <div className="space-y-3 relative">
@@ -30,7 +24,7 @@ const PromptOptions = ({ setActiveTab, setOpen }) => {
 
 
                 {/* The Container */}
-                <PromptsContainer onSelectPrompt={handleSelect} />
+                <PromptsContainer />
             </div>
         </DropdownMenuContent>
     );

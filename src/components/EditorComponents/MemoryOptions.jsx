@@ -8,7 +8,7 @@ import {
 
 
 import StickersOptions from "./StickersOptions/StickersOptions"
-import memoryOptionsData from "@/data/memoryOptionsData"
+import memoryOptionsData, { memoryPromptsData } from "@/data/memoryOptionsData"
 import MemoryTextInsert from "./Editor/MemoryTextInsert"
 import ImageOptions from "./Editor/ImageOptions"
 import { useEditorStore } from "@/store/useEditorStore"
@@ -21,7 +21,7 @@ const MemoryOptions = () => {
     const { pages, currentPage } = useEditorStore()
     const [activeTab, setActiveTab] = useState(null)
     const [open, setOpen] = useState(false)
-    const [isDisabled, setIsDisabled] = useState(false)
+    const [isMemoryPage, setIsMemoryPage] = useState(false)
 
 
 
@@ -29,7 +29,7 @@ const MemoryOptions = () => {
         const pageJson = pages[currentPage]
         if (!pageJson?.layout) return
         const state = pageJson?.layout === 'blank' ? false : true;
-        setIsDisabled(state)
+        setIsMemoryPage(state)
 
     }, [currentPage])
 
@@ -52,10 +52,23 @@ const MemoryOptions = () => {
 
 
     return (
-        <DropdownMenu open={isDisabled ? false : open} modal={false}>
+        <DropdownMenu open={open} modal={false}>
             <DropdownMenuTrigger asChild>
-                <div className={`${isDisabled ? 'cursor-not-allowed opacity-50 pointer-events-none' : ''} flex flex-col gap-3 bg-white text-center p-3 rounded-2xl max-h-max`}>
-                    {memoryOptionsData?.map((item) => (
+                <div className={`flex flex-col gap-3 bg-white text-center p-3 rounded-2xl max-h-max`}>
+                    {!isMemoryPage && memoryOptionsData?.map((item) => (
+                        <button
+                            key={item.key}
+                            onClick={() => handleClick(item.key)}
+                            className={`cursor-pointer flex border rounded-xl flex-col items-center justify-center px-4 py-2 font-semibold
+                            ${activeTab === item.key ? 'border-primary text-primary' : ''}`}
+                        >
+                            {item.icon}
+                            <p>{item.label}</p>
+                        </button>
+                    ))}
+
+
+                    {isMemoryPage && memoryPromptsData?.map((item) => (
                         <button
                             key={item.key}
                             onClick={() => handleClick(item.key)}
