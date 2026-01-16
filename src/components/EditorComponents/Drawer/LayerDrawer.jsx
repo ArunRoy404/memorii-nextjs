@@ -12,7 +12,7 @@ import LayersList from "../LayersList/LayersList";
 
 const LayerDrawer = () => {
     return (
-        <Drawer>
+        <Drawer >
             <DrawerTrigger>
                 <Layers size={15} />
             </DrawerTrigger>
