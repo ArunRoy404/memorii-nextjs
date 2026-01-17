@@ -38,6 +38,15 @@ const RedoUndo = ({ className }) => {
     };
 
 
+    const saveFirstState = useCallback(() => {
+        if (isLocked.current || !editorRef || !editorRef.backgroundColor) return;
+
+        const json = JSON.stringify(editorRef.toDatalessJSON());
+        setHistory([json]);
+        setRedoStack([]);
+    }, [editorRef]);
+
+
 
     // save state to history and redoStack
     const saveState = useCallback((objType, opType) => {
@@ -92,6 +101,12 @@ const RedoUndo = ({ className }) => {
     useEffect(() => {
         if (!editorRef || !editorRef.backgroundColor) return;
 
+
+        if (history.length === 0) {
+            saveFirstState();
+            return;
+        }
+
         const handleAdded = (e) => saveState(e?.target?.type, 'added');
         const handleModified = (e) => saveState(e?.target?.type, 'modified');
         const handleRemoved = (e) => saveState(e?.target?.type, 'removed');
@@ -106,9 +121,6 @@ const RedoUndo = ({ className }) => {
             editorRef.off('object:removed', handleRemoved);
         };
     }, [editorRef, saveState]);
-
-
-
 
 
     // set page history and redoStack when history or redoStack changes
@@ -138,6 +150,7 @@ const RedoUndo = ({ className }) => {
 
     return (
         <div className={cn("flex gap-2", className)}>
+            <p>{history.length}</p>
             {/* {history.length} */}
             <Button onClick={handleUndo} disabled={history.length <= 1} variant='ghost' className='p-1!' size="sm">
                 <Undo2 className="w-4 h-4" />
