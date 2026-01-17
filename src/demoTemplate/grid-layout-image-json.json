@@ -54,7 +54,7 @@
       "skewX": 0,
       "skewY": 0,
       "isMemoryQuestion": true,
-      "id": "textbox-1768643174384"
+      "id": "memory_question_0"
     },
     {
       "fontSize": 44,
@@ -110,7 +110,7 @@
       "skewY": 0,
       "preAddedText": true,
       "isMemoryAnswer": true,
-      "id": "textbox-1768643174386"
+      "id": "textbox-1768644714936"
     },
     {
       "fontSize": 51,
@@ -165,7 +165,7 @@
       "skewX": 0,
       "skewY": 0,
       "isMemoryQuestion": true,
-      "id": "textbox-1768643174407"
+      "id": "memory_question_1"
     },
     {
       "fontSize": 44,
@@ -221,7 +221,7 @@
       "skewY": 0,
       "preAddedText": true,
       "isMemoryAnswer": true,
-      "id": "textbox-1768643174408"
+      "id": "textbox-1768644714962"
     },
     {
       "fontSize": 51,
@@ -276,7 +276,7 @@
       "skewX": 0,
       "skewY": 0,
       "isMemoryQuestion": true,
-      "id": "textbox-1768643174425"
+      "id": "memory_question_2"
     },
     {
       "fontSize": 44,
@@ -332,7 +332,7 @@
       "skewY": 0,
       "preAddedText": true,
       "isMemoryAnswer": true,
-      "id": "textbox-1768643174426"
+      "id": "textbox-1768644714981"
     },
     {
       "rx": 0,
@@ -373,7 +373,7 @@
       "skewY": 0,
       "lockInteraction": true,
       "name": "image_upload_zone",
-      "id": "rect-1768643174446"
+      "id": "rect-1768644715002"
     },
     {
       "fontSize": 64,
@@ -484,7 +484,7 @@
       "skewY": 0,
       "preAddedText": true,
       "isMemoryAnswer": true,
-      "id": "textbox-1768643174447"
+      "id": "textbox-1768644715002"
     }
   ],
   "background": "white",

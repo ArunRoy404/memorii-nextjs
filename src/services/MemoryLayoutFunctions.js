@@ -65,8 +65,8 @@ export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref }) =>
 
         questionBox.set({
             isMemoryQuestion: true,
+            id: `memory_question_${i}`,
         })
-        addIdToObj(questionBox);
 
 
 
@@ -104,6 +104,7 @@ export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref }) =>
         answerBox.set({
             isMemoryAnswer: true,
             preAddedText: true,
+            id: `memory_answer_${i}`,
         })
 
 
@@ -188,8 +189,8 @@ export const addMemoryLayoutGrid = ({ fontFamily, fontSize, color, ref }) => {
 
         questionBox.set({
             isMemoryQuestion: true,
+            id: `memory_question_${i}`,
         })
-        addIdToObj(questionBox);
 
         // 2. Answer Textbox (Grid Mode)
         const answerBox = new fabric.Textbox('Write answer here...', {
@@ -222,6 +223,7 @@ export const addMemoryLayoutGrid = ({ fontFamily, fontSize, color, ref }) => {
         answerBox.set({
             isMemoryAnswer: true,
             preAddedText: true,
+            id: `memory_answer_${i}`,
         })
 
 
@@ -391,8 +393,8 @@ export const addMemoryLayoutVerticalImage = ({ fontFamily, fontSize, color, ref 
 
         questionBox.set({
             isMemoryQuestion: true,
+            id: `memory_question_${i}`,
         })
-        addIdToObj(questionBox);
 
 
 
@@ -430,6 +432,7 @@ export const addMemoryLayoutVerticalImage = ({ fontFamily, fontSize, color, ref 
         answerBox.set({
             isMemoryAnswer: true,
             preAddedText: true,
+            id: `memory_answer_${i}`,
         })
 
 
@@ -598,8 +601,10 @@ export const addMemoryLayoutGridImage = ({ fontFamily, fontSize, color, ref }) =
 
         questionBox.set({
             isMemoryQuestion: true,
+            id: `memory_question_${i}`,
         })
-        addIdToObj(questionBox);
+
+
 
         // 2. Answer Textbox (Grid Mode)
         const answerBox = new fabric.Textbox('Write answer here...', {
@@ -631,6 +636,7 @@ export const addMemoryLayoutGridImage = ({ fontFamily, fontSize, color, ref }) =
         answerBox.set({
             isMemoryAnswer: true,
             preAddedText: true,
+            id: `memory_answer_${i}`,
         })
 
 
