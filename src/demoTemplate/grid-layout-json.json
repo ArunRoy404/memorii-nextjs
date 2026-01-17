@@ -110,7 +110,7 @@
       "skewY": 0,
       "preAddedText": true,
       "isMemoryAnswer": true,
-      "id": "textbox-1768644778903"
+      "id": "memory_answer_0"
     },
     {
       "fontSize": 51,
@@ -221,7 +221,7 @@
       "skewY": 0,
       "preAddedText": true,
       "isMemoryAnswer": true,
-      "id": "textbox-1768644778937"
+      "id": "memory_answer_1"
     },
     {
       "fontSize": 51,
@@ -332,7 +332,7 @@
       "skewY": 0,
       "preAddedText": true,
       "isMemoryAnswer": true,
-      "id": "textbox-1768644778957"
+      "id": "memory_answer_2"
     },
     {
       "fontSize": 51,
@@ -443,7 +443,7 @@
       "skewY": 0,
       "preAddedText": true,
       "isMemoryAnswer": true,
-      "id": "textbox-1768644778977"
+      "id": "memory_answer_3"
     }
   ],
   "background": "white",

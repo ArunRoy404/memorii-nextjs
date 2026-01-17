@@ -654,3 +654,22 @@ export const memoryImageUpload = ({ file, labelObj, setUploadTarget, editorRef, 
     };
     reader.readAsDataURL(file);
 };
+
+
+
+export const adjustPositions = ({ changedObj, editorRef }) => {
+    if (!changedObj.id || !changedObj.id.startsWith('memory_question_')) return;
+
+    const index = changedObj.id.split('_').pop();
+    const answerId = `memory_answer_${index}`;
+
+    const answerBox = editorRef.getObjects().find(o => o.id === answerId);
+
+    if (answerBox) {
+        const gap = 20;
+
+        const newTop = changedObj.top + changedObj.height + gap;
+
+        answerBox.set({ top: newTop });
+    }
+};

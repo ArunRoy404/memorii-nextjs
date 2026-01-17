@@ -111,8 +111,6 @@ export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref }) =>
 
         // applyCommonStyles(questionBox);
         applyCommonStyles(answerBox);
-
-        addIdToObj(answerBox);
         ref.add(questionBox);
         ref.add(answerBox);
     }
@@ -231,7 +229,7 @@ export const addMemoryLayoutGrid = ({ fontFamily, fontSize, color, ref }) => {
         applyCommonStyles(answerBox);
 
 
-        addIdToObj(answerBox);
+
         ref.add(questionBox);
         ref.add(answerBox);
     }
@@ -438,7 +436,6 @@ export const addMemoryLayoutVerticalImage = ({ fontFamily, fontSize, color, ref 
 
 
         applyCommonStyles(answerBox);
-        addIdToObj(answerBox);
         ref.add(questionBox);
         ref.add(answerBox);
     }
@@ -644,7 +641,6 @@ export const addMemoryLayoutGridImage = ({ fontFamily, fontSize, color, ref }) =
         applyCommonStyles(answerBox);
 
 
-        addIdToObj(answerBox);
         ref.add(questionBox);
         ref.add(answerBox);
     }

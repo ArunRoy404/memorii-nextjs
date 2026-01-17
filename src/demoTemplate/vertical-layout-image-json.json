@@ -110,7 +110,7 @@
       "skewY": 0,
       "preAddedText": true,
       "isMemoryAnswer": true,
-      "id": "textbox-1768644742238"
+      "id": "memory_answer_0"
     },
     {
       "fontSize": 51,
@@ -221,7 +221,7 @@
       "skewY": 0,
       "preAddedText": true,
       "isMemoryAnswer": true,
-      "id": "textbox-1768644742265"
+      "id": "memory_answer_1"
     },
     {
       "fontSize": 51,
@@ -332,7 +332,7 @@
       "skewY": 0,
       "preAddedText": true,
       "isMemoryAnswer": true,
-      "id": "textbox-1768644742285"
+      "id": "memory_answer_2"
     },
     {
       "rx": 0,
@@ -373,7 +373,7 @@
       "skewY": 0,
       "lockInteraction": true,
       "name": "image_upload_zone",
-      "id": "rect-1768644742313"
+      "id": "rect-1768645951495"
     },
     {
       "fontSize": 64,
@@ -484,7 +484,7 @@
       "skewY": 0,
       "preAddedText": true,
       "isMemoryAnswer": true,
-      "id": "textbox-1768644742313"
+      "id": "textbox-1768645951495"
     }
   ],
   "background": "white",

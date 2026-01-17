@@ -1,4 +1,5 @@
 import { promptsList } from "@/data/promptsList";
+import { adjustPositions } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
 import { useEffect, useState } from "react";
 
@@ -14,7 +15,7 @@ const PromptsContainer = () => {
             const activeObject = editorRef.getActiveObjects()[0]
             if (activeObject && activeObject.isMemoryQuestion) {
                 setIsQuestion(true);
-                
+
                 // const lineCount = activeObject._textLines.length;
                 // console.log(`This textbox has ${lineCount} lines.`);
             } else {
@@ -39,9 +40,9 @@ const PromptsContainer = () => {
         const activeObject = editorRef.getActiveObjects()[0]
         const indexing = activeObject.text.slice(0, 3)
         const selectedQuestion = indexing + prompt
-        activeObject.set({
-            text: selectedQuestion
-        })
+        activeObject.set({ text: selectedQuestion });
+        activeObject.initDimensions();
+        adjustPositions({ changedObj: activeObject, editorRef });
         editorRef.requestRenderAll()
     };
 
