@@ -17,7 +17,7 @@ export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref }) =>
     const horizontalPadding = 100; // Large side padding
     const verticalMargin = 60;
     const gapBetweenPairs = 40;   // Space between Question 1 and Question 2
-    const internalGap = 4;        // TIGHT GAP between Question and its Answer
+    const internalGap = -20;        // TIGHT GAP between Question and its Answer
     const numPairs = 4;
 
     const questions = [
@@ -59,6 +59,7 @@ export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref }) =>
             // editable: false,
             selectable: false,
             evented: false,
+            backgroundColor: '#fff',
         });
 
 
@@ -96,6 +97,7 @@ export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref }) =>
             // This ensures text wraps within the box width
             splitByGrapheme: true,
             objectCaching: false,
+            backgroundColor: '#fff',
         });
 
 
@@ -131,7 +133,7 @@ export const addMemoryLayoutGrid = ({ fontFamily, fontSize, color, ref }) => {
     const padding = 60;          // Outer canvas padding
     const horizontalGap = 30;    // Gap between left and right columns
     const verticalGap = 40;      // Gap between top and bottom rows
-    const internalGap = 4;       // Gap between Question and Answer
+    const internalGap = -80;       // Gap between Question and Answer
     const numBoxes = 4;
 
     const questions = [
@@ -180,6 +182,7 @@ export const addMemoryLayoutGrid = ({ fontFamily, fontSize, color, ref }) => {
             editable: false,
             selectable: false,
             evented: false,
+            backgroundColor: '#fff',
         });
 
 
@@ -213,6 +216,7 @@ export const addMemoryLayoutGrid = ({ fontFamily, fontSize, color, ref }) => {
             lockMovementY: true,
             splitByGrapheme: true,
             objectCaching: false,
+            backgroundColor: '#fff',
         });
 
         answerBox.set({
@@ -248,7 +252,7 @@ export const addMemoryLayoutVerticalImage = ({ fontFamily, fontSize, color, ref 
     const horizontalPadding = 100; // Large side padding
     const verticalMargin = 60;
     const gapBetweenPairs = 40;   // Space between Question 1 and Question 2
-    const internalGap = 4;        // TIGHT GAP between Question and its Answer
+    const internalGap = -20;        // TIGHT GAP between Question and its Answer
     const numPairs = 4;
     const rowGap = 20;
 
@@ -300,6 +304,7 @@ export const addMemoryLayoutVerticalImage = ({ fontFamily, fontSize, color, ref 
                 width: halfWidth - 20,
                 fontSize: 64,
                 evented: false,
+                fontFamily: fontFamily || 'Arial',
                 textAlign: 'center',
                 originX: 'center',
                 originY: 'center',
@@ -453,7 +458,7 @@ export const addMemoryLayoutGridImage = ({ fontFamily, fontSize, color, ref }) =
     const padding = 60;          // Outer canvas padding
     const horizontalGap = 30;    // Gap between left and right columns
     const verticalGap = 40;      // Gap between top and bottom rows
-    const internalGap = 4;       // Gap between Question and Answer
+    const internalGap = -80;       // Gap between Question and Answer
     const numBoxes = 4;
 
     const questions = [
@@ -516,6 +521,7 @@ export const addMemoryLayoutGridImage = ({ fontFamily, fontSize, color, ref }) =
                 width: cellWidth - 20,
                 fontSize: 64,
                 evented: false,
+                fontFamily: fontFamily || 'Arial',
                 textAlign: 'center',
                 originX: 'center',
                 originY: 'center',

@@ -2,7 +2,7 @@
   "version": "6.9.0",
   "objects": [
     {
-      "fontSize": 35,
+      "fontSize": 51,
       "fontWeight": "bold",
       "fontFamily": "Arial",
       "fontStyle": "normal",
@@ -28,8 +28,8 @@
       "originY": "top",
       "left": 60,
       "top": 60,
-      "width": 545,
-      "height": 39.55,
+      "width": 825,
+      "height": 57.63,
       "fill": "#000000",
       "stroke": null,
       "strokeWidth": 1,
@@ -54,10 +54,10 @@
       "skewX": 0,
       "skewY": 0,
       "isMemoryQuestion": true,
-      "id": "textbox-1768633008238"
+      "id": "textbox-1768643174384"
     },
     {
-      "fontSize": 30,
+      "fontSize": 44,
       "fontWeight": "normal",
       "fontFamily": "Arial",
       "fontStyle": "normal",
@@ -82,9 +82,9 @@
       "originX": "left",
       "originY": "top",
       "left": 60,
-      "top": 123.1,
-      "width": 515,
-      "height": 33.9,
+      "top": 136,
+      "width": 795,
+      "height": 49.72,
       "fill": "#555555",
       "stroke": null,
       "strokeWidth": 1,
@@ -110,10 +110,10 @@
       "skewY": 0,
       "preAddedText": true,
       "isMemoryAnswer": true,
-      "id": "textbox-1768633008245"
+      "id": "textbox-1768643174386"
     },
     {
-      "fontSize": 35,
+      "fontSize": 51,
       "fontWeight": "bold",
       "fontFamily": "Arial",
       "fontStyle": "normal",
@@ -137,10 +137,10 @@
       "version": "6.9.0",
       "originX": "left",
       "originY": "top",
-      "left": 635,
+      "left": 915,
       "top": 60,
-      "width": 545,
-      "height": 39.55,
+      "width": 825,
+      "height": 57.63,
       "fill": "#000000",
       "stroke": null,
       "strokeWidth": 1,
@@ -165,10 +165,10 @@
       "skewX": 0,
       "skewY": 0,
       "isMemoryQuestion": true,
-      "id": "textbox-1768633008266"
+      "id": "textbox-1768643174407"
     },
     {
-      "fontSize": 30,
+      "fontSize": 44,
       "fontWeight": "normal",
       "fontFamily": "Arial",
       "fontStyle": "normal",
@@ -192,10 +192,10 @@
       "version": "6.9.0",
       "originX": "left",
       "originY": "top",
-      "left": 635,
-      "top": 123.1,
-      "width": 515,
-      "height": 33.9,
+      "left": 915,
+      "top": 136,
+      "width": 795,
+      "height": 49.72,
       "fill": "#555555",
       "stroke": null,
       "strokeWidth": 1,
@@ -221,10 +221,10 @@
       "skewY": 0,
       "preAddedText": true,
       "isMemoryAnswer": true,
-      "id": "textbox-1768633008270"
+      "id": "textbox-1768643174408"
     },
     {
-      "fontSize": 35,
+      "fontSize": 51,
       "fontWeight": "bold",
       "fontFamily": "Arial",
       "fontStyle": "normal",
@@ -249,9 +249,9 @@
       "originX": "left",
       "originY": "top",
       "left": 60,
-      "top": 897,
-      "width": 545,
-      "height": 39.55,
+      "top": 1220,
+      "width": 825,
+      "height": 57.63,
       "fill": "#000000",
       "stroke": null,
       "strokeWidth": 1,
@@ -276,10 +276,10 @@
       "skewX": 0,
       "skewY": 0,
       "isMemoryQuestion": true,
-      "id": "textbox-1768633008288"
+      "id": "textbox-1768643174425"
     },
     {
-      "fontSize": 30,
+      "fontSize": 44,
       "fontWeight": "normal",
       "fontFamily": "Arial",
       "fontStyle": "normal",
@@ -304,9 +304,9 @@
       "originX": "left",
       "originY": "top",
       "left": 60,
-      "top": 960.1,
-      "width": 515,
-      "height": 33.9,
+      "top": 1296,
+      "width": 795,
+      "height": 49.72,
       "fill": "#555555",
       "stroke": null,
       "strokeWidth": 1,
@@ -332,7 +332,7 @@
       "skewY": 0,
       "preAddedText": true,
       "isMemoryAnswer": true,
-      "id": "textbox-1768633008291"
+      "id": "textbox-1768643174426"
     },
     {
       "rx": 0,
@@ -341,10 +341,10 @@
       "version": "6.9.0",
       "originX": "left",
       "originY": "top",
-      "left": 635,
-      "top": 897,
-      "width": 545,
-      "height": 478.2,
+      "left": 915,
+      "top": 1220,
+      "width": 825,
+      "height": 672,
       "fill": "#f9f9f9",
       "stroke": "#fff",
       "strokeWidth": 1,
@@ -373,12 +373,12 @@
       "skewY": 0,
       "lockInteraction": true,
       "name": "image_upload_zone",
-      "id": "rect-1768633008312"
+      "id": "rect-1768643174446"
     },
     {
       "fontSize": 64,
       "fontWeight": "normal",
-      "fontFamily": "Times New Roman",
+      "fontFamily": "Arial",
       "fontStyle": "normal",
       "lineHeight": 1.16,
       "text": "Click to Upload\nPhoto",
@@ -400,9 +400,9 @@
       "version": "6.9.0",
       "originX": "center",
       "originY": "center",
-      "left": 907.5,
-      "top": 1136.1,
-      "width": 525,
+      "left": 1327.5,
+      "top": 1556,
+      "width": 805,
       "height": 156.2112,
       "fill": "rgb(0,0,0)",
       "stroke": null,
@@ -431,7 +431,7 @@
       "name": "image_upload_label"
     },
     {
-      "fontSize": 30,
+      "fontSize": 44,
       "fontWeight": "normal",
       "fontFamily": "Arial",
       "fontStyle": "normal",
@@ -455,10 +455,10 @@
       "version": "6.9.0",
       "originX": "left",
       "originY": "top",
-      "left": 635,
-      "top": 1385.2,
-      "width": 545,
-      "height": 33.9,
+      "left": 915,
+      "top": 1902,
+      "width": 825,
+      "height": 49.72,
       "fill": "#555555",
       "stroke": null,
       "strokeWidth": 1,
@@ -484,7 +484,7 @@
       "skewY": 0,
       "preAddedText": true,
       "isMemoryAnswer": true,
-      "id": "textbox-1768633008312"
+      "id": "textbox-1768643174447"
     }
   ],
   "background": "white",

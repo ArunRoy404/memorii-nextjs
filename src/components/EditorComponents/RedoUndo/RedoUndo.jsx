@@ -150,7 +150,6 @@ const RedoUndo = ({ className }) => {
 
     return (
         <div className={cn("flex gap-2", className)}>
-            <p>{history.length}</p>
             {/* {history.length} */}
             <Button onClick={handleUndo} disabled={history.length <= 1} variant='ghost' className='p-1!' size="sm">
                 <Undo2 className="w-4 h-4" />

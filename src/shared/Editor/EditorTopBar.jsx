@@ -6,11 +6,10 @@ import { useEditorStore } from "@/store/useEditorStore";
 import { UserPlus } from "lucide-react";
 import Link from "next/link";
 import EditorOptionsMobileView from "./EditorOptionsMobileView";
-import { addMemoryLayoutGrid, addMemoryLayoutGridImage, addMemoryLayoutVertical, addMemoryLayoutVerticalImage } from "@/services/MemoryLayoutFunctions";
 import ClearPageButton from "@/components/EditorComponents/ClearPageButton";
 
 const EditorTopBar = () => {
-    const { saveCurrentPage, addPage, editorRef } = useEditorStore()
+    const { saveCurrentPage } = useEditorStore()
 
 
     return (
@@ -64,9 +63,9 @@ const EditorTopBar = () => {
 
                     <Button size="sm" onClick={() => addMemoryLayoutVerticalImage({ ref: editorRef })} >
                         add vertical layout Image
-                    </Button> */}
+                    </Button>
 
-                    {/* <Button size="sm" onClick={() => addMemoryLayoutVertical({ ref: editorRef })} >
+                    <Button size="sm" onClick={() => addMemoryLayoutVertical({ ref: editorRef })} >
                         add vertical layout
                     </Button>
 
