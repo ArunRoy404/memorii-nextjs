@@ -299,10 +299,10 @@ export const addMemoryLayoutVerticalImage = ({ fontFamily, fontSize, color, ref 
                 top: blockTop + (blockHeight / 2),
                 width: halfWidth - 20,
                 fontSize: 64,
+                evented: false,
                 textAlign: 'center',
                 originX: 'center',
                 originY: 'center',
-                evented: false,
                 name: 'image_upload_label' // Key for click listener
             });
 
@@ -437,3 +437,205 @@ export const addMemoryLayoutVerticalImage = ({ fontFamily, fontSize, color, ref 
 
     ref.renderAll();
 };
+
+
+
+export const addMemoryLayoutGridImage = ({ fontFamily, fontSize, color, ref }) => {
+    if (!ref) return;
+
+    ref.setSelection(false);
+    ref.setLayout('memory_grid_Image');
+    const canvasWidth = ref.getWidth();
+    const canvasHeight = ref.getHeight();
+    const zoom = ref.getZoom() || 1;
+
+    // --- Configuration ---
+    const padding = 60;          // Outer canvas padding
+    const horizontalGap = 30;    // Gap between left and right columns
+    const verticalGap = 40;      // Gap between top and bottom rows
+    const internalGap = 4;       // Gap between Question and Answer
+    const numBoxes = 4;
+
+    const questions = [
+        "1. How you know me?",
+        "2. Favorite memory?",
+        "3. Describe me?",
+        // "4. What's next?"
+    ];
+
+    // --- Grid Calculations ---
+    const totalAvailableWidth = (canvasWidth / zoom) - (padding * 2);
+    const totalAvailableHeight = (canvasHeight / zoom) - (padding * 2);
+
+    // Calculate dimensions for a single "Cell" in the 2x2 grid
+    const cellWidth = (totalAvailableWidth - horizontalGap) / 2;
+    const cellHeight = (totalAvailableHeight - verticalGap) / 2;
+
+    // Split cell height between Question (30%) and Answer (70%)
+    const qHeight = cellHeight * 0.3;
+    const aHeight = cellHeight * 0.7 - internalGap;
+
+
+    for (let i = 0; i < numBoxes; i++) {
+        // Determine column (0 or 1) and row (0 or 1)
+        const col = i % 2;
+        const row = Math.floor(i / 2);
+
+        // Calculate X and Y coordinates
+        const leftPos = padding + (col * (cellWidth + horizontalGap));
+        const topPos = padding + (row * (cellHeight + verticalGap));
+
+
+
+        // --- SPECIAL CASE: 4th BOX (Grid Index 3) ---
+        if (i === 3) {
+            const imageAreaHeight = cellHeight * 0.6; // Top portion for image
+            const textAreaHeight = cellHeight * 0.4;  // Bottom portion for text
+            const innerSpacing = 10;
+
+            const imagePlaceholder = new fabric.Rect({
+                left: leftPos,
+                top: topPos,
+                width: cellWidth,
+                height: imageAreaHeight,
+                fill: '#f9f9f9',
+                stroke: '#fff',
+                strokeDashArray: [5, 5],
+                originX: 'left',
+                originY: 'top',
+                selectable: true,
+                hasControls: false,
+                selectable: false,
+                evented: false,
+                name: 'image_upload_zone'
+            });
+
+            const uploadLabel = new fabric.Textbox('Click to Upload\nPhoto', {
+                left: leftPos + (cellWidth / 2),
+                top: topPos + (imageAreaHeight / 2),
+                width: cellWidth - 20,
+                fontSize: 64,
+                evented: false,
+                textAlign: 'center',
+                originX: 'center',
+                originY: 'center',
+                name: 'image_upload_label'
+            });
+
+            const bottomTextbox = new fabric.Textbox('Why this photo is special...', {
+                left: leftPos,
+                top: topPos + imageAreaHeight + innerSpacing,
+                width: cellWidth,
+                height: textAreaHeight - innerSpacing,
+
+                fontFamily: fontFamily || 'Arial',
+                fontSize: Math.round((fontSize || 20) * 0.85 / zoom),
+                fontWeight: 'normal',
+                fill: '#555555',
+                textAlign: 'left',
+                originY: 'top',
+                backgroundColor: '#fff',
+
+                // Strict constraints to prevent overlapping other questions
+                editable: true,
+                selectable: true,
+                hasControls: false,
+                lockScalingX: true,
+                lockScalingY: true,
+                lockMovementX: true,
+                lockMovementY: true,
+
+                // This ensures text wraps within the box width
+                splitByGrapheme: true,
+                objectCaching: false,
+            });
+
+            // Set custom properties
+            imagePlaceholder.set({ lockInteraction: true });
+            uploadLabel.set({ isMemoryImageUpload: true });
+            bottomTextbox.set({ isMemoryAnswer: true, preAddedText: true });
+
+            applyCommonStyles(imagePlaceholder);
+            applyCommonStyles(bottomTextbox);
+            addIdToObj(imagePlaceholder);
+            addIdToObj(bottomTextbox);
+
+            ref.add(imagePlaceholder, uploadLabel, bottomTextbox);
+            continue; // Skip the standard question/answer logic for this cell
+        }
+
+
+
+
+
+
+        // 1. Question Textbox (Grid Mode)
+        const questionBox = new fabric.Textbox(questions[i], {
+            left: leftPos,
+            top: topPos,
+            width: cellWidth,
+            height: qHeight,
+
+            fontFamily: fontFamily || 'Arial',
+            fontSize: fontSize || Math.round(20 / zoom),
+            fontWeight: 'bold',
+            fill: color || '#000000',
+            textAlign: 'left',
+            originX: 'left',
+            originY: 'top',
+
+            editable: false,
+            selectable: false,
+            evented: false,
+        });
+
+
+        questionBox.set({
+            isMemoryQuestion: true,
+        })
+        addIdToObj(questionBox);
+
+        // 2. Answer Textbox (Grid Mode)
+        const answerBox = new fabric.Textbox('Write answer here...', {
+            left: leftPos,
+            top: topPos + qHeight + internalGap - 180,
+            width: cellWidth - 30,
+            height: aHeight,
+
+            fontFamily: fontFamily || 'Arial',
+            fontSize: Math.round((fontSize || 20) * 0.85 / zoom),
+            fontWeight: 'normal',
+            fill: '#555555',
+            textAlign: 'left',
+            originX: 'left',
+            originY: 'top',
+
+            // Constraints
+            editable: true,
+            selectable: true,
+            hasControls: false,
+            lockScalingX: true,
+            lockScalingY: true,
+            lockMovementX: true,
+            lockMovementY: true,
+            splitByGrapheme: true,
+            objectCaching: false,
+        });
+
+        answerBox.set({
+            isMemoryAnswer: true,
+            preAddedText: true,
+        })
+
+
+        applyCommonStyles(questionBox);
+        applyCommonStyles(answerBox);
+
+
+        addIdToObj(answerBox);
+        ref.add(questionBox);
+        ref.add(answerBox);
+    }
+
+    ref.renderAll();
+}

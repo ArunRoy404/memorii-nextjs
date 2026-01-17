@@ -6,7 +6,7 @@ import { useEditorStore } from "@/store/useEditorStore";
 import { UserPlus } from "lucide-react";
 import Link from "next/link";
 import EditorOptionsMobileView from "./EditorOptionsMobileView";
-import { addMemoryLayoutGrid, addMemoryLayoutVertical, addMemoryLayoutVerticalImage } from "@/services/MemoryLayoutFunctions";
+import { addMemoryLayoutGrid, addMemoryLayoutGridImage, addMemoryLayoutVertical, addMemoryLayoutVerticalImage } from "@/services/MemoryLayoutFunctions";
 import ClearPageButton from "@/components/EditorComponents/ClearPageButton";
 
 const EditorTopBar = () => {
@@ -57,6 +57,11 @@ const EditorTopBar = () => {
                 <div className="hidden md:flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
 
                     {/* test buttons  */}
+                    <Button size="sm" onClick={() => addMemoryLayoutGridImage({ ref: editorRef })} >
+                        add Grid layout Image
+                    </Button>
+
+
                     <Button size="sm" onClick={() => addMemoryLayoutVerticalImage({ ref: editorRef })} >
                         add vertical layout Image
                     </Button>

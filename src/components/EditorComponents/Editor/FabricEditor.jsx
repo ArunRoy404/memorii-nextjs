@@ -41,19 +41,24 @@ const FabricEditor = ({ variant }) => {
 
         await ref?.loadFromJSON(pageJson);
 
+        
         ref?.getObjects()?.forEach(obj => {
             applyCommonStyles(obj)
             setObjProperties({ obj: obj, fileInputRef })
 
-            if (fileInputRef && fileInputRef.current) {
-                obj.on('mousedown', () => {
-                    if (fileInputRef.current) {
-                        setUploadTarget(obj);
-                        fileInputRef.current.click();
-                    }
-                });
+
+            if (obj.isMemoryImageUpload) {
+                if (fileInputRef && fileInputRef.current) {
+                    obj.on('mousedown', () => {
+                        if (fileInputRef.current) {
+                            setUploadTarget(obj);
+                            fileInputRef.current.click();
+                        }
+                    });
+                }
             }
         });
+
 
         if (pageJson.layout) {
             ref.setLayout(pageJson.layout || 'blank');
