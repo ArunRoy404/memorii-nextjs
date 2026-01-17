@@ -2,6 +2,8 @@ import * as fabric from 'fabric'
 import { applyCommonStyles } from './CommonControlStyle';
 import { addIdToObj } from './Editor';
 
+
+
 export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref }) => {
     if (!ref) return;
 
@@ -114,8 +116,6 @@ export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref }) =>
 
     ref.renderAll();
 }
-
-
 
 
 
@@ -234,3 +234,208 @@ export const addMemoryLayoutGrid = ({ fontFamily, fontSize, color, ref }) => {
 
     ref.renderAll();
 }
+
+
+
+export const addMemoryLayoutVerticalImage = ({ fontFamily, fontSize, color, ref }) => {
+    if (!ref) return;
+
+    ref.setSelection(false);
+    ref.setLayout('memory_vertical_image');
+    const canvasWidth = ref.getWidth();
+    const canvasHeight = ref.getHeight();
+    const zoom = ref.getZoom() || 1;
+
+    // --- Layout Configuration ---
+    const horizontalPadding = 100; // Large side padding
+    const verticalMargin = 60;
+    const gapBetweenPairs = 40;   // Space between Question 1 and Question 2
+    const internalGap = 4;        // TIGHT GAP between Question and its Answer
+    const numPairs = 4;
+    const rowGap = 20;
+
+
+    const questions = [
+        "1. How you know me?",
+        "2. What is your favorite memory of us?",
+        "3. Describe me in one word.",
+    ];
+
+
+    const availableWidth = (canvasWidth / zoom) - horizontalPadding;
+    const totalGapsHeight = gapBetweenPairs * (numPairs - 1);
+    const blockHeight = ((canvasHeight / zoom) - (verticalMargin * 2) - totalGapsHeight) / numPairs;
+
+    const qHeight = blockHeight * 0.3;
+    const aHeight = blockHeight * 0.7 - internalGap;
+
+    for (let i = 0; i < numPairs; i++) {
+        const blockTop = verticalMargin + (i * (blockHeight + gapBetweenPairs));
+
+
+
+
+        // --- SPECIAL CASE: 4th BOX (Index 3) ---
+        if (i === 3) {
+            const halfWidth = (availableWidth - rowGap) / 2;
+
+            const imagePlaceholder = new fabric.Rect({
+                left: ((canvasWidth / zoom) / 2) - (availableWidth / 2),
+                top: blockTop,
+                width: halfWidth,
+                height: blockHeight,
+                fill: '#f9f9f9',
+                stroke: '#cbd5e1',
+                strokeDashArray: [5, 5],
+                originX: 'left',
+                originY: 'top',
+                selectable: true,
+                hasControls: false,
+                selectable: false,
+                evented: false,
+                name: 'image_upload_zone' // Key for click listener
+            });
+
+            const uploadLabel = new fabric.Textbox('Click to Upload\nPhoto', {
+                left: imagePlaceholder.left + (halfWidth / 2),
+                top: blockTop + (blockHeight / 2),
+                width: halfWidth - 20,
+                fontSize: 64,
+                textAlign: 'center',
+                originX: 'center',
+                originY: 'center',
+                evented: false,
+                name: 'image_upload_label' // Key for click listener
+            });
+
+            const sideTextbox = new fabric.Textbox('Why this photo is special...', {
+                left: ((canvasWidth / zoom) / 2) + (rowGap / 2),
+                top: blockTop,
+                width: halfWidth,
+                height: blockHeight,
+
+
+                fontFamily: fontFamily || 'Arial',
+                fontSize: Math.round((fontSize || 20) * 0.85 / zoom),
+                fontWeight: 'normal',
+                fill: '#555555',
+                textAlign: 'left',
+                originY: 'top',
+                backgroundColor: '#fff',
+
+                // Strict constraints to prevent overlapping other questions
+                editable: true,
+                selectable: true,
+                hasControls: false,
+                lockScalingX: true,
+                lockScalingY: true,
+                lockMovementX: true,
+                lockMovementY: true,
+
+                // This ensures text wraps within the box width
+                splitByGrapheme: true,
+                objectCaching: false,
+            });
+
+
+            imagePlaceholder.set({
+                lockInteraction: true,
+            })
+            uploadLabel.set({
+                isMemoryImageUpload: true,
+            })
+            sideTextbox.set({
+                isMemoryAnswer: true,
+                preAddedText: true,
+            })
+
+            applyCommonStyles(imagePlaceholder);
+            applyCommonStyles(sideTextbox);
+
+            addIdToObj(imagePlaceholder);
+            addIdToObj(sideTextbox);
+            ref.add(imagePlaceholder, uploadLabel, sideTextbox);
+            continue;
+        }
+
+
+
+
+
+
+        // 1. Question Textbox (Non-interactive)
+        const questionBox = new fabric.Textbox(questions[i], {
+            left: (canvasWidth / zoom) / 2,
+            top: blockTop,
+            width: availableWidth,
+            height: qHeight,
+
+            fontFamily: fontFamily || 'Arial',
+            fontSize: fontSize || Math.round(20 / zoom),
+
+            fontWeight: 'bold',
+            fill: color || '#000000',
+            textAlign: 'left',
+            originX: 'center',
+            originY: 'top',
+            backgroundColor: '#fff',
+
+            // editable: false,
+            selectable: false,
+            evented: false,
+        });
+
+
+        questionBox.set({
+            isMemoryQuestion: true,
+        })
+        addIdToObj(questionBox);
+
+
+
+        // 2. Answer Textbox (Strict Height)
+        const answerBox = new fabric.Textbox('Write your answers here...', {
+            left: (canvasWidth / zoom) / 2,
+            top: blockTop + qHeight + internalGap - 60, // Positioned right under question
+            width: availableWidth,
+            height: 100, // FIXED HEIGHT
+
+            fontFamily: fontFamily || 'Arial',
+            fontSize: Math.round((fontSize || 20) * 0.85 / zoom),
+            fontWeight: 'normal',
+            fill: '#555555',
+            textAlign: 'left',
+            originX: 'center',
+            originY: 'top',
+            backgroundColor: '#fff',
+
+            // Strict constraints to prevent overlapping other questions
+            editable: true,
+            selectable: true,
+            hasControls: false,
+            lockScalingX: true,
+            lockScalingY: true,
+            lockMovementX: true,
+            lockMovementY: true,
+
+            // This ensures text wraps within the box width
+            splitByGrapheme: true,
+            objectCaching: false,
+        });
+
+
+        answerBox.set({
+            isMemoryAnswer: true,
+            preAddedText: true,
+        })
+
+
+
+        applyCommonStyles(answerBox);
+        addIdToObj(answerBox);
+        ref.add(questionBox);
+        ref.add(answerBox);
+    }
+
+    ref.renderAll();
+};

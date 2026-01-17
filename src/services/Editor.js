@@ -537,6 +537,12 @@ export const setObjProperties = ({ obj }) => {
             selectable: false,
             editable: false,
             evented: false,
+
+            lockMovementX: true,
+            lockMovementY: true,
+            lockRotation: true,
+            lockScalingX: true,
+            lockScalingY: true,
         });
     }
 
@@ -567,6 +573,34 @@ export const setObjProperties = ({ obj }) => {
             options.e.stopPropagation();
         });
     }
+
+    if (obj.isMemoryImageUpload) {
+        obj.set({
+            selectable: true,
+            evented: true,
+            hasControls: false,
+            hasBorders: true,
+            editable: false,
+
+            lockMovementX: true,
+            lockMovementY: true,
+            lockRotation: true,
+            lockScalingX: true,
+            lockScalingY: true,
+
+
+            hoverCursor: 'default',
+            selectionBackgroundColor: 'transparent',
+        });
+
+        obj.on('mousedblclick', (options) => {
+
+
+            toast.success('Click on the image to upload');
+        });
+    }
+
+
 
 
 
