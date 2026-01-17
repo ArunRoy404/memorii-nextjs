@@ -84,32 +84,33 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref, font
 
 
 
-export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left, preAddedText }) => {
-    if (!ref || ref?.layout !== 'blank') return;
+export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left, width }) => {
+    if (!ref) return;
 
     const canvasWidth = ref.getWidth();
     const canvasHeight = ref.getHeight();
     const zoom = ref.getZoom()
 
 
-
     const texBoxObj = new fabric.Textbox(text || 'Edit Text', {
         left: left || 60,
         top: top || 60,
-        width: 300,
+
+        // width: 250,
+        width: width || 650,
         height: 150,
 
         fontFamily: fontFamily || 'Arial',
-        fontSize: fontSize || Math.round(26 / zoom),
+        // fontSize: fontSize || Math.round(64 / zoom),
+        fontSize: Math.round(fontSize / zoom),
         fontWeight: fontWeight || 'bold',
+
         fill: color || '#000000',
-
         breakWords: true,
-        // lockInteraction: true,
+        editable: true,
     })
-    texBoxObj.set('preAddedText', preAddedText || false);
-    addIdToObj(texBoxObj)
 
+    addIdToObj(texBoxObj)
 
 
     if (position === 'top') {
@@ -121,7 +122,6 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
             top: canvasHeight / (7 * zoom),
             originX: 'center',
             originY: 'center',
-            preAddedText: preAddedText || false,
         });
     }
     if (position === 'center') {
@@ -133,7 +133,10 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
             top: canvasHeight / (2 * zoom),
             originX: 'center',
             originY: 'center',
-            preAddedText: preAddedText || false,
+
+            // editable: false,      // can't edit text
+            // selectable: false,    // can't select
+            // evented: false,       // no mouse events
         });
     }
     if (position === 'bottom') {
@@ -145,12 +148,11 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
             top: (canvasHeight / (3 * zoom)) * 2.5,
             originX: 'center',
             originY: 'center',
-            preAddedText: preAddedText || false,
         });
     }
 
-
     applyCommonStyles(texBoxObj)
+
     ref.add(texBoxObj)
     ref.setActiveObject(texBoxObj);
     ref.renderAll();

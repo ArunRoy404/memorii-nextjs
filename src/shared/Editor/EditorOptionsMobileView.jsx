@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useEditorStore } from "@/store/useEditorStore";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
+import EditorDrawer from "./EditorDrawer/EditorDrawer";
 
 
 
@@ -29,7 +30,8 @@ const EditorOptionsMobileView = () => {
             {
                 !isMemoryPage ? (
                     <>
-                        <TextOptionsDrawer />
+                        <EditorDrawer />
+                        {/* <TextOptionsDrawer />
                         <StickersDrawer />
                         <ImageDrawer />
                         <LayerDrawer />
@@ -37,7 +39,7 @@ const EditorOptionsMobileView = () => {
                             onClick={() => addPage()}
                             variant='ghost' size="sm" className='p-0!'>
                             <Plus />
-                        </Button>
+                        </Button> */}
                     </>
                 ) : (
                     <>

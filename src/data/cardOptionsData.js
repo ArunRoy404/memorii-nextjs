@@ -11,11 +11,11 @@ const cardOptionsData = [
         label: 'Text',
         key: 'text',
     },
-    {
-        icon: <Images />,
-        label: 'BG',
-        key: 'bg',
-    },
+    // {
+    //     icon: <Images />,
+    //     label: 'BG',
+    //     key: 'bg',
+    // },
     {
         icon: <Sticker />,
         label: 'Sticker',
