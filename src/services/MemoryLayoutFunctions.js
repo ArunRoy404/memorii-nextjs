@@ -118,8 +118,6 @@ export const addMemoryLayoutVertical = ({ fontFamily, fontSize, color, ref }) =>
 }
 
 
-
-
 export const addMemoryLayoutGrid = ({ fontFamily, fontSize, color, ref }) => {
     if (!ref) return;
 
@@ -285,7 +283,7 @@ export const addMemoryLayoutVerticalImage = ({ fontFamily, fontSize, color, ref 
                 width: halfWidth,
                 height: blockHeight,
                 fill: '#f9f9f9',
-                stroke: '#cbd5e1',
+                stroke: '#fff',
                 strokeDashArray: [5, 5],
                 originX: 'left',
                 originY: 'top',

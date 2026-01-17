@@ -3,19 +3,35 @@
 import '@/lib/fabricSetup';
 import { fabric } from '@/lib/fabricSetup';
 import { applyCommonStyles } from "@/services/CommonControlStyle";
-import { handleDeleteObject, handleRemoveEmptyText, handleRemovePreAddedText, handleRemoveText, initClipboard, setObjProperties, touchToText } from "@/services/Editor";
+import { handleDeleteObject, handleRemoveEmptyText, handleRemovePreAddedText, handleRemoveText, initClipboard, memoryImageUpload, setObjProperties, touchToText } from "@/services/Editor";
 import { useEditorStore } from "@/store/useEditorStore";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 
 
 const FabricEditor = ({ variant }) => {
+    const [uploadTarget, setUploadTarget] = useState(null);
     const { editorRef, setEditorRef, pages, currentPage } = useEditorStore()
+
     const containerRef = useRef(null);
+    const fileInputRef = useRef(null);
 
     const width = variant === 'memory' ? 1240 : 1800
     const height = variant === 'memory' ? 1754 : 2400
     const aspectRatio = width / height;
+
+
+
+    const handleMemoryImageChange = (e) => {
+        const file = e.target.files?.[0];
+        if (!file || !uploadTarget) return;
+
+        memoryImageUpload({ file, labelObj: uploadTarget, setUploadTarget, editorRef, fileInputRef });
+
+        setUploadTarget(null);
+        e.target.value = '';
+    };
+
 
 
     const renderDesign = async (ref) => {
@@ -27,7 +43,16 @@ const FabricEditor = ({ variant }) => {
 
         ref?.getObjects()?.forEach(obj => {
             applyCommonStyles(obj)
-            setObjProperties({ obj: obj })
+            setObjProperties({ obj: obj, fileInputRef })
+
+            if (fileInputRef && fileInputRef.current) {
+                obj.on('mousedown', () => {
+                    if (fileInputRef.current) {
+                        setUploadTarget(obj);
+                        fileInputRef.current.click();
+                    }
+                });
+            }
         });
 
         if (pageJson.layout) {
@@ -116,16 +141,33 @@ const FabricEditor = ({ variant }) => {
                 style={{ aspectRatio: aspectRatio }}
             >
                 <canvas id="canvas" />
+
+                {/* The Hidden Input */}
+                <input
+                    type="file"
+                    ref={fileInputRef}
+                    style={{ display: 'none' }}
+                    accept="image/*"
+                    onChange={handleMemoryImageChange}
+                />
             </div>
         );
     }
 
 
     return (
-        <div ref={containerRef} className='max-w-[310px] sm:max-w-[400px] md:max-w-[450px] lg:max-w-[500px] overflow-hidden '
+        <div ref={containerRef} className='max-w-[310px] sm:max-w-[400px] md:max-w-[450px] lg:max-w-[500px] overflow-hidden'
             style={{ aspectRatio: aspectRatio }}
         >
             <canvas id="canvas" />
+            {/* The Hidden Input */}
+            <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: 'none' }}
+                accept="image/*"
+                onChange={handleMemoryImageChange}
+            />
         </div>
     );
 };

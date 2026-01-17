@@ -547,7 +547,6 @@ export const setObjProperties = ({ obj }) => {
     }
 
 
-
     if (obj.isMemoryQuestion) {
         obj.set({
             selectable: true,
@@ -566,12 +565,25 @@ export const setObjProperties = ({ obj }) => {
             hoverCursor: 'default',
             selectionBackgroundColor: 'transparent',
         });
+    }
 
-        // Optional: If you want to be 100% sure dblclick does nothing
-        obj.on('mousedblclick', (options) => {
-            options.e.preventDefault();
-            options.e.stopPropagation();
-        });
+
+
+    if (obj.isMemoryAnswer) {
+        obj.set({
+            // Strict constraints to prevent overlapping other questions
+            editable: true,
+            selectable: true,
+            hasControls: false,
+            lockScalingX: true,
+            lockScalingY: true,
+            lockMovementX: true,
+            lockMovementY: true,
+
+            // This ensures text wraps within the box width
+            splitByGrapheme: true,
+            objectCaching: false,
+        })
     }
 
     if (obj.isMemoryImageUpload) {
@@ -592,33 +604,53 @@ export const setObjProperties = ({ obj }) => {
             hoverCursor: 'default',
             selectionBackgroundColor: 'transparent',
         });
-
-        obj.on('mousedblclick', (options) => {
-
-
-            toast.success('Click on the image to upload');
-        });
-    }
-
-
-
-
-
-
-    if (obj.isMemoryAnswer) {
-        obj.set({
-            // Strict constraints to prevent overlapping other questions
-            editable: true,
-            selectable: true,
-            hasControls: false,
-            lockScalingX: true,
-            lockScalingY: true,
-            lockMovementX: true,
-            lockMovementY: true,
-
-            // This ensures text wraps within the box width
-            splitByGrapheme: true,
-            objectCaching: false,
-        })
     }
 }
+
+
+
+
+export const memoryImageUpload = ({ file, labelObj, setUploadTarget, editorRef, fileInputRef }) => {
+    const reader = new FileReader();
+    reader.onload = async (f) => {
+        const data = f.target.result;
+        const img = await fabric.Image.fromURL(data);
+        const canvas = editorRef;
+
+        const placeholder = canvas.getObjects().find(o =>
+            o.name === 'image_upload_zone'
+        );
+
+
+        if (!placeholder) {
+            console.error("Could not find matching placeholder rect");
+            return;
+        }
+
+        const scale = Math.min(placeholder.width / img.width, placeholder.height / img.height);
+
+        img.set({
+            scaleX: scale,
+            scaleY: scale,
+            left: placeholder.left + (placeholder.width - (img.width * scale)) / 2,
+            top: placeholder.top + (placeholder.height - (img.height * scale)) / 2,
+            selectable: true,
+        });
+
+        canvas.remove(labelObj);
+        canvas.add(img);
+        img.set({
+            isMemoryImageUpload: true,
+        })
+        setObjProperties({ obj: img })
+        img.on('mousedown', () => {
+            if (fileInputRef.current) {
+                setUploadTarget(img);
+                fileInputRef.current.click();
+            }
+        });
+
+        canvas.renderAll();
+    };
+    reader.readAsDataURL(file);
+};
