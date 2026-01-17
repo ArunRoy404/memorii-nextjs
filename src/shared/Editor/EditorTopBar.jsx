@@ -57,14 +57,14 @@ const EditorTopBar = () => {
                 <div className="hidden md:flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
 
                     {/* test buttons  */}
-                    <Button size="sm" onClick={() => addMemoryLayoutGridImage({ ref: editorRef })} >
+                    {/* <Button size="sm" onClick={() => addMemoryLayoutGridImage({ ref: editorRef })} >
                         add Grid layout Image
                     </Button>
 
 
                     <Button size="sm" onClick={() => addMemoryLayoutVerticalImage({ ref: editorRef })} >
                         add vertical layout Image
-                    </Button>
+                    </Button> */}
 
                     {/* <Button size="sm" onClick={() => addMemoryLayoutVertical({ ref: editorRef })} >
                         add vertical layout

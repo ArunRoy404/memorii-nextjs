@@ -10,11 +10,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
-import verticalImg from '@/assets/layoutImages/verticalLayout.png';
-import gridImg from '@/assets/layoutImages/gridLayout.png';
+import verticalThumbnail from '@/assets/layoutImages/verticalLayout.png';
+import verticalWithImageThumbnail from '@/assets/layoutImages/verticalLayoutImage.png';
+import gridWithImageThumbnail from '@/assets/layoutImages/gridLayoutImage.png';
+import gridThumbnail from '@/assets/layoutImages/gridLayout.png';
 
 import gridJson from '@/demoTemplate/grid-layout-json.json';
 import verticalJson from '@/demoTemplate/vertical-layout-json.json';
+import verticalWithImageJson from '@/demoTemplate/vertical-layout-image-json.json';
+import gridWithImageJson from '@/demoTemplate/grid-layout-image-json.json';
 import { useEditorStore } from '@/store/useEditorStore';
 import { toast } from 'sonner';
 
@@ -26,17 +30,31 @@ const LayoutModal = () => {
         {
             id: 'vertical',
             title: 'Vertical',
-            image: verticalImg.src,
+            image: verticalThumbnail.src,
             description: 'Standard single-column memory list',
             json: verticalJson
         },
         {
+            id: 'vertical-image',
+            title: 'Vertical with Image',
+            image: verticalWithImageThumbnail.src,
+            description: 'Standard single-column with image memory list',
+            json: verticalWithImageJson
+        },
+        {
             id: 'grid',
             title: 'Grid',
-            image: gridImg.src,
+            image: gridThumbnail.src,
             description: '2x2 grid for compact memories',
             json: gridJson,
-        }
+        },
+        {
+            id: 'grid-image',
+            title: 'Grid with Image',
+            image: gridWithImageThumbnail.src,
+            description: '2x2 grid for compact memories with images',
+            json: gridWithImageJson,
+        },
     ];
 
     const handleApply = () => {
