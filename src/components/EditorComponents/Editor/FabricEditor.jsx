@@ -16,8 +16,11 @@ const FabricEditor = ({ variant }) => {
     const containerRef = useRef(null);
     const fileInputRef = useRef(null);
 
-    const width = variant === 'memory' ? 1240 : 1800
-    const height = variant === 'memory' ? 1754 : 2400
+    // const width = variant === 'memory' ? 1240 : 1800
+    // const height = variant === 'memory' ? 1754 : 2400
+
+    const width = 1800
+    const height = 2400
     const aspectRatio = width / height;
 
 
@@ -41,7 +44,7 @@ const FabricEditor = ({ variant }) => {
 
         await ref?.loadFromJSON(pageJson);
 
-        
+
         ref?.getObjects()?.forEach(obj => {
             applyCommonStyles(obj)
             setObjProperties({ obj: obj, fileInputRef })
