@@ -7,6 +7,7 @@ import { UserPlus } from "lucide-react";
 import Link from "next/link";
 import EditorOptionsMobileView from "./EditorOptionsMobileView";
 import { addMemoryLayoutGrid, addMemoryLayoutVertical, addMemoryLayoutVerticalImage } from "@/services/MemoryLayoutFunctions";
+import ClearPageButton from "@/components/EditorComponents/ClearPageButton";
 
 const EditorTopBar = () => {
     const { saveCurrentPage, addPage, editorRef } = useEditorStore()
@@ -68,8 +69,7 @@ const EditorTopBar = () => {
                         add grid layout
                     </Button> */}
 
-
-
+                    <ClearPageButton />
 
                     <Button variant='outline' size="sm" className="flex items-center gap-1 justify-center w-full sm:w-auto">
                         <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
