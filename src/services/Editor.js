@@ -339,7 +339,6 @@ export const touchToText = ({ ref }) => {
                 height: 150,
                 fontFamily: 'Arial',
                 fontSize: 32,
-                fontWeight: 'bold',
                 fill: '#000000',
                 editable: true,
                 objectCaching: false
