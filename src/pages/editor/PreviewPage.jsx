@@ -9,14 +9,12 @@ import { BookPage } from "@/components/previewComponents/BookPage";
 import { BookBackPage } from "@/components/previewComponents/BookBackPage";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useCardTypeStore } from "@/store/useCardTypeStore";
 
 
 const PreviewPage = () => {
     const { editorRef, pages } = useEditorStore()
     const { selectedTemplate } = useEditorTemplateStore();
     const bookRef = useRef(null)
-    const { cardType } = useCardTypeStore()
 
 
     const [bookProps, setBookProps] = useState({
@@ -63,25 +61,15 @@ const PreviewPage = () => {
                 <BookFrontPage src={selectedTemplate?.src} />
                 {
                     pages.map((page, index) => {
-                        if (cardType === 'eCard') {
-                            return (
-                                <BookPage
-                                    index={index}
-                                    key={index}
-                                    page={page}
-                                />
-                            )
-                        } else {
-                            return (
-                                <BookPage
-                                    index={index}
-                                    key={index}
-                                    page={page}
-                                    width={760}
-                                    height={1080}
-                                />
-                            )
-                        }
+                        return (
+                            <BookPage
+                                index={index}
+                                key={index}
+                                page={page}
+                                width={1800}
+                                height={2400}
+                            />
+                        )
                     })
                 }
                 <BookBackPage />

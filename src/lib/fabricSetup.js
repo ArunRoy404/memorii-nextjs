@@ -14,8 +14,10 @@ if (!fabric.Object.prototype.__customPropsPatched) {
             lockInteraction: this.lockInteraction,
             preAddedText: this.preAddedText,
             lastPreAddedText: this.lastPreAddedText,
+            isMemoryImageUpload: this.isMemoryImageUpload,
             isMemoryQuestion: this.isMemoryQuestion,
             isMemoryAnswer: this.isMemoryAnswer,
+            name: this.name,
             id: this.id,
         };
     };

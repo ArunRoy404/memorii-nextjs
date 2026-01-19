@@ -1,8 +1,15 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import HeroMarquee from "./HeroMarquee";
+import { useSections } from "@/hooks/cms.hook";
 
 export default function HeroSection() {
+  const { data: sections } = useSections();
+  const hero_data = sections?.find((section) => section.section === 'hero_section');
+
+
   return (
     <section className="relative bg-white pt-10 md:pt-20 pb-14 sm:pt-24 sm:pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
       {/* Text Content */}
@@ -10,17 +17,16 @@ export default function HeroSection() {
         <h1 className="
           text-2xl md:text-4xl lg:text-6xl 
           font-bold text-secondary-foreground leading-tight
+          max-w-6xl mx-auto
         ">
-          Create a group e-Card or e-Memory
-          <br />
-          Book to share and cherish
+          {hero_data?.title}
         </h1>
 
         <p className="
           text-sm md:text-base lg:text-xl 
-          font-medium text-icon max-w-2xl sm:max-w-3xl mx-auto
+          font-medium text-icon max-w-6xl mx-auto
         ">
-          Collect messages, photos, and well-wishes in one beautiful digital keepsake
+          {hero_data?.short_description}
         </p>
       </div>
 

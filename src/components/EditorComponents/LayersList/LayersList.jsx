@@ -90,7 +90,7 @@ const LayersList = () => {
 
 
     return (
-        <div className='min-h-[300px] max-h-[500px] w-full overflow-y-auto overflow-x-hidden relative'>
+        <div className='min-h-75 max-h-70 md:max-h-125 w-full overflow-y-auto overflow-x-hidden relative'>
             <DndContext
                 sensors={sensors}
                 collisionDetection={closestCenter}

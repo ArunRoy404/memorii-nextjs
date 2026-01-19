@@ -1,17 +1,11 @@
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import * as fabric from 'fabric'
-
-import { useEditorTemplateStore } from '@/store/useEditorTemplateStore';
 import { usePagesImagesStore } from '@/store/usePagesImageStore';
 
-const RenderBookPage = ({ page, width: w, height: h, index }) => {
+const RenderBookPage = ({ page, width, height, index }) => {
     const { insertImageAt } = usePagesImagesStore()
-    const { selectedTemplate } = useEditorTemplateStore()
     const [dataURL, setDataURL] = useState(null)
-
-    let width = w || selectedTemplate?.src?.width;
-    let height = h || selectedTemplate?.src?.height;
 
 
     const canvas = useMemo(() => new fabric.Canvas(null, {
@@ -32,7 +26,7 @@ const RenderBookPage = ({ page, width: w, height: h, index }) => {
         }
     }, [dataURL, insertImageAt, index])
 
-    
+
     useEffect(() => {
         const renderCanvas = async () => {
             if (!page || !canvas) return;

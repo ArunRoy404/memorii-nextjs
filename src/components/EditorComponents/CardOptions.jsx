@@ -14,6 +14,7 @@ import StickersOptions from "./StickersOptions/StickersOptions"
 import { useEditorStore } from "@/store/useEditorStore"
 import ImageOptions from "./Editor/ImageOptions"
 import LayersOptions from "./LayerOption/LayersOptions"
+import BackgroundOptions from "./Editor/BackgroundOptions"
 
 const CardOptions = () => {
     const { addPage } = useEditorStore();
@@ -69,6 +70,9 @@ const CardOptions = () => {
 
                     {/* ✅ Image Content */}
                     {activeTab === 'image' && <ImageOptions />}
+
+                    {/* ✅ Background Content */}
+                    {activeTab === 'bg' && <BackgroundOptions />}
 
                     {/* ✅ Sticker Content */}
                     {activeTab === 'sticker' && <StickersOptions setActiveTab={setActiveTab} setOpen={setOpen} />}

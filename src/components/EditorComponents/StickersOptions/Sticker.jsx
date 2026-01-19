@@ -12,10 +12,10 @@ const Sticker = ({ icon: Icon, url }) => {
 
     return (
         <div
-            className='cursor-pointer'
+            className='cursor-pointer w-2!'
             onClick={handleAddSticker}
         >
-            <Icon />
+            <Icon className='w-20' />
         </div>
     );
 };

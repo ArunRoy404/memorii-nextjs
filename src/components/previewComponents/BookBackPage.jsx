@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import CardBackPage from '../common/CardBackPage/CardBackPage';
 import Image from 'next/image';
 import { usePagesImagesStore } from '@/store/usePagesImageStore';
 
@@ -23,10 +22,6 @@ export const BookBackPage = React.forwardRef(({ length, ...props }, ref) => {
                 />
             )}
         </div>
-
-        // <div ref={ref} {...props} >
-        //     <CardBackPage />
-        // </div>
     )
 }
 

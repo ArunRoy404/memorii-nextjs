@@ -56,6 +56,11 @@ export const SortableItem = ({ obj }) => {
                 style={handleStyle}
                 {...attributes}
                 {...listeners}
+                // Prevent the Drawer from seeing the drag start
+                onPointerDown={(e) => {
+                    e.stopPropagation();
+                    listeners?.onPointerDown(e);
+                }}
             >
                 <GripVertical className='text-gray-500' />
             </div>

@@ -84,32 +84,33 @@ export const addText = ({ position, text, fontFamily, fontSize, color, ref, font
 
 
 
-export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left, preAddedText }) => {
-    if (!ref || ref?.layout !== 'blank') return;
+export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, fontWeight, top, left, width }) => {
+    if (!ref) return;
 
     const canvasWidth = ref.getWidth();
     const canvasHeight = ref.getHeight();
     const zoom = ref.getZoom()
 
 
-
     const texBoxObj = new fabric.Textbox(text || 'Edit Text', {
         left: left || 60,
         top: top || 60,
-        width: 300,
+
+        // width: 250,
+        width: width || 650,
         height: 150,
 
         fontFamily: fontFamily || 'Arial',
-        fontSize: fontSize || Math.round(26 / zoom),
+        // fontSize: fontSize || Math.round(64 / zoom),
+        fontSize: Math.round(fontSize / zoom),
         fontWeight: fontWeight || 'bold',
+
         fill: color || '#000000',
-
         breakWords: true,
-        // lockInteraction: true,
+        editable: true,
     })
-    texBoxObj.set('preAddedText', preAddedText || false);
-    addIdToObj(texBoxObj)
 
+    addIdToObj(texBoxObj)
 
 
     if (position === 'top') {
@@ -121,7 +122,6 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
             top: canvasHeight / (7 * zoom),
             originX: 'center',
             originY: 'center',
-            preAddedText: preAddedText || false,
         });
     }
     if (position === 'center') {
@@ -133,7 +133,10 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
             top: canvasHeight / (2 * zoom),
             originX: 'center',
             originY: 'center',
-            preAddedText: preAddedText || false,
+
+            // editable: false,      // can't edit text
+            // selectable: false,    // can't select
+            // evented: false,       // no mouse events
         });
     }
     if (position === 'bottom') {
@@ -145,12 +148,11 @@ export const addTextBox = ({ position, text, fontFamily, fontSize, color, ref, f
             top: (canvasHeight / (3 * zoom)) * 2.5,
             originX: 'center',
             originY: 'center',
-            preAddedText: preAddedText || false,
         });
     }
 
-
     applyCommonStyles(texBoxObj)
+
     ref.add(texBoxObj)
     ref.setActiveObject(texBoxObj);
     ref.renderAll();
@@ -337,7 +339,6 @@ export const touchToText = ({ ref }) => {
                 height: 150,
                 fontFamily: 'Arial',
                 fontSize: 32,
-                fontWeight: 'bold',
                 fill: '#000000',
                 editable: true,
                 objectCaching: false
@@ -535,9 +536,14 @@ export const setObjProperties = ({ obj }) => {
             selectable: false,
             editable: false,
             evented: false,
+
+            lockMovementX: true,
+            lockMovementY: true,
+            lockRotation: true,
+            lockScalingX: true,
+            lockScalingY: true,
         });
     }
-
 
 
     if (obj.isMemoryQuestion) {
@@ -558,14 +564,7 @@ export const setObjProperties = ({ obj }) => {
             hoverCursor: 'default',
             selectionBackgroundColor: 'transparent',
         });
-
-        // Optional: If you want to be 100% sure dblclick does nothing
-        obj.on('mousedblclick', (options) => {
-            options.e.preventDefault();
-            options.e.stopPropagation();
-        });
     }
-
 
 
 
@@ -585,4 +584,91 @@ export const setObjProperties = ({ obj }) => {
             objectCaching: false,
         })
     }
+
+    if (obj.isMemoryImageUpload) {
+        obj.set({
+            selectable: true,
+            evented: true,
+            hasControls: false,
+            hasBorders: true,
+            editable: false,
+
+            lockMovementX: true,
+            lockMovementY: true,
+            lockRotation: true,
+            lockScalingX: true,
+            lockScalingY: true,
+
+
+            hoverCursor: 'default',
+            selectionBackgroundColor: 'transparent',
+        });
+    }
 }
+
+
+
+
+export const memoryImageUpload = ({ file, labelObj, setUploadTarget, editorRef, fileInputRef }) => {
+    const reader = new FileReader();
+    reader.onload = async (f) => {
+        const data = f.target.result;
+        const img = await fabric.Image.fromURL(data);
+        const canvas = editorRef;
+
+        const placeholder = canvas.getObjects().find(o =>
+            o.name === 'image_upload_zone'
+        );
+
+
+        if (!placeholder) {
+            console.error("Could not find matching placeholder rect");
+            return;
+        }
+
+        const scale = Math.min(placeholder.width / img.width, placeholder.height / img.height);
+
+        img.set({
+            scaleX: scale,
+            scaleY: scale,
+            left: placeholder.left + (placeholder.width - (img.width * scale)) / 2,
+            top: placeholder.top + (placeholder.height - (img.height * scale)) / 2,
+            selectable: true,
+        });
+
+        canvas.remove(labelObj);
+        canvas.add(img);
+        img.set({
+            isMemoryImageUpload: true,
+        })
+        setObjProperties({ obj: img })
+        img.on('mousedown', () => {
+            if (fileInputRef.current) {
+                setUploadTarget(img);
+                fileInputRef.current.click();
+            }
+        });
+
+        canvas.renderAll();
+    };
+    reader.readAsDataURL(file);
+};
+
+
+
+export const adjustPositions = ({ changedObj, editorRef }) => {
+    if (!changedObj.id || !changedObj.id.startsWith('memory_question_')) return;
+
+    const index = changedObj.id.split('_').pop();
+    const answerId = `memory_answer_${index}`;
+
+    const answerBox = editorRef.getObjects().find(o => o.id === answerId);
+
+    if (answerBox) {
+        const gap = 20;
+
+        const newTop = changedObj.top + changedObj.height + gap;
+
+        answerBox.set({ top: newTop });
+    }
+};
