@@ -1,4 +1,4 @@
-import TermsAndConditionPage from "@/pages/landing/TermsAndConditionPage";
+import TermsAndConditionPage from "@/templates/landing/TermsAndConditionPage";
 
 const TermsAndCondition = () => <TermsAndConditionPage />
 export default TermsAndCondition;

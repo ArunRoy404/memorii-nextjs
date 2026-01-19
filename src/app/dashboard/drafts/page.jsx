@@ -1,4 +1,4 @@
-import DraftsPage from '@/pages/dashboard/DraftsPage';
+import DraftsPage from '@/templates/dashboard/DraftsPage';
 
 const page = () => <DraftsPage />
 export default page;
