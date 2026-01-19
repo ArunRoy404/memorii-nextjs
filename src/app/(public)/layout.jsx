@@ -20,4 +20,4 @@ const PublicLayout = ({ children }) => {
     );
 };
 
-export default PublicLayout;
+export default PublicLayout; 
