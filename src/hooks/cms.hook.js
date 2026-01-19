@@ -17,7 +17,7 @@ export const getSlider = async () => {
 };
 
 // This is your reusable hook
-export const useSections = () => {
+export const useGetSections = () => {
     return useQuery({
         queryKey: ['dynamic-sections'],
         queryFn: getDynamicSections,
@@ -25,7 +25,7 @@ export const useSections = () => {
     });
 };
 
-export const useSlider = () => {
+export const useGetSlider = () => {
     return useQuery({
         queryKey: ['slider'],
         queryFn: getSlider,

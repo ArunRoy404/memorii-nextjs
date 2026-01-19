@@ -1,10 +1,14 @@
+'use client'
+
 import CommonSection from '../../common/CommonSection/CommonSection';
 import ColorfulText from '../../ui/ColorfulText';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import HowItWorksStepsContainer from './HowItWorksStepsContainer';
+import { useGetSections } from '@/hooks/cms.hook';
 
 const HowItWorksSection = () => {
+    const { data: sections } = useGetSections()
     return (
         <CommonSection
             // sticky title
