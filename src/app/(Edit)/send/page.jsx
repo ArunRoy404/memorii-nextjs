@@ -1,4 +1,4 @@
-import SendCardPage from '@/pages/editor/SendCardPage';
+import SendCardPage from '@/templates/editor/SendCardPage';
 
 const SendCard = () => <SendCardPage />
 export default SendCard;

@@ -1,4 +1,4 @@
-import ContactUsPage from '@/pages/landing/ContactUsPage';
+import ContactUsPage from '@/templates/landing/ContactUsPage';
 
 const contact = () => <ContactUsPage />
 export default contact;

@@ -1,7 +1,6 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import HomePage from '@/pages/landing/HomePage';
+import HomePage from '@/templates/landing/HomePage';
 import { getDynamicSections } from '@/hooks/cms.hook';
-
 
 
 const Home = async () => {

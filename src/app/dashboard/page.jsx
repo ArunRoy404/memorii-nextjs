@@ -1,4 +1,4 @@
-import DashboardHomePage from '@/pages/dashboard/DashboardHomePage';
+import DashboardHomePage from '@/templates/dashboard/DashboardHomePage';
 
 const dashboardHome = () => <DashboardHomePage />
 export default dashboardHome; 

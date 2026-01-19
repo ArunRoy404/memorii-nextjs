@@ -1,4 +1,4 @@
-import ForgetPasswordPage from '@/pages/auth/ForgetPasswordPage';
+import ForgetPasswordPage from '@/templates/auth/ForgetPasswordPage';
 
 const ForgotPassword = () => <ForgetPasswordPage/>
 export default ForgotPassword;

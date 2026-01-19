@@ -1,4 +1,4 @@
-import PrivacyPolicyPage from '@/pages/landing/PrivacyPolicyPage';
+import PrivacyPolicyPage from '@/templates/landing/PrivacyPolicyPage';
 
 const PrivacyPolicy = () => <PrivacyPolicyPage />
 export default PrivacyPolicy;

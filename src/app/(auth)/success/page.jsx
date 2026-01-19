@@ -1,4 +1,4 @@
-import SuccessPage from '@/pages/auth/SuccessPage';
+import SuccessPage from '@/templates/auth/SuccessPage';
 
 const Success = () => <SuccessPage />
 export default Success;

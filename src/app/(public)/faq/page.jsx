@@ -1,4 +1,4 @@
-import FAQPage from '@/pages/landing/FAQPage';
+import FAQPage from '@/templates/landing/FAQPage';
 
 const faq = () => <FAQPage />
 export default faq;

@@ -1,4 +1,4 @@
-import ActiveEMemoryBook from '@/pages/dashboard/ActiveEMemoryBook';
+import ActiveEMemoryBook from '@/templates/dashboard/ActiveEMemoryBook';
 
 const ActiveMemoryBook = () => <ActiveEMemoryBook />
 export default ActiveMemoryBook;

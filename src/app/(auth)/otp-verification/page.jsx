@@ -1,4 +1,4 @@
-import OTPVerificationPage from '@/pages/auth/OTPVerificationPage';
+import OTPVerificationPage from '@/templates/auth/OTPVerificationPage';
 
 const OTPVerification = () => <OTPVerificationPage />
 export default OTPVerification;
