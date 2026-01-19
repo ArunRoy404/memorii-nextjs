@@ -1,3 +1,5 @@
+'use client'
+
 import {
     Accordion,
     AccordionContent,
@@ -8,8 +10,11 @@ import CommonSection from "@/components/common/CommonSection/CommonSection";
 import ColorfulText from "@/components/ui/ColorfulText";
 import faqData from "@/data/faqData";
 import { cn } from "@/lib/utils";
+import { useGetSections } from '@/hooks/cms.hook';
 
 const FAQSection = ({ classNameContainer, limit }) => {
+    const { data: sections } = useGetSections()
+    const sectionData = sections?.find(section => section?.section === 'faq')
 
 
     const limitedFaqData = faqData.slice(0, limit);
@@ -17,7 +22,8 @@ const FAQSection = ({ classNameContainer, limit }) => {
 
     return (
         <CommonSection
-            title={<>Frequently Ask <ColorfulText>Questions</ColorfulText></>}
+            title={sectionData?.title}
+            subtitle={sectionData?.short_description}
         >
 
             {/* faq accordion  */}

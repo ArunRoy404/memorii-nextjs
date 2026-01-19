@@ -1,13 +1,18 @@
+'use client'
+
 import CommonSection from '@/components/common/CommonSection/CommonSection';
-import ColorfulText from '@/components/ui/ColorfulText';
 import aboutUsData from '@/data/aboutUs';
 import AboutUsCard from './AboutUsCard';
+import { useGetSections } from '@/hooks/cms.hook';
 
 const AboutUsSection = () => {
+    const { data: sections } = useGetSections()
+    const sectionData = sections?.find(section => section?.section === 'about_us')
+
     return (
         <CommonSection
-            title={<><ColorfulText>About</ColorfulText> Us</>}
-            subtitle={'Bringing people closer through shared memories and heartfelt messages'}
+            title={sectionData?.title}
+            subtitle={sectionData?.short_description}
         >
 
             <div className="space-y-16">
