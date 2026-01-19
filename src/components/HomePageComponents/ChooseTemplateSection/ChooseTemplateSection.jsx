@@ -1,3 +1,5 @@
+'use client'
+
 import CommonSection from '@/components/common/CommonSection/CommonSection';
 import { Button } from '@/components/ui/button';
 import ColorfulText from '@/components/ui/ColorfulText';
@@ -5,12 +7,16 @@ import templateData from '@/data/templateData';
 import Link from 'next/link';
 import React from 'react';
 import TemplateCard from './TemplateCard';
+import { useGetSections } from '@/hooks/cms.hook';
 
 const ChooseTemplateSection = () => {
+    const { data: sections } = useGetSections()
+    const sectionData = sections?.find(section => section?.section === 'template_occasions')
+
     return (
         <CommonSection
-            title={<>Choose a <ColorfulText>Template</ColorfulText> for any occasion</>}
-            subtitle={'Find the perfect design for every moment — joyful or heartfelt. Memorii has templates for every occasion.'}
+            title={sectionData?.title}
+            subtitle={sectionData?.short_description}
         >
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10'>

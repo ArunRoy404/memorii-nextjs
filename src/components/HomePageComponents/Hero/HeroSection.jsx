@@ -3,10 +3,10 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import HeroMarquee from "./HeroMarquee";
-import { useSections } from "@/hooks/cms.hook";
+import { useGetSections } from "@/hooks/cms.hook";
 
 export default function HeroSection() {
-  const { data: sections } = useSections();
+  const { data: sections } = useGetSections();
   const hero_data = sections?.find((section) => section.section === 'hero_section');
 
 
@@ -37,7 +37,7 @@ export default function HeroSection() {
 
       {/* CTA */}
       <div className="mt-8 flex justify-center">
-        <Link href="/get-started">
+        <Link href="/templates">
           <Button variant="defaultShiny" className="px-6 py-5 text-base sm:text-lg">
             Get Started for free today
           </Button>

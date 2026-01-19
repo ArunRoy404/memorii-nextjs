@@ -1,15 +1,21 @@
+'use client'
+
 import CommonSection from '@/components/common/CommonSection/CommonSection';
 import TemplateCard from '@/components/HomePageComponents/ChooseTemplateSection/TemplateCard';
 import TemplateCategoriesDropdown from '@/components/TemplatePagesComponents/TemplateCategoriesDropdown';
 import ColorfulText from '@/components/ui/ColorfulText';
 import templateData from '@/data/templateData';
+import { useGetSections } from '@/hooks/cms.hook';
 
 const TemplatesPage = () => {
+    const { data: sections } = useGetSections()
+    const sectionData = sections?.find(section => section?.section === 'perfect_template')
+
     return (
         <CommonSection
             headerClassname={'max-w-[1200px] mx-auto'}
-            title={<>Find the Perfect  <ColorfulText>Template</ColorfulText>  for Every Memory</>}
-            subtitle={`Choose from beautifully designed templates for both e-Cards and e-Memory Books. Whether you’re celebrating, congratulating, remembering, or simply saying thank you — `}
+            title={sectionData?.title}
+            subtitle={sectionData?.short_description}
         >
             <TemplateCategoriesDropdown />
 

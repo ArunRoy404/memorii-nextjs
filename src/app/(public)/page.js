@@ -1,15 +1,11 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import HomePage from '@/templates/landing/HomePage';
-import { getDynamicSections } from '@/hooks/cms.hook';
+import { prefetchHomeData } from '@/hooks/prefetch.hook';
 
 
 const Home = async () => {
     const queryClient = new QueryClient();
-
-    await queryClient.prefetchQuery({
-        queryKey: ['dynamic-sections'],
-        queryFn: getDynamicSections,
-    });
+    await prefetchHomeData(queryClient);
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
