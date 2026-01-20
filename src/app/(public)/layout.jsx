@@ -15,11 +15,13 @@ const PublicLayout = async ({ children }) => {
             <QueryProvider>
                 <HydrationBoundary state={dehydrate(queryClient)}>
                     <LenisProvider>
-                        <Navbar />
-                        <main>
-                            {children}
-                        </main>
-                        <Footer />
+                        <div className='min-h-dvh flex flex-col'>
+                            <Navbar />
+                            <main className='flex-1'>
+                                {children}
+                            </main>
+                            <Footer />
+                        </div>
                     </LenisProvider>
                 </HydrationBoundary>
             </QueryProvider>
