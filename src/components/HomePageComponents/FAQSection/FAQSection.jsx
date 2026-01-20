@@ -9,14 +9,20 @@ import {
 import CommonSection from "@/components/common/CommonSection/CommonSection";
 import faqData from "@/data/faqData";
 import { cn } from "@/lib/utils";
-import { useGetSections } from '@/hooks/cms.hook';
+import { useGetSections, useGetFaqs } from '@/hooks/cms.hook';
 
 const FAQSection = ({ classNameContainer, limit }) => {
     const { data: sections } = useGetSections()
+    const { data: faqs } = useGetFaqs()
     const sectionData = sections?.find(section => section?.section === 'faq')
 
+    // Map API data if available, else use static
+    const sourceData = faqs?.length > 0
+        ? faqs.map(f => ({ qs: f.question, ans: f.answer }))
+        : faqData;
 
-    const limitedFaqData = faqData.slice(0, limit);
+
+    const limitedFaqData = sourceData.slice(0, limit);
 
 
     return (

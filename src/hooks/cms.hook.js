@@ -32,3 +32,35 @@ export const useGetSlider = () => {
         staleTime: 60 * 1000,
     });
 };
+
+// Work Steps
+export const getWorkSteps = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/work-steps`);
+    if (!res.ok) throw new Error('Network response was not ok');
+    const result = await res.json();
+    return result.data;
+};
+
+export const useGetWorkSteps = () => {
+    return useQuery({
+        queryKey: ['work-steps'],
+        queryFn: getWorkSteps,
+        staleTime: 60 * 1000,
+    });
+};
+
+// FAQs
+export const getFaqs = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/faq`);
+    if (!res.ok) throw new Error('Network response was not ok');
+    const result = await res.json();
+    return result.data;
+};
+
+export const useGetFaqs = () => {
+    return useQuery({
+        queryKey: ['faqs'],
+        queryFn: getFaqs,
+        staleTime: 60 * 1000,
+    });
+};
