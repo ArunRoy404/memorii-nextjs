@@ -4,6 +4,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Send } from "lucide-react";
+import { useContact } from "@/hooks/contact.hook";
+import CommonAlert from "@/components/common/CommonAlert/CommonAlert";
+import { useState } from "react";
 
 import {
     Form,
@@ -24,6 +27,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 
+
 // --- Validation Schema ---
 const formSchema = z.object({
     firstName: z.string().min(2, "First name is required"),
@@ -36,7 +40,10 @@ const formSchema = z.object({
 });
 
 const ContactForm = () => {
-    // 1. Define form
+    const [alert, setAlert] = useState(null);
+    const { mutate: sendMessage, isPending } = useContact({ setAlert });
+
+
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -48,15 +55,36 @@ const ContactForm = () => {
         },
     });
 
-    // 2. Define submit handler
+
     const onSubmit = (values) => {
-        console.log("Form Submitted:", values);
-        // Add your API call here
+        setAlert(null);
+
+        const payload = {
+            first_name: values.firstName,
+            last_name: values.lastName,
+            email_address: values.email,
+            subject: values.subject,
+            message: values.message,
+        };
+
+        sendMessage(payload, {
+            onSuccess: () => {
+                form.reset();
+            },
+        });
     };
+
+
 
     return (
         <div className="bg-white p-8 rounded-4xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
             <h3 className="text-2xl font-bold mb-6 text-gray-800">Send a Message</h3>
+
+            {alert && (
+                <div className="mb-6">
+                    <CommonAlert alert={alert} />
+                </div>
+            )}
 
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
@@ -71,9 +99,9 @@ const ContactForm = () => {
                                     <FormLabel className="text-gray-600 font-medium">First Name</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="Jane"
+                                            placeholder="First Name"
                                             {...field}
-                                            className="rounded-xl bg-gray-50 border-transparent focus:border-teal-500 focus:ring-teal-100 h-12"
+                                            className="rounded-xl placeholder:text-gray-400 bg-gray-50 border-transparent focus:border-teal-500 focus:ring-teal-100 h-12"
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -90,9 +118,9 @@ const ContactForm = () => {
                                     <FormLabel className="text-gray-600 font-medium">Last Name</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="Doe"
+                                            placeholder="Last Name"
                                             {...field}
-                                            className="rounded-xl bg-gray-50 border-transparent focus:border-teal-500 focus:ring-teal-100 h-12"
+                                            className="rounded-xl placeholder:text-gray-400 bg-gray-50 border-transparent focus:border-teal-500 focus:ring-teal-100 h-12"
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -110,9 +138,9 @@ const ContactForm = () => {
                                 <FormLabel className="text-gray-600 font-medium">Email Address</FormLabel>
                                 <FormControl>
                                     <Input
-                                        placeholder="jane@example.com"
+                                        placeholder="EMAIL_ADDRESS"
                                         {...field}
-                                        className="rounded-xl bg-gray-50 border-transparent focus:border-teal-500 focus:ring-teal-100 h-12"
+                                        className="rounded-xl placeholder:text-gray-400 bg-gray-50 border-transparent focus:border-teal-500 focus:ring-teal-100 h-12"
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -154,8 +182,8 @@ const ContactForm = () => {
                                 <FormLabel className="text-gray-600 font-medium">Message</FormLabel>
                                 <FormControl>
                                     <Textarea
-                                        placeholder="How can we help you today?"
-                                        className="rounded-xl bg-gray-50 border-transparent focus:border-teal-500 focus:ring-teal-100 min-h-[120px] resize-none"
+                                        placeholder="Type your message here..."
+                                        className="rounded-xl bg-gray-50 placeholder:text-gray-400 border-transparent focus:border-teal-500 focus:ring-teal-100 min-h-[120px] resize-none"
                                         {...field}
                                     />
                                 </FormControl>
@@ -167,7 +195,8 @@ const ContactForm = () => {
                     {/* Submit Button */}
                     <Button
                         type="submit"
-                        className="w-full py-6 rounded-full bg-[#00A99D] hover:bg-[#008f85] text-white font-bold text-lg shadow-lg transition-all duration-300 flex items-center justify-center gap-2 transform active:scale-95"
+                        isLoading={isPending}
+                        className="w-full py-6 rounded-full bg-[#00A99D] hover:bg-[#008f85] text-white font-bold text-lg shadow-lg transition-all duration-300 flex items-center justify-center gap-2 transform active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
                     >
                         Send Message <Send size={18} />
                     </Button>
