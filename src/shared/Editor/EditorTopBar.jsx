@@ -7,6 +7,7 @@ import { UserPlus } from "lucide-react";
 import Link from "next/link";
 import EditorOptionsMobileView from "./EditorOptionsMobileView";
 import ClearPageButton from "@/components/EditorComponents/ClearPageButton";
+import DeletePageButton from "@/components/EditorComponents/DeletePageButton";
 
 const EditorTopBar = () => {
     const { saveCurrentPage } = useEditorStore()
@@ -22,11 +23,9 @@ const EditorTopBar = () => {
                     <DiscardEditsDialog />
 
 
-                    <EditorOptionsMobileView />
-
-
                     {/* Undo/Redo on mobile next to Exit */}
-                    <div className="flex items-center gap-2 sm:hidden">
+                    <div className="flex items-center gap-4 sm:hidden">
+                        <EditorOptionsMobileView />
 
                         <RedoUndo className="flex items-center gap-2" />
 
@@ -72,6 +71,7 @@ const EditorTopBar = () => {
                     <Button size="sm" onClick={() => addMemoryLayoutGrid({ ref: editorRef })} >
                         add grid layout
                     </Button> */}
+                    <DeletePageButton />
 
                     <ClearPageButton />
 
