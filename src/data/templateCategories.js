@@ -1,6 +1,6 @@
 const templatesCategory = [
     {
-        key: 'eCard',
+        key: 'e_card',
         category: 'E Card',
     },
     {
@@ -10,7 +10,7 @@ const templatesCategory = [
 ];
 
 export const occasions = {
-    eCard: [
+    e_ard: [
         { key: 'birthday_adults', occasion: 'Birthday – Adults' },
         { key: 'birthday_kids', occasion: 'Birthday – Kids' },
         { key: 'birthday_milestones', occasion: 'Birthday – Milestones' },
