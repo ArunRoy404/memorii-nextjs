@@ -3,7 +3,6 @@
 import CommonSection from '@/components/common/CommonSection/CommonSection';
 import TemplateCard from '@/components/HomePageComponents/ChooseTemplateSection/TemplateCard';
 import TemplateCategoriesDropdown from '@/components/TemplatePagesComponents/TemplateCategoriesDropdown';
-import ColorfulText from '@/components/ui/ColorfulText';
 import templateData from '@/data/templateData';
 import { useGetSections } from '@/hooks/cms.hook';
 

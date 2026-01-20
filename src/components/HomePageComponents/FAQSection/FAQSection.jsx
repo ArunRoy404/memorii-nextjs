@@ -7,7 +7,6 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import CommonSection from "@/components/common/CommonSection/CommonSection";
-import ColorfulText from "@/components/ui/ColorfulText";
 import faqData from "@/data/faqData";
 import { cn } from "@/lib/utils";
 import { useGetSections } from '@/hooks/cms.hook';

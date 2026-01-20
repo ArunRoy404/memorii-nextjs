@@ -12,3 +12,30 @@ export const prefetchHomeData = async (queryClient) => {
         }),
     ]);
 }
+
+export const prefetchTermsData = async (queryClient) => {
+    await Promise.all([
+        queryClient.prefetchQuery({
+            queryKey: ['dynamic-sections'],
+            queryFn: getDynamicSections,
+        }),
+    ]);
+}
+
+export const prefetchContactData = async (queryClient) => {
+    await Promise.all([
+        queryClient.prefetchQuery({
+            queryKey: ['dynamic-sections'],
+            queryFn: getDynamicSections,
+        }),
+    ]);
+}
+
+export const prefetchTemplatesData = async (queryClient) => {
+    await Promise.all([
+        queryClient.prefetchQuery({
+            queryKey: ['dynamic-sections'],
+            queryFn: getDynamicSections,
+        }),
+    ]);
+}

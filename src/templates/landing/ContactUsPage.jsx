@@ -4,7 +4,6 @@ import CommonSection from '@/components/common/CommonSection/CommonSection';
 import ContactForm from '@/components/contactUsComponents/ContactForm';
 import ContactInformation from '@/components/contactUsComponents/ContactInformation';
 import ContactNeedHelp from '@/components/contactUsComponents/ContactNeedHelp';
-import ColorfulText from '@/components/ui/ColorfulText';
 import { useGetSections } from '@/hooks/cms.hook';
 
 const ContactUsPage = () => {
@@ -20,13 +19,13 @@ const ContactUsPage = () => {
                 ></CommonSection>
 
 
-                <div className="grid md:grid-cols-2 gap-12 items-start">
-                    <div className="space-y-8">
+                <div className="grid gap-12 items-start">
+                    {/* <div className="space-y-8">
                         <ContactInformation />
-                        <ContactNeedHelp />
-                    </div>
+                        </div> */}
 
                     <ContactForm />
+                    <ContactNeedHelp />
                 </div>
             </div>
         </section>
