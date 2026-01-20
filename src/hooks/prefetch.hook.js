@@ -1,4 +1,4 @@
-import { getDynamicSections, getSlider, getWorkSteps, getFaqs, getFooter } from "./cms.hook";
+import { getDynamicSections, getSlider, getWorkSteps, getFaqs, getFooter, getTermsConditions } from "./cms.hook";
 
 const DEFAULT_STALE_TIME = 5 * 60 * 1000;
 
@@ -42,6 +42,11 @@ export const prefetchTermsData = async (queryClient) => {
             queryFn: getDynamicSections,
             staleTime: DEFAULT_STALE_TIME,
         }),
+        queryClient.prefetchQuery({
+            queryKey: ['terms-conditions'],
+            queryFn: getTermsConditions,
+            staleTime: DEFAULT_STALE_TIME,
+        }),
     ]);
 }
 
@@ -78,3 +83,4 @@ export const prefetchFAQData = async (queryClient) => {
         }),
     ]);
 }
+

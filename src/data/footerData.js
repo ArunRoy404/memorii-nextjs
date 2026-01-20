@@ -16,15 +16,15 @@ const footerData = {
             links: [
                 { label: "My e-Cards", link: "/dashboard/active-e-cards" },
                 { label: "My e-Memory Books", link: "/dashboard/active-e-memory-books" },
-                { label: "Create New e-Card", link: "/templates" },
-                { label: "Create New e-Memory Book", link: "/templates" },
+                // { label: "Create New e-Card", link: "/templates" },
+                // { label: "Create New e-Memory Book", link: "/templates" },
             ],
         },
         {
             label: "Need Some Help?",
             links: [
                 { label: "Contact Us", link: "/contact" },
-                { label: "How It Works", link: "/how-it-works" },
+                // { label: "How It Works", link: "/how-it-works" },
                 { label: "FAQs", link: "/faq" },
                 // { label: "Report a Problem", link: "/report-problem" },
             ],

@@ -4,12 +4,14 @@ import CommonSection from '@/components/common/CommonSection/CommonSection'
 import TermsList from '@/components/TermsComponents/TermsList'
 import { termsValidTo } from '@/data/termsSectionData'
 import TermsCTA from '@/components/TermsComponents/TermsCTA'
-import { useGetSections } from '@/hooks/cms.hook'
+import { useGetSections, useGetTermsConditions } from '@/hooks/cms.hook'
 
 const TermsAndConditionPage = () => {
     const { data: sections } = useGetSections()
+    const { data: termsConditions } = useGetTermsConditions()
     const sectionData = sections?.find(section => section?.section === 'terms_&_conditions')
 
+    
     return (
         <div className="flex flex-col">
 
@@ -27,7 +29,7 @@ const TermsAndConditionPage = () => {
                 </div>
             </section>
 
-            <TermsList />
+            <TermsList termsConditions={termsConditions} />
 
             <TermsCTA />
         </div>

@@ -80,3 +80,18 @@ export const useGetFooter = () => {
         staleTime: DEFAULT_STALE_TIME,
     });
 };
+
+export const getTermsConditions = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/terms-conditions`);
+    if (!res.ok) throw new Error('Network response was not ok');
+    const result = await res.json();
+    return result.data;
+};
+
+export const useGetTermsConditions = () => {
+    return useQuery({
+        queryKey: ['terms-conditions'],
+        queryFn: getTermsConditions,
+        staleTime: DEFAULT_STALE_TIME,
+    });
+};
