@@ -1,9 +1,10 @@
 import ContactUsPage from '@/templates/landing/ContactUsPage';
 import { prefetchContactData } from '@/hooks/prefetch.hook';
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+import getQueryClient from '@/lib/getQueryClient';
 
 const contact = async () => {
-    const queryClient = new QueryClient()
+    const queryClient = getQueryClient()
     await prefetchContactData(queryClient)
 
     return (

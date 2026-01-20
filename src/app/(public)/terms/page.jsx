@@ -1,9 +1,10 @@
 import { prefetchTermsData } from "@/hooks/prefetch.hook";
+import getQueryClient from "@/lib/getQueryClient";
 import TermsAndConditionPage from "@/templates/landing/TermsAndConditionPage";
-import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 const TermsAndCondition = async () => {
-    const queryClient = new QueryClient()
+    const queryClient = getQueryClient()
     await prefetchTermsData(queryClient)
 
     return (

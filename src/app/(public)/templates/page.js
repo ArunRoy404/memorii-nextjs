@@ -1,9 +1,10 @@
 import TemplatesPage from '@/templates/landing/TemplatesPage';
 import { prefetchTemplatesData } from '@/hooks/prefetch.hook';
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+import getQueryClient from '@/lib/getQueryClient';
 
 const page = async () => {
-    const queryClient = new QueryClient()
+    const queryClient = getQueryClient()
     await prefetchTemplatesData(queryClient)
 
     return (
