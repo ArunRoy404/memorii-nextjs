@@ -4,7 +4,6 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import termSections from '@/data/termsSectionData';
 
 
 const TermsList = ({ termsConditions }) => {
