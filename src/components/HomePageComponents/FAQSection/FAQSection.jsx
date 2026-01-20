@@ -10,8 +10,9 @@ import CommonSection from "@/components/common/CommonSection/CommonSection";
 import faqData from "@/data/faqData";
 import { cn } from "@/lib/utils";
 import { useGetSections, useGetFaqs } from '@/hooks/cms.hook';
+import Link from "next/link";
 
-const FAQSection = ({ classNameContainer, limit }) => {
+const FAQSection = ({ classNameContainer, limit, showBtn }) => {
     const { data: sections } = useGetSections()
     const { data: faqs } = useGetFaqs()
     const sectionData = sections?.find(section => section?.section === 'faq')
@@ -67,6 +68,13 @@ const FAQSection = ({ classNameContainer, limit }) => {
                     </div>
                 </div>
             </Accordion>
+
+            {/* show btn  */}
+            {showBtn && (
+                <div className="w-full flex justify-center items-center py-10">
+                    <Link href='/faq' className="text-teal-600 font-semibold text-sm hover:underline">FAQ &rarr;</Link>
+                </div>
+            )}
         </CommonSection>
     );
 };

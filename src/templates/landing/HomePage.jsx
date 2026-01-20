@@ -11,7 +11,7 @@ const HomePage = () => {
             <HeroSection />
             <HowItWorksSection />
             <ChooseTemplateSection />
-            <FAQSection limit={6} />
+            <FAQSection limit={6} showBtn={true} />
             <AboutUsSection />
             <CTASection />
         </>
