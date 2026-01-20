@@ -1,12 +1,14 @@
-import { lastUpdated } from '@/data/policySectionsData'
+'use client'
 import CommonSection from '@/components/common/CommonSection/CommonSection'
 import ColorfulText from '@/components/ui/ColorfulText'
 import PrivacyList from '@/components/PrivacyComponents/PrivacyList'
-import PrivacyCTA from '@/components/PrivacyComponents/PrivacyCTA'
+import TermsCTA from '@/components/TermsComponents/TermsCTA'
+import { useGetPrivacyPolicy } from '@/hooks/cms.hook'
 
 
 const PrivacyPolicyPage = () => {
 
+    const { data: privacyPolicy } = useGetPrivacyPolicy()
     return (
         <div className="flex flex-col">
 
@@ -17,17 +19,19 @@ const PrivacyPolicyPage = () => {
                         title={<>Privacy <ColorfulText>Policy</ColorfulText></>}
                         subtitle={`At Memorii, we value your trust. This policy explains how we protect your memories and personal information.`}
                     >
-                        <span className="bg-teal-50 text-teal-700 px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold border border-teal-100">
+                        {/* <span className="bg-teal-50 text-teal-700 px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold border border-teal-100">
                             Last Updated: {lastUpdated}
-                        </span>
+                        </span> */}
                     </CommonSection>
                 </div>
             </section>
 
 
-            <PrivacyList />
+            <PrivacyList privacyPolicy={privacyPolicy} />
 
-            <PrivacyCTA />
+            {/* <PrivacyCTA /> */}
+
+            <TermsCTA />
         </div>
     )
 }

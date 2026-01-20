@@ -95,3 +95,18 @@ export const useGetTermsConditions = () => {
         staleTime: DEFAULT_STALE_TIME,
     });
 };
+
+export const getPrivacyPolicy = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/privacy-policy`);
+    if (!res.ok) throw new Error('Network response was not ok');
+    const result = await res.json();
+    return result.data;
+};
+
+export const useGetPrivacyPolicy = () => {
+    return useQuery({
+        queryKey: ['privacy-policy'],
+        queryFn: getPrivacyPolicy,
+        staleTime: DEFAULT_STALE_TIME,
+    });
+};
