@@ -4,6 +4,8 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
+import termSections from '@/data/termsSectionData';
+import { FileText } from "lucide-react";
 
 
 const TermsList = ({ termsConditions }) => {
@@ -20,10 +22,10 @@ const TermsList = ({ termsConditions }) => {
                         >
                             <AccordionTrigger className="hover:no-underline py-5 group">
                                 <div className="flex items-center gap-3 md:gap-5 text-left">
-                                    <div className="w-8 h-8 flex items-center justify-center text-white bg-blue-500 rounded-full group-hover:bg-blue-600 transition-colors">
-                                        {section.id}
+                                    <div className="p-2 md:p-2.5 bg-blue-500 rounded-xl group-hover:bg-blue-600 transition-colors">
+                                        <FileText className="text-white" />
                                     </div>
-                                    <span className="text-base md:text-lg font-bold text-gray-800 leading-tight">
+                                    <span className="text-base md:text-xl font-bold text-gray-800 leading-tight">
                                         {section.question}
                                     </span>
                                 </div>
