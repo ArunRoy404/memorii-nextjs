@@ -34,12 +34,12 @@ const EditorOptionsMobileView = () => {
                         {/* <TextOptionsDrawer />
                         <StickersDrawer />
                         <ImageDrawer />
-                        <LayerDrawer />
+                        <LayerDrawer /> */}
                         <Button
                             onClick={() => addPage()}
                             variant='ghost' size="sm" className='p-0!'>
                             <Plus />
-                        </Button> */}
+                        </Button>
                     </>
                 ) : (
                     <>

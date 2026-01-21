@@ -1,9 +1,11 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva } from "class-variance-authority";
-
 import { cn } from "@/lib/utils"
 import notImplementedToast from "@/lib/notImplementedToast";
+import { Spinner } from "./spinner";
+
+
 
 const buttonVariants = cva(
   "inline-flex  transition-colors duration-300 active:scale-98 cursor-pointer items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:scale-102",
@@ -53,9 +55,22 @@ function Button({
   size,
   asChild = false,
   notImplemented = false,
+  isLoading = false,
   ...props
 }) {
   const Comp = asChild ? Slot : "button"
+
+  if (isLoading) {
+    return (
+      <Comp
+        data-slot="button"
+        disabled
+        className={cn(buttonVariants({ variant, size, className }))}
+        {...props} >
+        {isLoading && <Spinner />}
+      </Comp>
+    )
+  }
 
   if (notImplemented) {
     return (

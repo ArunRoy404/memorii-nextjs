@@ -4,16 +4,16 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import termSections from '@/data/termsSectionData';
+import { FileText } from "lucide-react";
 
 
-const TermsList = () => {
+const TermsList = ({ termsConditions }) => {
     return (
         < main className="grow max-w-4xl mx-auto w-full px-4 md:px-6 pb-20" >
             <div className="bg-white rounded-3xl md:rounded-[2.5rem] border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.03)] p-5 md:p-10">
 
                 <Accordion type="single" collapsible className="w-full space-y-2">
-                    {termSections.map((section) => (
+                    {termsConditions.map((section) => (
                         <AccordionItem
                             key={section.id}
                             value={section.id}
@@ -22,15 +22,15 @@ const TermsList = () => {
                             <AccordionTrigger className="hover:no-underline py-5 group">
                                 <div className="flex items-center gap-3 md:gap-5 text-left">
                                     <div className="p-2 md:p-2.5 bg-blue-500 rounded-xl group-hover:bg-blue-600 transition-colors">
-                                        {section.icon}
+                                        <FileText className="text-white" />
                                     </div>
                                     <span className="text-base md:text-xl font-bold text-gray-800 leading-tight">
-                                        {section.title}
+                                        {section.question}
                                     </span>
                                 </div>
                             </AccordionTrigger>
                             <AccordionContent className="text-gray-600 leading-relaxed text-sm md:text-base pl-12 md:pl-16 pb-6 pr-4">
-                                {section.content}
+                                {section.answer}
                             </AccordionContent>
                         </AccordionItem>
                     ))}

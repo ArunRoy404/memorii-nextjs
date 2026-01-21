@@ -5,10 +5,11 @@ import ColorfulText from '../../ui/ColorfulText';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import HowItWorksStepsContainer from './HowItWorksStepsContainer';
-import { useGetSections } from '@/hooks/cms.hook';
+import { useGetSections, useGetWorkSteps } from '@/hooks/cms.hook';
 
 const HowItWorksSection = () => {
     const { data: sections } = useGetSections()
+    const { data: workSteps } = useGetWorkSteps()
     const howItWorksSection = sections?.find(section => section?.section === 'how_memori_works')
 
 
@@ -17,10 +18,10 @@ const HowItWorksSection = () => {
             // sticky title
             // headerClassname="sticky md:static top-20 pb-10"
             // title={<>How <ColorfulText>Memorii</ColorfulText> works</>}
-            title={howItWorksSection.title}
-            subtitle={howItWorksSection.short_description}
+            title={howItWorksSection?.title}
+            subtitle={howItWorksSection?.short_description}
         >
-            <HowItWorksStepsContainer />
+            <HowItWorksStepsContainer data={workSteps} />
 
             <div className='max-w-max mx-auto  mt-10 md:mt-20'>
                 <Link href={'/get-started'} >

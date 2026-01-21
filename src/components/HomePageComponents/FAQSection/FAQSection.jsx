@@ -7,17 +7,23 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import CommonSection from "@/components/common/CommonSection/CommonSection";
-import ColorfulText from "@/components/ui/ColorfulText";
 import faqData from "@/data/faqData";
 import { cn } from "@/lib/utils";
-import { useGetSections } from '@/hooks/cms.hook';
+import { useGetSections, useGetFaqs } from '@/hooks/cms.hook';
+import Link from "next/link";
 
-const FAQSection = ({ classNameContainer, limit }) => {
+const FAQSection = ({ classNameContainer, limit, showBtn }) => {
     const { data: sections } = useGetSections()
+    const { data: faqs } = useGetFaqs()
     const sectionData = sections?.find(section => section?.section === 'faq')
 
+    // Map API data if available, else use static
+    const sourceData = faqs?.length > 0
+        ? faqs.map(f => ({ qs: f.question, ans: f.answer }))
+        : faqData;
 
-    const limitedFaqData = faqData.slice(0, limit);
+
+    const limitedFaqData = sourceData.slice(0, limit);
 
 
     return (
@@ -62,6 +68,13 @@ const FAQSection = ({ classNameContainer, limit }) => {
                     </div>
                 </div>
             </Accordion>
+
+            {/* show btn  */}
+            {showBtn && (
+                <div className="w-full flex justify-center items-center py-10">
+                    <Link href='/faq' className="text-teal-600 font-semibold text-sm hover:underline">FAQ &rarr;</Link>
+                </div>
+            )}
         </CommonSection>
     );
 };

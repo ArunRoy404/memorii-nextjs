@@ -15,12 +15,21 @@ const circleColors = [
     { in: "#4CBEF6", out: "#2494CC" },
 ];
 
-const HowItWorksStepsMobile = () => {
+const HowItWorksStepsMobile = ({ data }) => {
+    const stepsToRender = data?.length > 0
+        ? data.map((item, index) => ({
+            ...howItWorksData[index],
+            title: item.title,
+            description: item.short_description,
+            id: String(index + 1).padStart(2, '0')
+        }))
+        : howItWorksData;
+
     return (
         <div className='md:hidden grid grid-cols-1 gap-4 mx-auto mt-10 md:mt-30'>
 
             {
-                howItWorksData?.map((step, index) => (
+                stepsToRender?.map((step, index) => (
                     <HowItWorkCardMobile
                         key={index}
                         bg={bgColors[index]}

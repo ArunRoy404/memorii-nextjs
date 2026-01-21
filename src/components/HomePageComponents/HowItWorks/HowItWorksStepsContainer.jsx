@@ -2,13 +2,13 @@ import { cn } from '@/lib/utils';
 import HowItWorksSteps from './HowItWorksSteps';
 import HowItWorksStepsMobile from './HowItWorksStepsMobile';
 
-const HowItWorksStepsContainer = ({ className }) => {
+const HowItWorksStepsContainer = ({ className, data }) => {
     return (
         <div className={cn(
             className
         )}>
-            <HowItWorksSteps />
-            <HowItWorksStepsMobile />
+            <HowItWorksSteps data={data} />
+            <HowItWorksStepsMobile data={data} />
         </div>
     );
 };
