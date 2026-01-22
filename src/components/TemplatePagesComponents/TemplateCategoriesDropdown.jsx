@@ -19,8 +19,6 @@ const TemplateCategoriesDropdown = () => {
     const [selectedCategory, setSelectedCategory] = useState(templatesCategory[0]?.key);
     const [selectedOccasion, setSelectedOccasion] = useState();
 
-
-    console.log(categories);
     useEffect(() => {
         setCardType(selectedCategory);
     }, [selectedCategory, setCardType])
