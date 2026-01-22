@@ -2,7 +2,6 @@
 
 import CommonSection from '@/components/common/CommonSection/CommonSection'
 import TermsList from '@/components/TermsComponents/TermsList'
-import { termsValidTo } from '@/data/termsSectionData'
 import TermsCTA from '@/components/TermsComponents/TermsCTA'
 import { useGetSections, useGetTermsConditions } from '@/hooks/cms.hook'
 
