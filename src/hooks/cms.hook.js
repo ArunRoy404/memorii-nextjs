@@ -110,3 +110,19 @@ export const useGetPrivacyPolicy = () => {
         staleTime: DEFAULT_STALE_TIME,
     });
 };
+
+
+export const getAboutUsSection = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/about-us`);
+    if (!res.ok) throw new Error('Network response was not ok');
+    const result = await res.json();
+    return result.data;
+};
+
+export const useGetAboutUsSection = () => {
+    return useQuery({
+        queryKey: ['about-us-section'],
+        queryFn: getAboutUsSection,
+        staleTime: DEFAULT_STALE_TIME,
+    });
+};

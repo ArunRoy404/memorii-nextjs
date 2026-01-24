@@ -1,4 +1,4 @@
-import { getDynamicSections, getSlider, getWorkSteps, getFaqs, getFooter, getTermsConditions, getPrivacyPolicy } from "./cms.hook";
+import { getDynamicSections, getSlider, getWorkSteps, getFaqs, getFooter, getTermsConditions, getPrivacyPolicy, getAboutUsSection } from "./cms.hook";
 import { getCategories, getTemplates } from "./templates.hook";
 
 const DEFAULT_STALE_TIME = 5 * 60 * 1000;
@@ -31,6 +31,11 @@ export const prefetchHomeData = async (queryClient) => {
         queryClient.prefetchQuery({
             queryKey: ['faqs'],
             queryFn: getFaqs,
+            staleTime: DEFAULT_STALE_TIME,
+        }),
+        queryClient.prefetchQuery({
+            queryKey: ['about-us-section'],
+            queryFn: getAboutUsSection,
             staleTime: DEFAULT_STALE_TIME,
         }),
     ]);
