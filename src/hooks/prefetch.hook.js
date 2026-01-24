@@ -1,7 +1,6 @@
 import { getDynamicSections, getSlider, getWorkSteps, getFaqs, getFooter, getTermsConditions, getPrivacyPolicy, getAboutUsSection, getCTA, getHowItWorks, getContactInfo, getSummary } from "./cms.hook";
 import { getCategories, getTemplates } from "./templates.hook";
-
-const DEFAULT_STALE_TIME = 5 * 60 * 1000;
+import { DEFAULT_STALE_TIME } from "../lib/constants";
 
 export const prefetchLayoutData = async (queryClient) => {
     await queryClient.prefetchQuery({

@@ -1,7 +1,6 @@
 import { QueryClient, defaultShouldDehydrateQuery } from '@tanstack/react-query';
 import { cache } from 'react';
-
-const DEFAULT_STALE_TIME = 5 * 60 * 1000;
+import { DEFAULT_STALE_TIME } from './constants';
 
 const getQueryClient = cache(() => new QueryClient({
     defaultOptions: {
