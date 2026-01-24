@@ -7,8 +7,9 @@ import { useGetPrivacyPolicy } from '@/hooks/cms.hook'
 
 
 const PrivacyPolicyPage = () => {
-
     const { data: privacyPolicy } = useGetPrivacyPolicy()
+
+    
     return (
         <div className="flex flex-col">
 
