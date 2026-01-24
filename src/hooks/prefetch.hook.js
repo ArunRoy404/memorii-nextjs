@@ -106,6 +106,7 @@ export const prefetchFAQData = async (queryClient) => {
         queryClient.prefetchQuery({
             queryKey: ['dynamic-sections'],
             queryFn: getDynamicSections,
+            staleTime: DEFAULT_STALE_TIME,
         }),
         queryClient.prefetchQuery({
             queryKey: ['faqs'],
@@ -140,8 +141,8 @@ export const prefetchHowItWorksData = async (queryClient) => {
             staleTime: DEFAULT_STALE_TIME,
         }),
         queryClient.prefetchQuery({
-            queryKey: ['how-it-works'],
-            queryFn: getHowItWorks,
+            queryKey: ['work-steps'],
+            queryFn: getWorkSteps,
             staleTime: DEFAULT_STALE_TIME,
         }),
     ]);
