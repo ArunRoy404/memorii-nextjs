@@ -23,7 +23,7 @@ const HowItWorksSection = () => {
             <HowItWorksStepsContainer data={workSteps} />
 
             <div className='max-w-max mx-auto  mt-10 md:mt-20'>
-                <Link href={'/get-started'} >
+                <Link href={'/templates'} >
                     <Button
                         variant='defaultShiny'
                     >
