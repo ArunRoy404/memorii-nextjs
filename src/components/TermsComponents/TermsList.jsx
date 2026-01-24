@@ -5,9 +5,14 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import { FileText } from "lucide-react";
+import { useGetSummary } from "@/hooks/cms.hook";
 
 
 const TermsList = ({ termsConditions }) => {
+    const { data } = useGetSummary();
+    const termsSummary = data?.find((item) => item?.section === 'trems');
+
+    
     return (
         < main className="grow max-w-4xl mx-auto w-full px-4 md:px-6 pb-20" >
             <div className="bg-white rounded-3xl md:rounded-[2.5rem] border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.03)] p-5 md:p-10">
@@ -41,7 +46,7 @@ const TermsList = ({ termsConditions }) => {
                 <div className="mt-12 p-6 md:p-8 bg-blue-50/50 rounded-3xl border border-teal-100/50">
                     <h4 className="font-bold text-lg text-blue-900 mb-2">TL;DR (Summary)</h4>
                     <p className="text-sm text-blue-800 opacity-80">
-                        {`Basically: Be kind, don't upload illegal stuff, we own the code but you own your photos, and we aren't responsible if you lose your link. We're here to help you make great memories!`}
+                        {termsSummary?.description}
                     </p>
                 </div>
             </div>

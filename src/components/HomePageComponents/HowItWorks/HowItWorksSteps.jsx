@@ -17,14 +17,13 @@ const circleColors = [
 ];
 
 const HowItWorksSteps = ({ data }) => {
-    const stepsToRender = data?.length > 0
-        ? data.map((item, index) => ({
-            ...howItWorksData[index],
-            title: item.title,
-            description: item.short_description,
-            id: String(index + 1).padStart(2, '0')
-        }))
-        : howItWorksData;
+    const stepsToRender = data?.map((item, index) => ({
+        ...howItWorksData[index],
+        title: item.title,
+        description: item.short_description,
+        id: String(index + 1).padStart(2, '0')
+    }))
+
 
     return (
         <div className='hidden md:block relative max-w-[600px] lg:max-w-[700px] h-[700px] xl:max-w-[1014px] xl:h-[900px] mx-auto lg:mt-10'>

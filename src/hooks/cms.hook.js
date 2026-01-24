@@ -110,3 +110,84 @@ export const useGetPrivacyPolicy = () => {
         staleTime: DEFAULT_STALE_TIME,
     });
 };
+
+
+export const getAboutUsSection = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/about-us`);
+    if (!res.ok) throw new Error('Network response was not ok');
+    const result = await res.json();
+    return result.data;
+};
+
+export const useGetAboutUsSection = () => {
+    return useQuery({
+        queryKey: ['about-us-section'],
+        queryFn: getAboutUsSection,
+        staleTime: DEFAULT_STALE_TIME,
+    });
+};
+
+
+export const getCTA = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cta`);
+    if (!res.ok) throw new Error('Network response was not ok');
+    const result = await res.json();
+    return result.data;
+};
+
+export const useGetCTA = () => {
+    return useQuery({
+        queryKey: ['cta'],
+        queryFn: getCTA,
+        staleTime: DEFAULT_STALE_TIME,
+    });
+};
+
+export const getHowItWorks = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/get-how-to-create-or-work`);
+    if (!res.ok) throw new Error('Network response was not ok');
+    const result = await res.json();
+    return result.data;
+};
+
+export const useGetHowItWorks = () => {
+    return useQuery({
+        queryKey: ['how-it-works'],
+        queryFn: getHowItWorks,
+        staleTime: DEFAULT_STALE_TIME,
+    });
+};
+
+
+
+export const getContactInfo = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/contact-information`);
+    if (!res.ok) throw new Error('Network response was not ok');
+    const result = await res.json();
+    return result.data;
+};
+
+export const useGetContactInfo = () => {
+    return useQuery({
+        queryKey: ['contact-info'],
+        queryFn: getContactInfo,
+        staleTime: DEFAULT_STALE_TIME,
+    });
+};  
+
+
+
+export const getSummary = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/summary`);
+    if (!res.ok) throw new Error('Network response was not ok');
+    const result = await res.json();
+    return result.data;
+};
+
+export const useGetSummary = () => {
+    return useQuery({
+        queryKey: ['summary'],
+        queryFn: getSummary,
+        staleTime: DEFAULT_STALE_TIME,
+    });
+};

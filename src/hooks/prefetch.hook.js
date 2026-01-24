@@ -1,4 +1,4 @@
-import { getDynamicSections, getSlider, getWorkSteps, getFaqs, getFooter, getTermsConditions, getPrivacyPolicy } from "./cms.hook";
+import { getDynamicSections, getSlider, getWorkSteps, getFaqs, getFooter, getTermsConditions, getPrivacyPolicy, getAboutUsSection, getCTA, getHowItWorks, getContactInfo, getSummary } from "./cms.hook";
 import { getCategories, getTemplates } from "./templates.hook";
 
 const DEFAULT_STALE_TIME = 5 * 60 * 1000;
@@ -33,6 +33,16 @@ export const prefetchHomeData = async (queryClient) => {
             queryFn: getFaqs,
             staleTime: DEFAULT_STALE_TIME,
         }),
+        queryClient.prefetchQuery({
+            queryKey: ['about-us-section'],
+            queryFn: getAboutUsSection,
+            staleTime: DEFAULT_STALE_TIME,
+        }),
+        queryClient.prefetchQuery({
+            queryKey: ['cta'],
+            queryFn: getCTA,
+            staleTime: DEFAULT_STALE_TIME,
+        }),
     ]);
 }
 
@@ -48,6 +58,11 @@ export const prefetchTermsData = async (queryClient) => {
             queryFn: getTermsConditions,
             staleTime: DEFAULT_STALE_TIME,
         }),
+        queryClient.prefetchQuery({
+            queryKey: ['summary'],
+            queryFn: getSummary,
+            staleTime: DEFAULT_STALE_TIME,
+        }),
     ]);
 }
 
@@ -56,6 +71,11 @@ export const prefetchContactData = async (queryClient) => {
         queryClient.prefetchQuery({
             queryKey: ['dynamic-sections'],
             queryFn: getDynamicSections,
+            staleTime: DEFAULT_STALE_TIME,
+        }),
+        queryClient.prefetchQuery({
+            queryKey: ['contact-info'],
+            queryFn: getContactInfo,
             staleTime: DEFAULT_STALE_TIME,
         }),
     ]);
@@ -100,6 +120,28 @@ export const prefetchPrivacyData = async (queryClient) => {
         queryClient.prefetchQuery({
             queryKey: ['privacy-policy'],
             queryFn: getPrivacyPolicy,
+            staleTime: DEFAULT_STALE_TIME,
+        }),
+        queryClient.prefetchQuery({
+            queryKey: ['summary'],
+            queryFn: getSummary,
+            staleTime: DEFAULT_STALE_TIME,
+        }),
+    ]);
+}
+
+
+
+export const prefetchHowItWorksData = async (queryClient) => {
+    await Promise.all([
+        queryClient.prefetchQuery({
+            queryKey: ['how-it-works'],
+            queryFn: getHowItWorks,
+            staleTime: DEFAULT_STALE_TIME,
+        }),
+        queryClient.prefetchQuery({
+            queryKey: ['how-it-works'],
+            queryFn: getHowItWorks,
             staleTime: DEFAULT_STALE_TIME,
         }),
     ]);

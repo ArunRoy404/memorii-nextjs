@@ -6,9 +6,14 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import { FileText } from 'lucide-react';
+import { useGetSummary } from '@/hooks/cms.hook';
 
 
 const PrivacyList = ({ privacyPolicy }) => {
+    const { data } = useGetSummary();
+    const privacySummary = data?.find((item) => item?.section === 'privacy_policy');
+
+
     return (
         < main className="grow max-w-4xl mx-auto w-full px-4 md:px-6 pb-20" >
             <div className="bg-white rounded-3xl md:rounded-[2.5rem] border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.03)] p-5 md:p-10">
@@ -36,6 +41,15 @@ const PrivacyList = ({ privacyPolicy }) => {
                         </AccordionItem>
                     ))}
                 </Accordion>
+
+
+                {/* Legal Summary Box */}
+                <div className="mt-12 p-6 md:p-8 bg-primary/10 rounded-3xl border border-primary/40">
+                    <h4 className="font-bold text-lg text-primary mb-2">TL;DR (Summary)</h4>
+                    <p className="text-sm text-primary opacity-80">
+                        {privacySummary?.description}
+                    </p>
+                </div>
 
                 {/* Bottom Help Box */}
                 {/* <div className="mt-12 p-6 md:p-8 bg-linear-to-br from-gray-50 to-white rounded-3xl border border-gray-100 flex flex-col md:flex-row items-center justify-between gap-6">
