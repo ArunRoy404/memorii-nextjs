@@ -16,14 +16,13 @@ const circleColors = [
 ];
 
 const HowItWorksStepsMobile = ({ data }) => {
-    const stepsToRender = data?.length > 0
-        ? data.map((item, index) => ({
-            ...howItWorksData[index],
-            title: item.title,
-            description: item.short_description,
-            id: String(index + 1).padStart(2, '0')
-        }))
-        : howItWorksData;
+    const stepsToRender = data?.map((item, index) => ({
+        ...howItWorksData[index],
+        title: item.title,
+        description: item.short_description,
+        id: String(index + 1).padStart(2, '0')
+    }))
+
 
     return (
         <div className='md:hidden grid grid-cols-1 gap-4 mx-auto mt-10 md:mt-30'>

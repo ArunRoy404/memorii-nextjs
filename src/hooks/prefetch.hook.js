@@ -1,4 +1,4 @@
-import { getDynamicSections, getSlider, getWorkSteps, getFaqs, getFooter, getTermsConditions, getPrivacyPolicy, getAboutUsSection, getCTA } from "./cms.hook";
+import { getDynamicSections, getSlider, getWorkSteps, getFaqs, getFooter, getTermsConditions, getPrivacyPolicy, getAboutUsSection, getCTA, getHowItWorks } from "./cms.hook";
 import { getCategories, getTemplates } from "./templates.hook";
 
 const DEFAULT_STALE_TIME = 5 * 60 * 1000;
@@ -110,6 +110,23 @@ export const prefetchPrivacyData = async (queryClient) => {
         queryClient.prefetchQuery({
             queryKey: ['privacy-policy'],
             queryFn: getPrivacyPolicy,
+            staleTime: DEFAULT_STALE_TIME,
+        }),
+    ]);
+}
+
+
+
+export const prefetchHowItWorksData = async (queryClient) => {
+    await Promise.all([
+        queryClient.prefetchQuery({
+            queryKey: ['how-it-works'],
+            queryFn: getHowItWorks,
+            staleTime: DEFAULT_STALE_TIME,
+        }),
+        queryClient.prefetchQuery({
+            queryKey: ['how-it-works'],
+            queryFn: getHowItWorks,
             staleTime: DEFAULT_STALE_TIME,
         }),
     ]);

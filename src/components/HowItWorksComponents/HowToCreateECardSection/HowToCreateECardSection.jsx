@@ -1,14 +1,13 @@
 import CommonSection from '@/components/common/CommonSection/CommonSection';
 import ECardStepsContainer from './ECardStepsContainer';
-import howToCreateCardData from '@/data/howToCreateCardData';
 
-const HowToCreateECardSection = () => {
+const HowToCreateECardSection = ({ data }) => {
     return (
         <CommonSection>
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-20 lg:gap-10'>
                 {
-                    howToCreateCardData.map((item) => (
-                        <ECardStepsContainer key={item?.category} item={item} />
+                    data?.map((item) => (
+                        <ECardStepsContainer key={item?.id} item={item} />
                     ))
                 }
             </div>

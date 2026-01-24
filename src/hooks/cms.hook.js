@@ -142,3 +142,18 @@ export const useGetCTA = () => {
         staleTime: DEFAULT_STALE_TIME,
     });
 };
+
+export const getHowItWorks = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/get-how-to-create-or-work`);
+    if (!res.ok) throw new Error('Network response was not ok');
+    const result = await res.json();
+    return result.data;
+};
+
+export const useGetHowItWorks = () => {
+    return useQuery({
+        queryKey: ['how-it-works'],
+        queryFn: getHowItWorks,
+        staleTime: DEFAULT_STALE_TIME,
+    });
+};

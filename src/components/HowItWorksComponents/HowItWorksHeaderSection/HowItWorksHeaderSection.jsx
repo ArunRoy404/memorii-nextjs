@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button';
-import ColorfulText from '@/components/ui/ColorfulText';
 import image1 from '@/assets/images/birthdayImage.jpg'
 import image2 from '@/assets/images/NoteBookImage.jpg'
 import Image from 'next/image';
@@ -10,7 +9,9 @@ import CommonSection from '@/components/common/CommonSection/CommonSection';
 
 
 
-const HowItWorksHeaderSection = () => {
+const HowItWorksHeaderSection = ({ data }) => {
+    const pageData = data[0]
+
     return (
         <CommonSection className={'relative overflow-hidden'}>
 
@@ -25,7 +26,7 @@ const HowItWorksHeaderSection = () => {
 
             <div className=' absolute top-160 md:top-140 lg:top-130'>
                 <div className='relative'>
-                    <Wave className='absolute'/>
+                    <Wave className='absolute' />
                     <CircleShape className='absolute scale-30 top-34 left-90' />
                 </div>
             </div>
@@ -36,14 +37,14 @@ const HowItWorksHeaderSection = () => {
 
                     {/* content  */}
                     <div
-                        className="relative lg:max-w-1/2 xl:max-w-[824px] space-y-4 sm:space-y-6 mb-10 sm:mb-14">
+                        className="relative lg:w-1/2 xl:w-[824px] space-y-4 sm:space-y-6 mb-10 sm:mb-14">
                         <h1
                             className='text-3xl sm:text-4xl md:text-5xl font-bold leading-tight sm:leading-snug md:leading-tight'>
-                            How <ColorfulText>Memorii</ColorfulText> works
+                            {pageData?.title}
                         </h1>
                         <h2
                             className='text-sm md:text-base lg:text-2xl font-medium text-icon'>
-                            Create something special together. Whether it’s an eCard filled with many messages or a Memory Book full of stories — Memorii makes it easy, private, and meaningful.
+                            {pageData?.description}
                         </h2>
                         <Button
                             variant="defaultShiny"
