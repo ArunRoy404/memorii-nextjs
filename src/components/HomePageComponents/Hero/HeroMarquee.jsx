@@ -1,3 +1,5 @@
+'use client'
+
 import Image from "next/image";
 import {
     Marquee,
@@ -20,10 +22,7 @@ export default function HeroMarquee() {
         { rotation: -9, scale: 1.3 },
     ];
 
-    const { data: sliderData, isLoading } = useGetSlider();
-
-    if (isLoading) return <div>Loading...</div>;
-    if (!sliderData || sliderData.length === 0) return null;
+    const { data: sliderData } = useGetSlider();
 
     return (
         <div className="relative w-full overflow-hidden">
@@ -35,13 +34,13 @@ export default function HeroMarquee() {
                     speed={30}
                     className="py-15 md:py-24 lg:py-40"
                 >
-                    {sliderData.map((photo, index) => {
+                    {sliderData?.map((photo, index) => {
                         const styleIndex = index % orientation.length;
                         const config = orientation[styleIndex];
 
                         return (
                             <MarqueeItem
-                                key={photo.id || index}
+                                key={photo?.id || index}
                                 className="shrink-0 mx-2 sm:mx-3 md:mx-4 lg:mx-5"
                                 style={{
                                     transform: `rotate(${config.rotation}deg) scale(${config.scale})`,
@@ -61,8 +60,8 @@ export default function HeroMarquee() {
                                     xl:w-[260px] xl:h-[310px]
                                 ">
                                     <Image
-                                        src={photo.image}
-                                        alt={photo.alt || "Hero Image"}
+                                        src={photo?.image}
+                                        alt={photo?.alt || "Hero Image"}
                                         className="object-cover w-full h-full"
                                         loading="eager"
                                         width={260}

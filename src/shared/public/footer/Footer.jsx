@@ -11,7 +11,7 @@ const Footer = () => {
     const { data: footerData } = useGetFooter()
     const menus = footerData?.menus
     const socials = footerData?.socials
-    const siteSettings = footerData['site Setting']
+    const siteSettings = footerData?.['site Setting']
 
 
     return (
