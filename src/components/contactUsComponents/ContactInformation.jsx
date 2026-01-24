@@ -1,51 +1,33 @@
 import {
-    Facebook,
-    Instagram,
     Mail,
     MapPin,
     Phone,
-    Twitter,
 } from "lucide-react";
-import Link from "next/link";
-
-const contactInfo = [
-    {
-        label: "Email Us",
-        value: "support@memorii.com",
-        icon: Mail,
-    },
-    {
-        label: "Call Us",
-        value: "+1 (555) 123-4567",
-        icon: Phone,
-    },
-    {
-        label: "Location",
-        value: "123 Memory Lane, Digital City",
-        icon: MapPin,
-    },
-];
-
-const socialLinks = [
-    {
-        icon: Facebook,
-        href: "#",
-        hoverColor: "hover:text-teal-500",
-    },
-    {
-        icon: Instagram,
-        href: "#",
-        hoverColor: "hover:text-pink-500",
-    },
-    {
-        icon: Twitter,
-        href: "#",
-        hoverColor: "hover:text-blue-400",
-    },
-];
 
 
-const ContactInformation = () => {
+const ContactInformation = ({ data }) => {
+
+    
+    const contactInfo = [
+        {
+            label: "Email Us",
+            value: data?.email,
+            icon: Mail,
+        },
+        {
+            label: "Call Us",
+            value: data?.phone,
+            icon: Phone,
+        },
+        {
+            label: "Location",
+            value: data?.loaction,
+            icon: MapPin,
+        },
+    ];
+
+
+
     return (
         <div className="bg-blue-50/50 p-6 md:p-8 rounded-3xl border border-blue-100 shadow-sm relative overflow-hidden">
             {/* Decorative blob */}
@@ -71,25 +53,6 @@ const ContactInformation = () => {
                                 <p className="font-semibold text-gray-800">{item.value}</p>
                             </div>
                         </div>
-                    );
-                })}
-            </div>
-
-
-
-            {/* Socials */}
-            <div className="mt-8 flex gap-4">
-                {socialLinks.map((social, index) => {
-                    const Icon = social.icon;
-
-                    return (
-                        <Link
-                            key={index}
-                            href={social.href}
-                            className={`p-2 bg-white rounded-full text-gray-600 ${social.hoverColor} shadow-sm transition`}
-                        >
-                            <Icon size={20} />
-                        </Link>
                     );
                 })}
             </div>
