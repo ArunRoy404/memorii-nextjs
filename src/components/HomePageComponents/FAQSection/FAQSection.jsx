@@ -7,7 +7,6 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import CommonSection from "@/components/common/CommonSection/CommonSection";
-import faqData from "@/data/faqData";
 import { cn } from "@/lib/utils";
 import { useGetSections, useGetFaqs } from '@/hooks/cms.hook';
 import Link from "next/link";
@@ -18,10 +17,7 @@ const FAQSection = ({ classNameContainer, limit, showBtn }) => {
     const sectionData = sections?.find(section => section?.section === 'faq')
 
     // Map API data if available, else use static
-    const sourceData = faqs?.length > 0
-        ? faqs.map(f => ({ qs: f.question, ans: f.answer }))
-        : faqData;
-
+    const sourceData = faqs?.map(f => ({ qs: f.question, ans: f.answer })) || []
 
     const limitedFaqData = sourceData.slice(0, limit);
 
