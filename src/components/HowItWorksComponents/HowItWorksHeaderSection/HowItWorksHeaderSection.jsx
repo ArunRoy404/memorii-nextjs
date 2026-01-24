@@ -10,7 +10,7 @@ import CommonSection from '@/components/common/CommonSection/CommonSection';
 
 
 const HowItWorksHeaderSection = ({ data }) => {
-    const pageData = data[0]
+    const pageData = data?.[0]
 
     return (
         <CommonSection className={'relative overflow-hidden'}>

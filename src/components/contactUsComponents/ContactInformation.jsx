@@ -39,7 +39,7 @@ const ContactInformation = ({ data }) => {
 
             {/* Contact Info */}
             <div className="space-y-6">
-                {contactInfo.map((item, index) => {
+                {contactInfo?.map((item, index) => {
                     const Icon = item.icon;
 
                     return (

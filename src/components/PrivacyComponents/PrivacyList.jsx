@@ -19,7 +19,7 @@ const PrivacyList = ({ privacyPolicy }) => {
             <div className="bg-white rounded-3xl md:rounded-[2.5rem] border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.03)] p-5 md:p-10">
 
                 <Accordion type="single" collapsible className="w-full space-y-2">
-                    {privacyPolicy.map((section) => (
+                    {privacyPolicy?.map((section) => (
                         <AccordionItem
                             key={section.id}
                             value={section.id}
