@@ -126,3 +126,19 @@ export const useGetAboutUsSection = () => {
         staleTime: DEFAULT_STALE_TIME,
     });
 };
+
+
+export const getCTA = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cta`);
+    if (!res.ok) throw new Error('Network response was not ok');
+    const result = await res.json();
+    return result.data;
+};
+
+export const useGetCTA = () => {
+    return useQuery({
+        queryKey: ['cta'],
+        queryFn: getCTA,
+        staleTime: DEFAULT_STALE_TIME,
+    });
+};
