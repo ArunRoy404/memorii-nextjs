@@ -10,8 +10,8 @@ const HowItWorksPage = () => {
     const { data: howItWorksData } = useGetHowItWorks()
     const { data: workSteps } = useGetWorkSteps()
 
-    const howItWorks = howItWorksData['How To Work']
-    const howToCreate = howItWorksData['How To Create']
+    const howItWorks = howItWorksData?.['How To Work'] || null
+    const howToCreate = howItWorksData?.['How To Create'] || null
 
     return (
         <>
