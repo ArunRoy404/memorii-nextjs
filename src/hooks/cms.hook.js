@@ -1,16 +1,32 @@
 import { useQuery } from '@tanstack/react-query';
-
-const DEFAULT_STALE_TIME = 5 * 60 * 1000;
-
+import { DEFAULT_STALE_TIME, DEFAULT_REVALIDATE_TIME } from '../lib/constants';
 
 const apiRequest = async (endpoint, tag) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}${endpoint}`, {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    if (!baseUrl) throw new Error('NEXT_PUBLIC_BASE_URL is not defined in environment variables');
+
+
+    const res = await fetch(`${baseUrl}${endpoint}`, {
         next: {
-            revalidate: 60, // Fallback: auto-refresh every 60 seconds
-            tags: [tag]     // Urgent: allows instant manual refresh
+            revalidate: DEFAULT_REVALIDATE_TIME,
+            tags: [tag]
         }
     });
-    if (!res.ok) throw new Error(`Network response error at ${endpoint}`);
+
+
+    if (!res.ok) {
+        let errorMessage = `Network response error at ${endpoint}`;
+        try {
+            const errorBody = await res.json();
+            if (errorBody && errorBody.message) {
+                errorMessage = errorBody.message;
+            }
+        } catch (e) {
+            // If json parsing fails, stick to generic error
+        }
+        throw new Error(errorMessage);
+    }
+
     const result = await res.json();
     return result.data;
 };
