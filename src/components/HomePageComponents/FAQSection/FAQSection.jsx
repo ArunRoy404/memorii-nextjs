@@ -17,9 +17,8 @@ const FAQSection = ({ classNameContainer, limit, showBtn }) => {
     const sectionData = sections?.find(section => section?.section === 'faq')
 
     // Map API data if available, else use static
-    const sourceData = faqs?.map(f => ({ qs: f.question, ans: f.answer })) || []
-
-    const limitedFaqData = sourceData.slice(0, limit);
+    const sourceData = faqs?.map(f => ({ qs: f.question, ans: f.answer }))
+    const limitedFaqData = sourceData?.slice(0, limit);
 
 
     return (

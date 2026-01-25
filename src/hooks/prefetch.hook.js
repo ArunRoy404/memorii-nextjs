@@ -62,6 +62,11 @@ export const prefetchTermsData = async (queryClient) => {
             queryFn: getSummary,
             staleTime: DEFAULT_STALE_TIME,
         }),
+        queryClient.prefetchQuery({
+            queryKey: ['cta'],
+            queryFn: getCTA,
+            staleTime: DEFAULT_STALE_TIME,
+        }),
     ]);
 }
 
@@ -125,6 +130,11 @@ export const prefetchPrivacyData = async (queryClient) => {
         queryClient.prefetchQuery({
             queryKey: ['summary'],
             queryFn: getSummary,
+            staleTime: DEFAULT_STALE_TIME,
+        }),
+        queryClient.prefetchQuery({
+            queryKey: ['cta'],
+            queryFn: getCTA,
             staleTime: DEFAULT_STALE_TIME,
         }),
     ]);
