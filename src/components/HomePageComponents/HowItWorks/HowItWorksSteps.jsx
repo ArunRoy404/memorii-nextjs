@@ -17,7 +17,7 @@ const circleColors = [
 ];
 
 const HowItWorksSteps = ({ data }) => {
-    const stepsToRender = data.map((item, index) => ({
+    const stepsToRender = data?.map((item, index) => ({
         ...howItWorksData[index],
         title: item.title,
         description: item.short_description,
