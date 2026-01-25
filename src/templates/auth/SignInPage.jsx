@@ -8,7 +8,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputForm from '@/components/common/Input/InputForm';
-import notImplementedToast from '@/lib/notImplementedToast';
 import FormExtra from '@/components/common/Input/FormExtra';
 import FormSeparator from '@/components/common/Input/FormSeparator';
 import FormFooter from '@/components/common/Input/FormFooter';
@@ -25,6 +24,7 @@ const formSchema = z.object({
 const SignInPage = () => {
     const router = useRouter()
     const {
+        control,
         register,
         handleSubmit,
         formState: { errors },
@@ -39,9 +39,11 @@ const SignInPage = () => {
 
 
 
-    const onSubmit = (data) => {
-        notImplementedToast()
-        router.push('/')
+    const onSubmit = async (data) => {
+        console.log(data);
+
+        // notImplementedToast()
+        // router.push('/')
     };
 
 
@@ -73,7 +75,7 @@ const SignInPage = () => {
                 {/* Remember + Forgot */}
                 <FormExtra
                     checkboxId="remember"
-                    register={register}
+                    control={control}
                     errors={errors}
                     checkboxLabel="Remember me"
                     linkLabel="Forgot Password?"

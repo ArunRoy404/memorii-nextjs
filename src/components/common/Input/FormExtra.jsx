@@ -2,18 +2,40 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { Controller } from 'react-hook-form';
 
 
-const FormExtra = ({ checkboxId, register, errors, checkboxLabel, linkLabel, linkHref = '/', linkClassName, LabelClassName, checkboxClassName }) => {
+const FormExtra = ({
+    checkboxId,
+    control,
+    errors,
+    checkboxLabel,
+    linkLabel,
+    linkHref = '/',
+    linkClassName,
+    LabelClassName,
+    checkboxClassName
+}) => {
     return (
         <div>
             <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                    <Checkbox
-                        id={checkboxId}
-                        className={checkboxClassName}
-                        {...register("remember", { value: false })}
+                    <Controller
+                        name={checkboxId}
+                        control={control}
+                        defaultValue={true}
+                        render={({ field }) => {
+                            return <Checkbox
+                                id={checkboxId}
+                                className={checkboxClassName}
+                                onCheckedChange={field.onChange}
+                                checked={field.value}
+                                {...field}
+                            />
+                        }}
+
                     />
+
                     <Label
                         htmlFor={checkboxId}
                         className={cn(
