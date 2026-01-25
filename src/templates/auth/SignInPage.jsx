@@ -11,18 +11,21 @@ import InputForm from '@/components/common/Input/InputForm';
 import FormExtra from '@/components/common/Input/FormExtra';
 import FormSeparator from '@/components/common/Input/FormSeparator';
 import FormFooter from '@/components/common/Input/FormFooter';
-import { useRouter } from 'next/navigation';
+import { useSignIn } from '@/hooks/auth.hook';
+import { useState } from 'react';
+import CommonAlert from '@/components/common/CommonAlert/CommonAlert';
 
 
 const formSchema = z.object({
     email: z.string().email("Enter a valid email"),
     password: z.string().min(1, "Password is required"),
-    remember: z.boolean().optional()
+    rememberMe: z.boolean().optional()
 });
 
 
 const SignInPage = () => {
-    const router = useRouter()
+    const [alert, setAlert] = useState(null);
+    const { handleSignIn, isPending } = useSignIn({ setAlert });
     const {
         control,
         register,
@@ -33,24 +36,14 @@ const SignInPage = () => {
         defaultValues: {
             email: "",
             password: "",
-            remember: false,
+            rememberMe: true,
         },
     });
 
 
-
-    const onSubmit = async (data) => {
-        console.log(data);
-
-        // notImplementedToast()
-        // router.push('/')
-    };
-
-
-
     return (
         <AuthCard title={'Login'} className={'space-y-7'}>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-7">
+            <form onSubmit={handleSubmit(handleSignIn)} className="space-y-4 md:space-y-7">
 
                 {/* Email */}
                 <InputForm
@@ -74,7 +67,7 @@ const SignInPage = () => {
 
                 {/* Remember + Forgot */}
                 <FormExtra
-                    checkboxId="remember"
+                    checkboxId="rememberMe"
                     control={control}
                     errors={errors}
                     checkboxLabel="Remember me"
@@ -82,11 +75,13 @@ const SignInPage = () => {
                     linkHref="/forgot-password"
                 />
 
+                {!!alert && <CommonAlert alert={alert} />}
 
                 {/* Submit */}
                 <Button
                     type="submit"
                     className="w-full"
+                    isLoading={isPending}
                 >
                     Login
                 </Button>
