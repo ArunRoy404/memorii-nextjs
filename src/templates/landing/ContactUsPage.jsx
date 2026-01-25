@@ -11,8 +11,8 @@ const ContactUsPage = () => {
     const { data: contactRes } = useGetContactInfo()
 
     const sectionData = sections?.find(section => section?.section === 'get_in_touch')
-    const contactInfo = contactRes?.[0] || null
-    const showContact = contactInfo?.status === 'active' || false
+    const contactInfo = contactRes?.[0]
+    const showContact = contactInfo?.status === 'active'
 
 
     return (

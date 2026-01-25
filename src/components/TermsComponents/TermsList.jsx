@@ -12,7 +12,7 @@ const TermsList = ({ termsConditions }) => {
     const { data } = useGetSummary();
     const termsSummary = data?.find((item) => item?.section === 'trems');
 
-    
+
     return (
         < main className="grow max-w-4xl mx-auto w-full px-4 md:px-6 pb-20" >
             <div className="bg-white rounded-3xl md:rounded-[2.5rem] border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.03)] p-5 md:p-10">
