@@ -26,6 +26,7 @@ const ChooseTemplateSection = () => {
                         key={template?.id}
                     />
                 ))}
+                
             </div>
 
             <div className='max-w-max mx-auto mt-10'>
