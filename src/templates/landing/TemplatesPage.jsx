@@ -3,16 +3,15 @@
 import CommonSection from '@/components/common/CommonSection/CommonSection';
 import TemplateCard from '@/components/HomePageComponents/ChooseTemplateSection/TemplateCard';
 import TemplateCategoriesDropdown from '@/components/TemplatePagesComponents/TemplateCategoriesDropdown';
-import templateData from '@/data/templateData';
+import { TemplatePagination } from '@/components/TemplatePagesComponents/TemplatePagination';
 import { useGetSections } from '@/hooks/cms.hook';
 import { useGetTemplates } from '@/hooks/templates.hook';
 
 const TemplatesPage = () => {
     const { data: sections } = useGetSections()
-    const {data: templates} = useGetTemplates()
+    const { data: templates } = useGetTemplates()
     const sectionData = sections?.find(section => section?.section === 'perfect_template')
 
-    console.log(templates);
     return (
         <CommonSection
             headerClassname={'max-w-[1200px] mx-auto'}
@@ -28,6 +27,10 @@ const TemplatesPage = () => {
                         key={template?.id}
                     />
                 ))}
+            </div>
+
+            <div className='mt-10'>
+                <TemplatePagination />
             </div>
         </CommonSection>
     );
