@@ -2,24 +2,27 @@ import Image from 'next/image';
 import TemplateCardClick from './TemplateCardClick';
 
 const TemplateCard = ({ template }) => {
+    const category = template?.category;
+
     return (
-        <div className='relative cursor-pointer flex flex-col items-center gap-4 md:gap-8 group'>
-            <div className='overflow-hidden rounded-3xl group w-full'>
+        <div className='flex flex-col items-center gap-4 md:gap-6 group w-full'>
+            <div className='rounded-md relative overflow-hidden w-full aspect-3/4 hover:shadow-xl transition-all duration-300 '>
                 <TemplateCardClick template={template} />
-                <div className='aspect-3/4 w-full'>
-                    <Image
-                        src={template?.src}
-                        alt={template?.title || 'Template image'}
-                        className="object-cover group-hover:scale-105 transition-ease-in-out w-full h-full"
-                        loading="eager"
-                    />
-                </div>
+
+                <Image
+                    src={template?.image}
+                    alt={category?.name || 'Template image'}
+                    fill
+                    className="object-cover -z-10"
+                    loading="eager"
+                />
             </div>
-            <h2 className='text-center font-semibold md:text-2xl'>
-                {template?.title}
+
+            <h2 className='text-center font-semibold text-lg md:text-2xl text-gray-900'>
+                {category?.name}
             </h2>
         </div>
     );
 };
 
-export default TemplateCard;
+export default TemplateCard; 
