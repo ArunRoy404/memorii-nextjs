@@ -14,9 +14,11 @@ import teachersDayTemplate from "@/assets/templateImages/teachersDayTemplate.png
 import thankYouTemplate from "@/assets/templateImages/thankYouTemplate.png";
 import weddingTemplate from "@/assets/templateImages/weddingTemplate.png";
 import weddingTemplate2 from "@/assets/templateImages/weddingTemplate2.png";
+import diwaliTemplate from "@/assets/templateImages/diwaliTemplate.jpg";
 
 const templateData = [
     { id: 1, title: "Anniversary", src: anniversaryTemplate1 },
+    { id: 17, title: "Diwali", src: diwaliTemplate },
     // { id: 2, title: "Anniversary", src: anniversaryTemplate2 },
     // { id: 3, title: "Anniversary", src: anniversaryTemplate3 },
     // { id: 4, title: "ThankYou", src: thankYouTemplate1 },
