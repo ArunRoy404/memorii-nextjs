@@ -8,16 +8,21 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import templatesCategory, { occasions } from "@/data/templateCategories";
 import { useCardTypeStore } from "@/store/useCardTypeStore";
 import { useGetCategories } from "@/hooks/templates.hook";
 
 
 const TemplateCategoriesDropdown = () => {
-    const { data: categories } = useGetCategories();
+    const { data: categoriesData } = useGetCategories();
     const { setCardType } = useCardTypeStore();
-    const [selectedCategory, setSelectedCategory] = useState(templatesCategory[0]?.key);
-    const [selectedOccasion, setSelectedOccasion] = useState();
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedOccasion, setSelectedOccasion] = useState('');
+
+
+    const categories = categoriesData?.category;
+    const occasions = categoriesData?.template
+    const filteredOccasions = occasions?.[selectedCategory]
+
 
     useEffect(() => {
         setCardType(selectedCategory);
@@ -32,20 +37,20 @@ const TemplateCategoriesDropdown = () => {
                     <SelectTrigger
                         className='text-subtitle font-semibold min-w-2xs text-md md:text-2xl rounded-2xl border-border justify-between active:scale-100 hover:scale-100 p-6'
                     >
-                        <SelectValue placeholder="Templates" />
+                        <SelectValue placeholder="Category" />
                     </SelectTrigger>
 
                     <SelectContent
                         data-lenis-prevent
                         className='rounded-2xl'
                     >
-                        {templatesCategory?.map((template) => (
+                        {categories?.map((category, index) => (
                             <SelectItem
-                                key={template?.key}
-                                value={template?.key}
+                                key={index}
+                                value={category}
                                 className='my-4 w-[90%] mx-auto text-sm md:text-base cursor-pointer rounded-xl p-2 text-subtitle border'
                             >
-                                {template?.category}
+                                {category}
                             </SelectItem>
                         ))}
                     </SelectContent>
@@ -65,13 +70,13 @@ const TemplateCategoriesDropdown = () => {
                         data-lenis-prevent
                         className='rounded-2xl'
                     >
-                        {occasions[selectedCategory]?.map((occasion) => (
+                        {filteredOccasions?.map((occasion) => (
                             <SelectItem
-                                key={occasion?.key}
-                                value={occasion?.key}
+                                key={occasion?.id}
+                                value={occasion?.name}
                                 className='my-4 w-[90%] mx-auto text-sm md:text-base cursor-pointer rounded-xl p-2 text-subtitle border'
                             >
-                                {occasion?.occasion}
+                                {occasion?.name}
                             </SelectItem>
                         ))}
                     </SelectContent>

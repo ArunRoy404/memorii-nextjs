@@ -42,6 +42,11 @@ export const prefetchHomeData = async (queryClient) => {
             queryFn: getCTA,
             staleTime: DEFAULT_STALE_TIME,
         }),
+        queryClient.prefetchQuery({
+            queryKey: ['templates'],
+            queryFn: getTemplates,
+            staleTime: DEFAULT_STALE_TIME,
+        }),
     ]);
 }
 

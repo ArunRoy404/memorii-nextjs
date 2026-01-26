@@ -5,7 +5,7 @@ const handleApiError = ({ error, errorMessage = "Network Error", throwError = fa
     const message =
         error?.response?.data?.message ||
         error?.response?.data?.error ||
-        error.message ||
+        error?.message ||
         errorMessage
 
     if (message) toast.error(message);

@@ -17,7 +17,6 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel";
-import sizes from "@/data/templateSizes";
 import { useTemplateStore } from "@/store/useTemplateStore";
 import CardBackPage from "../CardBackPage/CardBackPage";
 import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
@@ -25,9 +24,11 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useEditorStore } from "@/store/useEditorStore";
 import { useTextObjectStore } from "@/store/useTextObjectStore";
+import { useGetPricePlan } from "@/hooks/pricePlan.hook";
 
 
 export default function ChooseTemplate() {
+    const { data: pricePlan } = useGetPricePlan()
     const { resetEditorStore } = useEditorStore()
     const { setSelectedTemplate: selectTemplateForEdit } = useEditorTemplateStore()
     const { selectedTemplate, resetTemplateStore, setSelectedTemplate } = useTemplateStore()
@@ -160,38 +161,44 @@ export default function ChooseTemplate() {
 
                             {/* SIZE OPTIONS - RESPONSIVE */}
                             <div className="mt-4 grid grid-cols-1 gap-3">
-                                {sizes.map((size) => (
-                                    <div
-                                        key={size.id}
-                                        onClick={() => setSelectedSize(size.id)}
-                                        className={`border rounded-lg p-3 sm:p-4 cursor-pointer transition flex justify-between items-center gap-3 ${selectedSize === size.id
-                                            ? "border-primary bg-[#EDFEFF]"
-                                            : "border-gray-200"
-                                            }`}
-                                    >
-                                        <div className="flex items-center gap-3">
+                                {pricePlan?.map((plan) => {
 
-                                            {/* RADIO */}
-                                            <div className="mt-1 w-4 h-4 rounded-full border flex items-center justify-center">
-                                                {selectedSize === size.id && (
-                                                    <div className="w-2.5 h-2.5 bg-primary rounded-full" />
-                                                )}
-                                            </div>
+                                    if (plan?.status === 'deactive') return null;
 
-                                            <div className="space-y-1">
-                                                <p className="text-sm sm:text-base md:text-lg font-semibold">
-                                                    {size.type}
-                                                </p>
-                                                <p className="text-xs sm:text-sm text-gray-500">
-                                                    {size.limit}
-                                                </p>
-                                                <p className="text-sm sm:text-base font-semibold">
-                                                    £ {size.price.toFixed(2)}
-                                                </p>
+                                    return (
+                                        <div
+                                            key={plan.id}
+                                            onClick={() => setSelectedSize(plan.id)}
+                                            className={`border rounded-lg p-3 sm:p-4 cursor-pointer transition flex justify-between items-center gap-3 ${selectedSize === plan.id
+                                                ? "border-primary bg-[#EDFEFF]"
+                                                : "border-gray-200"
+                                                }`}
+                                        >
+                                            <div className="flex items-center gap-3">
+
+                                                {/* RADIO */}
+                                                <div className="mt-1 w-4 h-4 rounded-full border flex items-center justify-center">
+                                                    {selectedSize === plan.id && (
+                                                        <div className="w-2.5 h-2.5 bg-primary rounded-full" />
+                                                    )}
+                                                </div>
+
+                                                <div className="space-y-1">
+                                                    <p className="text-sm sm:text-base md:text-lg font-semibold">
+                                                        {plan?.plan}
+                                                    </p>
+                                                    <p className="text-xs sm:text-sm text-gray-500">
+                                                        {plan?.size} pages {" "}
+                                                        ({plan?.inviteable ? 'with inviteable' : 'without inviteable'})
+                                                    </p>
+                                                    <p className="text-sm sm:text-base font-semibold">
+                                                        £ {plan?.price}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    )
+                                })}
                             </div>
                         </div>
 

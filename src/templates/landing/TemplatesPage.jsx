@@ -3,11 +3,13 @@
 import CommonSection from '@/components/common/CommonSection/CommonSection';
 import TemplateCard from '@/components/HomePageComponents/ChooseTemplateSection/TemplateCard';
 import TemplateCategoriesDropdown from '@/components/TemplatePagesComponents/TemplateCategoriesDropdown';
-import templateData from '@/data/templateData';
+import { TemplatePagination } from '@/components/TemplatePagesComponents/TemplatePagination';
 import { useGetSections } from '@/hooks/cms.hook';
+import { useGetTemplates } from '@/hooks/templates.hook';
 
 const TemplatesPage = () => {
     const { data: sections } = useGetSections()
+    const { data: templates } = useGetTemplates()
     const sectionData = sections?.find(section => section?.section === 'perfect_template')
 
     return (
@@ -19,12 +21,16 @@ const TemplatesPage = () => {
             <TemplateCategoriesDropdown />
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10'>
-                {templateData?.map((template) => (
+                {templates?.map((template) => (
                     <TemplateCard
                         template={template}
                         key={template?.id}
                     />
                 ))}
+            </div>
+
+            <div className='mt-10'>
+                <TemplatePagination />
             </div>
         </CommonSection>
     );

@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/sonner";
-import ChooseTemplate from "@/components/common/ChooseTemplate/ChooseTemplate";
+import AuthProvider from "@/providers/AuthProvider";
+
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,10 +25,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.variable} antialiased`}
       >
-        {children}
-        <Toaster />
-        <ChooseTemplate />
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
+
     </html>
   );
 }
