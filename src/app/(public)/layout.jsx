@@ -6,6 +6,10 @@ import React from 'react';
 import { prefetchLayoutData } from '@/hooks/prefetch.hook';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import getQueryClient from '@/lib/getQueryClient';
+import { Toaster } from "@/components/ui/sonner";
+import ChooseTemplate from "@/components/common/ChooseTemplate/ChooseTemplate";
+
+
 
 const PublicLayout = async ({ children }) => {
     const queryClient = getQueryClient();
@@ -23,6 +27,8 @@ const PublicLayout = async ({ children }) => {
                             <Footer />
                         </div>
                     </LenisProvider>
+                    <Toaster />
+                    <ChooseTemplate />
                 </HydrationBoundary>
             </QueryProvider>
         </>

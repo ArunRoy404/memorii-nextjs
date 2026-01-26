@@ -1,7 +1,5 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/sonner";
-import ChooseTemplate from "@/components/common/ChooseTemplate/ChooseTemplate";
 import AuthProvider from "@/providers/AuthProvider";
 
 
@@ -29,8 +27,6 @@ export default function RootLayout({ children }) {
       >
         <AuthProvider>
           {children}
-          <Toaster />
-          <ChooseTemplate />
         </AuthProvider>
       </body>
 
