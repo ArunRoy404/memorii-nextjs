@@ -3,8 +3,12 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { showOtpToast } from "@/lib/otpToast";
+import { useMutation } from "@tanstack/react-query";
+import useAxiosPrivate from "./axios/useAxiosPrivate";
 
 export const useSignIn = ({ setAlert }) => {
+
     const [isPending, setIsPending] = useState(false);
     const router = useRouter();
 
@@ -74,7 +78,7 @@ export const useSignUp = ({ setAlert }) => {
                     parsedErrors = { general: res.error };
                 }
 
-                handleApiError({ error: parsedErrors, errorMessage: "Registration failed", setAlert });
+                handleApiError({ errorsArray: parsedErrors, errorMessage: "Registration failed", setAlert });
             }
         } catch (error) {
             handleApiError({ error, errorMessage: "Network error", setAlert });
@@ -87,4 +91,64 @@ export const useSignUp = ({ setAlert }) => {
         handleSignUp,
         isPending,
     }
+}
+
+
+
+export const useSendOtp = ({ setAlert }) => {
+    const axiosPrivate = useAxiosPrivate();
+    const router = useRouter();
+    return useMutation({
+        mutationFn: async (email) => {
+            const res = await axiosPrivate.post("/send-otp?email=" + email);
+            return { ...res?.data, email };
+        },
+        onSuccess: (data, variables) => {
+            const email = variables
+            showOtpToast(data?.data?.otp);
+            if (setAlert) {
+                setAlert({
+                    message: data?.message || "OTP Sent",
+                    type: "success"
+                })
+            }
+            const sendInfo = {
+                email,
+                sentAt: Date.now(),
+            };
+            localStorage.setItem("otp_info", JSON.stringify(sendInfo));
+            router.replace("/otp-verification");
+        },
+        onError: (error) => {
+            localStorage.removeItem("otp_info");
+            handleApiError({ error, errorMessage: "Failed to send OTP", setAlert });
+        }
+    })
+}
+
+
+
+export const useVerifyOtp = ({ setAlert }) => {
+    const axiosPrivate = useAxiosPrivate();
+    const router = useRouter();
+    return useMutation({
+        mutationFn: async (otp) => {
+            const res = await axiosPrivate.post("/verify-otp", { otp });
+            return res?.data;
+        },
+        onSuccess: (data) => {
+            if (setAlert) {
+                setAlert({
+                    message: data?.message || "OTP Verified",
+                    type: "success"
+                })
+            }
+            localStorage.removeItem("otp_info");
+            router.replace("/reset-password");
+        },
+        onError: (error) => {
+            console.log('ok', error);
+            handleApiError({ error, errorMessage: "Failed to verify OTP", setAlert });
+        }
+    })
 }

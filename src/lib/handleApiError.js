@@ -1,12 +1,14 @@
 import { toast } from "sonner";
 
-const handleApiError = ({ error, errorMessage = "Network Error", throwError = false, setAlert }) => {
-    const errors = error || error?.response?.data?.errors
+const handleApiError = ({ error, errorsArray, errorMessage = "Network Error", throwError = false, setAlert }) => {
+    const errors = error?.response?.data?.errors || errorsArray
     const message =
         error?.response?.data?.message ||
         error?.response?.data?.error ||
         error?.message ||
         errorMessage
+
+    console.log('inside', errors);
 
     if (message) toast.error(message);
     if (setAlert) {

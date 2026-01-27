@@ -9,6 +9,7 @@ export const useGetProfile = () => {
             const res = await axiosPrivate.get("/profileinfo");
             return res.data.data;
         },
+        staleTime: 5 * 60 * 1000,
         enabled: !!axiosPrivate,
     });
 };
