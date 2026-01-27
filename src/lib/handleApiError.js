@@ -1,7 +1,7 @@
 import { toast } from "sonner";
 
 const handleApiError = ({ error, errorMessage = "Network Error", throwError = false, setAlert }) => {
-    const errors = error?.response?.data?.errors
+    const errors = error || error?.response?.data?.errors
     const message =
         error?.response?.data?.message ||
         error?.response?.data?.error ||

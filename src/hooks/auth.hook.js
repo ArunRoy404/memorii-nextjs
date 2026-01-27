@@ -40,3 +40,51 @@ export const useSignIn = ({ setAlert }) => {
         isPending,
     }
 }
+
+export const useSignUp = ({ setAlert }) => {
+    const [isPending, setIsPending] = useState(false);
+    const router = useRouter();
+
+    const handleSignUp = async (data) => {
+        setIsPending(true);
+        try {
+            const res = await signIn("registration", {
+                name: data.name,
+                email: data.email,
+                password: data.password,
+                password_confirmation: data.confirmPassword,
+                redirect: false,
+            });
+
+            if (res?.ok) {
+                setAlert({
+                    type: "success",
+                    message: "Registration successful",
+                });
+                toast.success("Registration successful");
+                router.replace("/");
+            } else {
+
+                let parsedErrors;
+                try {
+                    // Try to parse the error string back into an object
+                    parsedErrors = JSON.parse(res.error);
+                } catch (e) {
+                    // If it's not JSON, it's a generic string error
+                    parsedErrors = { general: res.error };
+                }
+
+                handleApiError({ error: parsedErrors, errorMessage: "Registration failed", setAlert });
+            }
+        } catch (error) {
+            handleApiError({ error, errorMessage: "Network error", setAlert });
+        } finally {
+            setIsPending(false);
+        }
+    }
+
+    return {
+        handleSignUp,
+        isPending,
+    }
+}

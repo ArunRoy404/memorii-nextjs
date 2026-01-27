@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 const handler = NextAuth({
     providers: [
         CredentialsProvider({
+            id: "credentials",
             name: "Credentials",
             credentials: {
                 email: { label: "Email", type: "email" },
@@ -32,12 +33,56 @@ const handler = NextAuth({
                         return {
                             ...data.data.user,
                             token: data.data.token,
-                            rememberMe: credentials.rememberMe,
+                            rememberMe: credentials.rememberMe === 'true',
                         };
                     }
                     return null;
                 } catch (error) {
                     return null;
+                }
+            },
+        }),
+        CredentialsProvider({
+            id: "registration",
+            name: "Registration",
+            credentials: {
+                name: { label: "Name", type: "text" },
+                email: { label: "Email", type: "email" },
+                password: { label: "Password", type: "password" },
+                password_confirmation: { label: "Confirm Password", type: "password" },
+            },
+            async authorize(credentials) {
+                try {
+                    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/register`, {
+                        method: "POST",
+                        body: JSON.stringify({
+                            name: credentials.name,
+                            email: credentials.email,
+                            password: credentials.password,
+                            password_confirmation: credentials.password_confirmation,
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json"
+                        },
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.success) {
+                        return {
+                            ...data.data.user,
+                            token: data.data.token,
+                        };
+                    }
+
+                    if (data.errors) {
+                        throw new Error(JSON.stringify(data.errors));
+                    }
+
+                    throw new Error("Registration failed");
+                } catch (error) {
+                    throw new Error(error.message);
                 }
             },
         }),
@@ -71,3 +116,4 @@ const handler = NextAuth({
 });
 
 export { handler as GET, handler as POST };
+
