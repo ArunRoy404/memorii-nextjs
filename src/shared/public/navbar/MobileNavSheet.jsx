@@ -12,11 +12,15 @@ import { Menu } from 'lucide-react'
 import NavLinks from './NavLinks';
 import Logo from '@/components/common/logo/Logo';
 import { useState } from 'react';
+import { useSession } from 'next-auth/react';
+import UserProfileSheet from './UserProfileSheet';
 
 
 
 const MobileNavSheet = () => {
     const [open, setOpen] = useState(false);
+    const { data: session, status } = useSession()
+    const user = session?.user
 
     return (
         <Sheet open={open} onOpenChange={setOpen} >
@@ -25,7 +29,7 @@ const MobileNavSheet = () => {
                     <Menu className='scale-110' />
                 </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-64 z-100">
+            <SheetContent side="left" className="w-64 z-100 flex flex-col">
                 <SheetHeader>
                     <SheetTitle>
                         <Logo />
@@ -33,19 +37,20 @@ const MobileNavSheet = () => {
                 </SheetHeader>
 
 
-                <div className="grid flex-1 auto-rows-min gap-6 px-4">
+                <div className="grid flex-1 auto-rows-min gap-6 px-4 py-6">
                     <NavLinks onNavigate={() => setOpen(false)} />
                 </div>
 
 
 
-                <SheetFooter>
-                    <Link href="/login">
-                        <Button className='w-full' >Login</Button>
-                    </Link>
-                    {/* <Link href="/get-started">
-                        <Button variant="outline" className='w-full'>Get Started</Button>
-                    </Link> */}
+                <SheetFooter className="mt-auto border-t pt-4 px-4 pb-4">
+                    {status === 'authenticated' ? (
+                        <UserProfileSheet />
+                    ) : (
+                        <Link href="/login" onClick={() => setOpen(false)} className='w-full'>
+                            <Button className='w-full' >Login</Button>
+                        </Link>
+                    )}
                 </SheetFooter>
 
             </SheetContent>

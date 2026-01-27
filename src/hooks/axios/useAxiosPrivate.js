@@ -2,6 +2,7 @@
 
 import { axiosPrivate } from "@/lib/axios.config";
 import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 
 const useAxiosPrivate = () => {
@@ -35,6 +36,7 @@ const useAxiosPrivate = () => {
             axiosPrivate.interceptors.response.eject(resposeIntercept)
         }
     }, [session])
+    return axiosPrivate;
 };
 
 export default useAxiosPrivate;
