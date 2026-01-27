@@ -1,16 +1,10 @@
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { LayoutDashboard, LogOut, User } from 'lucide-react'
-import { signOut } from 'next-auth/react';
+import { User } from 'lucide-react'
 import CommonAvatar from '../CommonAvatar/CommonAvatar';
 import { useGetProfile } from '@/hooks/user/user.hook';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import UserProfileDropDownContent from './UserProfileDropDownContent';
