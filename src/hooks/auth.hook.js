@@ -147,7 +147,6 @@ export const useVerifyOtp = ({ setAlert }) => {
             router.replace("/reset-password");
         },
         onError: (error) => {
-            console.log('ok', error);
             handleApiError({ error, errorMessage: "Failed to verify OTP", setAlert });
         }
     })

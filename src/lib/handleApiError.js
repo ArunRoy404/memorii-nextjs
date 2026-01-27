@@ -8,8 +8,6 @@ const handleApiError = ({ error, errorsArray, errorMessage = "Network Error", th
         error?.message ||
         errorMessage
 
-    console.log('inside', errors);
-
     if (message) toast.error(message);
     if (setAlert) {
         if (errors) {
