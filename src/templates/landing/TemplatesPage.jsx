@@ -11,6 +11,8 @@ const TemplatesPage = () => {
     const { data: sections } = useGetSections()
     const { data: templates } = useGetTemplates()
     const sectionData = sections?.find(section => section?.section === 'perfect_template')
+    const templatesList = templates?.data
+
 
     return (
         <CommonSection
@@ -21,7 +23,7 @@ const TemplatesPage = () => {
             <TemplateCategoriesDropdown />
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10'>
-                {templates?.map((template) => (
+                {templatesList?.map((template) => (
                     <TemplateCard
                         template={template}
                         key={template?.id}

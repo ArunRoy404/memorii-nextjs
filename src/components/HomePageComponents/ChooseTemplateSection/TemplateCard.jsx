@@ -6,7 +6,7 @@ const TemplateCard = ({ template }) => {
 
     return (
         <div className='flex flex-col items-center gap-4 md:gap-6 group w-full'>
-            <div className='rounded-md relative overflow-hidden w-full aspect-3/4 hover:shadow-xl transition-all duration-300 '>
+            <div className='rounded-md relative overflow-hidden w-full aspect-3/4 hover:shadow-xl hover:scale-101 transition-all duration-300 '>
                 <TemplateCardClick template={template} />
 
                 <Image

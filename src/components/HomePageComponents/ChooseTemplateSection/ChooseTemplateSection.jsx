@@ -11,6 +11,7 @@ import { useGetTemplates } from '@/hooks/templates.hook';
 const ChooseTemplateSection = () => {
     const { data: sections } = useGetSections()
     const { data: templates } = useGetTemplates()
+    const templatesList = templates?.data
     const sectionData = sections?.find(section => section?.section === 'template_occasions')
 
     return (
@@ -20,13 +21,12 @@ const ChooseTemplateSection = () => {
         >
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10'>
-                {templates?.slice(0, 4)?.map((template) => (
+                {templatesList?.slice(0, 4)?.map((template) => (
                     <TemplateCard
                         template={template}
                         key={template?.id}
                     />
                 ))}
-                
             </div>
 
             <div className='max-w-max mx-auto mt-10'>
