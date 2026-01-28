@@ -6,9 +6,12 @@ import Logo from '@/components/common/logo/Logo'
 import MobileNavSheet from './MobileNavSheet'
 import { useEffect, useState } from 'react'
 import NavLinks from './NavLinks'
+import { useSession } from 'next-auth/react'
+import UserProfile from './UserProfile'
 
 
 export default function Navbar() {
+    const { data: session, status } = useSession()
     const [isVisible, setIsVisible] = useState(true)
     const [lastScrollY, setLastScrollY] = useState(0)
 
@@ -46,10 +49,14 @@ export default function Navbar() {
 
                 {/* actions  */}
                 <div className='flex items-center gap-2'>
-                    <div className='hidden xl:block space-x-4'>
-                        <Link href="/login">
-                            <Button >Login</Button>
-                        </Link>
+                    <div className='hidden xl:flex items-center space-x-4'>
+                        {status === 'authenticated' ? (
+                            <UserProfile />
+                        ) : (
+                            <Link href="/login">
+                                <Button >Login</Button>
+                            </Link>
+                        )}
                         {/* <Link href="/get-started">
                             <Button variant="outlineShiny">Get Started</Button>
                         </Link> */}

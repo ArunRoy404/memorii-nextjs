@@ -1,10 +1,14 @@
 import handleApiError from "@/lib/handleApiError";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { showOtpToast } from "@/lib/otpToast";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useAxiosPrivate from "./axios/useAxiosPrivate";
 
 export const useSignIn = ({ setAlert }) => {
+
     const [isPending, setIsPending] = useState(false);
     const router = useRouter();
 
@@ -39,4 +43,156 @@ export const useSignIn = ({ setAlert }) => {
         handleSignIn,
         isPending,
     }
+}
+
+export const useSignUp = ({ setAlert }) => {
+    const [isPending, setIsPending] = useState(false);
+    const router = useRouter();
+
+    const handleSignUp = async (data) => {
+        setIsPending(true);
+        try {
+            const res = await signIn("registration", {
+                name: data.name,
+                email: data.email,
+                password: data.password,
+                password_confirmation: data.confirmPassword,
+                redirect: false,
+            });
+
+            if (res?.ok) {
+                setAlert({
+                    type: "success",
+                    message: "Registration successful",
+                });
+                toast.success("Registration successful");
+                router.replace("/");
+            } else {
+
+                let parsedErrors;
+                try {
+                    // Try to parse the error string back into an object
+                    parsedErrors = JSON.parse(res.error);
+                } catch (e) {
+                    // If it's not JSON, it's a generic string error
+                    parsedErrors = { general: res.error };
+                }
+
+                handleApiError({ errorsArray: parsedErrors, errorMessage: "Registration failed", setAlert });
+            }
+        } catch (error) {
+            handleApiError({ error, errorMessage: "Network error", setAlert });
+        } finally {
+            setIsPending(false);
+        }
+    }
+
+    return {
+        handleSignUp,
+        isPending,
+    }
+}
+
+
+
+export const useSendOtp = ({ setAlert }) => {
+    const axiosPrivate = useAxiosPrivate();
+    const router = useRouter();
+    return useMutation({
+        mutationFn: async (email) => {
+            const res = await axiosPrivate.post("/send-otp?email=" + email);
+            return { ...res?.data, email };
+        },
+        onSuccess: (data, variables) => {
+            const email = variables
+            showOtpToast(data?.data?.otp);
+            if (setAlert) {
+                setAlert({
+                    message: data?.message || "OTP Sent",
+                    type: "success"
+                })
+            }
+            const sendInfo = {
+                email,
+                sentAt: Date.now(),
+            };
+            localStorage.setItem("otp_info", JSON.stringify(sendInfo));
+            router.replace("/otp-verification");
+        },
+        onError: (error) => {
+            localStorage.removeItem("otp_info");
+            handleApiError({ error, errorMessage: "Failed to send OTP", setAlert });
+        }
+    })
+}
+
+
+
+export const useVerifyOtp = ({ setAlert }) => {
+    const axiosPrivate = useAxiosPrivate();
+    const router = useRouter();
+    return useMutation({
+        mutationFn: async (otp) => {
+            const res = await axiosPrivate.post("/verify-otp", { otp });
+            return res?.data;
+        },
+        onSuccess: (data) => {
+            if (setAlert) {
+                setAlert({
+                    message: data?.message || "OTP Verified",
+                    type: "success"
+                })
+            }
+            router.replace("/reset-password");
+        },
+        onError: (error) => {
+            handleApiError({ error, errorMessage: "Failed to verify OTP", setAlert });
+        }
+    })
+}
+
+
+export const useResetPassword = ({ setAlert }) => {
+    const axiosPrivate = useAxiosPrivate();
+    const router = useRouter();
+    return useMutation({
+        mutationFn: async (data) => {
+            const res = await axiosPrivate.post("/reset-password", data);
+            return res?.data;
+        },
+        onSuccess: (data) => {
+            if (setAlert) {
+                setAlert({
+                    message: data?.message || "Password reset successful",
+                    type: "success"
+                })
+            }
+            toast.success("Password reset successful");
+            localStorage.removeItem("otp_info");
+            router.replace("/login");
+        },
+        onError: (error) => {
+            handleApiError({ error, errorMessage: "Failed to reset password", setAlert });
+        }
+    })
+}
+
+export const useLogout = () => {
+    const queryClient = useQueryClient();
+    const axiosPrivate = useAxiosPrivate();
+    return useMutation({
+        mutationFn: async () => {
+            const res = await axiosPrivate.post("/logout");
+            return res?.data;
+        },
+        onSuccess: () => {
+            signOut();
+            queryClient.invalidateQueries({
+                queryKey: ["profileinfo"],
+            });
+        },
+        onError: (error) => {
+            handleApiError({ error, errorMessage: "Failed to logout" });
+        }
+    })
 }

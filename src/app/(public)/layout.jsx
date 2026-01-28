@@ -1,12 +1,10 @@
 import LenisProvider from '@/providers/LenisProvider';
-import QueryProvider from '@/providers/QueryProvider';
 import Footer from '@/shared/public/footer/Footer';
 import Navbar from '@/shared/public/navbar/Navbar';
 import React from 'react';
 import { prefetchLayoutData } from '@/hooks/prefetch.hook';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import getQueryClient from '@/lib/getQueryClient';
-import { Toaster } from "@/components/ui/sonner";
 import ChooseTemplate from "@/components/common/ChooseTemplate/ChooseTemplate";
 
 
@@ -16,7 +14,6 @@ const PublicLayout = async ({ children }) => {
     await prefetchLayoutData(queryClient);
     return (
         <>
-            <QueryProvider>
                 <HydrationBoundary state={dehydrate(queryClient)}>
                     <LenisProvider>
                         <div className='min-h-dvh flex flex-col'>
@@ -27,10 +24,8 @@ const PublicLayout = async ({ children }) => {
                             <Footer />
                         </div>
                     </LenisProvider>
-                    <Toaster />
                     <ChooseTemplate />
                 </HydrationBoundary>
-            </QueryProvider>
         </>
     );
 };

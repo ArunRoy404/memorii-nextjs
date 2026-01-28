@@ -6,15 +6,18 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputForm from '@/components/common/Input/InputForm';
-import notImplementedToast from '@/lib/notImplementedToast';
-import { useRouter } from 'next/navigation';
+import { useSendOtp } from '@/hooks/auth.hook';
+import { useState } from 'react';
+import CommonAlert from '@/components/common/CommonAlert/CommonAlert';
 
 const formSchema = z.object({
     email: z.string().email("Enter a valid email address"),
 });
 
 const ForgetPasswordPage = () => {
-    const router = useRouter()
+    const [alert, setAlert] = useState(null)
+    const { mutate: handleSendOtp, isPending } = useSendOtp({ setAlert })
+
     const {
         register,
         handleSubmit,
@@ -27,8 +30,7 @@ const ForgetPasswordPage = () => {
     });
 
     const onSubmit = (data) => {
-        notImplementedToast();
-        router.push('/otp-verification')
+        handleSendOtp(data.email)
     };
 
     return (
@@ -47,9 +49,12 @@ const ForgetPasswordPage = () => {
                     errors={errors}
                 />
 
+                {!!alert && <CommonAlert alert={alert} />}
+
                 <Button
                     type="submit"
                     className="w-full"
+                    isLoading={isPending}
                 >
                     Continue
                 </Button>

@@ -11,6 +11,7 @@ export default function CommonAlert({ alert }) {
     const type = alert?.type
     const errors = alert?.errors
 
+
     return (
         <Alert variant={type === "success" ? "success" : "destructive"}>
             {type === "success" ? <CheckCircleIcon /> : <AlertCircleIcon />}
@@ -20,7 +21,7 @@ export default function CommonAlert({ alert }) {
                     errors && (
                         <ul className="list-inside list-disc text-sm">
                             {
-                                Object.keys(errors).map((key) => (
+                                Object.keys(errors)?.map((key) => (
                                     <li key={key}>{errors[key]}</li>
                                 ))
                             }

@@ -8,16 +8,16 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputForm from '@/components/common/Input/InputForm';
-import FormExtra from '@/components/common/Input/FormExtra';
 import FormSeparator from '@/components/common/Input/FormSeparator';
 import FormFooter from '@/components/common/Input/FormFooter';
-import notImplementedToast from '@/lib/notImplementedToast';
-import { useRouter } from 'next/navigation';
+import { useSignUp } from '@/hooks/auth.hook';
+import { useState } from 'react';
+import CommonAlert from '@/components/common/CommonAlert/CommonAlert';
 
 const formSchema = z.object({
     name: z.string().min(1, "Name is required"),
     email: z.string().email("Enter a valid email"),
-    password: z.string().min(6, "Password must be at least 6 characters"),
+    password: z.string().min(8, "Password must be at least 8 characters"),
     confirmPassword: z.string().min(1, "Confirm password is required"),
 }).refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
@@ -25,7 +25,8 @@ const formSchema = z.object({
 });
 
 const RegistrationPage = () => {
-    const router = useRouter()
+    const [alert, setAlert] = useState(null);
+    const { handleSignUp, isPending } = useSignUp({ setAlert });
     const {
         register,
         handleSubmit,
@@ -40,14 +41,9 @@ const RegistrationPage = () => {
         },
     });
 
-    const onSubmit = (data) => {
-        notImplementedToast();
-        router.push('/login')
-    };
-
     return (
         <AuthCard title={'Registration'} className={'space-y-7'}>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-7">
+            <form onSubmit={handleSubmit(handleSignUp)} className="space-y-4 md:space-y-7">
 
                 <InputForm
                     id="name"
@@ -85,8 +81,14 @@ const RegistrationPage = () => {
                     errors={errors}
                 />
 
+                {!!alert && <CommonAlert alert={alert} />}
+
                 {/* Submit */}
-                <Button type="submit" className="w-full">
+                <Button
+                    type="submit"
+                    className="w-full"
+                    isLoading={isPending}
+                >
                     Register
                 </Button>
 
