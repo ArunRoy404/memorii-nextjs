@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -11,7 +13,10 @@ const DeleteAccount = () => {
                     By deleting your account, you’ll no longer be able to access any of your designs or log in to memorii.
                 </p>
 
-                <Button variant="outline" className="w-full md:w-auto text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700">
+                <Button
+                    notImplemented
+                    variant="outline"
+                    className="w-full md:w-auto text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700">
                     Delete Account
                 </Button>
             </CardContent>
