@@ -6,7 +6,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import InputForm from '@/components/common/Input/InputForm';
-import notImplementedToast from '@/lib/notImplementedToast';
+import { useState } from "react";
+import CommonAlert from "@/components/common/CommonAlert/CommonAlert";
+import { useChangePassword } from "@/hooks/user/user.hook";
 
 // 1. Define the validation schema
 const passwordSchema = z.object({
@@ -19,6 +21,9 @@ const passwordSchema = z.object({
 });
 
 const UpdatePassword = () => {
+    const [alert, setAlert] = useState(null);
+    const { mutate: handleChangePassword, isPending } = useChangePassword({ setAlert });
+
     // 2. Initialize the form
     const {
         register,
@@ -36,9 +41,15 @@ const UpdatePassword = () => {
 
     // 3. Handle submission
     const onSubmit = (data) => {
-        console.log("Password Data:", data);
-        notImplementedToast();
-        reset(); // Clear form after success
+        handleChangePassword({
+            current_password: data.currentPassword,
+            new_password: data.newPassword,
+            new_password_confirmation: data.confirmPassword,
+        }, {
+            onSuccess: () => {
+                reset();
+            }
+        });
     };
 
     return (
@@ -80,8 +91,14 @@ const UpdatePassword = () => {
                         errors={errors}
                     />
 
+                    {!!alert && <CommonAlert alert={alert} />}
+
                     <div className="pt-2">
-                        <Button type="submit" className="w-full md:w-auto">
+                        <Button
+                            type="submit"
+                            className="w-full md:w-auto"
+                            isLoading={isPending}
+                        >
                             Update Password
                         </Button>
                     </div>
