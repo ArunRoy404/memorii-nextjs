@@ -143,11 +143,36 @@ export const useVerifyOtp = ({ setAlert }) => {
                     type: "success"
                 })
             }
-            localStorage.removeItem("otp_info");
             router.replace("/reset-password");
         },
         onError: (error) => {
             handleApiError({ error, errorMessage: "Failed to verify OTP", setAlert });
+        }
+    })
+}
+
+
+export const useResetPassword = ({ setAlert }) => {
+    const axiosPrivate = useAxiosPrivate();
+    const router = useRouter();
+    return useMutation({
+        mutationFn: async (data) => {
+            const res = await axiosPrivate.post("/reset-password", data);
+            return res?.data;
+        },
+        onSuccess: (data) => {
+            if (setAlert) {
+                setAlert({
+                    message: data?.message || "Password reset successful",
+                    type: "success"
+                })
+            }
+            toast.success("Password reset successful");
+            localStorage.removeItem("otp_info");
+            router.replace("/login");
+        },
+        onError: (error) => {
+            handleApiError({ error, errorMessage: "Failed to reset password", setAlert });
         }
     })
 }
