@@ -10,11 +10,9 @@ import {
     SidebarMenuItem,
     SidebarRail,
 } from "@/components/ui/sidebar"
-import {
-    LogOut,
-} from 'lucide-react';
 import Logo from "@/components/common/logo/Logo";
 import DashboardNavigation from "@/components/dashboardComponents/DashboardNavigation";
+import DashboardLogoutButton from "./DashboardLogoutButton";
 
 
 
@@ -57,10 +55,7 @@ export function DashboardSidebar(props) {
             >
                 {/* logout  */}
                 <SidebarMenuItem>
-                    <SidebarMenuButton tooltip='Logout' className="cursor-pointer text-red-500 hover:text-red-500">
-                        <LogOut />
-                        Logout
-                    </SidebarMenuButton>
+                    <DashboardLogoutButton />
                 </SidebarMenuItem>
             </SidebarFooter>
 
