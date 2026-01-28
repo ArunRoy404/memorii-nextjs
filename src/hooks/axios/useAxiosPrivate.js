@@ -1,7 +1,7 @@
 "use client";
 
 import { axiosPrivate } from "@/lib/axios.config";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useEffect } from "react";
 
 
@@ -24,7 +24,7 @@ const useAxiosPrivate = () => {
             (response) => response,
             (error) => {
                 if (error?.response?.status === 401) {
-                    console.log('yesssssssssssssss', error);
+                    signOut({ callbackUrl: "/login" });
                 }
                 return Promise.reject(error)
             }

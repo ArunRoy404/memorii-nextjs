@@ -1,10 +1,10 @@
 import handleApiError from "@/lib/handleApiError";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { showOtpToast } from "@/lib/otpToast";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosPrivate from "./axios/useAxiosPrivate";
 
 export const useSignIn = ({ setAlert }) => {
@@ -173,6 +173,26 @@ export const useResetPassword = ({ setAlert }) => {
         },
         onError: (error) => {
             handleApiError({ error, errorMessage: "Failed to reset password", setAlert });
+        }
+    })
+}
+
+export const useLogout = () => {
+    const queryClient = useQueryClient();
+    const axiosPrivate = useAxiosPrivate();
+    return useMutation({
+        mutationFn: async () => {
+            const res = await axiosPrivate.post("/logout");
+            return res?.data;
+        },
+        onSuccess: () => {
+            signOut();
+            queryClient.invalidateQueries({
+                queryKey: ["profileinfo"],
+            });
+        },
+        onError: (error) => {
+            handleApiError({ error, errorMessage: "Failed to logout" });
         }
     })
 }
