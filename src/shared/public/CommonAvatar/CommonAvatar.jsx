@@ -6,7 +6,7 @@ export default function CommonAvatar({ src, fallback, alt, className }) {
         <Avatar className={cn(
             className
         )}>
-            <AvatarImage src={src || "https://github.com/shadcn.png"} alt={alt} />
+            <AvatarImage src={src} alt={alt} />
             <AvatarFallback>{fallback?.slice(0, 2).toUpperCase()}</AvatarFallback>
         </Avatar>
     )
