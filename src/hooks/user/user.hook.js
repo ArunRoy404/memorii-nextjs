@@ -2,10 +2,12 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosPrivate from "../axios/useAxiosPrivate";
 import { toast } from "sonner";
 import handleApiError from "@/lib/handleApiError";
+import { useSession } from "next-auth/react";
 
 
 export const useGetProfile = () => {
     const axiosPrivate = useAxiosPrivate();
+    const { status } = useSession();
     return useQuery({
         queryKey: ["profileinfo"],
         queryFn: async () => {
@@ -13,7 +15,7 @@ export const useGetProfile = () => {
             return res.data.data;
         },
         staleTime: 5 * 60 * 1000,
-        enabled: !!axiosPrivate,
+        enabled: !!axiosPrivate && status === "authenticated",
     });
 };
 

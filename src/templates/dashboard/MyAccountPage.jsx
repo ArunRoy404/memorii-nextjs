@@ -8,9 +8,11 @@ import { Input } from '@/components/ui/input';
 import React, { useEffect, useRef, useState } from 'react';
 import { useGetProfile, useRemoveProfilePhoto, useUpdateProfileInfo, useUpdateProfilePhoto } from '@/hooks/user/user.hook';
 import { useForm } from 'react-hook-form';
+import { MyAccountPageSkeleton } from '@/components/skeletons/MyAccountPageSkeleton';
+import ProfileEmail from '@/components/dashboardComponents/ProfileEmail';
 
 const MyAccountPage = () => {
-    const { data } = useGetProfile()
+    const { data, isLoading } = useGetProfile()
     const profileData = data?.user
     const [isEditing, setIsEditing] = useState(false);
     const fileInputRef = useRef(null);
@@ -22,7 +24,6 @@ const MyAccountPage = () => {
     const { register, handleSubmit, reset } = useForm({
         defaultValues: {
             name: profileData?.name || '',
-            email: profileData?.email || '',
         }
     });
 
@@ -30,7 +31,6 @@ const MyAccountPage = () => {
         if (profileData) {
             reset({
                 name: profileData.name,
-                email: profileData.email,
             });
         }
     }, [profileData, reset]);
@@ -55,6 +55,10 @@ const MyAccountPage = () => {
     const handleChangePhotoClick = () => {
         fileInputRef.current?.click();
     };
+
+    if (isLoading) {
+        return <MyAccountPageSkeleton />
+    }
 
 
     return (
@@ -152,18 +156,8 @@ const MyAccountPage = () => {
                             </div>
                         </form>
 
-                        {/* Email Field */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-900 mb-2">Email</label>
-                            <div className="flex flex-col md:flex-row gap-3">
-                                <Input
-                                    {...register("email")}
-                                    className="flex-1 h-8"
-                                    disabled
-                                />
-                                <Button notImplemented size='sm' variant="outline" className="w-full md:w-auto">Edit</Button>
-                            </div>
-                        </div>
+                        {/* Email Field Component */}
+                        <ProfileEmail email={profileData?.email} />
                     </div>
                 </CardContent>
             </Card>
