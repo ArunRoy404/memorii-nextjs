@@ -3,11 +3,11 @@ import { NextResponse } from "next/server"
 
 export const GET = async (req) => {
     const { searchParams } = new URL(req.url)
-    // const secret = searchParams.get('secret')
+    const secret = searchParams.get('secret')
 
-    // if (secret !== process.env.REVALDATE_SECRET) {
-    //     return NextResponse.json({ messgae: 'Unauthorized' }, { status: 401 })
-    // }
+    if (secret !== process.env.REVALIDATE_SECRET) {
+        return NextResponse.json({ messgae: 'Unauthorized' }, { status: 401 })
+    }
 
     const tags = [
         'sections',
