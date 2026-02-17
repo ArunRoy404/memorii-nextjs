@@ -6,7 +6,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'maishami.thesyndicates.team',
         port: '',
-        pathname: '/uploads/**',
+        pathname: '/**',
       },
     ],
   },
