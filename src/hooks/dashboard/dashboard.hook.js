@@ -18,3 +18,19 @@ export const useGetStats = () => {
         enabled: !!axiosPrivate && status === "authenticated",
     });
 };
+
+export const useGetAllDrafts = () => {
+    const axiosPrivate = useAxiosPrivate();
+    const { status } = useSession();
+    return useQuery({
+        queryKey: ["all-drafts"],
+        queryFn: async () => {
+            const res = await axiosPrivate.get("/all-drafts");
+            return res.data.data;
+        },
+        staleTime: 5 * 60 * 1000,
+        enabled: !!axiosPrivate && status === "authenticated",
+    });
+};
+
+
