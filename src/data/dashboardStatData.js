@@ -1,40 +1,40 @@
 import {
     FileText,
-        Send,
-        Inbox,
-        BookHeart,
-        BookOpen
+    Send,
+    Inbox,
+    BookHeart,
+    BookOpen
 } from 'lucide-react';
 
 
 const dashboardStatData = [
     {
-        label: 'Active e-cards',
-        count: '08',
+        key: "Active e-card",
+        label: 'Active e-card',
         icon: BookHeart,
         bgColor: 'bg-primary',
     },
     {
-        label: 'Active e-memory book',
-        count: '08',
+        key: "Active memory book",
+        label: 'Active memory book',
         icon: BookOpen,
         bgColor: 'bg-dashboard-primary',
     },
     {
+        key: "Sent",
         label: 'Sent',
-        count: '08',
         icon: Send,
         bgColor: 'bg-primary',
     },
     {
-        label: 'Draft',
-        count: '08',
+        key: "Drafts",
+        label: 'Drafts',
         icon: FileText,
         bgColor: 'bg-orange-400',
     },
     {
-        label: 'Receieved',
-        count: '08',
+        key: "Received",
+        label: 'Received',
         icon: Inbox,
         bgColor: 'bg-blue-400',
     },
