@@ -48,7 +48,7 @@ const DashboardStats = () => {
                         </div>
                         <p className="text-xs text-gray-600 mb-1">{stat.label}</p>
                         <p className="text-2xl md:text-3xl font-bold text-gray-900">
-                            {stats?.[stat.key] || 0}
+                            {stats?.[stat?.key] || 0}
                         </p>
                     </CardContent>
                 </Card>
