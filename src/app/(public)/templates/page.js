@@ -5,14 +5,18 @@ import getQueryClient from '@/lib/getQueryClient';
 
 const page = async ({ searchParams }) => {
     const params = await searchParams
-    const currentPage = Number(params?.page) || 1
+    const filters = {
+        page: Number(params?.page) || 1,
+        category: params?.category || '',
+        occasion: params?.occasion || '',
+    };
 
     const queryClient = getQueryClient()
-    await prefetchTemplatesData(queryClient, currentPage)
+    await prefetchTemplatesData(queryClient, filters)
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
-            <TemplatesPage currentPage={currentPage} />
+            <TemplatesPage filters={filters} />
         </HydrationBoundary>
     )
 }

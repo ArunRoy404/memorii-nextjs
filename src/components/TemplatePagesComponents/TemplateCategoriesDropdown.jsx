@@ -1,6 +1,3 @@
-'use client'
-
-import { useEffect, useState } from "react";
 import {
     Select,
     SelectContent,
@@ -8,15 +5,31 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { useCardTypeStore } from "@/store/useCardTypeStore";
 import { useGetCategories } from "@/hooks/templates.hook";
+import { useRouter, useSearchParams } from "next/navigation";
 
 
 const TemplateCategoriesDropdown = () => {
+    const router = useRouter()
+    const searchParams = useSearchParams()
     const { data: categoriesData } = useGetCategories();
-    const { setCardType } = useCardTypeStore();
-    const [selectedCategory, setSelectedCategory] = useState('');
-    const [selectedOccasion, setSelectedOccasion] = useState('');
+    const selectedCategory = searchParams.get('category') || '';
+    const selectedOccasion = searchParams.get('occasion') || '';
+
+    const handleCategoryChange = (val) => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set('category', val);
+        params.delete('occasion');
+        params.set('page', '1');
+        router.push(`?${params.toString()}`);
+    };
+
+    const handleOccasionChange = (val) => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set('occasion', val);
+        params.set('page', '1');
+        router.push(`?${params.toString()}`);
+    };
 
 
     const categories = categoriesData?.category;
@@ -24,16 +37,11 @@ const TemplateCategoriesDropdown = () => {
     const filteredOccasions = occasions?.[selectedCategory]
 
 
-    useEffect(() => {
-        setCardType(selectedCategory);
-    }, [selectedCategory, setCardType])
-
-
     return (
         <div className="mx-auto max-w-max mb-20 flex flex-col lg:flex-row gap-4 md:gap-4 items-center">
 
             <div className="flex flex-col sm:flex-row justify-between sm:space-x-4 space-y-4 sm:space-y-0 w-full md:w-auto">
-                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <Select value={selectedCategory} onValueChange={handleCategoryChange}>
                     <SelectTrigger
                         className='text-subtitle font-semibold min-w-2xs text-md md:text-2xl rounded-2xl border-border justify-between active:scale-100 hover:scale-100 p-6'
                     >
@@ -59,7 +67,7 @@ const TemplateCategoriesDropdown = () => {
 
                 <Select
                     disabled={!selectedCategory}
-                    value={selectedOccasion} onValueChange={setSelectedOccasion}>
+                    value={selectedOccasion} onValueChange={handleOccasionChange}>
                     <SelectTrigger
                         className='text-subtitle font-semibold min-w-2xs text-md md:text-2xl rounded-2xl border-border justify-between active:scale-100 hover:scale-100 p-6'
                     >
