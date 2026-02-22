@@ -13,7 +13,9 @@ export const getTemplates = (page = 1, category = '', occasion = '') => {
     if (category) params.append('template', category)
     if (occasion) params.append('occasions', occasion)
 
-    return apiRequest(`/templates?${params.toString()}`, `templates-page-${page}`);
+    const uniqueTag = `templates-${category}-${occasion}-${page}`;
+
+    return apiRequest(`/templates?${params.toString()}`, uniqueTag);
 }
 
 export const useGetCategories = () => useQuery({

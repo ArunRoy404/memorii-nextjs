@@ -38,6 +38,11 @@ export default function ChooseTemplate() {
     const router = useRouter()
 
 
+    // console.log(selectedTemplate);
+    const image = selectedTemplate?.image
+    const occasion = selectedTemplate?.category?.name
+
+
     const handleSelectTemplate = () => {
         // localStorage.removeItem('card-type-store')
         localStorage.removeItem('editor-storage')
@@ -66,7 +71,7 @@ export default function ChooseTemplate() {
                                 {
                                     !!selectedTemplate && (
                                         <Image
-                                            src={selectedTemplate?.src}
+                                            src={image}
                                             alt={selectedTemplate?.title || 'Template image'}
                                             className=""
                                         />
@@ -93,7 +98,7 @@ export default function ChooseTemplate() {
                                                             {
                                                                 !!selectedTemplate && (
                                                                     <Image
-                                                                        src={selectedTemplate?.src}
+                                                                        src={image}
                                                                         alt={selectedTemplate?.title || 'Template image'}
 
                                                                     />
@@ -108,7 +113,7 @@ export default function ChooseTemplate() {
                                                                         className="bg-white relative max-h-max"
                                                                     >
                                                                         <Image
-                                                                            src={selectedTemplate?.src}
+                                                                            src={image}
                                                                             alt={selectedTemplate?.title || 'Template image'}
                                                                             className="opacity-0"
                                                                         />
@@ -125,7 +130,7 @@ export default function ChooseTemplate() {
                                                                         className="bg-white"
                                                                     >
                                                                         <Image
-                                                                            src={selectedTemplate?.src}
+                                                                            src={image}
                                                                             alt={selectedTemplate?.title || 'Template image'}
                                                                             className="opacity-0 "
                                                                         />
