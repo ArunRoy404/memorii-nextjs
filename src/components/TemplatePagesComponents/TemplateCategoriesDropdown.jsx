@@ -1,6 +1,3 @@
-'use client'
-
-import { useEffect, useState } from "react";
 import {
     Select,
     SelectContent,
@@ -8,7 +5,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { useCardTypeStore } from "@/store/useCardTypeStore";
 import { useGetCategories } from "@/hooks/templates.hook";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -17,7 +13,6 @@ const TemplateCategoriesDropdown = () => {
     const router = useRouter()
     const searchParams = useSearchParams()
     const { data: categoriesData } = useGetCategories();
-    const { setCardType } = useCardTypeStore();
     const selectedCategory = searchParams.get('category') || '';
     const selectedOccasion = searchParams.get('occasion') || '';
 
@@ -40,11 +35,6 @@ const TemplateCategoriesDropdown = () => {
     const categories = categoriesData?.category;
     const occasions = categoriesData?.template
     const filteredOccasions = occasions?.[selectedCategory]
-
-
-    useEffect(() => {
-        setCardType(selectedCategory);
-    }, [selectedCategory, setCardType])
 
 
     return (

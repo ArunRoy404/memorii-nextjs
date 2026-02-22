@@ -9,7 +9,6 @@ import { useGetTemplates } from '@/hooks/templates.hook';
 
 const TemplatesPage = ({ filters }) => {
     const { page, category, occasion } = filters;
-
     const { data: sections } = useGetSections()
     const { data: templatesResponse } = useGetTemplates(page, category, occasion)
     const sectionData = sections?.find(section => section?.section === 'perfect_template')

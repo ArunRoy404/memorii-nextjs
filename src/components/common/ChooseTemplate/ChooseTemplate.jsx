@@ -25,37 +25,63 @@ import { useRouter } from "next/navigation";
 import { useEditorStore } from "@/store/useEditorStore";
 import { useTextObjectStore } from "@/store/useTextObjectStore";
 import { useGetPricePlan } from "@/hooks/pricePlan.hook";
+import { useCreateECard } from "@/hooks/ECard/e-card.hook";
 
 
 export default function ChooseTemplate() {
     const { data: pricePlan } = useGetPricePlan()
     const { resetEditorStore } = useEditorStore()
-    const { setSelectedTemplate: selectTemplateForEdit } = useEditorTemplateStore()
     const { selectedTemplate, resetTemplateStore, setSelectedTemplate } = useTemplateStore()
-    const { resetTextObjectStore } = useTextObjectStore()
-
     const [selectedSize, setSelectedSize] = useState(1);
-    const router = useRouter()
 
+    const { mutateAsync: createECard, isPending } = useCreateECard()
 
-    // console.log(selectedTemplate);
+    // const { resetTextObjectStore } = useTextObjectStore()
+    // const { setSelectedTemplate: selectTemplateForEdit } = useEditorTemplateStore()
+    // const router = useRouter()
+
+    console.log(selectedTemplate);
+
+    const template_id = selectedTemplate?.id
     const image = selectedTemplate?.image
     const occasion = selectedTemplate?.category?.name
+    const plan_id = selectedSize
 
 
     const handleSelectTemplate = () => {
-        // localStorage.removeItem('card-type-store')
         localStorage.removeItem('editor-storage')
         localStorage.removeItem('editor-template-storage')
         localStorage.removeItem('text-object')
-
-
-        setSelectedTemplate(null)
-        selectTemplateForEdit(selectedTemplate)
         resetEditorStore()
-        resetTextObjectStore()
-        toast.success("Template Selected")
-        router.push(`/editor/${selectedTemplate?.id}`)
+
+
+        const payload = {
+            template_id,
+            plan_id,
+            pages: [{}]
+        };
+
+        toast.promise(createECard(payload), {
+            loading: 'Creating your E-Card...',
+            success: (data) => {
+                // Optional: You can use the response data here
+                return 'E-Card created successfully!';
+            },
+            error: (err) => {
+                // Optional: Use the error handler logic here
+                return err?.message || 'Failed to create E-Card';
+            },
+        });
+
+
+        // setSelectedTemplate(null)
+        // resetTextObjectStore()
+        // toast.success("Template Selected")
+
+
+        // localStorage.removeItem('card-type-store')
+        // selectTemplateForEdit(selectedTemplate)
+        // router.push(`/editor/${selectedTemplate?.id}`)
     }
     return (
         <Dialog open={selectedTemplate !== null} onOpenChange={() => resetTemplateStore()}>
@@ -67,16 +93,15 @@ export default function ChooseTemplate() {
 
                         {/* MAIN IMAGE (BIG ON ALL DEVICES) */}
                         <div className="bg-gray-200 rounded-xl p-3 sm:p-4 flex items-center flex-1 justify-center">
-                            <div className="relative w-full max-w-[320px] sm:max-w-[380px] md:max-w-[420px]  overflow-hidden rounded-lg">
-                                {
-                                    !!selectedTemplate && (
-                                        <Image
-                                            src={image}
-                                            alt={selectedTemplate?.title || 'Template image'}
-                                            className=""
-                                        />
-                                    )
-                                }
+                            <div className="relative w-full aspect-3/4 max-w-[320px] sm:max-w-[380px] md:max-w-[420px] overflow-hidden rounded-lg">
+                                {!!selectedTemplate && (
+                                    <Image
+                                        src={image}
+                                        alt={selectedTemplate?.title || 'Template image'}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                )}
                             </div>
                         </div>
 
@@ -91,55 +116,44 @@ export default function ChooseTemplate() {
                                         className="basis-1/3"
                                     >
                                         <Card className="border-none bg-gray-200 p-2 lg:p-4">
-                                            <CardContent className="p-0 flex items-center justify-center">
-                                                {
-                                                    index === 0 ? (
-                                                        <div className="relative w-full h-full flex items-center justify-center rounded-md overflow-hidden">
-                                                            {
-                                                                !!selectedTemplate && (
-                                                                    <Image
-                                                                        src={image}
-                                                                        alt={selectedTemplate?.title || 'Template image'}
-
-                                                                    />
-                                                                )
-                                                            }
-                                                        </div>
+                                            <CardContent className="p-0 flex items-center justify-center overflow-hidden">
+                                                <div className="relative w-full aspect-3/4 rounded-md overflow-hidden bg-white">
+                                                    {index === 0 ? (
+                                                        <>
+                                                            {!!selectedTemplate && (
+                                                                <Image
+                                                                    src={image}
+                                                                    alt={selectedTemplate?.title || 'Template image'}
+                                                                    fill
+                                                                    className="object-contain"
+                                                                />
+                                                            )}
+                                                        </>
                                                     ) : index === 3 ? (
-                                                        <div className="relative w-full h-full flex items-center justify-center rounded-md overflow-hidden">
-                                                            {
-                                                                !!selectedTemplate && (
-                                                                    <div
-                                                                        className="bg-white relative max-h-max"
-                                                                    >
-                                                                        <Image
-                                                                            src={image}
-                                                                            alt={selectedTemplate?.title || 'Template image'}
-                                                                            className="opacity-0"
-                                                                        />
-                                                                        <CardBackPage className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
-                                                                    </div>
-                                                                )
-                                                            }
+                                                        <div className="absolute inset-0 flex items-center justify-center">
+                                                            {!!selectedTemplate && (
+                                                                <Image
+                                                                    src={image}
+                                                                    alt="Back filler"
+                                                                    fill
+                                                                    className="opacity-0 pointer-events-none"
+                                                                />
+                                                            )}
+                                                            <CardBackPage className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full' />
                                                         </div>
                                                     ) : (
-                                                        <div className="relative w-full h-full flex items-center justify-center rounded-md overflow-hidden">
-                                                            {
-                                                                !!selectedTemplate && (
-                                                                    <div
-                                                                        className="bg-white"
-                                                                    >
-                                                                        <Image
-                                                                            src={image}
-                                                                            alt={selectedTemplate?.title || 'Template image'}
-                                                                            className="opacity-0 "
-                                                                        />
-                                                                    </div>
-                                                                )
-                                                            }
+                                                        <div className="absolute inset-0 flex items-center justify-center">
+                                                            {!!selectedTemplate && (
+                                                                <Image
+                                                                    src={image}
+                                                                    alt="Template filler"
+                                                                    fill
+                                                                    className="opacity-0 pointer-events-none"
+                                                                />
+                                                            )}
                                                         </div>
-                                                    )
-                                                }
+                                                    )}
+                                                </div>
                                             </CardContent>
                                         </Card>
                                     </CarouselItem>
@@ -212,6 +226,7 @@ export default function ChooseTemplate() {
                         {/* BUTTON */}
                         <Button
                             onClick={handleSelectTemplate}
+                            isLoading={isPending}
                             className="w-full h-11 sm:h-12 text-sm sm:text-base">
                             Personalize
                         </Button>
