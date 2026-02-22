@@ -7,11 +7,11 @@ import { TemplatePagination } from '@/components/TemplatePagesComponents/Templat
 import { useGetSections } from '@/hooks/cms.hook';
 import { useGetTemplates } from '@/hooks/templates.hook';
 
-const TemplatesPage = () => {
+const TemplatesPage = ({ currentPage }) => {
     const { data: sections } = useGetSections()
-    const { data: templates } = useGetTemplates()
+    const { data: templatesResponse } = useGetTemplates(currentPage)
     const sectionData = sections?.find(section => section?.section === 'perfect_template')
-    const templatesList = templates?.data
+    const templatesList = templatesResponse?.data || [];
 
 
     return (
@@ -31,8 +31,8 @@ const TemplatesPage = () => {
                 ))}
             </div>
 
-            <div className='mt-10'>
-                <TemplatePagination />
+            <div className='mt-10 '>
+                <TemplatePagination meta={templatesResponse} />
             </div>
         </CommonSection>
     );
