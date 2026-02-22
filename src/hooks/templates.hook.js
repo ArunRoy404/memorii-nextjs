@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 
 export const getCategories = () => apiRequest('/categories', 'categories');
-export const getTemplates = (page = 1) => apiRequest(`/templates?page=${page}&per_page=16`, `templates-page-${page}`);
+export const getTemplates = (page = 1) => apiRequest(`/templates?page=${page}&perPage=16`, `templates-page-${page}`);
 
 export const useGetCategories = () => useQuery({
     queryKey: ['categories'],
