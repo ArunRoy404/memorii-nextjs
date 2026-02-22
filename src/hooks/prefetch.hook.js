@@ -90,7 +90,7 @@ export const prefetchContactData = async (queryClient) => {
     ]);
 }
 
-export const prefetchTemplatesData = async (queryClient) => {
+export const prefetchTemplatesData = async (queryClient, page = 1) => {
     await Promise.all([
         queryClient.prefetchQuery({
             queryKey: ['dynamic-sections'],
@@ -103,8 +103,8 @@ export const prefetchTemplatesData = async (queryClient) => {
             staleTime: DEFAULT_STALE_TIME,
         }),
         queryClient.prefetchQuery({
-            queryKey: ['templates'],
-            queryFn: getTemplates,
+            queryKey: ['templates', page],
+            queryFn: () => getTemplates(page),
             staleTime: DEFAULT_STALE_TIME,
         }),
     ]);
