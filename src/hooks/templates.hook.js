@@ -4,7 +4,17 @@ import { useQuery } from '@tanstack/react-query';
 
 
 export const getCategories = () => apiRequest('/categories', 'categories');
-export const getTemplates = (page = 1) => apiRequest(`/templates?page=${page}&perPage=16`, `templates-page-${page}`);
+export const getTemplates = (page = 1, category = '', occasion = '') => {
+
+    const params = new URLSearchParams({
+        page: String(page), perPage: '16'
+    })
+
+    if (category) params.append('template', category)
+    if (occasion) params.append('occasions', occasion)
+
+    return apiRequest(`/templates?${params.toString()}`, `templates-page-${page}`);
+}
 
 export const useGetCategories = () => useQuery({
     queryKey: ['categories'],
@@ -12,9 +22,9 @@ export const useGetCategories = () => useQuery({
     staleTime: DEFAULT_STALE_TIME
 });
 
-export const useGetTemplates = (page = 1) => useQuery({
-    queryKey: ['templates', page],
-    queryFn: () => getTemplates(page),
+export const useGetTemplates = (page = 1, category = '', occasion = '') => useQuery({
+    queryKey: ['templates', page, category, occasion],
+    queryFn: () => getTemplates(page, category, occasion),
     staleTime: DEFAULT_STALE_TIME
 });
 
