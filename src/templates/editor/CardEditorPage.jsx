@@ -1,41 +1,48 @@
 'use client'
 
+import Loader from '@/components/common/Loader/Loader';
 import CardOptions from '@/components/EditorComponents/CardOptions';
 import CardEditor from '@/components/EditorComponents/Editor/CardEditor';
-import { useEditorTemplateStore } from '@/store/useEditorTemplateStore';
+import { useGetECard } from '@/hooks/ECard/e-card.hook';
+import { useEditorStore } from '@/store/useEditorStore';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect } from 'react';
 
-const CardEditorPage = () => {
-    const { selectedTemplate } = useEditorTemplateStore();
-    let width = selectedTemplate?.src?.width;
-    let height = selectedTemplate?.src?.height;
 
-    const aspectRatio = width / height;
 
+const CardEditorPage = ({ templateId }) => {
+
+    const { isTemplateLoading, setIsTemplateLoading } = useEditorStore()
+    const { data: eCard, isLoading } = useGetECard(templateId);
+
+
+    useEffect(() => {
+        if (!isLoading && !!eCard) {
+            setIsTemplateLoading(false)
+        }
+    }, [isLoading, setIsTemplateLoading, eCard])
+
+    if (isTemplateLoading) return <Loader />
 
     return (
         <div
             className='container mx-auto px-4 lg:px-0 h-full flex items-center justify-center'
         >
-
             <div
                 className='flex gap-10 mx-auto'
             >
                 {/* template front  */}
                 <div className={`hidden xl:block relative max-w-[500px]`}
-                    style={{ width, aspectRatio }}
                 >
-                    {
+                    {/* {
                         !!selectedTemplate && (
                             <Image
                                 src={selectedTemplate?.src}
                                 alt={selectedTemplate?.title || 'Template image'}
                                 fill
-                            // className="object-cover"
                             />
                         )
-                    }
+                    } */}
                 </div>
 
 

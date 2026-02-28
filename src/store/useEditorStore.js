@@ -6,8 +6,9 @@ export const useEditorStore = create(
         pages: [null],
         currentPage: 0,
         chosenBookPage: null,
+        isTemplateLoading: true,
 
-
+        setIsTemplateLoading: (isTemplateLoading) => set({ isTemplateLoading }),
         setEditorRef: (editorRef) => set({ editorRef }),
         setChosenBookPage: (page) => set({ chosenBookPage: page }),
 
@@ -48,5 +49,4 @@ export const useEditorStore = create(
             set({ chosenBookPage: null });
         }
     }),
-    { name: "editor-storage" }
 );

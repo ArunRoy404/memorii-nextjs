@@ -1,8 +1,9 @@
 import handleApiError from "@/lib/handleApiError";
 import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useAxiosPrivate from "../axios/useAxiosPrivate";
 import { useECardStore } from "@/store/storeGuestIds/useECardStore";
+import { useSession } from "next-auth/react";
 
 
 export const useCreateECard = () => {
@@ -28,3 +29,18 @@ export const useCreateECard = () => {
         }
     })
 }
+
+
+
+export const useGetECard = (id) => {
+    const axiosPrivate = useAxiosPrivate();
+    const { status } = useSession();
+    return useQuery({
+        queryKey: ["stats"],
+        queryFn: async () => {
+            const res = await axiosPrivate.get(`/ecard/${id}`);
+            return res.data.data;
+        },
+        enabled: !!axiosPrivate && status === "authenticated",
+    });
+};

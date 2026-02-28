@@ -6,13 +6,22 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import PreviewTopBar from "@/shared/Editor/PreviewTopBar";
 import SendTopBar from "@/shared/Editor/SendTopBar";
+import { useEditorStore } from "@/store/useEditorStore";
 
+const ChildrenContainer = ({ children }) => {
+    return (
+        <div className="flex-1 overflow-y-auto" >
+            {children}
+        </div>
+    )
+}
 
 export default function EditorLayout({ children }) {
     const pathname = usePathname()
     const [isPreview, setIsPreview] = useState(false)
     const [isEditor, setIsEditor] = useState(false)
     const [isSend, setIsSend] = useState(false)
+    const { isTemplateLoading } = useEditorStore()
 
     useEffect(() => {
         pathname.includes('/preview')
@@ -28,6 +37,12 @@ export default function EditorLayout({ children }) {
             : setIsSend(false)
     }, [pathname])
 
+
+    if (isTemplateLoading) return (
+        <ChildrenContainer>
+            {children}
+        </ChildrenContainer>
+    )
 
     return (
         <div className="w-full h-dvh overflow-hidden bg-gray-100 flex flex-col">
@@ -50,9 +65,9 @@ export default function EditorLayout({ children }) {
             </div>
 
 
-            <div className="flex-1 overflow-y-auto" >
+            <ChildrenContainer>
                 {children}
-            </div>
+            </ChildrenContainer>
 
 
             <div
