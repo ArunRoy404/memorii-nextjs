@@ -19,7 +19,7 @@ export default function EditorLayout({ children }) {
             ? setIsPreview(true)
             : setIsPreview(false)
 
-        pathname.includes('/editor')
+        pathname.includes('/e-card')
             ? setIsEditor(false)
             : setIsEditor(true)
 
