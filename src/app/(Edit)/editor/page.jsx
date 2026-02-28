@@ -1,11 +1,9 @@
-import React from 'react';
+import { redirect } from 'next/navigation';
 
 const Editor = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+    redirect('/templates');
+
+    return null;
 };
 
 export default Editor;
