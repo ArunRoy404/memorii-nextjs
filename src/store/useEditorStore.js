@@ -3,15 +3,19 @@ import { create } from "zustand";
 export const useEditorStore = create(
     (set, get) => ({
         editorRef: null,
+        isTemplateLoading: true,
+
+        frontPage: null,
         pages: [null],
         currentPage: 0,
         chosenBookPage: null,
-        isTemplateLoading: true,
 
         setIsTemplateLoading: (isTemplateLoading) => set({ isTemplateLoading }),
         setEditorRef: (editorRef) => set({ editorRef }),
         setChosenBookPage: (page) => set({ chosenBookPage: page }),
 
+        setFrontPage: (frontPage) => set({ frontPage }),
+        setPages: (pages) => set({ pages }),
 
         addPage: () => {
             const { chosenBookPage } = get()

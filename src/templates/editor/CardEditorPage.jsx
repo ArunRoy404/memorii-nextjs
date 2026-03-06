@@ -12,17 +12,23 @@ import React, { useEffect } from 'react';
 
 const CardEditorPage = ({ templateId }) => {
 
-    const { isTemplateLoading, setIsTemplateLoading } = useEditorStore()
-    const { data: eCard, isLoading } = useGetECard(templateId);
+    const { isTemplateLoading, setIsTemplateLoading, setPages, setFrontPage } = useEditorStore()
+    const { data, isLoading } = useGetECard(templateId);
+    const frontPage = data?.ecard?.template?.image
+    const pages = data?.ecard?.pages || [null]
+    console.log(pages);
 
 
     useEffect(() => {
-        if (!isLoading && !!eCard) {
+        if (!isLoading && !!data) {
+            setFrontPage(frontPage)
             setIsTemplateLoading(false)
+            // setPages(pages || [null])
         }
-    }, [isLoading, setIsTemplateLoading, eCard])
+    }, [isLoading, setIsTemplateLoading, data, setPages])
 
     if (isTemplateLoading) return <Loader />
+
 
     return (
         <div
@@ -32,17 +38,17 @@ const CardEditorPage = ({ templateId }) => {
                 className='flex gap-10 mx-auto'
             >
                 {/* template front  */}
-                <div className={`hidden xl:block relative max-w-[500px]`}
+                <div className={`hidden xl:block relative max-w-[500px] w-[500px]`}
                 >
-                    {/* {
-                        !!selectedTemplate && (
+                    {
+                        !!frontPage && (
                             <Image
-                                src={selectedTemplate?.src}
-                                alt={selectedTemplate?.title || 'Template image'}
+                                src={frontPage}
+                                alt={'Template image'}
                                 fill
                             />
                         )
-                    } */}
+                    }
                 </div>
 
 
@@ -54,18 +60,11 @@ const CardEditorPage = ({ templateId }) => {
 
 
 
-                {/* page and text options  */}
                 <div
                     className='flex max-h-max'
                 >
                     {/* editor  */}
-                    {/* <div
-                        className='w-1/2 aspect-3/4'
-                    ></div> */}
                     <CardEditor />
-
-                    {/* add text options  */}
-                    {/* <CardTextInsert /> */}
                 </div>
             </div>
         </div>
