@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Eye, Edit, FileHeart, BookOpen, Download, Link2 } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 
 
@@ -57,26 +58,30 @@ const DashboardCard = ({ card }) => {
                 <div className="flex gap-3">
                     {
                         card?.viewButton && (
-                            <Button
-                                variant="outline"
-                                className="flex-1 flex items-center justify-center gap-2"
-                                size="sm"
-                            >
-                                <Eye className="w-4 h-4" />
-                                View
-                            </Button>
+                            <Link href={card?.viewLink} className='flex-1'>
+                                <Button
+                                    variant="outline"
+                                    className="w-full"
+                                    size="sm"
+                                >
+                                    <Eye/>
+                                    View
+                                </Button>
+                            </Link>
                         )
                     }
                     {
                         card?.editButton && (
-                            <Button
-                                variant="outline"
-                                className="flex-1 flex items-center justify-center gap-2"
-                                size="sm"
-                            >
-                                <Edit className="w-4 h-4" />
-                                Edit
-                            </Button>
+                            <Link href={card?.editLink} className='flex-1'>
+                                <Button
+                                    variant="outline"
+                                    className="w-full"
+                                    size="sm"
+                                >
+                                    <Edit className="w-4 h-4" />
+                                    Edit
+                                </Button>
+                            </Link>
                         )
                     }
                     {
