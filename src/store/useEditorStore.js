@@ -24,7 +24,7 @@ export const useEditorStore = create(
                 set({ pages: [...pages, chosenBookPage] });
             } else {
                 const { pages } = get();
-                set({ pages: [...pages, null] });
+                set({ pages: [...pages, { page_data: null }] });
             }
         },
 
