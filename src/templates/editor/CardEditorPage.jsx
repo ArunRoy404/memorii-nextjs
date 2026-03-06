@@ -11,7 +11,6 @@ import React, { useEffect } from 'react';
 
 
 const CardEditorPage = ({ templateId }) => {
-
     const { isTemplateLoading, setIsTemplateLoading, setPages, setFrontPage } = useEditorStore()
     const { data, isLoading } = useGetECard(templateId);
     const frontPage = data?.ecard?.template?.image

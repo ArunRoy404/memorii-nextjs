@@ -40,7 +40,7 @@ export const useEditorStore = create(
             const json = editorRef.toJSON(['lockInteraction', 'preAddedText'])
             json.layout = editorRef.getLayout();
             const newPages = [...pages];
-            newPages[currentPage] = json;
+            newPages[currentPage].page_data = json;
             set({ pages: newPages });
         },
 

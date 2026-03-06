@@ -4,28 +4,33 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import useAxiosPrivate from "../axios/useAxiosPrivate";
 import { useECardStore } from "@/store/storeGuestIds/useECardStore";
 import { useSession } from "next-auth/react";
+import { toast } from "sonner";
 
 
 export const useCreateECard = () => {
     const addGuestToken = useECardStore((state) => state.addGuestToken);
     const axiosPrivate = useAxiosPrivate();
     const router = useRouter();
-
     return useMutation({
         mutationFn: async (data) => {
             const res = await axiosPrivate.post("/e-card", data);
             return res?.data;
         },
-
-        onSuccess: (res) => {
+        onMutate: () => {
+            const toastId = toast.loading('Creating your E-Card...');
+            return { toastId };
+        },
+        onSuccess: (res, _variables, context) => {
             const { id, guest_token, creator_id } = res.data;
             if (!creator_id && guest_token) {
                 addGuestToken(id, guest_token);
             }
+            toast.success('E-Card created successfully!', { id: context.toastId });
+            router.push(`/e-card/${id}`);
         },
-
-        onError: (error) => {
+        onError: (error, _variables, context) => {
             handleApiError({ error, errorMessage: "Failed to create ECard" });
+            toast.error(error?.message || 'Failed to create E-Card', { id: context.toastId });
         }
     })
 }

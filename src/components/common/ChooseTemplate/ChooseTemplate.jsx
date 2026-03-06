@@ -32,7 +32,7 @@ export default function ChooseTemplate() {
     const { selectedTemplate, resetTemplateStore } = useTemplateStore()
     const [selectedSize, setSelectedSize] = useState(1);
 
-    
+
     const { mutateAsync: createECard, isPending } = useCreateECard()
     const template_id = selectedTemplate?.id
     const image = selectedTemplate?.image
@@ -52,17 +52,7 @@ export default function ChooseTemplate() {
             pages: [{}]
         };
 
-        toast.promise(createECard(payload), {
-            loading: 'Creating your E-Card...',
-            success: (data) => {
-                // Optional: You can use the response data here
-                return 'E-Card created successfully!';
-            },
-            error: (err) => {
-                // Optional: Use the error handler logic here
-                return err?.message || 'Failed to create E-Card';
-            },
-        });
+        createECard(payload);
     }
     return (
         <Dialog open={selectedTemplate !== null} onOpenChange={() => resetTemplateStore()}>
