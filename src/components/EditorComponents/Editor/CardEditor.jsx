@@ -36,10 +36,11 @@ const CardEditor = () => {
 
 
     const renderDesign = async (ref) => {
-        const pageJson = pages[currentPage]
+        const pageData = pages[currentPage]?.page_data
+        const pageJson = (pageData && Object.keys(pageData).length > 0)
+            ? pageData
+            : null;
         if (!pageJson) return
-
-
         await ref?.loadFromJSON(pageJson);
 
 
@@ -85,6 +86,9 @@ const CardEditor = () => {
             backgroundImage: null,
             layout: 'blank',
             selection: true,
+            selectionColor: '#08A2A620',
+            selectionBorderColor: '#08A2A650',
+            selectionLineWidth: 2,
         })
 
         fabricCanvas.setLayout = (newLayout) => { fabricCanvas.layout = newLayout }

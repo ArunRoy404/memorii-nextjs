@@ -15,15 +15,13 @@ const CardEditorPage = ({ templateId }) => {
     const { isTemplateLoading, setIsTemplateLoading, setPages, setFrontPage } = useEditorStore()
     const { data, isLoading } = useGetECard(templateId);
     const frontPage = data?.ecard?.template?.image
-    const pages = data?.ecard?.pages || [null]
-    console.log(pages);
-
+    const eCardPages = data?.ecard?.pages || [null]
 
     useEffect(() => {
         if (!isLoading && !!data) {
             setFrontPage(frontPage)
             setIsTemplateLoading(false)
-            // setPages(pages || [null])
+            setPages(eCardPages || [null])
         }
     }, [isLoading, setIsTemplateLoading, data, setPages])
 
