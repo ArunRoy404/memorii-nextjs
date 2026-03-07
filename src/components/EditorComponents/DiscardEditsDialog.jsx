@@ -8,12 +8,25 @@ import {
     DialogDescription,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEditorStore } from "@/store/useEditorStore";
+import { Button } from "../ui/button";
+import { useSaveECard } from "@/hooks/ECard/e-card.hook";
 
 export function DiscardEditsDialog() {
     const router = useRouter()
-    const { showDiscardDialog, setShowDiscardDialog } = useEditorStore()
+    const { templateId } = useParams()
+    const { showDiscardDialog, setShowDiscardDialog, pages, saveCurrentPage } = useEditorStore()
+    const { mutate: saveECard, isPending } = useSaveECard(templateId)
+    const handleSaveEcard = () => {
+        saveCurrentPage()
+        saveECard({ pages: pages }, {
+            onSuccess: () => {
+                setShowDiscardDialog(false)
+                router.push('/templates')
+            }
+        })
+    }
 
     return (
         <Dialog open={showDiscardDialog} onOpenChange={setShowDiscardDialog}>
@@ -49,12 +62,12 @@ export function DiscardEditsDialog() {
                 {/* Save Draft */}
                 <button
                     onClick={() => {
-                        setShowDiscardDialog(false)
-                        router.push('/templates')
+                        handleSaveEcard()
                     }}
-                    className="cursor-pointer w-full border-t py-3 px-6 text-center text-base font-semibold"
+                    disabled={isPending}
+                    className="disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer w-full border-t py-3 px-6 text-center text-base font-semibold"
                 >
-                    Save Draft
+                    {isPending ? 'Saving...' : 'Save Draft'}
                 </button>
 
                 {/* Keep Editing */}
