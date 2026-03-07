@@ -22,7 +22,7 @@ const CardOptions = () => {
     const { templateId } = useParams()
     const { mutate: addPageEcard, isPending } = useAddPageEcard(templateId)
 
-    const { addPage, pages } = useEditorStore();
+    const { addPage, pages, setCurrentPage } = useEditorStore();
     console.log(pages);
     const [activeTab, setActiveTab] = useState(null)
     const [open, setOpen] = useState(false)
@@ -43,6 +43,7 @@ const CardOptions = () => {
             onSuccess: (res) => {
                 const pageData = res?.data
                 addPage(pageData)
+                setCurrentPage(pageData?.page_index)
             }
         })
     }
@@ -63,8 +64,9 @@ const CardOptions = () => {
                     ))}
 
                     <button
+                        disabled={isPending}
                         onClick={handleAddPage}
-                        className={`cursor-pointer flex border rounded-xl flex-col items-center justify-center px-4 py-2 font-semibold`}
+                        className={`disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex border rounded-xl flex-col items-center justify-center px-4 py-2 font-semibold`}
                     >
                         <Plus />
                         {isPending ? <p>Adding...</p> : <p>Add Page</p>}
