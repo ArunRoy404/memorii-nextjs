@@ -120,3 +120,18 @@ export const useAddPageEcard = (id) => {
         }
     })
 }
+
+
+
+export const useUpdateEcard = (id) => {
+    const axiosPrivate = useAxiosPrivate();
+    return useMutation({
+        mutationFn: async (data) => {
+            const res = await axiosPrivate.post(`/ecard/update/${id}`, data);
+            return res?.data;
+        },
+        onError: (error) => {
+            handleApiError({ error, errorMessage: "Failed to update ECard" });
+        }
+    })
+}
