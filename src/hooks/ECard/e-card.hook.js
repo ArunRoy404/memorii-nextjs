@@ -59,11 +59,16 @@ export const useSaveECard = (id) => {
             const res = await axiosPrivate.post(`/ecard/update-pages/${id}`, data);
             return res?.data;
         },
-        onSuccess: () => {
-            toast.success('E-Card Saved successfully!');
+        onMutate: () => {
+            const toastId = toast.loading('Saving E-Card...');
+            return { toastId };
         },
-        onError: (error) => {
+        onSuccess: (res, _variables, context) => {
+            toast.success('E-Card Saved successfully!', { id: context.toastId });
+        },
+        onError: (error, _variables, context) => {
             handleApiError({ error, errorMessage: "Failed to save ECard" });
+            toast.error(error?.message || 'Failed to save E-Card', { id: context.toastId });
         }
     })
 }
