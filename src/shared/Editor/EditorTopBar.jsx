@@ -9,10 +9,11 @@ import EditorOptionsMobileView from "./EditorOptionsMobileView";
 import ClearPageButton from "@/components/EditorComponents/ClearPageButton";
 import DeletePageButton from "@/components/EditorComponents/DeletePageButton";
 import EditorTitle from "@/components/EditorComponents/EditorTitle/EditorTitle";
+import { useParams } from "next/navigation";
 
 const EditorTopBar = () => {
     const { saveCurrentPage } = useEditorStore()
-
+    const { templateId } = useParams()
 
     return (
         <div className="p-4 bg-white shadow">
@@ -38,7 +39,7 @@ const EditorTopBar = () => {
                                 <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
                                 Invite
                             </Button>
-                            <Link href="/preview" className="w-full">
+                            <Link href={`/preview/${templateId}`} className="w-full">
                                 <Button
                                     onClick={saveCurrentPage}
                                     size="sm" className="w-full md:w-auto">
@@ -83,7 +84,7 @@ const EditorTopBar = () => {
                         <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
                         Invite
                     </Button>
-                    <Link href="/preview" className="w-full">
+                    <Link href={`/preview/${templateId}`} className="w-full">
                         <Button
                             onClick={saveCurrentPage}
                             size="sm" className="w-full md:w-auto">

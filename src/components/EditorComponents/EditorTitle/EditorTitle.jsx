@@ -30,6 +30,8 @@ export default function EditorTitle() {
     useEffect(() => {
         if (ecard?.title) {
             setTitle(ecard.title)
+        } else {
+            setTitle('Untitled E-Card')
         }
     }, [ecard?.title])
 
