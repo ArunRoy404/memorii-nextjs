@@ -96,3 +96,27 @@ export const useDeleteECard = (id, { onSuccess } = {}) => {
         }
     })
 }
+
+
+
+
+export const useAddPageEcard = (id) => {
+    const axiosPrivate = useAxiosPrivate();
+    return useMutation({
+        mutationFn: async () => {
+            const res = await axiosPrivate.post(`/add-page/${id}`);
+            return res?.data;
+        },
+        onMutate: () => {
+            const toastId = toast.loading('adding new page...');
+            return { toastId };
+        },
+        onSuccess: (res, _variables, context) => {
+            toast.success('New page added successfully!', { id: context.toastId });
+        },
+        onError: (error, _variables, context) => {
+            handleApiError({ error, errorMessage: "Failed to add new page" });
+            toast.error(error?.message || 'Failed to add new page', { id: context.toastId });
+        }
+    })
+}

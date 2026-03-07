@@ -11,7 +11,7 @@ export const useEditorStore = create(
         currentPage: 0,
         chosenBookPage: null,
 
-        
+
         showDiscardDialog: false,
         setShowDiscardDialog: (val) => set({ showDiscardDialog: val }),
 
@@ -24,14 +24,14 @@ export const useEditorStore = create(
         setFrontPage: (frontPage) => set({ frontPage }),
         setPages: (pages) => set({ pages }),
 
-        addPage: () => {
+        addPage: (pageData) => {
             const { chosenBookPage } = get()
             if (chosenBookPage) {
                 const { pages } = get();
                 set({ pages: [...pages, chosenBookPage] });
             } else {
                 const { pages } = get();
-                set({ pages: [...pages, { page_data: null }] });
+                set({ pages: [...pages, pageData] });
             }
         },
 
