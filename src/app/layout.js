@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
               {children}
             </GuestIdCleanUpProvider>
           </AuthProvider>
-          <Toaster />
+          <Toaster position="top-center" />
         </QueryProvider>
       </body>
     </html>
