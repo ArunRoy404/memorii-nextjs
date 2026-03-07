@@ -22,7 +22,7 @@ const CardOptions = () => {
     const { templateId } = useParams()
     const { mutate: addPageEcard, isPending } = useAddPageEcard(templateId)
 
-    const { addPage, pages, setCurrentPage } = useEditorStore();
+    const { addPage, setCurrentPage } = useEditorStore();
     const [activeTab, setActiveTab] = useState(null)
     const [open, setOpen] = useState(false)
 
