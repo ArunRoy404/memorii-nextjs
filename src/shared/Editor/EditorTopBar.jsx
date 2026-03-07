@@ -8,6 +8,7 @@ import Link from "next/link";
 import EditorOptionsMobileView from "./EditorOptionsMobileView";
 import ClearPageButton from "@/components/EditorComponents/ClearPageButton";
 import DeletePageButton from "@/components/EditorComponents/DeletePageButton";
+import EditorTitle from "@/components/EditorComponents/EditorTitle/EditorTitle";
 
 const EditorTopBar = () => {
     const { saveCurrentPage } = useEditorStore()
@@ -20,7 +21,10 @@ const EditorTopBar = () => {
                 {/* Top / Left: Exit */}
                 <div className="w-full sm:w-auto flex justify-between sm:justify-start items-center">
 
-                    <DiscardEditsDialog />
+                    <div className="flex items-center gap-4">
+                        <DiscardEditsDialog />
+                        <EditorTitle />
+                    </div>
 
 
                     {/* Undo/Redo on mobile next to Exit */}

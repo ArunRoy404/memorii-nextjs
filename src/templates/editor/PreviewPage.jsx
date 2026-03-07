@@ -3,15 +3,13 @@
 import HTMLFlipBook from "react-pageflip";
 import { useEditorStore } from "@/store/useEditorStore";
 import { useEffect, useRef, useState } from "react";
-import { BookFrontPage } from "@/components/previewComponents/BookFrontPage";
-import { BookPage } from "@/components/previewComponents/BookPage";
 import { BookBackPage } from "@/components/previewComponents/BookBackPage";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 
 const PreviewPage = () => {
-    const { editorRef, pages } = useEditorStore()
+    const { editorRef } = useEditorStore()
     const bookRef = useRef(null)
 
 
