@@ -1,4 +1,4 @@
-import PreviewPage from '@/templates/editor/PreviewPage';
+import NotFoundPage from '@/templates/notFound/NotFoundPage';
 
-const page = () => <PreviewPage />
+const page = () => <NotFoundPage />
 export default page;
