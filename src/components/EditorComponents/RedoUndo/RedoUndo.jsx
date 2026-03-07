@@ -1,3 +1,4 @@
+import SaveButton from '@/components/SaveButton/SaveButton';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { applyCommonStyles } from '@/services/CommonControlStyle';
@@ -158,9 +159,7 @@ const RedoUndo = ({ className }) => {
                 <Redo2 className="w-4 h-4" />
             </Button>
             {/* {redoStack.length} */}
-            <Button notImplemented variant='ghost' className='p-1!' size="sm">
-                <Save className="w-4 h-4" />
-            </Button>
+            <SaveButton />
 
             {/* test mode  */}
             {/* <Button onClick={() => downloadJsonVariable(pages[0], 'grid-layout-json.json')} variant='ghost' className='p-1!' size="sm">

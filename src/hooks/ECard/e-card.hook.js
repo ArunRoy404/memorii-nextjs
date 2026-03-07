@@ -49,3 +49,18 @@ export const useGetECard = (id) => {
         enabled: !!axiosPrivate && status === "authenticated",
     });
 };
+
+
+
+export const useSaveECard = (id) => {
+    const axiosPrivate = useAxiosPrivate();
+    return useMutation({
+        mutationFn: async (data) => {
+            const res = await axiosPrivate.post(`/ecard/update-pages/${id}`, data);
+            return res?.data;
+        },
+        onError: (error, _variables, context) => {
+            handleApiError({ error, errorMessage: "Failed to save ECard" });
+        }
+    })
+}

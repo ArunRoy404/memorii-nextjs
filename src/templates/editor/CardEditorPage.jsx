@@ -11,18 +11,20 @@ import React, { useEffect } from 'react';
 
 
 const CardEditorPage = ({ templateId }) => {
-    const { isTemplateLoading, setIsTemplateLoading, setPages, setFrontPage } = useEditorStore()
+    const { isTemplateLoading, setIsTemplateLoading, setPages, setFrontPage, setEcard } = useEditorStore()
     const { data, isLoading } = useGetECard(templateId);
     const frontPage = data?.ecard?.template?.image
-    const eCardPages = data?.ecard?.pages || [null]
+    const eCardPages = data?.pages || [null]
+    const ecard = data?.ecard
 
     useEffect(() => {
         if (!isLoading && !!data) {
             setFrontPage(frontPage)
             setIsTemplateLoading(false)
             setPages(eCardPages || [null])
+            setEcard(ecard)
         }
-    }, [isLoading, setIsTemplateLoading, data, setPages])
+    }, [isLoading, setIsTemplateLoading, data, setPages, setEcard])
 
     if (isTemplateLoading) return <Loader />
 

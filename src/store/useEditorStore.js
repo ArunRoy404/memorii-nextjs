@@ -5,6 +5,7 @@ export const useEditorStore = create(
         editorRef: null,
         isTemplateLoading: true,
 
+        ecard: null,
         frontPage: null,
         pages: [null],
         currentPage: 0,
@@ -14,6 +15,7 @@ export const useEditorStore = create(
         showDiscardDialog: false,
         setShowDiscardDialog: (val) => set({ showDiscardDialog: val }),
 
+        setEcard: (ecard) => set({ ecard }),
 
         setIsTemplateLoading: (isTemplateLoading) => set({ isTemplateLoading }),
         setEditorRef: (editorRef) => set({ editorRef }),
