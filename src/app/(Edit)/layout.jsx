@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import PreviewTopBar from "@/shared/Editor/PreviewTopBar";
 import SendTopBar from "@/shared/Editor/SendTopBar";
 import { useEditorStore } from "@/store/useEditorStore";
+import { usePreventLeave } from "@/hooks/PreventLeave/usePreventLeave";
 
 const ChildrenContainer = ({ children }) => {
     return (
@@ -36,6 +37,22 @@ export default function EditorLayout({ children }) {
             ? setIsSend(true)
             : setIsSend(false)
     }, [pathname])
+
+    // 👇 Prevents tab close / refresh — shows browser native dialog
+    usePreventLeave(true)
+
+    // 👇 Intercepts browser back/forward — shows your custom dialog
+    useEffect(() => {
+        window.history.pushState(null, '', window.location.href)
+
+        const handlePopState = () => {
+            window.history.pushState(null, '', window.location.href)
+            setShowDiscardDialog(true)
+        }
+
+        window.addEventListener('popstate', handlePopState)
+        return () => window.removeEventListener('popstate', handlePopState)
+    }, [])
 
 
     if (isTemplateLoading) return (

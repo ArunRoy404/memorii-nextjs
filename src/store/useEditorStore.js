@@ -10,6 +10,11 @@ export const useEditorStore = create(
         currentPage: 0,
         chosenBookPage: null,
 
+        
+        showDiscardDialog: false,
+        setShowDiscardDialog: (val) => set({ showDiscardDialog: val }),
+
+
         setIsTemplateLoading: (isTemplateLoading) => set({ isTemplateLoading }),
         setEditorRef: (editorRef) => set({ editorRef }),
         setChosenBookPage: (page) => set({ chosenBookPage: page }),
