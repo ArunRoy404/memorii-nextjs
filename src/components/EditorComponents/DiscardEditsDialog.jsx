@@ -11,13 +11,21 @@ import {
 import { useParams, useRouter } from "next/navigation";
 import { useEditorStore } from "@/store/useEditorStore";
 import { Button } from "../ui/button";
-import { useSaveECard } from "@/hooks/ECard/e-card.hook";
+import { useDeleteECard, useSaveECard } from "@/hooks/ECard/e-card.hook";
 
 export function DiscardEditsDialog() {
     const router = useRouter()
     const { templateId } = useParams()
     const { showDiscardDialog, setShowDiscardDialog, pages, saveCurrentPage } = useEditorStore()
     const { mutate: saveECard, isPending } = useSaveECard(templateId)
+    const { mutate: deleteECard, isPending: isDeleting } = useDeleteECard(templateId, {
+        onSuccess: () => {
+            setShowDiscardDialog(false)
+            router.push('/templates')
+        }
+    })
+
+    
     const handleSaveEcard = () => {
         saveCurrentPage()
         saveECard({ pages: pages }, {
@@ -26,6 +34,10 @@ export function DiscardEditsDialog() {
                 router.push('/templates')
             }
         })
+    }
+
+    const handleDeleteEcard = () => {
+        deleteECard()
     }
 
     return (
@@ -50,20 +62,16 @@ export function DiscardEditsDialog() {
 
                 {/* Discard */}
                 <button
-                    onClick={() => {
-                        setShowDiscardDialog(false)
-                        router.push('/templates')
-                    }}
-                    className="cursor-pointer w-full py-3 px-6 text-center text-base font-semibold text-red-600"
+                    onClick={handleDeleteEcard}
+                    disabled={isDeleting}
+                    className="disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer w-full py-3 px-6 text-center text-base font-semibold text-red-600"
                 >
-                    Discard
+                    {isDeleting ? 'Deleting...' : 'Discard Edits'}
                 </button>
 
                 {/* Save Draft */}
                 <button
-                    onClick={() => {
-                        handleSaveEcard()
-                    }}
+                    onClick={handleSaveEcard}
                     disabled={isPending}
                     className="disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer w-full border-t py-3 px-6 text-center text-base font-semibold"
                 >

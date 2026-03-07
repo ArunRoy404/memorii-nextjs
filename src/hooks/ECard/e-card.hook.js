@@ -72,3 +72,27 @@ export const useSaveECard = (id) => {
         }
     })
 }
+
+
+
+export const useDeleteECard = (id, { onSuccess } = {}) => {
+    const axiosPrivate = useAxiosPrivate();
+    return useMutation({
+        mutationFn: async () => {
+            const res = await axiosPrivate.delete(`/ecard/delete/${id}`);
+            return res?.data;
+        },
+        onMutate: () => {
+            const toastId = toast.loading('Deleting E-Card...');
+            return { toastId };
+        },
+        onSuccess: (res, _variables, context) => {
+            toast.success('E-Card Deleted successfully!', { id: context.toastId });
+            onSuccess?.()
+        },
+        onError: (error, _variables, context) => {
+            handleApiError({ error, errorMessage: "Failed to delete ECard" });
+            toast.error(error?.message || 'Failed to delete E-Card', { id: context.toastId });
+        }
+    })
+}
