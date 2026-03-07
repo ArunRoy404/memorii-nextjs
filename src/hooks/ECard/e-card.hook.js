@@ -135,3 +135,25 @@ export const useUpdateEcard = (id) => {
         }
     })
 }
+
+
+export const useDeletePageEcard = (id) => {
+    const axiosPrivate = useAxiosPrivate();
+    return useMutation({
+        mutationFn: async (data) => {
+            const res = await axiosPrivate.delete(`/remove/page/${id}`, {data});
+            return res?.data;
+        },
+        onMutate: () => {
+            const toastId = toast.loading('Deleting page...');
+            return { toastId };
+        },
+        onSuccess: (res, _variables, context) => {
+            toast.success('Page deleted successfully!', { id: context.toastId });
+        },
+        onError: (error, _variables, context) => {
+            handleApiError({ error, errorMessage: "Failed to delete page" });
+            toast.error(error?.message || 'Failed to delete page', { id: context.toastId });
+        }
+    })
+}
