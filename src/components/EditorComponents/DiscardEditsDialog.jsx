@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/dialog";
 import { useParams, useRouter } from "next/navigation";
 import { useEditorStore } from "@/store/useEditorStore";
-import { Button } from "../ui/button";
 import { useDeleteECard, useSaveECard } from "@/hooks/ECard/e-card.hook";
 
 export function DiscardEditsDialog() {
@@ -25,7 +24,7 @@ export function DiscardEditsDialog() {
         }
     })
 
-    
+
     const handleSaveEcard = () => {
         saveCurrentPage()
         saveECard({ pages: pages }, {
