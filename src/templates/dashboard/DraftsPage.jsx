@@ -7,6 +7,7 @@ import DashboardSkeleton from '@/components/dashboardComponents/DashboardSkeleto
 
 function DraftsPage() {
     const { data: drafts, isLoading, isError } = useGetAllDrafts();
+    console.log(drafts);
 
 
     if (isLoading) {
@@ -39,6 +40,8 @@ function DraftsPage() {
                             image: item?.data?.template?.image,
                             viewButton: true,
                             editButton: true,
+                            editLink: `/e-card/${item?.id}`,
+                            viewLink: `/preview/${item?.id}`
                         };
                         return <DashboardCard key={index} card={card} />;
                     })}

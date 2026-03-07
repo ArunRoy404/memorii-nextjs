@@ -19,32 +19,23 @@ import {
 } from "@/components/ui/carousel";
 import { useTemplateStore } from "@/store/useTemplateStore";
 import CardBackPage from "../CardBackPage/CardBackPage";
-import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { useEditorStore } from "@/store/useEditorStore";
-import { useTextObjectStore } from "@/store/useTextObjectStore";
 import { useGetPricePlan } from "@/hooks/pricePlan.hook";
 import { useCreateECard } from "@/hooks/ECard/e-card.hook";
+
 
 
 export default function ChooseTemplate() {
     const { data: pricePlan } = useGetPricePlan()
     const { resetEditorStore } = useEditorStore()
-    const { selectedTemplate, resetTemplateStore, setSelectedTemplate } = useTemplateStore()
+    const { selectedTemplate, resetTemplateStore } = useTemplateStore()
     const [selectedSize, setSelectedSize] = useState(1);
 
+
     const { mutateAsync: createECard, isPending } = useCreateECard()
-
-    // const { resetTextObjectStore } = useTextObjectStore()
-    // const { setSelectedTemplate: selectTemplateForEdit } = useEditorTemplateStore()
-    // const router = useRouter()
-
-    console.log(selectedTemplate);
-
     const template_id = selectedTemplate?.id
     const image = selectedTemplate?.image
-    const occasion = selectedTemplate?.category?.name
     const plan_id = selectedSize
 
 
@@ -61,27 +52,7 @@ export default function ChooseTemplate() {
             pages: [{}]
         };
 
-        toast.promise(createECard(payload), {
-            loading: 'Creating your E-Card...',
-            success: (data) => {
-                // Optional: You can use the response data here
-                return 'E-Card created successfully!';
-            },
-            error: (err) => {
-                // Optional: Use the error handler logic here
-                return err?.message || 'Failed to create E-Card';
-            },
-        });
-
-
-        // setSelectedTemplate(null)
-        // resetTextObjectStore()
-        // toast.success("Template Selected")
-
-
-        // localStorage.removeItem('card-type-store')
-        // selectTemplateForEdit(selectedTemplate)
-        // router.push(`/editor/${selectedTemplate?.id}`)
+        createECard(payload);
     }
     return (
         <Dialog open={selectedTemplate !== null} onOpenChange={() => resetTemplateStore()}>
@@ -159,7 +130,6 @@ export default function ChooseTemplate() {
                                     </CarouselItem>
                                 ))}
                             </CarouselContent>
-
                             <CarouselPrevious className="-left-3 scale-75" />
                             <CarouselNext className="-right-3 scale-75" />
                         </Carousel>
@@ -170,7 +140,6 @@ export default function ChooseTemplate() {
 
                     {/* RIGHT COLUMN */}
                     <div className="flex flex-col justify-between gap-6 px-2 sm:px-4">
-
                         <div>
                             <DialogHeader>
                                 <DialogTitle className="text-lg sm:text-xl md:text-2xl">

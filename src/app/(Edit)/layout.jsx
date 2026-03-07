@@ -6,20 +6,30 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import PreviewTopBar from "@/shared/Editor/PreviewTopBar";
 import SendTopBar from "@/shared/Editor/SendTopBar";
+import { useEditorStore } from "@/store/useEditorStore";
+import { usePreventLeave } from "@/hooks/PreventLeave/usePreventLeave";
 
+const ChildrenContainer = ({ children }) => {
+    return (
+        <div className="flex-1 overflow-y-auto" >
+            {children}
+        </div>
+    )
+}
 
 export default function EditorLayout({ children }) {
     const pathname = usePathname()
     const [isPreview, setIsPreview] = useState(false)
     const [isEditor, setIsEditor] = useState(false)
     const [isSend, setIsSend] = useState(false)
+    const { isTemplateLoading } = useEditorStore()
 
     useEffect(() => {
         pathname.includes('/preview')
             ? setIsPreview(true)
             : setIsPreview(false)
 
-        pathname.includes('/editor')
+        pathname.includes('/e-card')
             ? setIsEditor(false)
             : setIsEditor(true)
 
@@ -28,6 +38,28 @@ export default function EditorLayout({ children }) {
             : setIsSend(false)
     }, [pathname])
 
+    // 👇 Prevents tab close / refresh — shows browser native dialog
+    usePreventLeave(true)
+
+    // 👇 Intercepts browser back/forward — shows your custom dialog
+    useEffect(() => {
+        window.history.pushState(null, '', window.location.href)
+
+        const handlePopState = () => {
+            window.history.pushState(null, '', window.location.href)
+            setShowDiscardDialog(true)
+        }
+
+        window.addEventListener('popstate', handlePopState)
+        return () => window.removeEventListener('popstate', handlePopState)
+    }, [])
+
+
+    if (isTemplateLoading) return (
+        <ChildrenContainer>
+            {children}
+        </ChildrenContainer>
+    )
 
     return (
         <div className="w-full h-dvh overflow-hidden bg-gray-100 flex flex-col">
@@ -50,9 +82,9 @@ export default function EditorLayout({ children }) {
             </div>
 
 
-            <div className="flex-1 overflow-y-auto" >
+            <ChildrenContainer>
                 {children}
-            </div>
+            </ChildrenContainer>
 
 
             <div

@@ -15,9 +15,14 @@ import { useEditorStore } from "@/store/useEditorStore"
 import ImageOptions from "./Editor/ImageOptions"
 import LayersOptions from "./LayerOption/LayersOptions"
 import BackgroundOptions from "./Editor/BackgroundOptions"
+import { useParams } from "next/navigation"
+import { useAddPageEcard } from "@/hooks/ECard/e-card.hook"
 
 const CardOptions = () => {
-    const { addPage } = useEditorStore();
+    const { templateId } = useParams()
+    const { mutate: addPageEcard, isPending } = useAddPageEcard(templateId)
+
+    const { addPage, setCurrentPage } = useEditorStore();
     const [activeTab, setActiveTab] = useState(null)
     const [open, setOpen] = useState(false)
 
@@ -32,6 +37,15 @@ const CardOptions = () => {
         }
     }
 
+    const handleAddPage = () => {
+        addPageEcard({}, {
+            onSuccess: (res) => {
+                const pageData = res?.data
+                addPage(pageData)
+                setCurrentPage(pageData?.page_index)
+            }
+        })
+    }
     return (
         <DropdownMenu open={open} modal={false}>
             <DropdownMenuTrigger asChild>
@@ -49,11 +63,12 @@ const CardOptions = () => {
                     ))}
 
                     <button
-                        onClick={() => addPage()}
-                        className={`cursor-pointer flex border rounded-xl flex-col items-center justify-center px-4 py-2 font-semibold`}
+                        disabled={isPending}
+                        onClick={handleAddPage}
+                        className={`disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex border rounded-xl flex-col items-center justify-center px-4 py-2 font-semibold`}
                     >
                         <Plus />
-                        <p>Add Page</p>
+                        {isPending ? <p>Adding...</p> : <p>Add Page</p>}
                     </button>
                 </div>
             </DropdownMenuTrigger>

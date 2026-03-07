@@ -1,6 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import handleApiError from "@/lib/handleApiError";
+import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import useAxiosPrivate from "../axios/useAxiosPrivate";
 

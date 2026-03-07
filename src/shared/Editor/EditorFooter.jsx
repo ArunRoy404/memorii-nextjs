@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import CardBackPage from "@/components/common/CardBackPage/CardBackPage";
 import { useEditorStore } from "@/store/useEditorStore";
 import {
@@ -16,10 +15,8 @@ import CardPreview from "./CardPreview";
 
 
 const EditorFooter = () => {
-  const { saveCurrentPage, currentPage, setCurrentPage, pages, editorRef } = useEditorStore()
-  const { selectedTemplate } = useEditorTemplateStore();
+  const { saveCurrentPage, currentPage, setCurrentPage, pages, editorRef, frontPage } = useEditorStore()
   const [activeIndex, setActiveIndex] = useState(null);
-
 
 
   let aspectRatio = 3 / 4
@@ -38,30 +35,11 @@ const EditorFooter = () => {
     setActiveIndex(index);
   }
 
+  useEffect(() => { setActiveIndex(currentPage) }, [currentPage])
 
-  useEffect(() => { setActiveIndex(currentPage) }, [ currentPage ])
-
-  // const handleNextPage = () => {
-  //   handleSavePage();
-  //   setCurrentPage(Math.min(currentPage + 1, pages.length - 1));
-  // }
-  // const handlePreviousPage = () => {
-  //   handleSavePage();
-  //   setCurrentPage(Math.max(currentPage - 1, 0));
-  // }
 
   return (
     <div className="flex items-center justify-center py-2 bg-white overflow-x-auto no-scrollbar">
-      {/* <Button
-        variant="ghost"
-        size="icon"
-        onClick={handlePreviousPage}
-        className="p-2 hidden sm:flex"
-      >
-        <ChevronLeft />
-      </Button> */}
-
-
       <Carousel
         opts={{
           align: "start",
@@ -74,10 +52,10 @@ const EditorFooter = () => {
               style={{ aspectRatio }}
             >
               <div className="relative w-full h-full overflow-hidden">
-                {!!selectedTemplate && (
+                {!!frontPage && (
                   <Image
-                    src={selectedTemplate?.src}
-                    alt={selectedTemplate?.title || 'Template Front'}
+                    src={frontPage}
+                    alt={'Template Front'}
                     fill
                     className="object-cover"
                   />
@@ -110,17 +88,6 @@ const EditorFooter = () => {
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
-
-
-
-      {/* <Button
-        variant="ghost"
-        size="icon"
-        onClick={handleNextPage}
-        className="p-2 hidden sm:flex"
-      >
-        <ChevronRight />
-      </Button> */}
     </div>
   );
 };

@@ -1,12 +1,16 @@
+'use client'
+
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Eye, Edit, FileHeart, BookOpen, Download, Link2 } from 'lucide-react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 
 
 const DashboardCard = ({ card }) => {
+    const router = useRouter()
     return (
         <Card className="overflow-hidden border-0 shadow-sm hover:shadow-md transition-shadow">
             {/* Card Image */}
@@ -59,10 +63,16 @@ const DashboardCard = ({ card }) => {
                         card?.viewButton && (
                             <Button
                                 variant="outline"
-                                className="flex-1 flex items-center justify-center gap-2"
+                                className="flex-1"
                                 size="sm"
+                                onClick={() => {
+                                    const link = card?.viewLink
+                                    if (link) {
+                                        router.push(link)
+                                    }
+                                }}
                             >
-                                <Eye className="w-4 h-4" />
+                                <Eye />
                                 View
                             </Button>
                         )
@@ -71,8 +81,14 @@ const DashboardCard = ({ card }) => {
                         card?.editButton && (
                             <Button
                                 variant="outline"
-                                className="flex-1 flex items-center justify-center gap-2"
+                                className="flex-1"
                                 size="sm"
+                                onClick={() => {
+                                    const link = card?.editLink
+                                    if (link) {
+                                        router.push(link)
+                                    }
+                                }}
                             >
                                 <Edit className="w-4 h-4" />
                                 Edit
@@ -103,7 +119,7 @@ const DashboardCard = ({ card }) => {
                     }
                 </div>
             </CardContent>
-        </Card>
+        </Card >
     );
 };
 

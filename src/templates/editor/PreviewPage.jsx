@@ -2,7 +2,6 @@
 
 import HTMLFlipBook from "react-pageflip";
 import { useEditorStore } from "@/store/useEditorStore";
-import { useEditorTemplateStore } from "@/store/useEditorTemplateStore";
 import { useEffect, useRef, useState } from "react";
 import { BookFrontPage } from "@/components/previewComponents/BookFrontPage";
 import { BookPage } from "@/components/previewComponents/BookPage";
@@ -13,7 +12,6 @@ import Link from "next/link";
 
 const PreviewPage = () => {
     const { editorRef, pages } = useEditorStore()
-    const { selectedTemplate } = useEditorTemplateStore();
     const bookRef = useRef(null)
 
 
@@ -58,7 +56,7 @@ const PreviewPage = () => {
                 showCover={true}
                 maxShadowOpacity={0.1}
             >
-                <BookFrontPage src={selectedTemplate?.src} />
+                {/* <BookFrontPage src={selectedTemplate?.src} />
                 {
                     pages.map((page, index) => {
                         return (
@@ -71,7 +69,7 @@ const PreviewPage = () => {
                             />
                         )
                     })
-                }
+                } */}
                 <BookBackPage />
             </HTMLFlipBook>
 
