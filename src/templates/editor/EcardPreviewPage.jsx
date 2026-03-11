@@ -20,7 +20,6 @@ const EcardPreviewPage = () => {
     const bookRef = useRef(null)
     const ecard = data?.ecard
     const eCardPages = data?.pages || [null]
-    console.log(eCardPages);
 
 
     const [bookProps, setBookProps] = useState({
@@ -78,21 +77,20 @@ const EcardPreviewPage = () => {
             >
                 <BookFrontPage src={ecard?.template?.image} />
                 {
-                    // eCardPages.map((page, index) => {
-                    //     return (
-                    //         <BookPage
-                    //             index={index}
-                    //             key={index}
-                    //             page={page}
-                    //             width={1800}
-                    //             height={2400}
-                    //         />
-                    //     )
-                    // })
+                    eCardPages.map((page, index) => {
+                        return (
+                            <BookPage
+                                index={index}
+                                key={index}
+                                page={page?.page_data}
+                                width={1800}
+                                height={2400}
+                            />
+                        )
+                    })
                 }
                 <BookBackPage />
             </HTMLFlipBook>
-
 
 
             <div className="flex items-center justify-between"
