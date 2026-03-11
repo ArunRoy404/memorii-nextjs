@@ -16,7 +16,7 @@ export function DiscardEditsDialog() {
     const router = useRouter()
     const { templateId } = useParams()
     const { showDiscardDialog, setShowDiscardDialog, pages, saveCurrentPage } = useEditorStore()
-    const { mutate: saveECard, isPending } = useSaveECard(templateId)
+    const { mutate: saveECard, isPending } = useSaveECard({ id: templateId })
     const { mutate: deleteECard, isPending: isDeleting } = useDeleteECard(templateId, {
         onSuccess: () => {
             setShowDiscardDialog(false)

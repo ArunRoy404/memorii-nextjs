@@ -10,6 +10,7 @@ import ClearPageButton from "@/components/EditorComponents/ClearPageButton";
 import DeletePageButton from "@/components/EditorComponents/DeletePageButton";
 import EditorTitle from "@/components/EditorComponents/EditorTitle/EditorTitle";
 import { useParams } from "next/navigation";
+import PreviewButton from "@/components/EditorComponents/PreviewButton/PreviewButton";
 
 const EditorTopBar = () => {
     const { saveCurrentPage } = useEditorStore()
@@ -84,13 +85,7 @@ const EditorTopBar = () => {
                         <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
                         Invite
                     </Button>
-                    <Link href={`/preview/${templateId}`} className="w-full">
-                        <Button
-                            onClick={saveCurrentPage}
-                            size="sm" className="w-full md:w-auto">
-                            Preview
-                        </Button>
-                    </Link>
+                    <PreviewButton />
                 </div>
 
             </div>

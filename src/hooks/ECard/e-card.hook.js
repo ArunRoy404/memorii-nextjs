@@ -52,7 +52,11 @@ export const useGetECard = (id) => {
 
 
 
-export const useSaveECard = (id) => {
+export const useSaveECard = ({
+    id,
+    loadingMessage = 'Saving E-Card...',
+    successMessage = 'E-Card Saved successfully!'
+}) => {
     const axiosPrivate = useAxiosPrivate();
     return useMutation({
         mutationFn: async (data) => {
@@ -60,11 +64,11 @@ export const useSaveECard = (id) => {
             return res?.data;
         },
         onMutate: () => {
-            const toastId = toast.loading('Saving E-Card...');
+            const toastId = toast.loading(loadingMessage);
             return { toastId };
         },
         onSuccess: (res, _variables, context) => {
-            toast.success('E-Card Saved successfully!', { id: context.toastId });
+            toast.success(successMessage, { id: context.toastId });
         },
         onError: (error, _variables, context) => {
             handleApiError({ error, errorMessage: "Failed to save ECard" });
@@ -141,7 +145,7 @@ export const useDeletePageEcard = (id) => {
     const axiosPrivate = useAxiosPrivate();
     return useMutation({
         mutationFn: async (data) => {
-            const res = await axiosPrivate.delete(`/remove/page/${id}`, {data});
+            const res = await axiosPrivate.delete(`/remove/page/${id}`, { data });
             return res?.data;
         },
         onMutate: () => {

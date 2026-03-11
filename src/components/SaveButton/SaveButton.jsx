@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 
 export default function SaveButton() {
     const { templateId } = useParams()
-    const { mutate: saveECard, isPending } = useSaveECard(templateId)
+    const { mutate: saveECard, isPending } = useSaveECard({ id: templateId })
     const { pages, saveCurrentPage } = useEditorStore()
 
     const handleSaveEcard = () => {
