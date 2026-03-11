@@ -10,23 +10,34 @@ import { useParams } from "next/navigation";
 import { useGetECard } from "@/hooks/ECard/e-card.hook";
 import { BookFrontPage } from "@/components/previewComponents/BookFrontPage";
 import { BookPage } from "@/components/previewComponents/BookPage";
+import Loader from "@/components/common/Loader/Loader";
 
 
 const EcardPreviewPage = () => {
     const { templateId } = useParams()
-    const { data, isLoading } = useGetECard(templateId);
-    const { editorRef, isTemplateLoading, setIsTemplateLoading, setPages, setFrontPage, setEcard } = useEditorStore()
+    const { setIsTemplateLoading, setEcard, setPages } = useEditorStore()
+    const { data, isPending } = useGetECard(templateId);
     const bookRef = useRef(null)
     const ecard = data?.ecard
-
-
-    console.log(ecard);
+    const eCardPages = data?.pages || [null]
+    console.log(eCardPages);
 
 
     const [bookProps, setBookProps] = useState({
         width: null,
         height: null,
     })
+
+
+
+    useEffect(() => {
+        if (!isPending && !!data) {
+            setIsTemplateLoading(false)
+            setPages(eCardPages || [null])
+            setEcard(ecard)
+        }
+    }, [isPending, setIsTemplateLoading, data, setPages, setEcard])
+
 
     useEffect(() => {
         const maxWidth = 500
@@ -48,13 +59,13 @@ const EcardPreviewPage = () => {
         })
     }, [])
 
-    if (isLoading) return <p>Loading...</p>
+    if (isPending) return <Loader />
 
 
     if (!bookProps.width && !bookProps.height) return <p>Template load failed, create a new template from {" "}
         <Link className="text-primary underline" href="/templates">here</Link>
     </p>
-    
+
     return (
         <div className="h-full w-full overflow-hidden flex flex-col items-center justify-center ">
             <HTMLFlipBook
@@ -66,19 +77,19 @@ const EcardPreviewPage = () => {
                 maxShadowOpacity={0.1}
             >
                 <BookFrontPage src={ecard?.template?.image} />
-                {/* {
-                    pages.map((page, index) => {
-                        return (
-                            <BookPage
-                                index={index}
-                                key={index}
-                                page={page}
-                                width={1800}
-                                height={2400}
-                            />
-                        )
-                    })
-                } */}
+                {
+                    // eCardPages.map((page, index) => {
+                    //     return (
+                    //         <BookPage
+                    //             index={index}
+                    //             key={index}
+                    //             page={page}
+                    //             width={1800}
+                    //             height={2400}
+                    //         />
+                    //     )
+                    // })
+                }
                 <BookBackPage />
             </HTMLFlipBook>
 
