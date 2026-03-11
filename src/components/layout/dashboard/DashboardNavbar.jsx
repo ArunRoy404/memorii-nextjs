@@ -1,8 +1,14 @@
+'use client'
+
 import AvatarUser from '@/components/ui/AvatarUser';
 import { SidebarTrigger } from '@/components/ui/sidebar';
+import { useGetProfile } from '@/hooks/user/user.hook';
 import { Bell } from 'lucide-react';
 
 const DashboardNavbar = () => {
+    const { data } = useGetProfile()
+    const profileData = data?.user
+
     return (
         // Changed px-8 to px-4 on mobile, sm:px-8 on larger screens
         <header className="bg-white border-b px-4 sm:px-8 py-4 flex gap-2 items-center">
@@ -15,13 +21,13 @@ const DashboardNavbar = () => {
 
                 <div className="flex items-center gap-3 sm:gap-4 shrink-0">
                     <div className="flex items-center gap-2">
-                        <AvatarUser src="" alt="Esther Howard" />
+                        <AvatarUser src={profileData?.profile_photo} alt={profileData?.name || ''} />
                         {/* Hidden on small screens, shown on sm (640px) and up */}
                         <span className="hidden sm:block text-sm font-medium whitespace-nowrap">
-                            Esther Howard
+                            {profileData?.name}
                         </span>
                     </div>
-                    <Bell className="w-5 h-5 text-gray-600 cursor-pointer" />
+                    {/* <Bell className="w-5 h-5 text-gray-600 cursor-pointer" /> */}
                 </div>
             </div>
         </header>
