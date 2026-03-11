@@ -64,14 +64,14 @@ const EditorFooter = () => {
             </div>
           </CarouselItem>
 
-          {pages.map((_, index) => (
+          {pages.map((page, index) => (
             <CarouselItem key={index} className="basis-1/3 max-w-max! pl-1!">
               <div
                 style={{ aspectRatio }}
                 className={`border cursor-pointer overflow-hidden w-16 md:w-20 shrink-0 ${index === activeIndex ? "border-primary" : "border-gray-300"}`}
                 onClick={() => handleSelectPage(index)}
               >
-                <CardPreview index={index} />
+                <CardPreview pageData={page?.page_data} index={index} />
               </div>
             </CarouselItem>
           ))}
