@@ -7,7 +7,6 @@ import DashboardSkeleton from '@/components/dashboardComponents/DashboardSkeleto
 
 function DraftsPage() {
     const { data: drafts, isLoading, isError } = useGetAllDrafts();
-    console.log(drafts);
 
 
     if (isLoading) {
