@@ -22,11 +22,15 @@ const EcardPreviewPage = () => {
     const eCardPages = data?.pages || [null]
 
 
+    const maxWidth = 500
+    const originalWidth = 1800
+    const originalHeight = 2400
+
+
     const [bookProps, setBookProps] = useState({
         width: null,
         height: null,
     })
-
 
 
     useEffect(() => {
@@ -39,10 +43,6 @@ const EcardPreviewPage = () => {
 
 
     useEffect(() => {
-        const maxWidth = 500
-
-        const originalWidth = 1800
-        const originalHeight = 2400
         let width = originalWidth
         let height = originalHeight
 
@@ -83,8 +83,8 @@ const EcardPreviewPage = () => {
                                 index={index}
                                 key={index}
                                 page={page?.page_data}
-                                width={1800}
-                                height={2400}
+                                width={originalWidth}
+                                height={originalHeight}
                             />
                         )
                     })

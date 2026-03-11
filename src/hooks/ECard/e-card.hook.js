@@ -41,7 +41,7 @@ export const useGetECard = (id) => {
     const axiosPrivate = useAxiosPrivate();
     const { status } = useSession();
     return useQuery({
-        queryKey: ["stats"],
+        queryKey: ["ecard", id],
         queryFn: async () => {
             const res = await axiosPrivate.get(`/ecard/${id}`);
             return res.data.data;
