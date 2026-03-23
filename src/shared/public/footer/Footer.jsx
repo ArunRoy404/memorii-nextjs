@@ -23,7 +23,7 @@ const Footer = () => {
                     {/* about  */}
                     <div className="max-w-[300px] flex flex-col gap-2 md:gap-6">
                         <Logo className={'text-4xl md:text-6xl'} />
-                        <p className="text-sm md:text-base text-nav-secondary">{siteSettings[0]?.short_description}</p>
+                        <p className="text-sm md:text-base text-nav-secondary">{siteSettings?.[0]?.short_description}</p>
 
                         <div className="flex gap-5 items-center">
                             {socials?.map((social, idx) => {
