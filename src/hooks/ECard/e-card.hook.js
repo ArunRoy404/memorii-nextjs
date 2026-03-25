@@ -7,8 +7,9 @@ import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 
 
+
 export const useCreateECard = () => {
-    const addGuestToken = useECardStore((state) => state.addGuestToken);
+    const { setGuestToken } = useECardStore()
     const axiosPrivate = useAxiosPrivate();
     const router = useRouter();
     return useMutation({
@@ -23,7 +24,7 @@ export const useCreateECard = () => {
         onSuccess: (res, _variables, context) => {
             const { id, guest_token, creator_id } = res.data;
             if (!creator_id && guest_token) {
-                addGuestToken(id, guest_token);
+                setGuestToken(id, guest_token);
             }
             toast.success('E-Card created successfully!', { id: context.toastId });
             router.push(`/e-card/${id}`);

@@ -3,7 +3,6 @@ import "./globals.css";
 import AuthProvider from "@/providers/AuthProvider";
 import QueryProvider from "@/providers/QueryProvider";
 import { Toaster } from "sonner";
-import GuestIdCleanUpProvider from "@/providers/GuestIdCleanUpProvider";
 
 
 const inter = Inter({
@@ -30,9 +29,7 @@ export default function RootLayout({ children }) {
       >
         <QueryProvider>
           <AuthProvider>
-            <GuestIdCleanUpProvider>
-              {children}
-            </GuestIdCleanUpProvider>
+            {children}
           </AuthProvider>
           <Toaster position="top-center" />
         </QueryProvider>
