@@ -37,14 +37,10 @@ export async function middleware(req) {
   // 2. If user is not logged in and trying to access a protected route (dashboard), redirect to login
   if (isProtectedRoute) {
     if (!isLoggedIn) {
-      let callbackUrl = nextUrl.pathname;
-      if (nextUrl.search) {
-        callbackUrl += nextUrl.search;
-      }
-
-      const encodedCallbackUrl = encodeURIComponent(callbackUrl);
+      const nextPath = nextUrl.pathname + nextUrl.search;
+      const encodedNext = encodeURIComponent(nextPath);
       return NextResponse.redirect(
-        new URL(`${DEFAULT_LOGOUT_REDIRECT}?callbackUrl=${encodedCallbackUrl}`, nextUrl)
+        new URL(`${DEFAULT_LOGOUT_REDIRECT}?next=${encodedNext}`, nextUrl)
       );
     }
   }
