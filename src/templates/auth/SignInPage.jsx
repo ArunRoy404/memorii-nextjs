@@ -14,6 +14,7 @@ import FormFooter from '@/components/common/Input/FormFooter';
 import { useSignIn } from '@/hooks/auth.hook';
 import { useState } from 'react';
 import CommonAlert from '@/components/common/CommonAlert/CommonAlert';
+import { useSearchParams } from 'next/navigation';
 
 
 const formSchema = z.object({
@@ -24,6 +25,8 @@ const formSchema = z.object({
 
 
 const SignInPage = () => {
+    const searchParams = useSearchParams();
+    const nextPath = searchParams.get("next");
     const [alert, setAlert] = useState(null);
     const { handleSignIn, isPending } = useSignIn({ setAlert });
     const {
@@ -90,7 +93,7 @@ const SignInPage = () => {
 
                 <GoogleSignIn />
 
-                <FormFooter label={`Don't have an account?`} href='/register' >
+                <FormFooter label={`Don't have an account?`} href={`/register${nextPath ? `?next=${nextPath}` : ''}`} >
                     Register
                 </FormFooter>
             </form>
