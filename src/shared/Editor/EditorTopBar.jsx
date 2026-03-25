@@ -9,6 +9,7 @@ import EditorOptionsMobileView from "./EditorOptionsMobileView";
 import ClearPageButton from "@/components/EditorComponents/ClearPageButton";
 import DeletePageButton from "@/components/EditorComponents/DeletePageButton";
 import EditorTitle from "@/components/EditorComponents/EditorTitle/EditorTitle";
+import EcardTimer from "@/components/EditorComponents/EcardTimer";
 import { useParams } from "next/navigation";
 import PreviewButton from "@/components/EditorComponents/PreviewButton/PreviewButton";
 
@@ -25,6 +26,7 @@ const EditorTopBar = () => {
 
                     <div className="flex items-center gap-4">
                         <DiscardEditsDialog />
+                        <EcardTimer />
                         <EditorTitle />
                     </div>
 

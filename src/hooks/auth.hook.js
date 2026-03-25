@@ -1,6 +1,6 @@
 import handleApiError from "@/lib/handleApiError";
 import { signIn, signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { showOtpToast } from "@/lib/otpToast";
@@ -11,6 +11,8 @@ export const useSignIn = ({ setAlert }) => {
 
     const [isPending, setIsPending] = useState(false);
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const nextPath = searchParams.get("next");
 
     const handleSignIn = async (data) => {
         setIsPending(true);
@@ -28,7 +30,7 @@ export const useSignIn = ({ setAlert }) => {
                     message: "Login successful",
                 });
                 toast.success("Login successful");
-                router.replace("/");
+                router.replace(nextPath || "/");
             } else {
                 handleApiError({ errorMessage: "Invalid credentials", setAlert });
             }
@@ -48,6 +50,8 @@ export const useSignIn = ({ setAlert }) => {
 export const useSignUp = ({ setAlert }) => {
     const [isPending, setIsPending] = useState(false);
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const nextPath = searchParams.get("next");
 
     const handleSignUp = async (data) => {
         setIsPending(true);
@@ -66,7 +70,7 @@ export const useSignUp = ({ setAlert }) => {
                     message: "Registration successful",
                 });
                 toast.success("Registration successful");
-                router.replace("/");
+                router.replace(nextPath || "/");
             } else {
 
                 let parsedErrors;

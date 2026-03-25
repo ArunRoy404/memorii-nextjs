@@ -12,7 +12,7 @@ import React, { useEffect } from 'react';
 
 const CardEditorPage = ({ templateId }) => {
     const { isTemplateLoading, setIsTemplateLoading, setPages, setFrontPage, setEcard } = useEditorStore()
-    const { data, isLoading } = useGetECard(templateId);
+    const { data, isLoading, isError } = useGetECard(templateId);
     const frontPage = data?.ecard?.template?.image
     const eCardPages = data?.pages || [null]
     const ecard = data?.ecard
@@ -26,8 +26,9 @@ const CardEditorPage = ({ templateId }) => {
         }
     }, [isLoading, setIsTemplateLoading, data, setPages, setEcard])
 
-    if (isTemplateLoading) return <Loader />
+    if (isTemplateLoading && !isError) return <Loader />
 
+    if (isError) return <div className='min-h-dvh min-w-dvw flex items-center justify-center'>card not found</div>
 
     return (
         <div
