@@ -12,10 +12,6 @@ const authRoutes = [
 
 const protectedRoutes = [
   "/dashboard",
-  "/editor",
-  "/preview",
-  "/send",
-  "/e-card"
 ];
 
 const DEFAULT_LOGIN_REDIRECT = "/";

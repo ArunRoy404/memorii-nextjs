@@ -9,12 +9,14 @@ import { toast } from "sonner";
 
 
 export const useCreateECard = () => {
-    const { setGuestToken } = useECardStore()
+    const { setGuestToken, getGuestToken } = useECardStore()
     const axiosPrivate = useAxiosPrivate();
     const router = useRouter();
+    const guest_token = getGuestToken();
+
     return useMutation({
         mutationFn: async (data) => {
-            const res = await axiosPrivate.post("/e-card", data);
+            const res = await axiosPrivate.post(`/e-card${guest_token ? `?guest_token=${guest_token}` : ""}`, data);
             return res?.data;
         },
         onMutate: () => {
@@ -24,7 +26,7 @@ export const useCreateECard = () => {
         onSuccess: (res, _variables, context) => {
             const { id, guest_token, creator_id } = res.data;
             if (!creator_id && guest_token) {
-                setGuestToken(id, guest_token);
+                setGuestToken(guest_token);
             }
             toast.success('E-Card created successfully!', { id: context.toastId });
             router.push(`/e-card/${id}`);
@@ -39,15 +41,18 @@ export const useCreateECard = () => {
 
 
 export const useGetECard = (id) => {
+    const { getGuestToken } = useECardStore()
+    const guest_token = getGuestToken();
     const axiosPrivate = useAxiosPrivate();
-    const { status } = useSession();
+    // const { status } = useSession();
+
     return useQuery({
         queryKey: ["ecard", id],
         queryFn: async () => {
-            const res = await axiosPrivate.get(`/ecard/${id}`);
+            const res = await axiosPrivate.get(`/ecard/${id}${guest_token ? `?guest_token=${guest_token}` : ""}`);
             return res.data.data;
         },
-        enabled: !!axiosPrivate && status === "authenticated",
+        // enabled: !!axiosPrivate && status === "authenticated",
     });
 };
 
