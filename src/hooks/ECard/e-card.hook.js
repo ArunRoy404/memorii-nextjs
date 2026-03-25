@@ -3,7 +3,6 @@ import { useRouter } from "next/navigation";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import useAxiosPrivate from "../axios/useAxiosPrivate";
 import { useECardStore } from "@/store/storeGuestIds/useECardStore";
-import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 
 
@@ -44,7 +43,6 @@ export const useGetECard = (id) => {
     const { getGuestToken } = useECardStore()
     const guest_token = getGuestToken();
     const axiosPrivate = useAxiosPrivate();
-    // const { status } = useSession();
 
     return useQuery({
         queryKey: ["ecard", id],
@@ -52,7 +50,6 @@ export const useGetECard = (id) => {
             const res = await axiosPrivate.get(`/ecard/${id}${guest_token ? `?guest_token=${guest_token}` : ""}`);
             return res.data.data;
         },
-        // enabled: !!axiosPrivate && status === "authenticated",
     });
 };
 
@@ -63,10 +60,12 @@ export const useSaveECard = ({
     loadingMessage = 'Saving E-Card...',
     successMessage = 'E-Card Saved successfully!'
 }) => {
+    const { getGuestToken } = useECardStore()
+    const guest_token = getGuestToken();
     const axiosPrivate = useAxiosPrivate();
     return useMutation({
         mutationFn: async (data) => {
-            const res = await axiosPrivate.post(`/ecard/update-pages/${id}`, data);
+            const res = await axiosPrivate.post(`/ecard/update-pages/${id}${guest_token ? `?guest_token=${guest_token}` : ""}`, data);
             return res?.data;
         },
         onMutate: () => {
@@ -86,10 +85,12 @@ export const useSaveECard = ({
 
 
 export const useDeleteECard = (id, { onSuccess } = {}) => {
+    const { getGuestToken } = useECardStore()
+    const guest_token = getGuestToken();
     const axiosPrivate = useAxiosPrivate();
     return useMutation({
         mutationFn: async () => {
-            const res = await axiosPrivate.delete(`/ecard/delete/${id}`);
+            const res = await axiosPrivate.delete(`/ecard/delete/${id}${guest_token ? `?guest_token=${guest_token}` : ""}`);
             return res?.data;
         },
         onMutate: () => {
@@ -111,10 +112,12 @@ export const useDeleteECard = (id, { onSuccess } = {}) => {
 
 
 export const useAddPageEcard = (id) => {
+    const { getGuestToken } = useECardStore()
+    const guest_token = getGuestToken();
     const axiosPrivate = useAxiosPrivate();
     return useMutation({
         mutationFn: async () => {
-            const res = await axiosPrivate.post(`/add-page/${id}`);
+            const res = await axiosPrivate.post(`/add-page/${id}${guest_token ? `?guest_token=${guest_token}` : ""}`);
             return res?.data;
         },
         onMutate: () => {
@@ -134,10 +137,12 @@ export const useAddPageEcard = (id) => {
 
 
 export const useUpdateEcard = (id) => {
+    const { getGuestToken } = useECardStore()
+    const guest_token = getGuestToken();
     const axiosPrivate = useAxiosPrivate();
     return useMutation({
         mutationFn: async (data) => {
-            const res = await axiosPrivate.post(`/ecard/update/${id}`, data);
+            const res = await axiosPrivate.post(`/ecard/update/${id}${guest_token ? `?guest_token=${guest_token}` : ""}`, data);
             return res?.data;
         },
         onError: (error) => {
@@ -148,10 +153,12 @@ export const useUpdateEcard = (id) => {
 
 
 export const useDeletePageEcard = (id) => {
+    const { getGuestToken } = useECardStore()
+    const guest_token = getGuestToken();
     const axiosPrivate = useAxiosPrivate();
     return useMutation({
         mutationFn: async (data) => {
-            const res = await axiosPrivate.delete(`/remove/page/${id}`, { data });
+            const res = await axiosPrivate.delete(`/remove/page/${id}${guest_token ? `?guest_token=${guest_token}` : ""}`, { data });
             return res?.data;
         },
         onMutate: () => {
