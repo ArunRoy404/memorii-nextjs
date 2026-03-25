@@ -1,4 +1,9 @@
+import { Suspense } from 'react';
 import RegistrationPage from '@/templates/auth/RegistrationPage';
 
-const registration = () => <RegistrationPage />
-export default registration;
+const registration = () => (
+    <Suspense>
+        <RegistrationPage />
+    </Suspense>
+)
+export default registration;
